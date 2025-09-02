@@ -1,0 +1,28 @@
+# Skill.gd
+class_name Skill
+extends RefCounted
+
+enum Type {
+	# Attributes
+	STRENGTH,
+	DEXTERITY,
+	CONSTITUTION,
+	INTELLIGENCE,
+	WISDOM,
+	CHARISMA,
+	
+	# Skills
+	ACROBATICS,
+	ARCANE,
+	CRAFT,
+	DIPLOMACY,
+	DISABLE,
+	DIVINE,
+	FORTITUDE,
+	KNOWLEDGE,
+	MELEE,
+	PERCEPTION,
+	RANGED,
+	STEALTH,
+	SURVIVAL,
+}
