@@ -1,0 +1,2 @@
+class_name CheckContext
+extends RefCounted
