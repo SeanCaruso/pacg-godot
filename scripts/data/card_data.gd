@@ -2,13 +2,15 @@
 class_name CardData
 extends Resource
 
+const CardType = preload("res://scripts/core/enums/card_type.gd").CardType
+
 # Unique Identifier
 @export var card_id: String
 
 # Base Card Info
 @export var card_name: String
-@export var card_type: CardTypes.CardType
-@export var story_bane_type: CardTypes.CardType
+@export var card_type: CardType
+@export var story_bane_type: CardType
 @export var card_level: int
 @export var card_art: Texture2D
 
