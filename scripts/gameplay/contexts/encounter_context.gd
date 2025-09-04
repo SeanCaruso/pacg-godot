@@ -1,15 +1,7 @@
 class_name EncounterContext
 extends RefCounted
 
-enum EncounterPhase {
-	ON_ENCOUNTER,
-	EVASION,
-	BEFORE_ACTING,
-	ATTEMPT_CHECK,
-	AFTER_ACTING,
-	RESOLVE,
-	AVENGE
-}
+const EncounterPhase := preload("res://scripts/core/enums/encounter_phase.gd").EncounterPhase
 
 var current_phase: EncounterPhase = EncounterPhase.ON_ENCOUNTER
 
@@ -22,6 +14,7 @@ var explore_effects: Array[BaseExploreEffect] = []
 var check_result: CheckResult
 
 # Flags/properties set by cards/powers
+var ignore_before_acting_powers: bool = false
 var ignore_after_acting_powers: bool = false
 var resolvable_modifiers: Array[Callable] = []
 

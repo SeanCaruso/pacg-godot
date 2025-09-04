@@ -3,7 +3,6 @@ extends ICard
 
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 const CardTypes = preload("res://scripts/core/enums/card_type.gd")
-# const CardType = CardTypes.CardType
 
 var instance_id: int
 var data: CardData
@@ -36,3 +35,16 @@ func _init(card_data: CardData, _card_logic = null, _card_owner = null):
 
 func _to_string() -> String:
 	return name
+	
+# ========================================================================================
+# FACADE PATTERN - CONVENIENCE CALLS TO CARD LOGIC
+# ========================================================================================
+func get_available_actions() -> Array[StagedAction]: return logic.get_available_actions(self) if logic else []
+func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]: return logic.get_available_actions(card) if logic else []
+func get_on_encounter_resolvable() -> BaseResolvable: return logic.get_on_encounter_resolvable(self) if logic else null
+func get_before_acting_resolvable() -> BaseResolvable: return logic.get_before_acting_resolvable(self) if logic else null
+func get_check_resolvable() -> BaseResolvable: return logic.get_check_resolvable(self) if logic else null
+func get_after_acting_resolvable() -> BaseResolvable: return logic.get_after_acting_resolvable(self) if logic else null
+func get_resolve_encounter_resolvable() -> BaseResolvable: return logic.get_resolve_encounter_resolvable(self) if logic else null
+func on_defeated() -> void: if logic: logic.on_defeated(self)
+func on_undefeated() -> void: if logic: logic.on_undefeated(self)
