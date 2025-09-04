@@ -28,7 +28,7 @@ var can_use_scenario_turn_action: bool
 
 var force_end_turn: bool = false
 
-#var explore_effects: Array[ExploreEffect] = []
+var explore_effects: Array[BaseExploreEffect] = []
 
 var performed_location_powers: Array[LocationPower] = []
 #var performed_character_powers: Array[CharacterPower] = []

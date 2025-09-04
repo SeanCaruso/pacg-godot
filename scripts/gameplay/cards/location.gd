@@ -1,23 +1,12 @@
 class_name Location
-extends RefCounted
+extends ICard
 
-const CardLocation = preload("res://scripts/core/enums/CardLocation.gd").CardLocation
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 const CardTypes = preload("res://scripts/core/enums/card_type.gd")
-const CardType = CardTypes.CardType
+const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 
 var data: LocationData
 # var logic: CardLogicBase
-# var original_owner: PlayerCharacter
-# var owner: PlayerCharacter
-
-var name: String:
-	get: return data.card_name if data else ""
-
-var card_type: CardType:
-	get: return CardType.LOCATION
-
-var traits: Array[String]:
-	get: return data.traits
 
 var _deck: Deck
 var count: int:
@@ -35,7 +24,12 @@ var characters: Array[PlayerCharacter]:
 var _contexts: ContextManager
 
 func _init(location_data: LocationData, _card_logic, game_services: GameServices):
-	_contexts = GameServices.contexts
+	_contexts = game_services.contexts
+
+	# Populate ICard members
+	name = location_data.card_name
+	card_type = CardType.LOCATION
+	traits = location_data.traits
 	
 	data = location_data.duplicate() if location_data else null
 	_deck = Deck.new(game_services.card_manager)
@@ -43,12 +37,11 @@ func _init(location_data: LocationData, _card_logic, game_services: GameServices
 	for type in CardType:
 		_known_composition[type] = 0
 # logic = card_logic
-# owner = card_owner
 
 func _to_string() -> String: return name
 
 func draw_card() -> CardInstance:
-	var card = _deck.draw_card()
+	var card := _deck.draw_card()
 	
 	if _known_composition[card.data.card_type] != 0:
 		_known_composition[card.data.card_type] -= 1
@@ -61,7 +54,7 @@ func draw_card() -> CardInstance:
 
 func examine_top(num_cards: int) -> Array[CardInstance]: return _deck.examine_top(num_cards)
 
-func shuffle_in(card: CardInstance, is_type_known: bool):
+func shuffle_in(card: CardInstance, is_type_known: bool) -> void:
 	if not card: return
 	
 	_deck.shuffle_in(card)

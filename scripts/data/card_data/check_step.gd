@@ -4,7 +4,11 @@ extends Resource
 
 const SkillEnum = preload("res://scripts/core/enums/Skill.gd")
 
-enum CheckCategory { COMBAT, SKILL }
+enum CheckCategory {
+	COMBAT,
+	SKILL,
+	NONE # Used by CheckModifier to indicate no restricted categories
+}
 
 # DC
 @export var base_dc: int

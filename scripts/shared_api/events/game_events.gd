@@ -1,79 +1,35 @@
-# GameEvents.gd
-
 extends Node
 
-#        // Scenario events
-#public static event Action<GameServices> ScenarioHasPower;
-#public static void RaiseScenarioHasPower(GameServices gameServices) => ScenarioHasPower?.Invoke(gameServices);
-#
-#public static event Action<bool> ScenarioPowerEnabled;
-#public static void RaiseScenarioPowerEnabled(bool enabled) => ScenarioPowerEnabled?.Invoke(enabled);
-#
-#public static event Action<CardInstance> ScenarioHasDanger;
-#public static void RaiseScenarioHasDanger(CardInstance card) => ScenarioHasDanger?.Invoke(card);
-#
-#// Turn phase events
-#public static event Action TurnStateChanged;
-#public static void RaiseTurnStateChanged() => TurnStateChanged?.Invoke();
-#
-#public static event Action<CardInstance> HourChanged;
-#public static void RaiseHourChanged(CardInstance hourCard) => HourChanged?.Invoke(hourCard);
-#
-#public static event Action<PlayerCharacter, Location> PcLocationChanged;
-#
-#public static void RaiseLocationChanged(PlayerCharacter pc, Location location) =>
-#            PcLocationChanged?.Invoke(pc, location);
-#
-#        public static event Action<CardInstance> EncounterStarted;
-#
-#public static void RaiseEncounterStarted(CardInstance encounteredCard) =>
-#            EncounterStarted?.Invoke(encounteredCard);
-#
-#        public static event Action EncounterEnded;
-#public static void RaiseEncounterEnded() => EncounterEnded?.Invoke();
-#
-#// Card staging events
-#public static event Action<StagedActionsState> StagedActionsStateChanged;
-#
-#public static void RaiseStagedActionsStateChanged(StagedActionsState stagedActionsState) =>
-#            StagedActionsStateChanged?.Invoke(stagedActionsState);
-#
-#        // Card display events
-#public static event Action<CardInstance> CardLocationChanged;
-#
-#public static void RaiseCardLocationChanged(CardInstance cardInstance) =>
-#            CardLocationChanged?.Invoke(cardInstance);
-#
-#        public static event Action<List<CardInstance>> CardLocationsChanged;
-#public static void RaiseCardLocationsChanged(List<CardInstance> cards) => CardLocationsChanged?.Invoke(cards);
-#
-#// Location events
-#public static event Action<LocationPower, bool> LocationPowerEnabled;
-#
-#public static void RaiseLocationPowerEnabled(LocationPower power, bool enabled) =>
-#            LocationPowerEnabled?.Invoke(power, enabled);
-#
-#        // Player Character events
-#public static event Action<PlayerCharacter> PlayerCharacterChanged;
-#public static void RaisePlayerCharacterChanged(PlayerCharacter pc) => PlayerCharacterChanged?.Invoke(pc);
-#
-#public static event Action<CharacterPower, bool> PlayerPowerEnabled;
-#
-#public static void RaisePlayerPowerEnabled(CharacterPower power, bool enabled) =>
-#            PlayerPowerEnabled?.Invoke(power, enabled);
-#
-#        public static event Action<int> PlayerDeckCountChanged;
-#public static void RaisePlayerDeckCountChanged(int count) => PlayerDeckCountChanged?.Invoke(count);
-#
-#// Special Resolvable events
-#public static event Action<PlayerChoiceResolvable> PlayerChoiceEvent;
-#
-#public static void RaisePlayerChoiceEvent(PlayerChoiceResolvable resolvable) =>
-#            PlayerChoiceEvent?.Invoke(resolvable);
-#
-#        // General game status events
-#public static event Action<string> SetStatusTextEvent;
-#public static void SetStatusText(string text) => SetStatusTextEvent?.Invoke(text);
-#
-#public static event Action<DicePool> DicePoolChanged;
-#public static void RaiseDicePoolChanged(DicePool dicePool) => DicePoolChanged?.Invoke(dicePool);
+# Scenario events
+signal scenario_has_power(game_services: GameServices)
+signal scenario_power_enabled(enabled: bool)
+signal scenario_has_danger(card: CardInstance)
+
+# Turn phase events
+signal turn_state_changed()
+signal hour_changed(hour_card: CardInstance)
+signal pc_location_changed(pc: PlayerCharacter, location: Location)
+signal encounter_started(card: CardInstance)
+signal encounter_ended()
+
+# Card staging events
+signal staged_actions_state_changed(staged_actions_state: StagedActionsState)
+
+# Card display events
+signal card_location_changed(card: CardInstance)
+signal card_locations_changed(cards: Array[CardInstance])
+
+# Location events
+signal location_power_enabled(power: LocationPower, is_enabled: bool)
+
+# Player Character events
+signal player_character_changed(pc: PlayerCharacter)
+signal player_power_enabled(power: CharacterPower, is_enabled: bool)
+signal player_deck_count_changed(_count: int)
+
+# Special Resolvable events
+signal player_choice_event(resolvable: PlayerChoiceResolvable)
+
+# General game status events
+signal set_status_text(text: String)
+signal dice_pool_changed(dice_pool: DicePool)

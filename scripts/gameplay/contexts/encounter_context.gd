@@ -17,9 +17,9 @@ var character: PlayerCharacter
 var card: CardInstance
 
 var prohibited_traits: Dictionary = {} # PlayerCharacter -> Array[String]
-#var explore_effects: Array[ExploreEffect] = []
+var explore_effects: Array[BaseExploreEffect] = []
 
-#var check_result: CheckResult
+var check_result: CheckResult
 
 # Flags/properties set by cards/powers
 var ignore_after_acting_powers: bool = false

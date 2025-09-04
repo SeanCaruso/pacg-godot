@@ -23,4 +23,4 @@ game_services: GameServices):
 	hour_deck = Deck.new(game_services.card_manager)
 
 func get_characters_at(loc: Location) -> Array[PlayerCharacter]:
-	return characters.filter(func(pc: PlayerCharacter): pc.location == loc)
+	return characters.filter(func(pc: PlayerCharacter): return pc.location == loc) if loc else []

@@ -1,12 +1,11 @@
 class_name CardManager
 extends RefCounted
 
-const Action       = preload("res://scripts/core/enums/action_type.gd").Action
-const CardLocation = preload("res://scripts/core/enums/card_location.gd").CardLocation
+const Action       := preload("res://scripts/core/enums/action_type.gd").Action
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
+
 var _all_cards: Array[CardInstance]
-
-
-# var _response_registry: ResponseRegistry
+var _response_registry: ResponseRegistry
 
 func new_card(card_data: CardData, owner = null) -> CardInstance:
 	if not card_data:
@@ -17,7 +16,6 @@ func new_card(card_data: CardData, owner = null) -> CardInstance:
 	var new_instance = CardInstance.new(card_data, null, owner)
 	_all_cards.append(new_instance)
 	return new_instance
-
 
 func move_card_to(card: CardInstance, new_location: CardLocation):
 	if not card:
@@ -31,14 +29,11 @@ func move_card_to(card: CardInstance, new_location: CardLocation):
 	var isActive: bool  = new_location in [CardLocation.HAND, CardLocation.REVEALED, CardLocation.DISPLAYED]
 
 	if isActive and not wasActive:
-		print("Registering responses")
-	# _response_registry.RegisterResponses(card)
+		_response_registry.RegisterResponses(card)
 	if not isActive and wasActive:
-		print("Unregistering responses")
-	# _response_registry.UnregisterResponses(card)
+		_response_registry.UnregisterResponses(card)
 
 	card.current_location = new_location
-
 
 func move_card_by(card: CardInstance, action: Action):
 	if not card.owner:
@@ -66,20 +61,31 @@ func move_card_by(card: CardInstance, action: Action):
 		_:
 			print("Unsupported action: %s!" % action)
 
-
 func restore_revealed_cards_to_hand():
-	var revealed_cards = get_cards_in_location(CardLocation.REVEALED)
+	var revealed_cards := get_cards_in_location(CardLocation.REVEALED)
 	for card in revealed_cards:
 		move_card_to(card, CardLocation.HAND)
 
-
+		
 func find_all(predicate: Callable) -> Array[CardInstance]:
 	return _all_cards.filter(predicate)
 
-
+	
 func get_cards_in_location(location: CardLocation) -> Array[CardInstance]:
 	return find_all(func(card): return card.current_location == location)
 
-#public List<CardInstance> GetCardsOwnedBy(PlayerCharacter owner) => FindAll(card => card.Owner == owner);
-#public List<CardInstance> GetCardsOwnedBy(PlayerCharacter owner, CardLocation location) => FindAll(card => card.Owner == owner && card.CurrentLocation == location);
-#public List<CardInstance> GetCardsInHand(PlayerCharacter owner) => FindAll(card => card.Owner == owner && card.CurrentLocation is CardLocation.Hand or CardLocation.Revealed);
+	
+func get_all_cards_owned_by(owner: PlayerCharacter) -> Array[CardInstance]:
+	return find_all(func(card: CardInstance): return card.owner == owner)
+	
+	
+func get_cards_owned_by(owner: PlayerCharacter, location: CardLocation) -> Array[CardInstance]:
+	return find_all(func(card: CardInstance): return card.owner == owner and card.current_location == location)
+
+
+func get_cards_in_hand(owner: PlayerCharacter) -> Array[CardInstance]:
+	return find_all(func(card: CardInstance): return card.owner == owner and card.current_location in [CardLocation.HAND, CardLocation.REVEALED])
+
+
+func trigger_before_discard(args: DiscardEventArgs):
+	_response_registry.trigger_before_discard(args)

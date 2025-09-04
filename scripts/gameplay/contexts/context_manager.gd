@@ -1,12 +1,14 @@
 class_name ContextManager
 extends RefCounted
 
+const CardLocation = preload("res://scripts/core/enums/card_location.gd").CardLocation
+
 # Dependency injection
 # var _asm: ActionStagingManager
 var _card_manager: CardManager
 var _game_services: GameServices
 
-func _init(game_services: GameServices):
+func initialize(game_services: GameServices):
 	#_asm = game_services.asm
 	_card_manager = game_services.card_manager
 	_game_services = game_services
@@ -18,7 +20,7 @@ var game_context: GameContext
 var turn_context: TurnContext
 var encounter_context: EncounterContext
 var check_context: CheckContext
-#var current_resolvable: IResolvable
+var current_resolvable: BaseResolvable
 
 ###############################################################################
 # STARTING/ENDING CONTEXTS
@@ -49,7 +51,32 @@ func end_encounter(): encounter_context = null
 ## USE ONLY IF YOU KNOW WHAT YOU'RE DOING!!!
 ##
 ## NewResolvableProcessor is probably better.
-# func new_resolvable()
+func new_resolvable(resolvable: BaseResolvable):
+	if current_resolvable:
+		print("[%s] Created resolvable %s is overwriting %s!",
+			  [self, resolvable, current_resolvable])
+	
+	for action: Callable in encounter_context.resolvable_modifiers if encounter_context else []:
+		action.call(resolvable)
+	
+	# If this is a damage resolvable, check to see if we have any responses for it.
+	# If so, we'll need to handle those responses first.
+	if resolvable is DamageResolvable:
+		var args = DiscardEventArgs.new(
+			resolvable.character,
+			[],
+			CardLocation.HAND,
+			resolvable
+		)
+		_card_manager.trigger_before_discard(args)
+		
+		if args.has_responses:
+			pass
+		
+		current_resolvable = resolvable
+		
+		if current_resolvable is CheckResolvable:
+			check_context = CheckContext.new(current_resolvable)
 
 # func end_resolvable()
 

@@ -2,7 +2,7 @@
 class_name CardData
 extends Resource
 
-const CardType = preload("res://scripts/core/enums/card_type.gd").CardType
+const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 
 # Unique Identifier
 @export var card_id: String
