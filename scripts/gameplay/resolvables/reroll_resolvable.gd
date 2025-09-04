@@ -1,0 +1,22 @@
+class_name RerollResolvable
+extends BaseResolvable
+
+var character: PlayerCharacter
+var dice_pool: DicePool
+
+func _init(pc: PlayerCharacter, _dice_pool: DicePool, check_context: CheckContext):
+	character = pc
+	dice_pool = _dice_pool
+	
+	# Default option is to not reroll.
+	check_context.context_data["doReroll"] = false
+	
+	
+func create_processor(game_services: GameServices) -> BaseProcessor:
+	# If something set the "doReroll" context data to true, process the roll again.
+	if !game_services.contexts.check_context.context_data.get("doReroll", false):
+		return null
+		
+		
+	print("[%s] User chose to reroll - returning a processor." % self)
+	return RollCheckDiceProcessor.new(game_services)

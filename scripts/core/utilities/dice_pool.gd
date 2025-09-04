@@ -19,7 +19,7 @@ func num_dice(sides: int):
 	return _dice.get(sides, 0)
 
 
-func roll():
+func roll() -> int:
 	var roll_result := _bonus
 	for sides in _dice:
 		roll_result += DiceUtils.roll_dice(sides, _dice[sides])
