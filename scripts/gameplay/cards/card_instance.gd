@@ -46,5 +46,6 @@ func get_before_acting_resolvable() -> BaseResolvable: return logic.get_before_a
 func get_check_resolvable() -> BaseResolvable: return logic.get_check_resolvable(self) if logic else null
 func get_after_acting_resolvable() -> BaseResolvable: return logic.get_after_acting_resolvable(self) if logic else null
 func get_resolve_encounter_resolvable() -> BaseResolvable: return logic.get_resolve_encounter_resolvable(self) if logic else null
+func get_recovery_resolvable() -> BaseResolvable: return logic.get_recovery_resolvable(self) if logic else null
 func on_defeated() -> void: if logic: logic.on_defeated(self)
 func on_undefeated() -> void: if logic: logic.on_undefeated(self)

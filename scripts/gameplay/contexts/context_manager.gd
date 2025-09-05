@@ -53,8 +53,7 @@ func end_encounter(): encounter_context = null
 ## NewResolvableProcessor is probably better.
 func new_resolvable(resolvable: BaseResolvable):
 	if current_resolvable:
-		print("[%s] Created resolvable %s is overwriting %s!",
-			  [self, resolvable, current_resolvable])
+		print("[%s] Created resolvable %s is overwriting %s!", [self, resolvable, current_resolvable])
 	
 	for action: Callable in encounter_context.resolvable_modifiers if encounter_context else []:
 		action.call(resolvable)

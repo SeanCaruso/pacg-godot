@@ -2,11 +2,6 @@
 class_name RollCheckDiceProcessor
 extends BaseProcessor
 
-var _contexts: ContextManager
-
-func _init(game_services: GameServices):
-	_contexts = game_services.contexts
-	
 	
 func on_execute() -> void:
 	if !_contexts.check_context or !_contexts.check_context.resolvable: return

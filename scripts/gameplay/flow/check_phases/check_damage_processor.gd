@@ -1,12 +1,5 @@
 class_name CheckDamageProcessor
 extends BaseProcessor
-
-var _contexts: ContextManager
-var _game_services: GameServices
-
-func _init(game_services: GameServices):
-	_contexts = game_services.contexts
-	_game_services = game_services
 	
 	
 func on_execute() -> void:

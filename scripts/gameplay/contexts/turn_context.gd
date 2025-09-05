@@ -1,15 +1,7 @@
 class_name TurnContext
 extends RefCounted
 
-enum TurnPhase {
-	TURN_START,
-	TURN_ACTIONS,
-	CLOSE_LOCATION,
-	END_OF_TURN_EFFECTS,
-	RECOVERY,
-	RESET,
-	NONE
-}
+const TurnPhase := preload("res://scripts/core/enums/turn_phase.gd").TurnPhase
 
 var current_phase: TurnPhase = TurnPhase.TURN_START
 var hour_card: CardInstance
@@ -31,7 +23,7 @@ var force_end_turn: bool = false
 var explore_effects: Array[BaseExploreEffect] = []
 
 var performed_location_powers: Array[LocationPower] = []
-#var performed_character_powers: Array[CharacterPower] = []
+var performed_character_powers: Array[CharacterPower] = []
 
 func _init(turn_character: PlayerCharacter):
 	character = turn_character

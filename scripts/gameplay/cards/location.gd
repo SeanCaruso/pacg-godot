@@ -72,6 +72,6 @@ func close():
 ################################################################################
 # Facade Pattern for LocationLogic
 ################################################################################
-func get_start_of_turn_power(): return null
-func get_end_of_turn_power(): return null
-func get_to_close_resolvable(): return null
+func get_start_of_turn_power() -> LocationPower: return null
+func get_end_of_turn_power() -> LocationPower: return null
+func get_to_close_resolvable() -> LocationPower: return null

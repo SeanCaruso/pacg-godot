@@ -1,13 +1,5 @@
 class_name EndEncounterProcessor
 extends BaseProcessor
-
-var _contexts: ContextManager
-var _game_services: GameServices
-
-func _init(game_services: GameServices):
-	super(game_services)
-	_contexts = game_services.contexts
-	_game_services = game_services
 	
 	
 func on_execute() -> void:
@@ -24,7 +16,7 @@ func on_execute() -> void:
 	GameEvents.encounter_ended.emit()
 	
 	if was_success and _is_closing_henchman(card):
-		var pc = _contexts.encounter_context.character
+		var pc := _contexts.encounter_context.character
 		
 		var close_choice_resolvable = PlayerChoiceResolvable.new("Close location?", [
 			ChoiceOption.new("Close", func():

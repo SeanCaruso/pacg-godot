@@ -3,12 +3,9 @@ extends BaseProcessor
 
 var _next_resolvable: BaseResolvable
 
-# Dependency injection
-var _contexts: ContextManager
-
 func _init(next_resolvable: BaseResolvable, game_services: GameServices):
+	super(game_services)
 	_next_resolvable = next_resolvable
-	_contexts = game_services.contexts
 	
 	
 func on_execute() -> void:

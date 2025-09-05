@@ -2,11 +2,6 @@ class_name ResolveEncounterProcessor
 extends BaseProcessor
 
 const EncounterPhase := preload("res://scripts/core/enums/encounter_phase.gd").EncounterPhase
-
-var _contexts: ContextManager
-
-func _init(game_services: GameServices):
-	_contexts = game_services.contexts
 	
 	
 func on_execute() -> void:

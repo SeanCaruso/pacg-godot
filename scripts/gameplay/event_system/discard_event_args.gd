@@ -1,7 +1,7 @@
 class_name DiscardEventArgs
 extends RefCounted
 
-const CardLocation = preload("res://scripts/core/enums/card_location.gd").CardLocation
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
 var character: PlayerCharacter
 var cards: Array[CardInstance]
