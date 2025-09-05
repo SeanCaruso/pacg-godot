@@ -21,7 +21,7 @@ var is_story_bane: bool:
 	get: return data.card_type == CardTypes.CardType.STORY_BANE
 
 func _init(card_data: CardData, _card_logic = null, _card_owner = null):
-	data = card_data.duplicate() if card_data else null
+	data = card_data
 	
 	# Populate ICard members
 	name = card_data.card_name

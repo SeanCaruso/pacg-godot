@@ -52,7 +52,7 @@ var _game_services: GameServices
 
 
 func _init(character_data: CharacterData, _logic: CharacterLogicBase, game_services: GameServices):
-	data = character_data.duplicate()
+	data = character_data
 
 	# Populate ICard members
 	name = character_data.card_name

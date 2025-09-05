@@ -31,7 +31,7 @@ func _init(location_data: LocationData, _card_logic, game_services: GameServices
 	card_type = CardType.LOCATION
 	traits = location_data.traits
 	
-	data = location_data.duplicate() if location_data else null
+	data = location_data
 	_deck = Deck.new(game_services.card_manager)
 	
 	for type in CardType:
