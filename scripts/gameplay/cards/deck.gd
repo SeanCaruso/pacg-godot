@@ -31,8 +31,8 @@ func draw_card() -> CardInstance:
 	_known_cards.erase(card)
 	return card
 
-func examine_top(count: int) -> Array[CardInstance]:
-	return _cards.slice(0, min(count, _cards.size()))
+func examine_top(_count: int) -> Array[CardInstance]:
+	return _cards.slice(0, min(_count, _cards.size()))
 
 func reorder_examined(new_order: Array[CardInstance]):
 	for i in range(new_order.size()):
@@ -55,9 +55,9 @@ func shuffle_in(card: CardInstance):
 	shuffle();
 
 func draw_first_card_with(card_type: CardType, traits: Array[String] = []) -> CardInstance:
-	var matching_cards = _cards.filter(func(card: CardInstance):
-		var type_matches = card.card_type == card_type
-		var trait_matches = traits.is_empty() or _has_any_trait(card.traits, traits)
+	var matching_cards = _cards.filter(func(c: CardInstance):
+		var type_matches = c.card_type == card_type
+		var trait_matches = traits.is_empty() or _has_any_trait(c.traits, traits)
 		return type_matches and trait_matches
 	)
 	

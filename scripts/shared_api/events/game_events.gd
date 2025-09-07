@@ -1,5 +1,7 @@
 extends Node
 
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
+
 # Scenario events
 signal scenario_has_power(game_services: GameServices)
 signal scenario_power_enabled(enabled: bool)
@@ -16,7 +18,7 @@ signal encounter_ended()
 signal staged_actions_state_changed(staged_actions_state: StagedActionsState)
 
 # Card display events
-signal card_location_changed(card: CardInstance)
+signal card_location_changed(card: CardInstance, old_location: CardLocation, new_location: CardLocation)
 signal card_locations_changed(cards: Array[CardInstance])
 
 # Location events

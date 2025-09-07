@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://drfmxwsxkqh4s"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_43l7s"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_ldbn6"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_ns6ek"]
+
+[sub_resource type="Resource" id="Resource_ldbn6"]
+script = ExtResource("1_ldbn6")
+base_dc = 6
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([0, 14])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_j6fhi"]
+script = ExtResource("2_ns6ek")
+mode = 0
+check_steps = Array[ExtResource("1_ldbn6")]([SubResource("Resource_ldbn6")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("1_43l7s")
+card_id = "Longsword"
+card_name = "Longsword"
+card_type = 5
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_j6fhi")
+reroll_threshold = 0
+powers = "For your combat check, reveal to use Strength or Melee + 1d8; if proficient, you may additionallly reload to add another 1d4."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Sword", "Melee", "Slashing"])

@@ -1,7 +1,7 @@
 class_name CheckSkillAccumulator
 extends RefCounted
 
-const CheckCategory := preload("res://scripts/data/check_step.gd").CheckCategory
+const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const Skill         := preload("res://scripts/core/enums/skill.gd").Skill
 var _base_valid_skills: Array[Skill]       = []
 var _staged_skill_additions: Dictionary    = {} # CardInstance -> Array[Skill]

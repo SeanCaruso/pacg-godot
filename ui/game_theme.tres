@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dofpxe3roxdeb"]
+
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="1_ujnqx"]
+
+[resource]
+default_font = ExtResource("1_ujnqx")
+Label/fonts/font = ExtResource("1_ujnqx")

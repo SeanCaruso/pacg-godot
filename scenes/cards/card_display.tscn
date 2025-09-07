@@ -1,0 +1,450 @@
+[gd_scene load_steps=19 format=3 uid="uid://banp7lkt3ongm"]
+
+[ext_resource type="Texture2D" uid="uid://b0aqh2doac3ga" path="res://assets/textures/cardBlackBorder.png" id="1_toolh"]
+[ext_resource type="Theme" uid="uid://dofpxe3roxdeb" path="res://ui/game_theme.tres" id="1_xuuyw"]
+[ext_resource type="Texture2D" uid="uid://7gjcgn72fyrs" path="res://assets/textures/cardWhiteBorder.png" id="2_6w6hm"]
+[ext_resource type="Script" uid="uid://bom1qycn3dg43" path="res://scripts/presentation/cards/card_display.gd" id="2_eh4pr"]
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="4_eh4pr"]
+
+[sub_resource type="FontVariation" id="FontVariation_eh4pr"]
+base_font = ExtResource("4_eh4pr")
+variation_opentype = {
+2003265652: 400
+}
+variation_embolden = 0.15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eh4pr"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuuyw"]
+bg_color = Color(1, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luji1"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hcgs"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gegfi"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_luji1"]
+base_font = ExtResource("4_eh4pr")
+variation_opentype = {
+2003265652: 400
+}
+variation_embolden = 0.15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0plln"]
+bg_color = Color(1, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hd1s4"]
+bg_color = Color(1, 0.866667, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="FontVariation" id="FontVariation_fltqb"]
+base_font = ExtResource("4_eh4pr")
+variation_opentype = {
+2003265652: 500
+}
+
+[sub_resource type="FontVariation" id="FontVariation_xuuyw"]
+base_font = ExtResource("4_eh4pr")
+variation_opentype = {
+2003265652: 250
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka4te"]
+bg_color = Color(0.156863, 0.101961, 0.309804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fltqb"]
+bg_color = Color(1, 0, 1, 1)
+
+[node name="CardDisplay" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_xuuyw")
+texture = ExtResource("1_toolh")
+script = ExtResource("2_eh4pr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ContentBackground" type="TextureRect" parent="MarginContainer"]
+self_modulate = Color(0.329412, 0.266667, 0.133333, 1)
+clip_children = 2
+layout_mode = 2
+texture = ExtResource("2_6w6hm")
+expand_mode = 1
+
+[node name="TopPanel" type="ColorRect" parent="MarginContainer/ContentBackground"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+color = Color(1, 0, 1, 1)
+
+[node name="Top_Panel_Margin" type="MarginContainer" parent="MarginContainer/ContentBackground/TopPanel"]
+layout_mode = 2
+offset_right = 240.0
+offset_bottom = 20.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="Top_Panel_HBox" type="HBoxContainer" parent="MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin"]
+layout_mode = 2
+
+[node name="CardName" type="Label" parent="MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin/Top_Panel_HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "CARD NAME"
+vertical_alignment = 1
+
+[node name="CardType" type="Label" parent="MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin/Top_Panel_HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "TYPE"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CardLevel" type="Label" parent="MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin/Top_Panel_HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StoryBanePanel" type="ColorRect" parent="MarginContainer/ContentBackground"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 15)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = 25.0
+offset_bottom = 40.0
+grow_horizontal = 0
+color = Color(1, 0, 1, 1)
+
+[node name="Story_Bane_Margin" type="MarginContainer" parent="MarginContainer/ContentBackground/StoryBanePanel"]
+layout_mode = 2
+offset_right = 100.0
+offset_bottom = 15.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Story_Bane_HBox" type="HBoxContainer" parent="MarginContainer/ContentBackground/StoryBanePanel/Story_Bane_Margin"]
+layout_mode = 2
+
+[node name="StoryBaneLabel" type="Label" parent="MarginContainer/ContentBackground/StoryBanePanel/Story_Bane_Margin/Story_Bane_HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 9
+text = "TYPE"
+vertical_alignment = 1
+
+[node name="StoryBaneTypeText" type="Label" parent="MarginContainer/ContentBackground/StoryBanePanel/Story_Bane_Margin/Story_Bane_HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 9
+text = "MONSTER"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CheckArea" type="PanelContainer" parent="MarginContainer/ContentBackground"]
+layout_mode = 1
+offset_top = 25.0
+offset_right = 40.0
+offset_bottom = 65.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eh4pr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ContentBackground/CheckArea"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Check_Label_Panel" type="ColorRect" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 13.5)
+layout_mode = 2
+color = Color(0.215686, 0, 0.215686, 1)
+
+[node name="CheckLabel" type="Label" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check_Label_Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 67.0
+offset_bottom = 13.5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 9
+text = "CHECK TO ACQUIRE"
+vertical_alignment = 1
+
+[node name="Check1_Area" type="HBoxContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Skills1_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check1_Area"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(47, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_xuuyw")
+
+[node name="Skills1_Left_Margin" type="MarginContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check1_Area/Skills1_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="Skills1_Container" type="VBoxContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check1_Area/Skills1_Panel/Skills1_Left_Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = -3
+alignment = 1
+
+[node name="DC1_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check1_Area"]
+custom_minimum_size = Vector2(33, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_luji1")
+
+[node name="DC1_Label" type="Label" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check1_Area/DC1_Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Or_Bar" type="PanelContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7hcgs")
+
+[node name="Or_Text" type="Label" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Or_Bar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 9
+text = "OR"
+vertical_alignment = 1
+
+[node name="Then_Bar" type="PanelContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gegfi")
+
+[node name="Then_Text" type="Label" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Then_Bar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_luji1")
+theme_override_font_sizes/font_size = 9
+text = "THEN"
+vertical_alignment = 1
+
+[node name="Check2_Area" type="HBoxContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Skills2_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check2_Area"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0plln")
+
+[node name="Skills2_Left_Margin" type="MarginContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check2_Area/Skills2_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="Skills2_Container" type="VBoxContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check2_Area/Skills2_Panel/Skills2_Left_Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = -3
+alignment = 1
+
+[node name="DC2_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check2_Area"]
+custom_minimum_size = Vector2(33, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_luji1")
+
+[node name="DC2_Label" type="Label" parent="MarginContainer/ContentBackground/CheckArea/VBoxContainer/Check2_Area/DC2_Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Powers_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -58.0
+offset_right = 135.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hd1s4")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/ContentBackground/Powers_Panel"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ContentBackground/Powers_Panel/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Powers_Label" type="Label" parent="MarginContainer/ContentBackground/Powers_Panel/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_fltqb")
+theme_override_font_sizes/font_size = 9
+text = "POWERS"
+
+[node name="Powers_Text" type="Label" parent="MarginContainer/ContentBackground/Powers_Panel/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -3
+theme_override_fonts/font = SubResource("FontVariation_xuuyw")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 3
+
+[node name="Recovery_Label" type="Label" parent="MarginContainer/ContentBackground/Powers_Panel/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_fltqb")
+theme_override_font_sizes/font_size = 9
+text = "DURING RECOVERY"
+
+[node name="Recovery_Text" type="Label" parent="MarginContainer/ContentBackground/Powers_Panel/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -3
+theme_override_fonts/font = SubResource("FontVariation_xuuyw")
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 3
+
+[node name="Traits_Area" type="VBoxContainer" parent="MarginContainer/ContentBackground"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Loot_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground/Traits_Area"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ka4te")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ContentBackground/Traits_Area/Loot_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="Loot_Label" type="Label" parent="MarginContainer/ContentBackground/Traits_Area/Loot_Panel/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "LOOT"
+
+[node name="Traits_Panel" type="PanelContainer" parent="MarginContainer/ContentBackground/Traits_Area"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fltqb")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ContentBackground/Traits_Area/Traits_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="Traits_Container" type="VBoxContainer" parent="MarginContainer/ContentBackground/Traits_Area/Traits_Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Bottom_Panel" type="ColorRect" parent="MarginContainer/ContentBackground"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 0, 1, 1)

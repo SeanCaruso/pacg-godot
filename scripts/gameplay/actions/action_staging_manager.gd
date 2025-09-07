@@ -25,7 +25,7 @@ var staged_cards: Array[CardInstance]:
 
 
 func initialize(game_services: GameServices):
-	_cards = game_services.card_manager
+	_cards = game_services.cards
 	_contexts = game_services.contexts
 	_game_flow = game_services.game_flow
 	_game_services = game_services

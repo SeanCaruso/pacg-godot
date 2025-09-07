@@ -33,7 +33,12 @@ func move_card_to(card: CardInstance, new_location: CardLocation):
 	if not isActive and wasActive:
 		_response_registry.UnregisterResponses(card)
 
+	var prev_location := card.current_location
 	card.current_location = new_location
+	GameEvents.card_location_changed.emit(card, prev_location, new_location)
+	
+	if card.owner:
+		GameEvents.player_deck_count_changed.emit(card.owner.deck.count)
 
 func move_card_by(card: CardInstance, action: Action):
 	if not card.owner:

@@ -1,7 +1,7 @@
 class_name CheckResolvable
 extends BaseResolvable
 
-const CheckCategory := preload("res://scripts/data/check_step.gd").CheckCategory
+const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 enum CheckVerb { DEFEAT, ACQUIRE, CLOSE, RECOVER }
 var card: ICard
 var verb: CheckVerb

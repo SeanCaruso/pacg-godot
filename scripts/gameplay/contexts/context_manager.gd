@@ -10,7 +10,7 @@ var _game_services: GameServices
 
 func initialize(game_services: GameServices):
 	#_asm = game_services.asm
-	_card_manager = game_services.card_manager
+	_card_manager = game_services.cards
 	_game_services = game_services
 
 ###############################################################################

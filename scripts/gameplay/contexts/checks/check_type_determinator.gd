@@ -1,7 +1,7 @@
 class_name CheckTypeDeterminator
 extends RefCounted
 
-const CheckCategory := preload("res://scripts/data/check_step.gd").CheckCategory
+const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 var _resolvable: CheckResolvable

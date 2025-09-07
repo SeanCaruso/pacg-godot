@@ -1,7 +1,7 @@
 class_name CheckContext
 extends RefCounted
 
-const CheckCategory := preload("res://scripts/data/check_step.gd").CheckCategory
+const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 var _skills: CheckSkillAccumulator
@@ -35,7 +35,7 @@ func update_preview_state(staged_actions: Array[StagedAction]):
 	for action in staged_actions:
 		if action is not PlayCardAction: continue
 		
-		var modifier := (action as PlayCardAction).check_modifier
+		var modifier = (action as PlayCardAction).check_modifier
 		if not modifier: continue
 		
 		# Do this first - the skill selection dialog uses it to determine the DC for the selected

@@ -1,5 +1,5 @@
-class_name GameServices
-extends RefCounted
+# game_services.gd
+extends Node
 
 # The main service references
 var asm: ActionStagingManager
@@ -11,6 +11,11 @@ var game_flow: GameFlowManager
 var adventure_number := 1
 
 func _ready():
+	print ("GameServices loaded but not initialized yet.")
+	_initialize_game_systems()
+	
+	
+func _initialize_game_systems():
 	# Initialize CardUtils first
 	CardUtils.initialize(adventure_number)
 	
@@ -23,7 +28,6 @@ func _ready():
 	
 	# Step 2 - Initialize with cross-dependencies
 	asm.initialize(self)
-	cards.initialize(self)
 	contexts.initialize(self)
 	game_flow.initialize(self)
 	#logic_registry.initialize(self)

@@ -11,12 +11,19 @@ config_version=5
 [application]
 
 config/name="PACG"
+run/main_scene="uid://b52ovewyc8lqe"
 config/features=PackedStringArray("4.4", "Forward Plus")
 
 [autoload]
 
+GameServices="*res://scripts/gameplay/game_services.gd"
 DialogEvents="*res://scripts/shared_api/events/dialog_events.gd"
 GameEvents="*res://scripts/shared_api/events/game_events.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [editor]
 

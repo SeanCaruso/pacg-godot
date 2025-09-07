@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b52ovewyc8lqe"]
+
+[ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
+[ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
+
+[node name="MainGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_72e8q")
+
+[node name="PlayerHand" parent="." instance=ExtResource("1_s3esy")]
+layout_mode = 1
