@@ -3,7 +3,7 @@ extends Control
 
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
-@onready var hand_layout: HBoxContainer = $HandLayout
+@onready var hand_layout: HBoxContainer = %HandLayout
 
 var current_player: PlayerCharacter
 var card_to_display_map: Dictionary = {} # CardInstance -> CardDisplay
@@ -11,19 +11,20 @@ var card_to_display_map: Dictionary = {} # CardInstance -> CardDisplay
 const MAX_HAND_WIDTH := 1045.0
 const CARD_DISPLAY_SCENE := preload("res://scenes/cards/card_display.tscn")
 
+
 func _ready():
 	# Connect to signals (Godot's equivalent of your event subscriptions)
-	print("PlayerHand is ready!")
 	GameEvents.card_location_changed.connect(_on_card_location_changed)
 	GameEvents.player_character_changed.connect(_on_player_changed)
+
 
 func _on_player_changed(player: PlayerCharacter):
 	current_player = player
 	_clear_all_cards()
 	_populate_initial_hand()
 
+
 func _on_card_location_changed(card: CardInstance, old_location: CardLocation, new_location: CardLocation) -> void:
-	print("Got an event!")
 	if card.owner != current_player:
 		return
 	
@@ -36,12 +37,14 @@ func _on_card_location_changed(card: CardInstance, old_location: CardLocation, n
 	
 	_adjust_hand_spacing()
 
+
 func _create_card_display(card: CardInstance) -> void:
 	var card_display := CARD_DISPLAY_SCENE.instantiate()
 	hand_layout.add_child(card_display)
 	card_display.display_card(card)
 	
 	card_to_display_map[card] = card_display
+
 
 func _remove_card_display(card: CardInstance) -> void:
 	if card in card_to_display_map:

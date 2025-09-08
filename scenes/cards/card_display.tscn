@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://banp7lkt3ongm"]
+[gd_scene load_steps=20 format=3 uid="uid://banp7lkt3ongm"]
 
 [ext_resource type="Texture2D" uid="uid://b0aqh2doac3ga" path="res://assets/textures/cardBlackBorder.png" id="1_toolh"]
 [ext_resource type="Theme" uid="uid://dofpxe3roxdeb" path="res://ui/game_theme.tres" id="1_xuuyw"]
 [ext_resource type="Texture2D" uid="uid://7gjcgn72fyrs" path="res://assets/textures/cardWhiteBorder.png" id="2_6w6hm"]
 [ext_resource type="Script" uid="uid://bom1qycn3dg43" path="res://scripts/presentation/cards/card_display.gd" id="2_eh4pr"]
 [ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="4_eh4pr"]
+[ext_resource type="Script" uid="uid://dd1ry0k0rbmnx" path="res://scripts/presentation/cards/card_input_handler.gd" id="6_0plln"]
 
 [sub_resource type="FontVariation" id="FontVariation_eh4pr"]
 base_font = ExtResource("4_eh4pr")
@@ -73,7 +74,7 @@ bg_color = Color(0.156863, 0.101961, 0.309804, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fltqb"]
 bg_color = Color(1, 0, 1, 1)
 
-[node name="CardDisplay" type="TextureRect"]
+[node name="CardDisplay" type="TextureRect" groups=["cards"]]
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_xuuyw")
@@ -448,3 +449,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(1, 0, 1, 1)
+
+[node name="CardInputHandler" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_0plln")
+
+[connection signal="card_clicked" from="CardInputHandler" to="." method="_on_card_clicked"]
+[connection signal="card_drag_ended" from="CardInputHandler" to="." method="_on_drag_ended"]
+[connection signal="card_drag_started" from="CardInputHandler" to="." method="_on_drag_started"]
+[connection signal="card_drag_updated" from="CardInputHandler" to="." method="_on_drag_updated"]

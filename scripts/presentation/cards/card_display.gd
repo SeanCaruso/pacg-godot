@@ -1,6 +1,8 @@
 # card_display.gd
 extends TextureRect
 
+signal card_clicked(card_display: Control)
+
 const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
@@ -45,10 +47,18 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 @onready var loot_panel: PanelContainer = %Loot_Panel
 @onready var traits_panel: PanelContainer = %Traits_Panel
 @onready var traits_container: VBoxContainer = %Traits_Container
+
+# --- Input ---
+@onready var card_input_handler: CardInputHandler = %CardInputHandler
 #endregion
 
+var is_previewed: bool = false
 var _card_instance: CardInstance
 var _panel_color: Color
+var _original_pos: Vector2
+var _original_z_idx: int
+var _is_dragging: bool = false
+
 
 ## Main entry point - call this to tell the card what to display.
 func display_card(card: CardInstance) -> void:
@@ -59,6 +69,8 @@ func display_card(card: CardInstance) -> void:
 	visible = true
 	_card_instance = card
 	_update_display()
+	
+	card_input_handler.setup_input(card, self)
 
 
 func _update_display():
@@ -157,3 +169,32 @@ func _populate_traits(traits: Array[String]) -> void:
 		label.add_theme_font_size_override("font_size", 8)
 		label.text = card_trait.to_upper()
 		traits_container.add_child(label)
+
+
+func _on_card_clicked(card_display: Control) -> void:
+	if not is_previewed:
+		card_clicked.emit(card_display)
+
+
+func _on_drag_started(_card: CardInstance) -> void:
+	# Store initial state
+	_original_pos = position
+	_original_z_idx = z_index
+	_is_dragging = true
+	
+	# Visual feedback
+	z_index = 100 # Bring to front.
+	scale *= 1.05
+
+
+func _on_drag_updated(_card: CardInstance, delta: Vector2) -> void:
+	if not _is_dragging: return
+	
+	position = _original_pos + delta
+
+
+func _on_drag_ended(_card: CardInstance, _global_pos: Vector2) -> void:
+	_is_dragging = false
+	position = _original_pos
+	z_index = _original_z_idx
+	scale = Vector2.ONE

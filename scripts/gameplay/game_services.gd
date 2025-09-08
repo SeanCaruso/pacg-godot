@@ -11,7 +11,6 @@ var game_flow: GameFlowManager
 var adventure_number := 1
 
 func _ready():
-	print ("GameServices loaded but not initialized yet.")
 	_initialize_game_systems()
 	
 	
@@ -31,5 +30,3 @@ func _initialize_game_systems():
 	contexts.initialize(self)
 	game_flow.initialize(self)
 	#logic_registry.initialize(self)
-	
-	print("GameServices initialized!")
