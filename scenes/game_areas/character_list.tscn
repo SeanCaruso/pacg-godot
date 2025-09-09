@@ -1,0 +1,157 @@
+[gd_scene load_steps=5 format=3 uid="uid://smvna3svyub0"]
+
+[ext_resource type="Theme" uid="uid://dofpxe3roxdeb" path="res://ui/game_theme.tres" id="1_yny4u"]
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="2_3254e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8lxm"]
+bg_color = Color(0.917647, 0.839216, 0.756863, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.443137, 0.0196078, 0.0156863, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="FontVariation" id="FontVariation_7xw7y"]
+base_font = ExtResource("2_3254e")
+variation_opentype = {
+2003265652: 500
+}
+
+[node name="CharacterList" type="PanelContainer"]
+offset_right = 255.0
+offset_bottom = 384.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k8lxm")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AllCharactersVBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LocalCharacters" type="VBoxContainer" parent="MarginContainer/AllCharactersVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="MarginContainer/AllCharactersVBox/LocalCharacters"]
+layout_mode = 2
+theme = ExtResource("1_yny4u")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xw7y")
+theme_override_font_sizes/font_size = 18
+text = "LOCAL CHARACTERS"
+
+[node name="LocalRow1" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/LocalCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LocalImage1" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="LocalImage2" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="LocalImage3" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="LocalRow2" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/LocalCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="LocalImage4" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="LocalImage5" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="LocalImage6" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="DistantCharacters" type="VBoxContainer" parent="MarginContainer/AllCharactersVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label2" type="Label" parent="MarginContainer/AllCharactersVBox/DistantCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_yny4u")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_7xw7y")
+theme_override_font_sizes/font_size = 18
+text = "DISTANT CHARACTERS"
+
+[node name="DistantRow1" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/DistantCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="DistantImage1" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="DistantImage2" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="DistantImage3" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="DistantRow2" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/DistantCharacters"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="DistantImage4" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="DistantImage5" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="DistantImage6" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1

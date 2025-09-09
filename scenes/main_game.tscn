@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=9 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
+[ext_resource type="PackedScene" uid="uid://ceqg655f53sto" path="res://scenes/game_areas/character_area.tscn" id="3_70vka"]
 [ext_resource type="PackedScene" uid="uid://dv8bkfdth0me3" path="res://scenes/card_areas/card_preview.tscn" id="3_d2op2"]
+[ext_resource type="PackedScene" uid="uid://bxb52yyk2h88d" path="res://scenes/game_areas/location_area.tscn" id="4_0rdsr"]
+[ext_resource type="PackedScene" uid="uid://b2ustwy17bah5" path="res://scenes/game_areas/turn_buttons.tscn" id="4_ipu61"]
+[ext_resource type="PackedScene" uid="uid://c0pmjyy1d48yf" path="res://scenes/game_areas/scenario_area.tscn" id="5_ygxny"]
+[ext_resource type="PackedScene" uid="uid://bi3upsqpc3fhh" path="res://scenes/game_areas/action_buttons.tscn" id="6_wi4c7"]
 
 [node name="MainGame" type="Control"]
 layout_mode = 3
@@ -17,6 +22,78 @@ script = ExtResource("1_72e8q")
 
 [node name="PlayerHand" parent="UI" instance=ExtResource("1_s3esy")]
 unique_name_in_owner = true
+
+[node name="Discards" type="Control" parent="UI"]
+custom_minimum_size = Vector2(187.5, 262.5)
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 197.5
+offset_bottom = -10.0
+grow_vertical = 0
+
+[node name="CharacterArea" parent="UI" instance=ExtResource("3_70vka")]
+
+[node name="LocationArea" parent="UI" instance=ExtResource("4_0rdsr")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -1400.0
+offset_bottom = -335.0
+
+[node name="DisplayedArea" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 210)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -585.0
+offset_right = -15.0
+offset_bottom = -375.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="RevealedArea" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 210)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -590.0
+offset_bottom = -380.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="RecoveryArea" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 210)
+offset_left = 600.0
+offset_top = 25.0
+offset_right = 600.0
+offset_bottom = 235.0
+theme_override_constants/separation = -175
+
+[node name="TurnButtons" parent="UI" instance=ExtResource("4_ipu61")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_bottom = 90.0
+grow_horizontal = 0
+
+[node name="ScenarioArea" parent="UI" instance=ExtResource("5_ygxny")]
+offset_left = -370.0
+offset_top = 100.0
+offset_right = -10.0
+offset_bottom = 431.0
+
+[node name="ActionButtons" parent="UI" instance=ExtResource("6_wi4c7")]
 
 [node name="CardPreview" parent="UI" instance=ExtResource("3_d2op2")]
 unique_name_in_owner = true

@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2ustwy17bah5"]
+
+[ext_resource type="Texture2D" uid="uid://crb8dkgn1nmxs" path="res://assets/textures/give_button.png" id="1_3xmj0"]
+[ext_resource type="Texture2D" uid="uid://stotwdux4v2" path="res://assets/textures/give_button_disabled.png" id="2_a7e77"]
+[ext_resource type="Texture2D" uid="uid://cvc6djtwd84ps" path="res://assets/textures/move_button.png" id="3_cqkp0"]
+[ext_resource type="Texture2D" uid="uid://dmpptvffg2u1" path="res://assets/textures/move_button_disabled.png" id="4_s0koq"]
+[ext_resource type="Texture2D" uid="uid://dvfvtqxib106" path="res://assets/textures/discard_button.png" id="5_pa25v"]
+[ext_resource type="Texture2D" uid="uid://bwn72vy76ee48" path="res://assets/textures/discard_button_disabled.png" id="6_ulql8"]
+[ext_resource type="Texture2D" uid="uid://ceyp086gks2uk" path="res://assets/textures/end_turn_button.png" id="7_p554s"]
+[ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="8_av7yh"]
+
+[node name="TurnButtons" type="HBoxContainer"]
+theme_override_constants/separation = 0
+
+[node name="HourContainer" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 175)
+layout_mode = 2
+
+[node name="GiveButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("1_3xmj0")
+texture_disabled = ExtResource("2_a7e77")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="MoveButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("3_cqkp0")
+texture_disabled = ExtResource("4_s0koq")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="OptionalDiscardsButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("5_pa25v")
+texture_disabled = ExtResource("6_ulql8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EndTurnButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("7_p554s")
+texture_disabled = ExtResource("8_av7yh")
+ignore_texture_size = true
+stretch_mode = 0

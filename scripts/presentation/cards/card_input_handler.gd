@@ -52,6 +52,6 @@ func _on_mouse_motion(pos: Vector2) -> void:
 	
 	if is_dragging:
 		card_drag_updated.emit(card_instance, pos - drag_start_pos)
-	elif drag_start_pos and drag_start_pos.distance_to(pos) > DRAG_THRESHOLD:
+	elif not is_dragging and drag_start_pos and drag_start_pos.distance_to(pos) > DRAG_THRESHOLD:
 		is_dragging = true
 		card_drag_started.emit(card_instance)
