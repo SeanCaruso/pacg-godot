@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="ScenarioData" load_steps=14 format=3 uid="uid://b4l7y8pxnda3a"]
+
+[ext_resource type="Script" uid="uid://da4cui72j4cfr" path="res://scripts/data/scenario_data/story_bane.gd" id="1_vna47"]
+[ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="2_agfxn"]
+[ext_resource type="Script" uid="uid://by1g5dmut7cpo" path="res://scripts/data/scenario_data/scenario_location.gd" id="2_l3qp2"]
+[ext_resource type="Resource" uid="uid://cdmb6fn3odg28" path="res://_game_data/story_banes/rescue.tres" id="2_ljuc7"]
+[ext_resource type="Resource" uid="uid://cgc5uw2fthbm8" path="res://_game_data/locations/campsite.tres" id="3_l3qp2"]
+[ext_resource type="Texture2D" uid="uid://ceyp086gks2uk" path="res://assets/textures/end_turn_button.png" id="3_ljuc7"]
+[ext_resource type="Script" uid="uid://b2ggt2ekmayq4" path="res://scripts/data/scenario_data/scenario_data.gd" id="3_p0208"]
+[ext_resource type="Resource" uid="uid://bnkg2ukquj3n5" path="res://_game_data/locations/caravan.tres" id="4_p0208"]
+[ext_resource type="Resource" uid="uid://brpghxda38gyh" path="res://_game_data/story_banes/dire_wolf.tres" id="5_ji1jf"]
+
+[sub_resource type="Resource" id="Resource_agfxn"]
+script = ExtResource("1_vna47")
+card_data = ExtResource("2_ljuc7")
+custom_name = ""
+is_closing = false
+metadata/_custom_type_script = "uid://da4cui72j4cfr"
+
+[sub_resource type="Resource" id="Resource_43lks"]
+script = ExtResource("1_vna47")
+card_data = ExtResource("5_ji1jf")
+custom_name = ""
+is_closing = true
+metadata/_custom_type_script = "uid://da4cui72j4cfr"
+
+[sub_resource type="Resource" id="Resource_vna47"]
+script = ExtResource("2_l3qp2")
+num_pcs = 1
+location_data = ExtResource("3_l3qp2")
+metadata/_custom_type_script = "uid://by1g5dmut7cpo"
+
+[sub_resource type="Resource" id="Resource_alqcv"]
+script = ExtResource("2_l3qp2")
+num_pcs = 1
+location_data = ExtResource("4_p0208")
+metadata/_custom_type_script = "uid://by1g5dmut7cpo"
+
+[resource]
+script = ExtResource("3_p0208")
+name = "1S: Rumble Road"
+id = "RumbleRoad"
+setup = "If this is your first scenario, use only the first 3 small locations and create the hourglass from 12 blessings.
+
+Characters start at the Caravan."
+locations = Array[ExtResource("2_l3qp2")]([SubResource("Resource_vna47"), SubResource("Resource_alqcv")])
+during_scenario = "Instead of your first exploration of your turn, you may heal 1d4 cards."
+is_during_power_activated = true
+during_scenario_power_enabled = ExtResource("3_ljuc7")
+during_scenario_power_disabled = ExtResource("2_agfxn")
+dangers = Array[ExtResource("1_vna47")]([SubResource("Resource_agfxn")])
+henchmen = Array[ExtResource("1_vna47")]([SubResource("Resource_43lks")])
+reward = "Each character gets a new level 1 boon of any type."
+metadata/_custom_type_script = "uid://b2ggt2ekmayq4"

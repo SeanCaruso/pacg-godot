@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://y5exhohmkt4r"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_tw0gg"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_7qb6u"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_wc0ah"]
+
+[sub_resource type="Resource" id="Resource_r12bf"]
+script = ExtResource("1_tw0gg")
+base_dc = 4
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([3, 7])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_gslfk"]
+script = ExtResource("2_7qb6u")
+mode = 0
+check_steps = Array[ExtResource("1_tw0gg")]([SubResource("Resource_r12bf")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_wc0ah")
+card_id = "ForceMissile"
+card_name = "Force Missile"
+card_type = 4
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_gslfk")
+reroll_threshold = 0
+powers = "For your combat check, banish to use Arcane + 2d4.
+
+On another character's combat check, banish to add 2d4 and the Attack, Force, and Magic traits."
+recovery = "If proficient, discard this card; you may succeed at an Arcane 6 check to recharge it instead."
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Magic", "Arcane", "Attack", "Force"])

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://blc5y5h5g8hwd"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_1sfge"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_6oijx"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_fsqmu"]
+
+[sub_resource type="Resource" id="Resource_dgm6s"]
+script = ExtResource("1_1sfge")
+base_dc = 6
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([3, 8])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_q5tms"]
+script = ExtResource("2_6oijx")
+mode = 0
+check_steps = Array[ExtResource("1_1sfge")]([SubResource("Resource_dgm6s")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_fsqmu")
+card_id = "ClockworkServant"
+card_name = "Clockwork Servant"
+card_type = 0
+story_bane_type = 0
+card_level = 1
+check_requirement = SubResource("Resource_q5tms")
+reroll_threshold = 0
+powers = "On a local Intelligence or Craft check, recharge to add 1d6.
+
+Bury or banish to explore."
+recovery = "You may succeed at a Craft 8 check to recharge this card."
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Construct"])

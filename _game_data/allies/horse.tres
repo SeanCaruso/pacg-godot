@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://bysdn00b41poj"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_e8upx"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_o0iov"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_dyjfy"]
+
+[sub_resource type="Resource" id="Resource_dgm6s"]
+script = ExtResource("1_e8upx")
+base_dc = 3
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([4, 5, 18])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_q5tms"]
+script = ExtResource("2_o0iov")
+mode = 0
+check_steps = Array[ExtResource("1_e8upx")]([SubResource("Resource_dgm6s")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_dyjfy")
+card_id = "Horse"
+card_name = "Horse"
+card_type = 0
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_q5tms")
+reroll_threshold = 0
+powers = "Recharge to move. You may not use this power during an encounter.
+
+Discard to explore. This exploration, on your first check, add 1d4."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Animal", "Mount"])

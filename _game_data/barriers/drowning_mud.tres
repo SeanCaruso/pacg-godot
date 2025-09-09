@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://b4l5uclvk3e0c"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_ghgeb"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_ysbxd"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_a2lwr"]
+
+[sub_resource type="Resource" id="Resource_ghgeb"]
+script = ExtResource("1_ghgeb")
+base_dc = 6
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([0, 18])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_a2lwr"]
+script = ExtResource("1_ghgeb")
+base_dc = 8
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([2, 12])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_0i7bq"]
+script = ExtResource("2_a2lwr")
+mode = 1
+check_steps = Array[ExtResource("1_ghgeb")]([SubResource("Resource_ghgeb"), SubResource("Resource_a2lwr")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("1_ysbxd")
+card_id = "DrowningMud"
+card_name = "Drowning Mud"
+card_type = 6
+story_bane_type = 0
+card_level = 1
+check_requirement = SubResource("Resource_0i7bq")
+reroll_threshold = 0
+powers = "If undefeated, bury the top card of your deck, then suffer the scourges Entangled and Exhausted."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Obstacle"])

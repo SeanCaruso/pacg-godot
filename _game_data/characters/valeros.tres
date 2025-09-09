@@ -1,0 +1,142 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=26 format=3 uid="uid://bwwns71g3fjrj"]
+
+[ext_resource type="Script" uid="uid://cshfrnvcq5w30" path="res://scripts/data/character_data/attribute_skill.gd" id="1_j2jp1"]
+[ext_resource type="Script" path="res://scripts/data/character_data/proficiency.gd" id="2_jck14"]
+[ext_resource type="Texture2D" uid="uid://2p43fvvtufax" path="res://assets/textures/CharacterPortraits/valeros_disabled.png" id="3_j2jp1"]
+[ext_resource type="Texture2D" uid="uid://ybvdb068md3b" path="res://assets/textures/CharacterPortraits/valeros_enabled.png" id="4_jck14"]
+[ext_resource type="Script" uid="uid://cx3rpx0npkrad" path="res://scripts/data/character_data/character_power.gd" id="5_mgut7"]
+[ext_resource type="Texture2D" uid="uid://dxoadlseb0wht" path="res://assets/textures/CharacterPowers/valeros_recharge_weapon_armor_disabled.png" id="6_82j1b"]
+[ext_resource type="Texture2D" uid="uid://cmvetblfdojys" path="res://assets/textures/CharacterPowers/valeros_recharge_weapon_armor.png" id="7_5mkt4"]
+[ext_resource type="Script" uid="uid://suhg2vcu53n7" path="res://scripts/data/character_data/character_data.gd" id="12_rvdaq"]
+[ext_resource type="Script" uid="uid://daqd2b7gsg5hq" path="res://scripts/data/character_data/pc_skill.gd" id="13_xdw8p"]
+
+[sub_resource type="Resource" id="Resource_7fin5"]
+script = ExtResource("1_j2jp1")
+attribute = 0
+die = 10
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_7xhdt"]
+script = ExtResource("1_j2jp1")
+attribute = 1
+die = 8
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_l2efr"]
+script = ExtResource("1_j2jp1")
+attribute = 2
+die = 8
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_1swr2"]
+script = ExtResource("1_j2jp1")
+attribute = 3
+die = 4
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_nbdix"]
+script = ExtResource("1_j2jp1")
+attribute = 4
+die = 6
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_dqylw"]
+script = ExtResource("1_j2jp1")
+attribute = 5
+die = 6
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_4q10h"]
+script = ExtResource("2_jck14")
+card_type = 5
+card_trait = "Sword"
+metadata/_custom_type_script = "uid://bqnv1l82iq12q"
+
+[sub_resource type="Resource" id="Resource_jb6vi"]
+script = ExtResource("5_mgut7")
+power_id = "valeros_combat"
+is_activated_power = true
+text = "On a local combat check, you may reload or recharge a weapon or an armor to add 1d4."
+metadata/_custom_type_script = "uid://cx3rpx0npkrad"
+
+[sub_resource type="Resource" id="Resource_1nwpe"]
+script = ExtResource("5_mgut7")
+power_id = "valeros_end"
+is_activated_power = true
+sprite_enabled = ExtResource("7_5mkt4")
+sprite_disabled = ExtResource("6_82j1b")
+text = "At the end of your turn, you may recharge a weapon or an armor from your hand or discards."
+metadata/_custom_type_script = "uid://cx3rpx0npkrad"
+
+[sub_resource type="Resource" id="Resource_5h2g5"]
+script = ExtResource("5_mgut7")
+power_id = "valeros_avenge"
+is_activated_power = true
+text = "You may avenge by discarding a card."
+metadata/_custom_type_script = "uid://cx3rpx0npkrad"
+
+[sub_resource type="Resource" id="Resource_f6r3b"]
+script = ExtResource("2_jck14")
+card_type = 1
+card_trait = ""
+metadata/_custom_type_script = "uid://bqnv1l82iq12q"
+
+[sub_resource type="Resource" id="Resource_jck14"]
+script = ExtResource("2_jck14")
+card_type = 5
+card_trait = ""
+metadata/_custom_type_script = "uid://bqnv1l82iq12q"
+
+[sub_resource type="Resource" id="Resource_3eo3q"]
+script = ExtResource("13_xdw8p")
+skill = 14
+attribute = 0
+bonus = 2
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[sub_resource type="Resource" id="Resource_caq7f"]
+script = ExtResource("13_xdw8p")
+skill = 16
+attribute = 1
+bonus = 1
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[sub_resource type="Resource" id="Resource_fm5gv"]
+script = ExtResource("13_xdw8p")
+skill = 12
+attribute = 2
+bonus = 2
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[sub_resource type="Resource" id="Resource_j2jp1"]
+script = ExtResource("13_xdw8p")
+skill = 9
+attribute = 5
+bonus = 2
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[resource]
+script = ExtResource("12_rvdaq")
+character_name = "Valeros"
+attributes = Array[ExtResource("1_j2jp1")]([SubResource("Resource_7fin5"), SubResource("Resource_7xhdt"), SubResource("Resource_l2efr"), SubResource("Resource_1swr2"), SubResource("Resource_nbdix"), SubResource("Resource_dqylw")])
+skills = Array[ExtResource("13_xdw8p")]([SubResource("Resource_3eo3q"), SubResource("Resource_caq7f"), SubResource("Resource_fm5gv"), SubResource("Resource_j2jp1")])
+hand_size = 4
+proficiencies = Array[ExtResource("2_jck14")]([SubResource("Resource_f6r3b"), SubResource("Resource_jck14")])
+traits = Array[String](["Human", "Fighter"])
+powers = Array[ExtResource("5_mgut7")]([SubResource("Resource_jb6vi"), SubResource("Resource_1nwpe"), SubResource("Resource_5h2g5")])
+weapons = 4
+spells = 0
+armor = 3
+items = 2
+allies = 3
+blessings = 3
+favored_cards = Array[ExtResource("2_jck14")]([SubResource("Resource_4q10h")])
+icon_enabled = ExtResource("4_jck14")
+icon_disabled = ExtResource("3_j2jp1")
+metadata/_custom_type_script = "uid://suhg2vcu53n7"

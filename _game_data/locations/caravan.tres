@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="LocationData" load_steps=8 format=3 uid="uid://bnkg2ukquj3n5"]
+
+[ext_resource type="Script" uid="uid://bfse33mcxvrsx" path="res://scripts/data/location_power.gd" id="1_vey81"]
+[ext_resource type="Texture2D" uid="uid://dmpptvffg2u1" path="res://assets/textures/move_button_disabled.png" id="2_vey81"]
+[ext_resource type="Texture2D" uid="uid://cvc6djtwd84ps" path="res://assets/textures/move_button.png" id="3_kpdq2"]
+[ext_resource type="Script" uid="uid://cnouj1m0t8066" path="res://scripts/data/location_data.gd" id="4_mon6i"]
+
+[sub_resource type="Resource" id="Resource_32tc8"]
+script = ExtResource("1_vey81")
+power_id = "caravan_at_location"
+type = 0
+is_activated_power = true
+sprite_enabled = ExtResource("3_kpdq2")
+sprite_disabled = ExtResource("2_vey81")
+text = "At the start of your turn, each local character may move."
+metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[sub_resource type="Resource" id="Resource_nyusg"]
+script = ExtResource("1_vey81")
+power_id = "caravan_close"
+type = 1
+is_activated_power = false
+text = "Either succeed at a Wisdom or Perception 5+# check or summon and defeat the danger."
+metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[sub_resource type="Resource" id="Resource_s7ksu"]
+script = ExtResource("1_vey81")
+power_id = "caravan_closed"
+type = 2
+is_activated_power = false
+text = "After you move, you may give a card to a local character."
+metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[resource]
+script = ExtResource("4_mon6i")
+card_id = "Caravan"
+card_name = "Caravan"
+card_level = 0
+at_location_power = SubResource("Resource_32tc8")
+to_close_power = SubResource("Resource_nyusg")
+when_closed_power = SubResource("Resource_s7ksu")
+num_monsters = 1
+num_barriers = 2
+num_weapons = 1
+num_spells = 1
+num_armors = 1
+num_items = 1
+num_allies = 2
+num_blessings = 0
+traits = Array[String](["Urban"])
+metadata/_custom_type_script = "uid://cnouj1m0t8066"

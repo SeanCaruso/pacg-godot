@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://cgk4hqdukxb50"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_b7eyb"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_movbx"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_0mh1k"]
+
+[sub_resource type="Resource" id="Resource_b7eyb"]
+script = ExtResource("1_b7eyb")
+base_dc = 11
+adventure_level_mult = 0
+category = 0
+allowed_skills = Array[int]([0, 14])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_0mh1k"]
+script = ExtResource("1_b7eyb")
+base_dc = 6
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([15, 18])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_xhmd3"]
+script = ExtResource("2_0mh1k")
+mode = 1
+check_steps = Array[ExtResource("1_b7eyb")]([SubResource("Resource_b7eyb"), SubResource("Resource_0mh1k")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("1_movbx")
+card_id = "DireBadger"
+card_name = "Dire Badger"
+card_type = 7
+story_bane_type = 0
+card_level = 1
+check_requirement = SubResource("Resource_xhmd3")
+reroll_threshold = 0
+powers = "If undefeated, shuffle this monster into a random location.
+
+If defeated by a combat check, suffer 1d4 Combat damage."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Animal"])

@@ -1,0 +1,137 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=28 format=3 uid="uid://cfjqom5km4pyi"]
+
+[ext_resource type="Script" uid="uid://cshfrnvcq5w30" path="res://scripts/data/character_data/attribute_skill.gd" id="1_7fin5"]
+[ext_resource type="Script" path="res://scripts/data/character_data/proficiency.gd" id="2_7xhdt"]
+[ext_resource type="Texture2D" uid="uid://d0o5oiqfblkf4" path="res://assets/textures/CharacterPortraits/ezren_disabled.png" id="3_fm5gv"]
+[ext_resource type="Script" uid="uid://cx3rpx0npkrad" path="res://scripts/data/character_data/character_power.gd" id="3_l2efr"]
+[ext_resource type="Script" uid="uid://suhg2vcu53n7" path="res://scripts/data/character_data/character_data.gd" id="4_1swr2"]
+[ext_resource type="Texture2D" uid="uid://cnjdvhc35v3i7" path="res://assets/textures/CharacterPortraits/ezren_enabled.png" id="4_f6r3b"]
+[ext_resource type="Texture2D" uid="uid://b4v5r6fy5r6or" path="res://assets/textures/CharacterPowers/spellbook_button_disabled.png" id="4_l2efr"]
+[ext_resource type="Texture2D" uid="uid://b0gcn7h52c53x" path="res://assets/textures/CharacterPowers/spellbook_button.png" id="5_1swr2"]
+[ext_resource type="Script" uid="uid://daqd2b7gsg5hq" path="res://scripts/data/character_data/pc_skill.gd" id="5_nbdix"]
+[ext_resource type="Texture2D" uid="uid://d1kl4feeqw8d2" path="res://assets/textures/CharacterPowers/scry_button_disabled.png" id="6_nbdix"]
+[ext_resource type="Texture2D" uid="uid://btnv2ggnq0yem" path="res://assets/textures/CharacterPowers/scry_button.png" id="7_dqylw"]
+[ext_resource type="Texture2D" uid="uid://xhkptj6r2w7v" path="res://assets/textures/CharacterPowers/ezren_magic_button_disabled.png" id="8_3eo3q"]
+[ext_resource type="Texture2D" uid="uid://beh3r6mdmed58" path="res://assets/textures/CharacterPowers/ezren_magic_button.png" id="9_caq7f"]
+
+[sub_resource type="Resource" id="Resource_7fin5"]
+script = ExtResource("1_7fin5")
+attribute = 0
+die = 6
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_7xhdt"]
+script = ExtResource("1_7fin5")
+attribute = 1
+die = 6
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_l2efr"]
+script = ExtResource("1_7fin5")
+attribute = 2
+die = 4
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_1swr2"]
+script = ExtResource("1_7fin5")
+attribute = 3
+die = 12
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_nbdix"]
+script = ExtResource("1_7fin5")
+attribute = 4
+die = 8
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_dqylw"]
+script = ExtResource("1_7fin5")
+attribute = 5
+die = 6
+bonus = 0
+metadata/_custom_type_script = "uid://cshfrnvcq5w30"
+
+[sub_resource type="Resource" id="Resource_4q10h"]
+script = ExtResource("2_7xhdt")
+card_type = 4
+card_trait = ""
+metadata/_custom_type_script = "uid://bqnv1l82iq12q"
+
+[sub_resource type="Resource" id="Resource_jb6vi"]
+script = ExtResource("3_l2efr")
+power_id = "ezren_start"
+is_activated_power = true
+sprite_enabled = ExtResource("5_1swr2")
+sprite_disabled = ExtResource("4_l2efr")
+text = "At the start of your turn, you may examine the top card of your deck; if it is a spell, you may draw it."
+metadata/_custom_type_script = "uid://cx3rpx0npkrad"
+
+[sub_resource type="Resource" id="Resource_1nwpe"]
+script = ExtResource("3_l2efr")
+power_id = "ezren_explore"
+is_activated_power = true
+sprite_enabled = ExtResource("7_dqylw")
+sprite_disabled = ExtResource("6_nbdix")
+text = "On your turn, you may recharge a spell to examine the top card of your location. If you do, you may discard a card to explore."
+metadata/_custom_type_script = "uid://cx3rpx0npkrad"
+
+[sub_resource type="Resource" id="Resource_5h2g5"]
+script = ExtResource("3_l2efr")
+power_id = "ezren_magic"
+is_activated_power = true
+sprite_enabled = ExtResource("9_caq7f")
+sprite_disabled = ExtResource("8_3eo3q")
+text = "On a local check against a Magic card, you may recharge a card to add 1d4."
+metadata/_custom_type_script = "uid://cx3rpx0npkrad"
+
+[sub_resource type="Resource" id="Resource_f6r3b"]
+script = ExtResource("2_7xhdt")
+card_type = 9
+card_trait = "Arcane"
+metadata/_custom_type_script = "uid://bqnv1l82iq12q"
+
+[sub_resource type="Resource" id="Resource_3eo3q"]
+script = ExtResource("5_nbdix")
+skill = 7
+attribute = 3
+bonus = 2
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[sub_resource type="Resource" id="Resource_caq7f"]
+script = ExtResource("5_nbdix")
+skill = 8
+attribute = 3
+bonus = 1
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[sub_resource type="Resource" id="Resource_fm5gv"]
+script = ExtResource("5_nbdix")
+skill = 13
+attribute = 3
+bonus = 2
+metadata/_custom_type_script = "uid://daqd2b7gsg5hq"
+
+[resource]
+script = ExtResource("4_1swr2")
+character_name = "Ezren"
+attributes = Array[ExtResource("1_7fin5")]([SubResource("Resource_7fin5"), SubResource("Resource_7xhdt"), SubResource("Resource_l2efr"), SubResource("Resource_1swr2"), SubResource("Resource_nbdix"), SubResource("Resource_dqylw")])
+skills = Array[ExtResource("5_nbdix")]([SubResource("Resource_3eo3q"), SubResource("Resource_caq7f"), SubResource("Resource_fm5gv")])
+hand_size = 6
+proficiencies = Array[ExtResource("2_7xhdt")]([SubResource("Resource_f6r3b")])
+traits = Array[String](["Human", "Wizard"])
+powers = Array[ExtResource("3_l2efr")]([SubResource("Resource_jb6vi"), SubResource("Resource_1nwpe"), SubResource("Resource_5h2g5")])
+weapons = 1
+spells = 7
+armor = 0
+items = 4
+allies = 3
+blessings = 0
+favored_cards = Array[ExtResource("2_7xhdt")]([SubResource("Resource_4q10h")])
+icon_enabled = ExtResource("4_f6r3b")
+icon_disabled = ExtResource("3_fm5gv")
+metadata/_custom_type_script = "uid://suhg2vcu53n7"

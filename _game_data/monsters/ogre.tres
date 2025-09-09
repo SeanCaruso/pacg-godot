@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://pvf3370fryiw"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_1h4ay"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_eid3r"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_ag0qb"]
+
+[sub_resource type="Resource" id="Resource_b7eyb"]
+script = ExtResource("1_1h4ay")
+base_dc = 12
+adventure_level_mult = 2
+category = 0
+allowed_skills = Array[int]([0, 14])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_xhmd3"]
+script = ExtResource("2_eid3r")
+mode = 0
+check_steps = Array[ExtResource("1_1h4ay")]([SubResource("Resource_b7eyb")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_ag0qb")
+card_id = "Ogre"
+card_name = "Ogre"
+card_type = 7
+story_bane_type = 0
+card_level = 1
+check_requirement = SubResource("Resource_xhmd3")
+reroll_threshold = 0
+powers = "Before acting, each local character suffers 1 Combat damage."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Giant", "Ogre", "Veteran"])

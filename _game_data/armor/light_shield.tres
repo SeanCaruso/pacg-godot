@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://csgcspa5k7fhg"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_i8mfc"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_obtlv"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_fw7w2"]
+
+[sub_resource type="Resource" id="Resource_i8suc"]
+script = ExtResource("1_i8mfc")
+base_dc = 3
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([2, 12])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_xm21c"]
+script = ExtResource("2_obtlv")
+mode = 0
+check_steps = Array[ExtResource("1_i8mfc")]([SubResource("Resource_i8suc")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_fw7w2")
+card_id = "LightShield"
+card_name = "Light Shield"
+card_type = 1
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_xm21c")
+reroll_threshold = 0
+powers = "When you suffer Combat damage, freely reveal to reduce it by 1.
+
+On your Melee combat check, freely recharge to reroll a d4, d6, or d8.
+
+After playing this armor, you may not play a 2-Handed boon this encounter."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Shield", "Offhand"])

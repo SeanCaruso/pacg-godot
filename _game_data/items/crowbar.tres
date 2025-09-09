@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://c2s4e7kb8cvn0"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_kjp07"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_sdywi"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_cxr4y"]
+
+[sub_resource type="Resource" id="Resource_qa4j5"]
+script = ExtResource("1_kjp07")
+base_dc = 3
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([0, 14])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_w8ir7"]
+script = ExtResource("2_sdywi")
+mode = 0
+check_steps = Array[ExtResource("1_kjp07")]([SubResource("Resource_qa4j5")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_cxr4y")
+card_id = "Crowbar"
+card_name = "Crowbar"
+card_type = 3
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_w8ir7")
+reroll_threshold = 0
+powers = "On your Strength non-combat check or your check to defeat a Lock or Obstacle barrier, reveal to add 1d8; you may additionally recharge to add another 1d8."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Tool"])

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://bchfr8n6xgti3"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_slkt2"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_isgbp"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_hnben"]
+
+[sub_resource type="Resource" id="Resource_i8suc"]
+script = ExtResource("1_slkt2")
+base_dc = 4
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([2, 12])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_xm21c"]
+script = ExtResource("2_isgbp")
+mode = 0
+check_steps = Array[ExtResource("1_slkt2")]([SubResource("Resource_i8suc")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_hnben")
+card_id = "Helm"
+card_name = "Helm"
+card_type = 1
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_xm21c")
+reroll_threshold = 0
+powers = "When you suffer Combat damage, freely reveal to reduce it by 1; if proficient, do this for any damage.
+
+After playing this armor, you may not play a Helm boon this encounter."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Heavy Armor", "Helm"])

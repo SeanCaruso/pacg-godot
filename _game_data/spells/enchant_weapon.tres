@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://hij4ug7wx0p3"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_1so0t"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_mfbei"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_taof7"]
+
+[sub_resource type="Resource" id="Resource_r12bf"]
+script = ExtResource("1_1so0t")
+base_dc = 4
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([3, 4, 7, 11])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_gslfk"]
+script = ExtResource("2_mfbei")
+mode = 0
+check_steps = Array[ExtResource("1_1so0t")]([SubResource("Resource_r12bf")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_taof7")
+card_id = "EnchantWeapon"
+card_name = "Enchant Weapon"
+card_type = 4
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_gslfk")
+reroll_threshold = 0
+powers = "When any character plays a weapon on a combat check, freely banish to add 1d4+# and the Magic trait."
+recovery = "If proficient, discard this card; you may succeed at an Arcane or Divine 6 check to recharge it instead."
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Magic", "Arcane", "Divine", "Veteran"])

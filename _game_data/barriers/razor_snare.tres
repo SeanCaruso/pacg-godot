@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cjavuwmy68htr"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_1atdv"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_dwxus"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_ch7tb"]
+
+[sub_resource type="Resource" id="Resource_ghgeb"]
+script = ExtResource("1_1atdv")
+base_dc = 6
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([1, 6, 10, 18])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_0i7bq"]
+script = ExtResource("2_dwxus")
+mode = 0
+check_steps = Array[ExtResource("1_1atdv")]([SubResource("Resource_ghgeb")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_ch7tb")
+card_id = "RazorSnare"
+card_name = "Razor Snare"
+card_type = 6
+story_bane_type = 0
+card_level = 1
+check_requirement = SubResource("Resource_0i7bq")
+reroll_threshold = 0
+powers = "If undefeated, suffer the scourges Entangled and Wounded, then end your turn."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Trap"])

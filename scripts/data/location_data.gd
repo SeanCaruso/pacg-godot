@@ -11,7 +11,7 @@ extends Resource
 @export_category("Powers")
 @export var at_location_power: LocationPower
 @export var to_close_power: LocationPower
-@export var when_cloased_power: LocationPower
+@export var when_closed_power: LocationPower
 
 @export_category("Card List")
 @export var num_monsters: int

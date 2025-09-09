@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://dbdnwi2iano0h"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_0rdq2"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_vp2yb"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_kogri"]
+
+[sub_resource type="Resource" id="Resource_qa4j5"]
+script = ExtResource("1_0rdq2")
+base_dc = 5
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([3, 4, 7, 11])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_w8ir7"]
+script = ExtResource("2_vp2yb")
+mode = 0
+check_steps = Array[ExtResource("1_0rdq2")]([SubResource("Resource_qa4j5")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_kogri")
+card_id = "TokenOfRemembrance"
+card_name = "Token of Remembrance"
+card_type = 3
+story_bane_type = 0
+card_level = 0
+check_requirement = SubResource("Resource_w8ir7")
+reroll_threshold = 0
+powers = "On your check to recharge a spell, recharge to add 1d8.
+
+Bury to reload a spell from your discards."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Object", "Magic", "Arcane", "Divine"])

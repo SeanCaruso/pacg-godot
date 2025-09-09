@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://ba4qpga56u6q2"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_b1xwk"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_cmiy2"]
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_l4vn4"]
+
+[sub_resource type="Resource" id="Resource_b7eyb"]
+script = ExtResource("1_b1xwk")
+base_dc = 10
+adventure_level_mult = 0
+category = 0
+allowed_skills = Array[int]([0, 14])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_0mh1k"]
+script = ExtResource("1_b1xwk")
+base_dc = 7
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([6])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_xhmd3"]
+script = ExtResource("2_cmiy2")
+mode = 1
+check_steps = Array[ExtResource("1_b1xwk")]([SubResource("Resource_b7eyb"), SubResource("Resource_0mh1k")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("3_l4vn4")
+card_id = "GiantToad"
+card_name = "Giant Toad"
+card_type = 7
+story_bane_type = 0
+card_level = 1
+check_requirement = SubResource("Resource_xhmd3")
+reroll_threshold = 0
+powers = "All damage is Poison damage.
+
+If undefeated, suffer the scourges Entangled and Poisoned."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Animal", "Poison"])

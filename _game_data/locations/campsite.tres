@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="LocationData" load_steps=8 format=3 uid="uid://cgc5uw2fthbm8"]
+
+[ext_resource type="Script" uid="uid://cnouj1m0t8066" path="res://scripts/data/location_data.gd" id="1_ab6n1"]
+[ext_resource type="Script" uid="uid://bfse33mcxvrsx" path="res://scripts/data/location_power.gd" id="1_p727o"]
+[ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="2_nyusg"]
+[ext_resource type="Texture2D" uid="uid://ceyp086gks2uk" path="res://assets/textures/end_turn_button.png" id="3_s7ksu"]
+
+[sub_resource type="Resource" id="Resource_32tc8"]
+script = ExtResource("1_p727o")
+power_id = "campsite_at_location"
+type = 0
+is_activated_power = true
+sprite_enabled = ExtResource("3_s7ksu")
+sprite_disabled = ExtResource("2_nyusg")
+text = "At the end of your turn, you may heal a card."
+metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[sub_resource type="Resource" id="Resource_nyusg"]
+script = ExtResource("1_p727o")
+power_id = "campsite_close"
+type = 1
+is_activated_power = false
+text = "Choose 3 different types of boons, then recharge a boon of each type."
+metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[sub_resource type="Resource" id="Resource_s7ksu"]
+script = ExtResource("1_p727o")
+power_id = "campsite_closed"
+type = 2
+is_activated_power = false
+text = "No effect."
+metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[resource]
+script = ExtResource("1_ab6n1")
+card_id = "Campsite"
+card_name = "Campsite"
+card_level = 0
+at_location_power = SubResource("Resource_32tc8")
+to_close_power = SubResource("Resource_nyusg")
+when_closed_power = SubResource("Resource_s7ksu")
+num_monsters = 4
+num_barriers = 0
+num_weapons = 2
+num_spells = 0
+num_armors = 0
+num_items = 1
+num_allies = 2
+num_blessings = 0
+traits = Array[String](["Wild"])
+metadata/_custom_type_script = "uid://cnouj1m0t8066"

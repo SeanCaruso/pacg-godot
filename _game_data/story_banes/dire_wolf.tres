@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://brpghxda38gyh"]
+
+[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_n23su"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_s5iuc"]
+[ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_0pbbs"]
+
+[sub_resource type="Resource" id="Resource_s5iuc"]
+script = ExtResource("1_s5iuc")
+base_dc = 12
+adventure_level_mult = 0
+category = 0
+allowed_skills = Array[int]([0, 14])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_0pbbs"]
+script = ExtResource("1_s5iuc")
+base_dc = 6
+adventure_level_mult = 0
+category = 1
+allowed_skills = Array[int]([18])
+metadata/_custom_type_script = "uid://didae4gq6in6h"
+
+[sub_resource type="Resource" id="Resource_3hc1h"]
+script = ExtResource("2_0pbbs")
+mode = 1
+check_steps = Array[ExtResource("1_s5iuc")]([SubResource("Resource_s5iuc"), SubResource("Resource_0pbbs")])
+metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[resource]
+script = ExtResource("1_n23su")
+card_id = "DireWolf"
+card_name = "Dire Wolf"
+card_type = 8
+story_bane_type = 7
+card_level = 0
+check_requirement = SubResource("Resource_3hc1h")
+reroll_threshold = 0
+powers = "Cannot be evaded.
+
+Damage is increased by 1d4."
+recovery = ""
+immunities = Array[String]([])
+vulnerabilities = Array[String]([])
+is_loot = false
+traits = Array[String](["Animal"])
