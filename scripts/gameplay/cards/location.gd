@@ -21,18 +21,16 @@ var characters: Array[PlayerCharacter]:
 	get: return _contexts.game_context.get_characters_at(self)
 
 # Dependency injections
-var _contexts: ContextManager
+var _contexts := GameServices.contexts
 
-func _init(location_data: LocationData, _card_logic, game_services: GameServices):
-	_contexts = game_services.contexts
-
+func _init(location_data: LocationData, _card_logic):
 	# Populate ICard members
 	name = location_data.card_name
 	card_type = CardType.LOCATION
 	traits = location_data.traits
 	
 	data = location_data
-	_deck = Deck.new(game_services.card_manager)
+	_deck = Deck.new()
 	
 	for type in CardType:
 		_known_composition[type] = 0

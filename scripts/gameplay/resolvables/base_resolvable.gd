@@ -8,26 +8,38 @@ var _next_processor: BaseProcessor
 
 var cancel_aborts_phase: bool = false
 
+
+func _to_string() -> String:
+	return get_script().get_global_name()
+
+
 func initialize():
 	pass
+
 
 func override_next_processor(next_processor: BaseProcessor):
 	_next_processor = next_processor
 
-func create_processor(_game_services: GameServices) -> BaseProcessor:
+
+func create_processor() -> BaseProcessor:
 	return _next_processor
+
 
 func get_additional_actions_for_card(_card: CardInstance) -> Array[StagedAction]:
 	return []
 
+
 func can_commit(_actions: Array[StagedAction]) -> bool:
 	return true
+
 
 func resolve():
 	pass
 
+
 func on_skip():
 	pass
+
 
 ## The default action button state - Commit/Skip if valid, Cancel if actions are staged
 func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:
@@ -41,6 +53,7 @@ func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:
 	
 	return action_state
 
+
 # =====================================================================================
 # RESOLVABLE-SPECIFIC ACTION STAGING
 #
@@ -50,6 +63,7 @@ func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:
 # =====================================================================================
 func can_stage_action(_action: StagedAction) -> bool:
 	return true
+
 
 func can_stage_type(_type: CardType) -> bool:
 	return true

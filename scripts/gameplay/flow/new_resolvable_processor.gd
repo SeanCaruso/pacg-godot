@@ -3,8 +3,7 @@ extends BaseProcessor
 
 var _next_resolvable: BaseResolvable
 
-func _init(next_resolvable: BaseResolvable, game_services: GameServices):
-	super(game_services)
+func _init(next_resolvable: BaseResolvable):
 	_next_resolvable = next_resolvable
 	
 	

@@ -1,16 +1,14 @@
 class_name BaseProcessor
 extends RefCounted
 
-var _contexts: ContextManager
-var _game_flow: GameFlowManager
-var _game_services: GameServices
+var _contexts := GameServices.contexts
+var _game_flow := GameServices.game_flow
 
-func _init(game_services: GameServices):
-	_contexts = game_services.contexts
-	_game_flow = game_services.game_flow
-	_game_services = game_services
-	
-	
+
+func _to_string() -> String:
+	return get_script().get_global_name()
+
+
 func execute() -> void:
 	# Call custom processor logic.
 	on_execute()

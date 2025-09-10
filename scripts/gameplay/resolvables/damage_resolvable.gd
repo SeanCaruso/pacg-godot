@@ -13,11 +13,9 @@ func override_action_type(action: ActionType) -> void:
 	_default_action_type = action
 
 # Dependency injection
-var _asm: ActionStagingManager
+var _asm := GameServices.asm
 
-func _init(pc: PlayerCharacter, _amount: int, game_services: GameServices, _damage_type: String = "Combat"):
-	_asm = game_services.asm
-	
+func _init(pc: PlayerCharacter, _amount: int, _damage_type: String = "Combat"):	
 	character = pc
 	amount = _amount
 	damage_type = _damage_type

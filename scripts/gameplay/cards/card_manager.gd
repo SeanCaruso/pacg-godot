@@ -5,7 +5,7 @@ const Action       := preload("res://scripts/core/enums/action_type.gd").Action
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
 var _all_cards: Array[CardInstance]
-var _response_registry: ResponseRegistry
+var _response_registry := ResponseRegistry.new()
 
 func new_card(card_data: CardData, owner = null) -> CardInstance:
 	if not card_data:
@@ -29,9 +29,9 @@ func move_card_to(card: CardInstance, new_location: CardLocation):
 	var isActive: bool  = new_location in [CardLocation.HAND, CardLocation.REVEALED, CardLocation.DISPLAYED]
 
 	if isActive and not wasActive:
-		_response_registry.RegisterResponses(card)
+		_response_registry.register_responses(card)
 	if not isActive and wasActive:
-		_response_registry.UnregisterResponses(card)
+		_response_registry.unregister_responses(card)
 
 	var prev_location := card.current_location
 	card.current_location = new_location

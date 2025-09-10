@@ -8,6 +8,11 @@ var current: PhaseQueue:
 # Dependency injection
 var _contexts: ContextManager
 
+
+func _to_string() -> String:
+	return get_script().get_global_name()
+
+
 func initialize(game_services: GameServices):
 	_contexts = game_services.contexts
 

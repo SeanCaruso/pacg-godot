@@ -12,11 +12,9 @@ var count: int:
 var _examined_cards: Dictionary = {} # CardInstance -> bool (HashSet)
 var _known_cards: Dictionary = {}    # CardInstance -> bool (HashSet)
 
-var _card_manager: CardManager
+var _card_manager := GameServices.cards
 
-func _init(card_manager: CardManager):
-	_card_manager = card_manager
-	
+
 func shuffle():
 	_cards.shuffle()
 	for card in _examined_cards:

@@ -17,12 +17,10 @@ var has_skill: bool:
 var on_success: Callable = func(): pass
 var on_failure: Callable = func(): pass
 # Dependency injection
-var _asm: ActionStagingManager
+var _asm := GameServices.asm
 
 
-func _init(_card: ICard, _character: PlayerCharacter, check_requirement: CheckRequirement, game_services: GameServices):
-	_asm = game_services.asm
-
+func _init(_card: ICard, _character: PlayerCharacter, check_requirement: CheckRequirement):
 	card = _card
 	character = _character
 	check_steps = check_requirement.check_steps
@@ -35,8 +33,8 @@ func can_commit(_actions: Array[StagedAction]) -> bool:
 	return true
 
 
-func create_processor(_game_services: GameServices) -> BaseProcessor:
-	return CheckController.new(self, _game_services)
+func create_processor() -> BaseProcessor:
+	return CheckController.new(self)
 
 
 func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:

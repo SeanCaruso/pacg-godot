@@ -5,11 +5,7 @@ const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardL
 const EncounterPhase := preload("res://scripts/core/enums/encounter_phase.gd").EncounterPhase
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 
-var _cards: CardManager
-
-func _init(game_services: GameServices):
-	super(game_services)
-	_cards = game_services.cards
+var _cards := GameServices.cards
 
 
 func on_execute() -> void:

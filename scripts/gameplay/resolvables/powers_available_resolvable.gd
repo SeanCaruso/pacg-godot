@@ -5,12 +5,9 @@ var _location_power: LocationPower = null
 var _character_power: CharacterPower = null
 var hide_cancel_button: bool = false
 
-# Dependency injection
-var _contexts: ContextManager
+var _contexts := GameServices.contexts
 
-func _init(location_power: LocationPower, character_power: CharacterPower, game_services: GameServices):
-	_contexts = game_services.contexts
-	
+func _init(location_power: LocationPower, character_power: CharacterPower):
 	_location_power = location_power
 	_character_power = character_power
 	

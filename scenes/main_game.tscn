@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=42 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
@@ -8,6 +8,39 @@
 [ext_resource type="PackedScene" uid="uid://b2ustwy17bah5" path="res://scenes/game_areas/turn_buttons.tscn" id="4_ipu61"]
 [ext_resource type="PackedScene" uid="uid://c0pmjyy1d48yf" path="res://scenes/game_areas/scenario_area.tscn" id="5_ygxny"]
 [ext_resource type="PackedScene" uid="uid://bi3upsqpc3fhh" path="res://scenes/game_areas/action_buttons.tscn" id="6_wi4c7"]
+[ext_resource type="Script" uid="uid://dab1cuops07wt" path="res://scripts/gameplay/test_data.gd" id="9_2l77h"]
+[ext_resource type="Resource" uid="uid://b4l7y8pxnda3a" path="res://_game_data/scenarios/1s_rumble_road.tres" id="10_5cypo"]
+[ext_resource type="Resource" uid="uid://duhf2v1lx10aq" path="res://_game_data/blessings/orison.tres" id="11_o6v7o"]
+[ext_resource type="Resource" uid="uid://bwwns71g3fjrj" path="res://_game_data/characters/valeros.tres" id="12_wdxbp"]
+[ext_resource type="Resource" uid="uid://bysdn00b41poj" path="res://_game_data/allies/horse.tres" id="13_on6n6"]
+[ext_resource type="Resource" uid="uid://dit2a3s3x22se" path="res://_game_data/allies/lookout.tres" id="14_x3ega"]
+[ext_resource type="Resource" uid="uid://bk0kl7xt7cc25" path="res://_game_data/allies/soldier.tres" id="15_dcudo"]
+[ext_resource type="Resource" uid="uid://1v6kd62h3jp7" path="res://_game_data/armor/half_plate.tres" id="16_307no"]
+[ext_resource type="Resource" uid="uid://csgcspa5k7fhg" path="res://_game_data/armor/light_shield.tres" id="17_rr87q"]
+[ext_resource type="Resource" uid="uid://87k17wlncc4b" path="res://_game_data/blessings/prayer.tres" id="18_dp0eu"]
+[ext_resource type="Resource" uid="uid://c2s4e7kb8cvn0" path="res://_game_data/items/crowbar.tres" id="19_urnot"]
+[ext_resource type="Resource" uid="uid://gneleht7jru7" path="res://_game_data/items/spyglass.tres" id="20_4e2rb"]
+[ext_resource type="Resource" uid="uid://bhisihb4h8602" path="res://_game_data/weapons/longbow.tres" id="21_6vdpn"]
+[ext_resource type="Resource" uid="uid://xfv7r33b05og" path="res://_game_data/weapons/longspear.tres" id="22_jmxl0"]
+[ext_resource type="Resource" uid="uid://drfmxwsxkqh4s" path="res://_game_data/weapons/longsword.tres" id="23_sgdes"]
+[ext_resource type="Resource" uid="uid://dt04qh5b7p2pk" path="res://_game_data/weapons/throwing_axe.tres" id="24_ibep1"]
+[ext_resource type="Resource" uid="uid://bchfr8n6xgti3" path="res://_game_data/armor/helm.tres" id="25_q875d"]
+[ext_resource type="Resource" uid="uid://cfjqom5km4pyi" path="res://_game_data/characters/ezren.tres" id="26_g2o8j"]
+[ext_resource type="Resource" uid="uid://cg6nkiwyqyqln" path="res://_game_data/allies/frog.tres" id="27_oojmo"]
+[ext_resource type="Resource" uid="uid://cbkbjb0n2cyqj" path="res://_game_data/allies/sage.tres" id="28_5noht"]
+[ext_resource type="Resource" uid="uid://xi0jwliqgq51" path="res://_game_data/allies/cat.tres" id="29_4v0b0"]
+[ext_resource type="Resource" uid="uid://c4pmivk44evn1" path="res://_game_data/items/bracers_of_protection.tres" id="30_mkn3m"]
+[ext_resource type="Resource" uid="uid://dbxcutixuf5er" path="res://_game_data/items/codex.tres" id="31_wpxwh"]
+[ext_resource type="Resource" uid="uid://v44me8wv3vnv" path="res://_game_data/items/sages_journal.tres" id="32_jk70c"]
+[ext_resource type="Resource" uid="uid://dbdnwi2iano0h" path="res://_game_data/items/token_of_remembrance.tres" id="33_t42xu"]
+[ext_resource type="Resource" uid="uid://dmembixuvmy7t" path="res://_game_data/spells/deflect.tres" id="34_34vfp"]
+[ext_resource type="Resource" uid="uid://6pa2gjm10jht" path="res://_game_data/spells/detect_magic.tres" id="35_cp8wt"]
+[ext_resource type="Resource" uid="uid://y5exhohmkt4r" path="res://_game_data/spells/force_missile.tres" id="36_1w5q7"]
+[ext_resource type="Resource" uid="uid://dw4tmndjwv5yn" path="res://_game_data/spells/frostbite.tres" id="37_ssxou"]
+[ext_resource type="Resource" uid="uid://tx27kr88seau" path="res://_game_data/spells/lightning_touch.tres" id="38_jm67w"]
+[ext_resource type="Resource" uid="uid://byprk01fa7g26" path="res://_game_data/spells/magic_eye.tres" id="39_trxsc"]
+[ext_resource type="Resource" uid="uid://cnji25sa517mb" path="res://_game_data/spells/sleep.tres" id="40_cg2cl"]
+[ext_resource type="Resource" uid="uid://ctv257oa6m68o" path="res://_game_data/weapons/quarterstaff.tres" id="41_meg3e"]
 
 [node name="MainGame" type="Control"]
 layout_mode = 3
@@ -88,6 +121,7 @@ offset_bottom = 90.0
 grow_horizontal = 0
 
 [node name="ScenarioArea" parent="UI" instance=ExtResource("5_ygxny")]
+unique_name_in_owner = true
 offset_left = -370.0
 offset_top = 100.0
 offset_right = -10.0
@@ -97,3 +131,14 @@ offset_bottom = 431.0
 
 [node name="CardPreview" parent="UI" instance=ExtResource("3_d2op2")]
 unique_name_in_owner = true
+
+[node name="TestData" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_2l77h")
+scenario_data = ExtResource("10_5cypo")
+hour_card_data = ExtResource("11_o6v7o")
+test_characters = {
+ExtResource("12_wdxbp"): [ExtResource("13_on6n6"), ExtResource("14_x3ega"), ExtResource("15_dcudo"), ExtResource("16_307no"), ExtResource("17_rr87q"), ExtResource("11_o6v7o"), ExtResource("11_o6v7o"), ExtResource("18_dp0eu"), ExtResource("19_urnot"), ExtResource("20_4e2rb"), ExtResource("21_6vdpn"), ExtResource("22_jmxl0"), ExtResource("23_sgdes"), ExtResource("24_ibep1"), ExtResource("25_q875d")],
+ExtResource("26_g2o8j"): [ExtResource("27_oojmo"), ExtResource("28_5noht"), ExtResource("29_4v0b0"), ExtResource("30_mkn3m"), ExtResource("31_wpxwh"), ExtResource("32_jk70c"), ExtResource("33_t42xu"), ExtResource("34_34vfp"), ExtResource("35_cp8wt"), ExtResource("36_1w5q7"), ExtResource("37_ssxou"), ExtResource("38_jm67w"), ExtResource("39_trxsc"), ExtResource("40_cg2cl"), ExtResource("41_meg3e")]
+}
+characters_to_use = Array[String](["Valeros", "Ezren"])

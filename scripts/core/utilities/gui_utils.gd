@@ -8,8 +8,11 @@ static func set_panel_color(panel: PanelContainer, color: Color):
 	
 	if not stylebox or not stylebox is StyleBoxFlat:
 		stylebox = StyleBoxFlat.new()
-		panel.add_theme_stylebox_override("panel", stylebox)
+	else:
+		# Create a duplicate to avoid modifying shared resources
+		stylebox = stylebox.duplicate()
 	
+	panel.add_theme_stylebox_override("panel", stylebox)
 	(stylebox as StyleBoxFlat).bg_color = color
 
 
@@ -27,7 +30,7 @@ static func get_color_for_card_type(card_type: CardType) -> Color:
 		CardType.SPELL:
 			return Color.from_rgba8(97, 46, 138)
 		CardType.WEAPON:
-			return Color.from_rgba8(68, 98, 153)
+			return Color.from_rgba8(93, 97, 96)
 
 		# Banes	
 		CardType.BARRIER:

@@ -22,6 +22,6 @@ func on_execute() -> void:
 	
 	GameEvents.set_status_text.emit("Use End-of-Turn Power?")
 	
-	var resolvable := PowersAvailableResolvable.new(location_power, character_power, _game_services)
-	var processor := NewResolvableProcessor.new(resolvable, _game_services)
+	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
+	var processor := NewResolvableProcessor.new(resolvable)
 	_game_flow.start_phase(processor, "End-of-Turn")

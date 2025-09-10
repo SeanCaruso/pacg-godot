@@ -11,8 +11,7 @@ func on_execute() -> void:
 	else:
 		var damage_resolvable = DamageResolvable.new(
 			check.resolvable.character,
-			-check.check_result.margin_of_success,
-			_game_services)
+			-check.check_result.margin_of_success)
 		_contexts.new_resolvable(damage_resolvable)
 		print("Rolled %d vs. %d - Take %d damage!" %
 			[check.check_result.final_roll_total, check.check_result.dc, damage_resolvable.amount])

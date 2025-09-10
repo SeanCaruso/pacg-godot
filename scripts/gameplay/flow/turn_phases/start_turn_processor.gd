@@ -16,7 +16,7 @@ func on_execute() -> void:
 	
 	#TODO: Allow the user to pick the order of start-of-turn actions
 	if pc.active_scourges.has(Scourge.WOUNDED):
-		ScourgeRules.handle_wounded_deck_discard(pc, _game_services)
+		ScourgeRules.handle_wounded_deck_discard(pc)
 		
 	# Set initial availability of turn actions.
 	_contexts.turn_context.can_give = pc.local_characters.size() > 1 and !pc.hand.is_empty()
@@ -24,7 +24,7 @@ func on_execute() -> void:
 	_contexts.turn_context.can_freely_explore = pc.location.count > 0 if pc.location else false
 	_contexts.turn_context.can_close_location = pc.location.count == 0 if pc.location else false
 	
-	if _contexts.game_context.scenario_logic.has_available_actions:
+	if false: #_contexts.game_context.scenario_logic.has_available_actions:
 		_contexts.turn_context.has_scenario_turn_action = true
 		_contexts.turn_context.can_use_scenario_turn_action = true
 		
@@ -34,7 +34,7 @@ func on_execute() -> void:
 		_contexts.turn_context.can_move = false
 		
 	if pc.active_scourges.has(Scourge.EXHAUSTED):
-		ScourgeRules.prompt_for_exhausted_removal(pc, _game_services)
+		ScourgeRules.prompt_for_exhausted_removal(pc)
 		
 	GameEvents.turn_state_changed.emit()
 	
@@ -62,9 +62,9 @@ func handled_start_of_turn_powers() -> bool:
 	
 	GameEvents.set_status_text.emit("Use Start-of-Turn power?")
 	
-	var resolvable := PowersAvailableResolvable.new(location_power, character_power, _game_services)
+	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
 	resolvable.hide_cancel_button = true
-	var processor := NewResolvableProcessor.new(resolvable, _game_services)
+	var processor := NewResolvableProcessor.new(resolvable)
 	_game_flow.start_phase(processor, "Start-of-Turn")
 	
 	return true

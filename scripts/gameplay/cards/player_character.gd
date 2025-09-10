@@ -46,25 +46,20 @@ func remove_scourge(scourge: Scourge) -> void:
 	_active_scourges.erase(scourge)
 
 # Dependency injection
-var _card_manager: CardManager
-var _contexts: ContextManager
-var _game_services: GameServices
+var _card_manager := GameServices.cards
+var _contexts := GameServices.contexts
 
 
-func _init(character_data: CharacterData, _logic: CharacterLogicBase, game_services: GameServices):
+func _init(character_data: CharacterData, _logic: CharacterLogicBase):
 	data = character_data
 
 	# Populate ICard members
-	name = character_data.card_name
+	name = character_data.character_name
 	card_type = CardType.CHARACTER
 	traits = character_data.traits
 
 	logic = _logic
-	deck = Deck.new(game_services.cards)
-
-	_card_manager = game_services.cards
-	_contexts = game_services.contexts
-	_game_services = game_services
+	deck = Deck.new()
 
 	for attr in character_data.attributes:
 		_skills[attr.attribute] = { "die": attr.die, "bonus": attr.bonus }
@@ -181,7 +176,7 @@ func draw_to_hand_size() -> void:
 func heal(amount: int, source: CardInstance = null):
 	# If we're wounded, prompt to remove the scourge. Return without healing if removed.
 	if (active_scourges.has(Scourge.WOUNDED)):
-		ScourgeRules.prompt_for_wounded_removal(self, _game_services)
+		ScourgeRules.prompt_for_wounded_removal(self)
 		if !active_scourges.has(Scourge.WOUNDED):
 			return
 		
@@ -239,6 +234,6 @@ var distant_characters: Array[PlayerCharacter]:
 
 # Facade pattern for CharacterLogic
 var start_of_turn_power: CharacterPower:
-	get: return logic.get_start_of_turn_power(self)
+	get: return null #logic.get_start_of_turn_power(self)
 var end_of_turn_power: CharacterPower:
-	get: return logic.get_end_of_turn_power(self)
+	get: return null #logic.get_end_of_turn_power(self)

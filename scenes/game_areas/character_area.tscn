@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceqg655f53sto"]
+[gd_scene load_steps=6 format=3 uid="uid://ceqg655f53sto"]
 
+[ext_resource type="Script" uid="uid://b33lcq8hbhmss" path="res://scenes/game_areas/character_area.gd" id="1_jt53b"]
 [ext_resource type="Texture2D" uid="uid://dvm2alqwilo71" path="res://assets/textures/card_back.png" id="1_vdi2b"]
 [ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="2_ujluk"]
 
@@ -31,6 +32,7 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
+script = ExtResource("1_jt53b")
 
 [node name="PlayerDeck" type="TextureRect" parent="."]
 unique_name_in_owner = true

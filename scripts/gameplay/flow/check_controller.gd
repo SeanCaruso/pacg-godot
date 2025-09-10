@@ -3,6 +3,5 @@ extends BaseProcessor
 
 var _resolvable: CheckResolvable
 
-func _init(resolvable: CheckResolvable, game_services: GameServices):
-	super(game_services)
+func _init(resolvable: CheckResolvable):
 	_resolvable = resolvable
