@@ -27,3 +27,6 @@ const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 # Traits
 @export var is_loot: bool = false
 @export var traits: Array[String] = []
+
+# Logic Script
+@export var logic: CardLogicBase

@@ -12,8 +12,7 @@ func new_card(card_data: CardData, owner = null) -> CardInstance:
 		print("Can't create card from null CardData!")
 		return null
 
-	# var card_logic = _logic.get_logic(card_data.card_id) when ready
-	var new_instance = CardInstance.new(card_data, null, owner)
+	var new_instance = CardInstance.new(card_data, owner)
 	_all_cards.append(new_instance)
 	return new_instance
 

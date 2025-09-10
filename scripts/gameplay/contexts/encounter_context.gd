@@ -8,7 +8,7 @@ var current_phase: EncounterPhase = EncounterPhase.ON_ENCOUNTER
 var character: PlayerCharacter
 var card: CardInstance
 
-var prohibited_traits: Dictionary = {} # PlayerCharacter -> Array[String]
+var _prohibited_traits: Dictionary = {} # PlayerCharacter -> Array[String]
 var explore_effects: Array[BaseExploreEffect] = []
 
 var check_result: CheckResult
@@ -22,13 +22,21 @@ var resolvable_modifiers: Array[Callable] = []
 var card_data: CardData:
 	get: return card.data
 
+
 func _init(pc: PlayerCharacter, encountered_card: CardInstance):
 	character = pc
 	card = encountered_card
 
+
 func has_trait(traits: Array[String]) -> bool:
 	return traits.any(func(card_trait: String): card_data.traits.has(card_trait))
 
+
 func add_prohibited_traits(pc: PlayerCharacter, traits: Array[String]):
-	prohibited_traits.get_or_add(pc, [])
-	prohibited_traits[pc].append_array(traits)
+	_prohibited_traits.get_or_add(pc, [])
+	_prohibited_traits[pc].append_array(traits)
+
+
+func get_prohibited_traits(pc: PlayerCharacter) -> Array[String]:
+	if not _prohibited_traits.has(pc): return []
+	return _prohibited_traits[pc]

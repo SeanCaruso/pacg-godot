@@ -80,7 +80,7 @@ func set_active() -> void:
 # ==============================================================================
 # SKILLS AND ATTRIBUTES
 # ==============================================================================
-func is_proficient(card: CardData) -> bool:
+func is_proficient(card: CardInstance) -> bool:
 	for proficiency in data.proficiencies:
 		var type_matches  := proficiency.card_type == card.card_type or proficiency.card_type == CardType.NONE
 		var trait_matches := card.traits.has(proficiency.card_trait) or proficiency.card_trait.is_empty()

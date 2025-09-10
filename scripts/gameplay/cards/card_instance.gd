@@ -20,7 +20,7 @@ var is_boon: bool:
 var is_story_bane: bool:
 	get: return data.card_type == CardTypes.CardType.STORY_BANE
 
-func _init(card_data: CardData, _card_logic = null, _card_owner = null):
+func _init(card_data: CardData, _card_owner = null):
 	data = card_data
 	
 	# Populate ICard members
@@ -30,7 +30,7 @@ func _init(card_data: CardData, _card_logic = null, _card_owner = null):
 	
 	instance_id = ResourceUID.create_id()
 	current_location = CardLocation.VAULT
-	logic = _card_logic
+	logic = card_data.logic
 	owner = _card_owner
 
 func _to_string() -> String:
