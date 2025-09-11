@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://87k17wlncc4b"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://87k17wlncc4b"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_vi6hr"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_vi6hr"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_2eu32"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_18mkj"]
+[ext_resource type="Script" uid="uid://bis84gfg65cew" path="res://scripts/gameplay/logic/blessings/prayer_logic.gd" id="3_2eu32"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_18mkj"]
 
 [sub_resource type="Resource" id="Resource_6l625"]
 script = ExtResource("1_vi6hr")
@@ -17,6 +18,10 @@ script = ExtResource("2_2eu32")
 mode = 0
 check_steps = Array[ExtResource("1_vi6hr")]([SubResource("Resource_6l625")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_18mkj"]
+script = ExtResource("3_2eu32")
+metadata/_custom_type_script = "uid://bis84gfg65cew"
 
 [resource]
 script = ExtResource("3_18mkj")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Divine"])
+logic = SubResource("Resource_18mkj")

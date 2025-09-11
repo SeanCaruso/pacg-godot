@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="LocationData" load_steps=8 format=3 uid="uid://bnkg2ukquj3n5"]
+[gd_resource type="Resource" script_class="LocationData" load_steps=10 format=3 uid="uid://bnkg2ukquj3n5"]
 
 [ext_resource type="Script" uid="uid://bfse33mcxvrsx" path="res://scripts/data/location_power.gd" id="1_vey81"]
 [ext_resource type="Texture2D" uid="uid://dmpptvffg2u1" path="res://assets/textures/move_button_disabled.png" id="2_vey81"]
 [ext_resource type="Texture2D" uid="uid://cvc6djtwd84ps" path="res://assets/textures/move_button.png" id="3_kpdq2"]
+[ext_resource type="Script" uid="uid://chqknp275pj3s" path="res://scripts/gameplay/logic/locations/caravan_logic.gd" id="4_kpdq2"]
 [ext_resource type="Script" uid="uid://cnouj1m0t8066" path="res://scripts/data/location_data.gd" id="4_mon6i"]
 
 [sub_resource type="Resource" id="Resource_32tc8"]
@@ -14,6 +15,10 @@ sprite_enabled = ExtResource("3_kpdq2")
 sprite_disabled = ExtResource("2_vey81")
 text = "At the start of your turn, each local character may move."
 metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[sub_resource type="Resource" id="Resource_qktg1"]
+script = ExtResource("4_kpdq2")
+metadata/_custom_type_script = "uid://chqknp275pj3s"
 
 [sub_resource type="Resource" id="Resource_nyusg"]
 script = ExtResource("1_vey81")
@@ -48,4 +53,5 @@ num_items = 1
 num_allies = 2
 num_blessings = 0
 traits = Array[String](["Urban"])
+logic = SubResource("Resource_qktg1")
 metadata/_custom_type_script = "uid://cnouj1m0t8066"

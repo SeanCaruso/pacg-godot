@@ -25,6 +25,9 @@ extends Resource
 @export var blessings: int
 @export var favored_cards: Array[Proficiency]
 
+@export_category("Logic")
+@export var logic: CharacterLogicBase
+
 @export_category("Images")
 @export var icon_enabled: Texture2D
 @export var icon_disabled: Texture2D

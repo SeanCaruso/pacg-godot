@@ -20,7 +20,7 @@ func on_execute() -> void:
 		
 		var close_choice_resolvable = PlayerChoiceResolvable.new("Close location?", [
 			ChoiceOption.new("Close", func():
-				var close_resolvable := pc.location.get_to_close_resolvable()
+				var close_resolvable: BaseResolvable = pc.location.get_to_close_resolvable()
 				var close_processor := NewResolvableProcessor.new(close_resolvable)
 				_game_flow.interrupt(close_processor)),
 			ChoiceOption.new("Skip", func(): pass)

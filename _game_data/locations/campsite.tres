@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="LocationData" load_steps=8 format=3 uid="uid://cgc5uw2fthbm8"]
+[gd_resource type="Resource" script_class="LocationData" load_steps=10 format=3 uid="uid://cgc5uw2fthbm8"]
 
 [ext_resource type="Script" uid="uid://cnouj1m0t8066" path="res://scripts/data/location_data.gd" id="1_ab6n1"]
 [ext_resource type="Script" uid="uid://bfse33mcxvrsx" path="res://scripts/data/location_power.gd" id="1_p727o"]
 [ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="2_nyusg"]
 [ext_resource type="Texture2D" uid="uid://ceyp086gks2uk" path="res://assets/textures/end_turn_button.png" id="3_s7ksu"]
+[ext_resource type="Script" uid="uid://fnvfs7chck47" path="res://scripts/gameplay/logic/locations/campsite_logic.gd" id="4_s7ksu"]
 
 [sub_resource type="Resource" id="Resource_32tc8"]
 script = ExtResource("1_p727o")
@@ -14,6 +15,10 @@ sprite_enabled = ExtResource("3_s7ksu")
 sprite_disabled = ExtResource("2_nyusg")
 text = "At the end of your turn, you may heal a card."
 metadata/_custom_type_script = "uid://bfse33mcxvrsx"
+
+[sub_resource type="Resource" id="Resource_w7hoe"]
+script = ExtResource("4_s7ksu")
+metadata/_custom_type_script = "uid://fnvfs7chck47"
 
 [sub_resource type="Resource" id="Resource_nyusg"]
 script = ExtResource("1_p727o")
@@ -48,4 +53,5 @@ num_items = 1
 num_allies = 2
 num_blessings = 0
 traits = Array[String](["Wild"])
+logic = SubResource("Resource_w7hoe")
 metadata/_custom_type_script = "uid://cnouj1m0t8066"

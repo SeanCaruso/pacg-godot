@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://dbdnwi2iano0h"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://dbdnwi2iano0h"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_0rdq2"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_0rdq2"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_vp2yb"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_kogri"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_kogri"]
+[ext_resource type="Script" uid="uid://jax2682rux2m" path="res://scripts/gameplay/logic/items/token_of_remembrance_logic.gd" id="3_vp2yb"]
 
 [sub_resource type="Resource" id="Resource_qa4j5"]
 script = ExtResource("1_0rdq2")
@@ -17,6 +18,10 @@ script = ExtResource("2_vp2yb")
 mode = 0
 check_steps = Array[ExtResource("1_0rdq2")]([SubResource("Resource_qa4j5")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_kogri"]
+script = ExtResource("3_vp2yb")
+metadata/_custom_type_script = "uid://jax2682rux2m"
 
 [resource]
 script = ExtResource("3_kogri")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Object", "Magic", "Arcane", "Divine"])
+logic = SubResource("Resource_kogri")

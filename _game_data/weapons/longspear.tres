@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://xfv7r33b05og"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://xfv7r33b05og"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_u55wn"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_u55wn"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_7hj3m"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_g10ym"]
+[ext_resource type="Script" uid="uid://bwd1k25tao6fy" path="res://scripts/gameplay/logic/weapons/longspear_logic.gd" id="3_7hj3m"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_g10ym"]
 
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_u55wn")
@@ -17,6 +18,10 @@ script = ExtResource("2_7hj3m")
 mode = 0
 check_steps = Array[ExtResource("1_u55wn")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_g10ym"]
+script = ExtResource("3_7hj3m")
+metadata/_custom_type_script = "uid://bwd1k25tao6fy"
 
 [resource]
 script = ExtResource("3_g10ym")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Spear", "Melee", "Piercing", "2-Handed"])
+logic = SubResource("Resource_g10ym")

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://byprk01fa7g26"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://byprk01fa7g26"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_ilh20"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_ilh20"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_u21o2"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_ck7ub"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_ck7ub"]
+[ext_resource type="Script" uid="uid://c0rnpoxj15cag" path="res://scripts/gameplay/logic/spells/magic_eye_logic.gd" id="3_u21o2"]
 
 [sub_resource type="Resource" id="Resource_r12bf"]
 script = ExtResource("1_ilh20")
@@ -17,6 +18,10 @@ script = ExtResource("2_u21o2")
 mode = 0
 check_steps = Array[ExtResource("1_ilh20")]([SubResource("Resource_r12bf")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_ck7ub"]
+script = ExtResource("3_u21o2")
+metadata/_custom_type_script = "uid://c0rnpoxj15cag"
 
 [resource]
 script = ExtResource("3_ck7ub")
@@ -33,3 +38,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Magic", "Arcane", "Divine"])
+logic = SubResource("Resource_ck7ub")

@@ -1,8 +1,6 @@
 class_name CatLogic
 extends CardLogicBase
 
-const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
-
 
 func on_commit(action: StagedAction) -> void:
 	if action.action_type != Action.DISCARD:

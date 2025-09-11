@@ -25,3 +25,6 @@ extends Resource
 
 @export_category("Traits")
 @export var traits: Array[String]
+
+@export_category("Location Logic")
+@export var logic: LocationLogicBase

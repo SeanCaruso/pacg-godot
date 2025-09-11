@@ -6,7 +6,7 @@ const CardTypes = preload("res://scripts/core/enums/card_type.gd")
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 
 var data: LocationData
-# var logic: CardLogicBase
+var logic: LocationLogicBase
 
 var _deck: Deck
 var count: int:
@@ -28,13 +28,13 @@ func _init(location_data: LocationData, _card_logic):
 	name = location_data.card_name
 	card_type = CardType.LOCATION
 	traits = location_data.traits
+	logic = location_data.logic
 	
 	data = location_data
 	_deck = Deck.new()
 	
 	for type in CardType:
 		_known_composition[type] = 0
-# logic = card_logic
 
 func _to_string() -> String: return name
 
@@ -70,6 +70,11 @@ func close():
 ################################################################################
 # Facade Pattern for LocationLogic
 ################################################################################
-func get_start_of_turn_power() -> LocationPower: return null
-func get_end_of_turn_power() -> LocationPower: return null
-func get_to_close_resolvable() -> LocationPower: return null
+var start_of_turn_power: LocationPower:
+	get: return logic.get_start_of_turn_power(self) if logic else null
+var end_of_turn_power: LocationPower:
+	get: return logic.get_end_of_turn_power(self) if logic else null
+var to_close_resolvable: BaseResolvable:
+	get: return logic.get_to_close_resolvable() if logic else null
+var when_closed_resolvable: BaseResolvable:
+	get: return logic.get_when_closed_resolvable() if logic else null

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://bchfr8n6xgti3"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://bchfr8n6xgti3"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_slkt2"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_slkt2"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_isgbp"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_hnben"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_hnben"]
+[ext_resource type="Script" uid="uid://c3t6eeebi32cv" path="res://scripts/gameplay/logic/armor/helm_logic.gd" id="3_isgbp"]
 
 [sub_resource type="Resource" id="Resource_i8suc"]
 script = ExtResource("1_slkt2")
@@ -17,6 +18,10 @@ script = ExtResource("2_isgbp")
 mode = 0
 check_steps = Array[ExtResource("1_slkt2")]([SubResource("Resource_i8suc")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_hnben"]
+script = ExtResource("3_isgbp")
+metadata/_custom_type_script = "uid://c3t6eeebi32cv"
 
 [resource]
 script = ExtResource("3_hnben")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Heavy Armor", "Helm"])
+logic = SubResource("Resource_hnben")

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://b4l5uclvk3e0c"]
+[gd_resource type="Resource" script_class="CardData" load_steps=9 format=3 uid="uid://b4l5uclvk3e0c"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_ghgeb"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_ysbxd"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_ghgeb"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="1_ysbxd"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_a2lwr"]
+[ext_resource type="Script" uid="uid://1at1xmj16sjj" path="res://scripts/gameplay/logic/barriers/drowning_mud_logic.gd" id="3_a2lwr"]
 
 [sub_resource type="Resource" id="Resource_ghgeb"]
 script = ExtResource("1_ghgeb")
@@ -26,6 +27,10 @@ mode = 1
 check_steps = Array[ExtResource("1_ghgeb")]([SubResource("Resource_ghgeb"), SubResource("Resource_a2lwr")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
+[sub_resource type="Resource" id="Resource_jgn0y"]
+script = ExtResource("3_a2lwr")
+metadata/_custom_type_script = "uid://1at1xmj16sjj"
+
 [resource]
 script = ExtResource("1_ysbxd")
 card_id = "DrowningMud"
@@ -41,3 +46,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Obstacle"])
+logic = SubResource("Resource_jgn0y")

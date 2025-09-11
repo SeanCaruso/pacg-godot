@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://cgk4hqdukxb50"]
+[gd_resource type="Resource" script_class="CardData" load_steps=9 format=3 uid="uid://cgk4hqdukxb50"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_b7eyb"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_movbx"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_b7eyb"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="1_movbx"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_0mh1k"]
+[ext_resource type="Script" uid="uid://bestus87fjd40" path="res://scripts/gameplay/logic/monsters/dire_badger_logic.gd" id="3_0mh1k"]
 
 [sub_resource type="Resource" id="Resource_b7eyb"]
 script = ExtResource("1_b7eyb")
@@ -26,6 +27,10 @@ mode = 1
 check_steps = Array[ExtResource("1_b7eyb")]([SubResource("Resource_b7eyb"), SubResource("Resource_0mh1k")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
+[sub_resource type="Resource" id="Resource_oiiwj"]
+script = ExtResource("3_0mh1k")
+metadata/_custom_type_script = "uid://bestus87fjd40"
+
 [resource]
 script = ExtResource("1_movbx")
 card_id = "DireBadger"
@@ -43,3 +48,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Animal"])
+logic = SubResource("Resource_oiiwj")

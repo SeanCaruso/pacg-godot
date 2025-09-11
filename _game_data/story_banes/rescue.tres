@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://cdmb6fn3odg28"]
+[gd_resource type="Resource" script_class="CardData" load_steps=9 format=3 uid="uid://cdmb6fn3odg28"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_jgv1t"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_jgv1t"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_nymk0"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_1qmds"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_1qmds"]
+[ext_resource type="Script" uid="uid://dyhqe10odd6oq" path="res://scripts/gameplay/logic/story_banes/rescue_logic.gd" id="3_nymk0"]
 
 [sub_resource type="Resource" id="Resource_s5iuc"]
 script = ExtResource("1_jgv1t")
@@ -26,6 +27,10 @@ mode = 1
 check_steps = Array[ExtResource("1_jgv1t")]([SubResource("Resource_s5iuc"), SubResource("Resource_0pbbs")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
+[sub_resource type="Resource" id="Resource_1qmds"]
+script = ExtResource("3_nymk0")
+metadata/_custom_type_script = "uid://dyhqe10odd6oq"
+
 [resource]
 script = ExtResource("3_1qmds")
 card_id = "Rescue"
@@ -43,3 +48,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Task", "Veteran"])
+logic = SubResource("Resource_1qmds")

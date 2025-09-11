@@ -1,4 +1,4 @@
 class_name ScenarioLogicBase
-extends RefCounted
+extends Resource
 
 var has_available_actions: bool = false

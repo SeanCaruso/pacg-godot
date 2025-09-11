@@ -24,3 +24,6 @@ extends Resource
 
 @export_category("Reward")
 @export var reward: String
+
+@export_category("Logic")
+@export var logic: ScenarioLogicBase

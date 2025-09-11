@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=7 format=3 uid="uid://brpghxda38gyh"]
+[gd_resource type="Resource" script_class="CardData" load_steps=9 format=3 uid="uid://brpghxda38gyh"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="1_n23su"]
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_s5iuc"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="1_n23su"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_s5iuc"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_0pbbs"]
+[ext_resource type="Script" uid="uid://sm4fxd6dxrnq" path="res://scripts/gameplay/logic/story_banes/dire_wolf_logic.gd" id="3_0pbbs"]
 
 [sub_resource type="Resource" id="Resource_s5iuc"]
 script = ExtResource("1_s5iuc")
@@ -26,6 +27,10 @@ mode = 1
 check_steps = Array[ExtResource("1_s5iuc")]([SubResource("Resource_s5iuc"), SubResource("Resource_0pbbs")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
+[sub_resource type="Resource" id="Resource_3ic1l"]
+script = ExtResource("3_0pbbs")
+metadata/_custom_type_script = "uid://sm4fxd6dxrnq"
+
 [resource]
 script = ExtResource("1_n23su")
 card_id = "DireWolf"
@@ -43,3 +48,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Animal"])
+logic = SubResource("Resource_3ic1l")

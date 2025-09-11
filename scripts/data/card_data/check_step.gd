@@ -2,7 +2,7 @@
 class_name CheckStep
 extends Resource
 
-const Skill = preload("res://scripts/core/enums/Skill.gd").Skill
+const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 enum CheckCategory {
 	COMBAT,

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cnji25sa517mb"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://cnji25sa517mb"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_pjyl7"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_pjyl7"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_qtifn"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_gk656"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_gk656"]
+[ext_resource type="Script" uid="uid://dby6pa4s5umlp" path="res://scripts/gameplay/logic/spells/sleep_logic.gd" id="3_qtifn"]
 
 [sub_resource type="Resource" id="Resource_r12bf"]
 script = ExtResource("1_pjyl7")
@@ -17,6 +18,10 @@ script = ExtResource("2_qtifn")
 mode = 0
 check_steps = Array[ExtResource("1_pjyl7")]([SubResource("Resource_r12bf")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_gk656"]
+script = ExtResource("3_qtifn")
+metadata/_custom_type_script = "uid://dby6pa4s5umlp"
 
 [resource]
 script = ExtResource("3_gk656")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Magic", "Arcane", "Attack", "Mental"])
+logic = SubResource("Resource_gk656")

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://bhisihb4h8602"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://bhisihb4h8602"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_q3chd"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_q3chd"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_7ajxs"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_vec15"]
+[ext_resource type="Script" uid="uid://dkccajtfvh0oh" path="res://scripts/gameplay/logic/weapons/longbow_logic.gd" id="3_7ajxs"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_vec15"]
 
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_q3chd")
@@ -17,6 +18,10 @@ script = ExtResource("2_7ajxs")
 mode = 0
 check_steps = Array[ExtResource("1_q3chd")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_vec15"]
+script = ExtResource("3_7ajxs")
+metadata/_custom_type_script = "uid://dkccajtfvh0oh"
 
 [resource]
 script = ExtResource("3_vec15")
@@ -37,3 +42,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Bow", "Ranged", "Piercing", "2-Handed"])
+logic = SubResource("Resource_vec15")

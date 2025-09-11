@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=28 format=3 uid="uid://cfjqom5km4pyi"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=30 format=3 uid="uid://cfjqom5km4pyi"]
 
 [ext_resource type="Script" uid="uid://cshfrnvcq5w30" path="res://scripts/data/character_data/attribute_skill.gd" id="1_7fin5"]
 [ext_resource type="Script" path="res://scripts/data/character_data/proficiency.gd" id="2_7xhdt"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cnjdvhc35v3i7" path="res://assets/textures/CharacterPortraits/ezren_enabled.png" id="4_f6r3b"]
 [ext_resource type="Texture2D" uid="uid://b4v5r6fy5r6or" path="res://assets/textures/CharacterPowers/spellbook_button_disabled.png" id="4_l2efr"]
 [ext_resource type="Texture2D" uid="uid://b0gcn7h52c53x" path="res://assets/textures/CharacterPowers/spellbook_button.png" id="5_1swr2"]
+[ext_resource type="Script" uid="uid://dmqyvkl6p4eej" path="res://scripts/gameplay/logic/characters/ezren/ezren_logic.gd" id="5_f6r3b"]
 [ext_resource type="Script" uid="uid://daqd2b7gsg5hq" path="res://scripts/data/character_data/pc_skill.gd" id="5_nbdix"]
 [ext_resource type="Texture2D" uid="uid://d1kl4feeqw8d2" path="res://assets/textures/CharacterPowers/scry_button_disabled.png" id="6_nbdix"]
 [ext_resource type="Texture2D" uid="uid://btnv2ggnq0yem" path="res://assets/textures/CharacterPowers/scry_button.png" id="7_dqylw"]
@@ -61,6 +62,10 @@ script = ExtResource("2_7xhdt")
 card_type = 4
 card_trait = ""
 metadata/_custom_type_script = "uid://bqnv1l82iq12q"
+
+[sub_resource type="Resource" id="Resource_e1tk1"]
+script = ExtResource("5_f6r3b")
+metadata/_custom_type_script = "uid://dmqyvkl6p4eej"
 
 [sub_resource type="Resource" id="Resource_jb6vi"]
 script = ExtResource("3_l2efr")
@@ -127,11 +132,12 @@ traits = Array[String](["Human", "Wizard"])
 powers = Array[ExtResource("3_l2efr")]([SubResource("Resource_jb6vi"), SubResource("Resource_1nwpe"), SubResource("Resource_5h2g5")])
 weapons = 1
 spells = 7
-armor = 0
+armor = null
 items = 4
 allies = 3
-blessings = 0
+blessings = null
 favored_cards = Array[ExtResource("2_7xhdt")]([SubResource("Resource_4q10h")])
+logic = SubResource("Resource_e1tk1")
 icon_enabled = ExtResource("4_f6r3b")
 icon_disabled = ExtResource("3_fm5gv")
 metadata/_custom_type_script = "uid://suhg2vcu53n7"

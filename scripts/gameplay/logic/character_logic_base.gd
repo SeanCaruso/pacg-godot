@@ -1,5 +1,5 @@
 class_name CharacterLogicBase
-extends RefCounted
+extends Resource
 
 func get_start_of_turn_power(_pc: PlayerCharacter) -> CharacterPower:
 	return null

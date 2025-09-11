@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://xyhegnhxpjjm"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://xyhegnhxpjjm"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_kgpuh"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_kgpuh"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_gkd8k"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_76lrx"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_76lrx"]
+[ext_resource type="Script" uid="uid://b8frtkaxush2t" path="res://scripts/gameplay/logic/monsters/zombie_logic.gd" id="3_gkd8k"]
 
 [sub_resource type="Resource" id="Resource_b7eyb"]
 script = ExtResource("1_kgpuh")
@@ -17,6 +18,10 @@ script = ExtResource("2_gkd8k")
 mode = 0
 check_steps = Array[ExtResource("1_kgpuh")]([SubResource("Resource_b7eyb")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_76lrx"]
+script = ExtResource("3_gkd8k")
+metadata/_custom_type_script = "uid://b8frtkaxush2t"
 
 [resource]
 script = ExtResource("3_76lrx")
@@ -35,3 +40,4 @@ immunities = Array[String](["Mental", "Poison"])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Undead", "Zombie", "Veteran"])
+logic = SubResource("Resource_76lrx")

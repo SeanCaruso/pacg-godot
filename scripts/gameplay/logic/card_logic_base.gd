@@ -3,6 +3,7 @@ extends Resource
 
 const Action := preload("res://scripts/core/enums/action_type.gd").Action
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
+const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const CheckMode := preload("res://scripts/data/card_data/check_requirement.gd").CheckMode
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge

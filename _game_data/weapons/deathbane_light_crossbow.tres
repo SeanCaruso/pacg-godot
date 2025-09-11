@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cw6lown2o250c"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://cw6lown2o250c"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_pbmp3"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_pbmp3"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_c8lvk"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_ua0pv"]
+[ext_resource type="Script" uid="uid://bai2ttilyfqtr" path="res://scripts/gameplay/logic/weapons/deathbane_light_crossbow_logic.gd" id="3_c8lvk"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_ua0pv"]
 
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_pbmp3")
@@ -17,6 +18,10 @@ script = ExtResource("2_c8lvk")
 mode = 0
 check_steps = Array[ExtResource("1_pbmp3")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_ua0pv"]
+script = ExtResource("3_c8lvk")
+metadata/_custom_type_script = "uid://bai2ttilyfqtr"
 
 [resource]
 script = ExtResource("3_ua0pv")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Bow", "Ranged", "Piercing", "Magic"])
+logic = SubResource("Resource_ua0pv")
