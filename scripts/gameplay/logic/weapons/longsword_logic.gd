@@ -1,8 +1,6 @@
 class_name LongswordLogic
 extends CardLogicBase
 
-const Action := preload("res://scripts/core/enums/action_type.gd").Action
-
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	if not _is_card_playable(card): return []

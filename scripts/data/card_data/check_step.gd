@@ -2,7 +2,7 @@
 class_name CheckStep
 extends Resource
 
-const SkillEnum = preload("res://scripts/core/enums/Skill.gd")
+const Skill = preload("res://scripts/core/enums/Skill.gd").Skill
 
 enum CheckCategory {
 	COMBAT,
@@ -16,4 +16,4 @@ enum CheckCategory {
 
 #Check Type
 @export var category: CheckCategory
-@export var allowed_skills: Array[SkillEnum.Skill] = []
+@export var allowed_skills: Array[Skill] = []

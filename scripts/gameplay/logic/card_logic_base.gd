@@ -1,6 +1,7 @@
 class_name CardLogicBase
 extends Resource
 
+const Action := preload("res://scripts/core/enums/action_type.gd").Action
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const CheckMode := preload("res://scripts/data/card_data/check_requirement.gd").CheckMode
@@ -9,6 +10,7 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 var _asm := GameServices.asm
 var _contexts := GameServices.contexts
+var _game_flow := GameServices.game_flow
 
 
 func can_evade() -> bool:

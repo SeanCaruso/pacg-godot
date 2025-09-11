@@ -92,3 +92,13 @@ var turn_pc_location: Location:
 
 var encounter_pc_location: Location:
 	get: return encounter_context.character.location if encounter_context else null
+
+var are_cards_playable: bool:
+	get:
+		return not current_resolvable \
+		and not encounter_context \
+		and GameServices.asm.staged_actions.is_empty()
+
+var is_explore_possible: bool:
+	get:
+		return are_cards_playable and turn_pc_location.count > 0

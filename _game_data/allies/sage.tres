@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://cbkbjb0n2cyqj"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://cbkbjb0n2cyqj"]
 
-[ext_resource type="Script" path="res://scripts/data/card_data/check_step.gd" id="1_v86tl"]
+[ext_resource type="Script" uid="uid://didae4gq6in6h" path="res://scripts/data/card_data/check_step.gd" id="1_v86tl"]
 [ext_resource type="Script" path="res://scripts/data/card_data/check_requirement.gd" id="2_apfbf"]
-[ext_resource type="Script" path="res://scripts/data/card_data/card_data.gd" id="3_t4qb7"]
+[ext_resource type="Script" uid="uid://ojgge3momf1a" path="res://scripts/gameplay/logic/allies/sage_logic.gd" id="3_apfbf"]
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="3_t4qb7"]
 
 [sub_resource type="Resource" id="Resource_dgm6s"]
 script = ExtResource("1_v86tl")
@@ -17,6 +18,10 @@ script = ExtResource("2_apfbf")
 mode = 0
 check_steps = Array[ExtResource("1_v86tl")]([SubResource("Resource_dgm6s")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
+
+[sub_resource type="Resource" id="Resource_t4qb7"]
+script = ExtResource("3_apfbf")
+metadata/_custom_type_script = "uid://ojgge3momf1a"
 
 [resource]
 script = ExtResource("3_t4qb7")
@@ -35,3 +40,4 @@ immunities = Array[String]([])
 vulnerabilities = Array[String]([])
 is_loot = false
 traits = Array[String](["Human", "Arcanist"])
+logic = SubResource("Resource_t4qb7")

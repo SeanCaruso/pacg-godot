@@ -16,5 +16,5 @@ func on_execute() -> void:
 		printerr("[%s] Explored card was null!" % self)
 		return
 	
-	var encounter_processor = EncounterController.new(_contexts.turn_context.character, explored_card, _game_services)
+	var encounter_processor := EncounterController.new(_contexts.turn_context.character, explored_card)
 	_game_flow.start_phase(encounter_processor, "Explore: %s" % explored_card)

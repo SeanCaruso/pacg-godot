@@ -13,11 +13,12 @@ func _init(
 	_card: CardInstance,
 	_action: Action,
 	_check_modifier: CheckModifier,
-	_action_data: Dictionary
+	_action_data: Dictionary = {}
 ) -> void:
 	card  = _card
 	action_type = _action
 	check_modifier = _check_modifier
+	is_freely = _action_data.get("IsFreely", false)
 	
 	for key in _action_data:
 		action_data[key] = _action_data[key]
