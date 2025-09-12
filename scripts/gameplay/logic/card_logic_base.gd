@@ -9,9 +9,12 @@ const CheckMode := preload("res://scripts/data/card_data/check_requirement.gd").
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
-var _asm := GameServices.asm
-var _contexts := GameServices.contexts
-var _game_flow := GameServices.game_flow
+var _asm: ActionStagingManager:
+	get: return GameServices.asm
+var _contexts: ContextManager:
+	get: return GameServices.contexts
+var _game_flow: GameFlowManager:
+	get: return GameServices.game_flow
 
 
 func can_evade() -> bool:

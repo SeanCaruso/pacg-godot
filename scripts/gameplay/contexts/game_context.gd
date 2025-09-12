@@ -15,12 +15,11 @@ var active_character: PlayerCharacter
 
 func _init(
 	_adventure_number: int,
-	_scenario_data: ScenarioData,
-	_scenario_logic: ScenarioLogicBase
+	_scenario_data: ScenarioData
 ):
 	adventure_number = _adventure_number
 	scenario_data = _scenario_data
-	scenario_logic = _scenario_logic
+	scenario_logic = _scenario_data.logic if _scenario_data else null
 	
 	hour_deck = Deck.new()
 

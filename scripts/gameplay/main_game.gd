@@ -10,7 +10,7 @@ const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardL
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	scenario_area.set_scenario(test_data.scenario_data)
-	var game_context := GameContext.new(1, test_data.scenario_data, null)
+	var game_context := GameContext.new(1, test_data.scenario_data)
 	GameServices.contexts.new_game(game_context)
 	
 	for i in range(30):
@@ -19,7 +19,7 @@ func _ready() -> void:
 	var num_pcs := test_data.characters_to_use.size()
 	for scenario_location: ScenarioLocation in test_data.scenario_data.locations:
 		if scenario_location.num_pcs > num_pcs: continue
-		var location := Location.new(scenario_location.location_data, null)
+		var location := Location.new(scenario_location.location_data)
 		game_context.locations.append(location)
 		
 		if not test_data.scenario_data.henchmen.is_empty():
@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 	for pc: CharacterData in test_data.test_characters:
 		if not test_data.characters_to_use.has(pc.character_name): continue
-		var character = PlayerCharacter.new(pc, null)
+		var character = PlayerCharacter.new(pc)
 		game_context.characters.append(character)
 		character.location = game_context.locations.front()
 		

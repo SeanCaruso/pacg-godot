@@ -23,7 +23,7 @@ var characters: Array[PlayerCharacter]:
 # Dependency injections
 var _contexts := GameServices.contexts
 
-func _init(location_data: LocationData, _card_logic):
+func _init(location_data: LocationData):
 	# Populate ICard members
 	name = location_data.card_name
 	card_type = CardType.LOCATION
@@ -33,7 +33,7 @@ func _init(location_data: LocationData, _card_logic):
 	data = location_data
 	_deck = Deck.new()
 	
-	for type in CardType:
+	for type in CardType.values():
 		_known_composition[type] = 0
 
 func _to_string() -> String: return name

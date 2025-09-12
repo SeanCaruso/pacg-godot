@@ -7,11 +7,12 @@ var _original_card_locs: Dictionary = {} # CardInstance -> CardLocation
 var _has_move_staged: bool = false
 var _has_explore_staged: bool = false
 
-# Dependency injections
-var _cards: CardManager
-var _contexts: ContextManager
-var _game_flow: GameFlowManager
-var _game_services: GameServices
+var _cards: CardManager:
+	get: return GameServices.cards
+var _contexts: ContextManager:
+	get: return GameServices.contexts
+var _game_flow: GameFlowManager:
+	get: return GameServices.game_flow
 
 var staged_actions: Array[StagedAction]:
 	get:
@@ -24,17 +25,147 @@ var staged_cards: Array[CardInstance]:
 	get: return _original_card_locs.keys()
 
 
-func initialize(game_services: GameServices):
-	_cards = game_services.cards
-	_contexts = game_services.contexts
-	_game_flow = game_services.game_flow
-	_game_services = game_services
+func _to_string() -> String:
+	return get_script().get_global_name()
+
+
+func cancel() -> void:
+	for card in _original_card_locs:
+		_cards.move_card_to(card, _original_card_locs[card])
 	
+	GameEvents.card_locations_changed.emit(_original_card_locs.keys())
+	
+	_has_move_staged = false
+	_has_explore_staged = false
+	
+	_original_card_locs.clear()
+	_pcs_staged_actions.clear()
+	
+	# Additional step for phase-level cancels
+	if _contexts.current_resolvable and _contexts.current_resolvable.cancel_aborts_phase:
+		GameEvents.set_status_text.emit("")
+		_game_flow.abort_phase()
+		_contexts.end_resolvable()
+	
+	update_game_state_preview()
+	update_action_buttons()
+
+
+func commit() -> void:
+	GameEvents.set_status_text.emit("")
+	
+	if _contexts.check_context:
+		_contexts.check_context.committed_actions = staged_actions
+	
+	for action in staged_actions:
+		action.commit()
+	
+	_has_explore_staged = false
+	_has_move_staged = false
+	_original_card_locs.clear()
+	_pcs_staged_actions.clear()
+	_cards.restore_revealed_cards_to_hand()
+	
+	# If we have a resolvable, the fact that we committed means it's been resolved.
+	if _contexts.current_resolvable:
+		# If it requires a processor, kick off a new phase immediately.
+		var processor := _contexts.current_resolvable.create_processor()
+		if processor:
+			print("[%s] %s created %s" % [self, _contexts.current_resolvable, processor])
+			_game_flow.start_phase(processor, str(_contexts.current_resolvable))
+		else:
+			print("[%s] %s didn't queue a processor." % [self, _contexts.current_resolvable])
+		
+		_contexts.end_resolvable()
+	
+	update_action_buttons()
+	
+	# We're done committing actions. Tell the GameFlowManager to continue.
+	_game_flow.process()
+
+
+func get_default_ui_state() -> StagedActionsState:
+	var state := StagedActionsState.new()
+	state.is_cancel_button_visible = not staged_actions.is_empty()
+	state.is_commit_button_visible = \
+		not staged_actions.is_empty() \
+		and not (_has_explore_staged or _has_move_staged)
+	state.is_skip_button_visible = false
+	state.is_move_enabled = \
+		(_contexts.turn_context and _contexts.turn_context.can_move) \
+		or _has_move_staged
+	state.is_explore_enabled = \
+		(_contexts.turn_context and _contexts.turn_context.can_freely_explore) \
+		or _has_explore_staged
+	
+	return state
+
+
+func get_staged_dice_pool() -> DicePool:
+	if not _contexts.check_context: return DicePool.new()
+	return _contexts.check_context.dice_pool(staged_actions)
+
+
+func is_card_staged(card: CardInstance) -> bool:
+	return _original_card_locs.has(card)
+
+
+func skip() -> void:
+	if _contexts.current_resolvable:
+		_contexts.current_resolvable.on_skip()
+	commit()
+
+
+func stage_action(action: StagedAction) -> void:
+	var pc_actions = _pcs_staged_actions.get(action.card.owner, [])
+	if pc_actions.has(action):
+		print("%s staged multiple times!" % action)
+		return
+	
+	if _contexts.current_resolvable \
+	and not _contexts.current_resolvable.can_stage_action(action):
+		return
+	
+	_has_move_staged = action is MoveAction
+	_has_explore_staged = action is ExploreAction
+	if _has_move_staged:
+		GameEvents.set_status_text.emit("Move?")
+	if _has_explore_staged:
+		GameEvents.set_status_text.emit("Explore?")
+	
+	# If this is the first staged action for this card, store where it originally came from.
+	_original_card_locs.get_or_add(action.card, action.card.current_location)
+	
+	# We need to handle this here so that damage resolvables behave with hand size.
+	_cards.move_card_by(action.card, action.action_type)
+	
+	# Perform all required staging logic.
+	pc_actions.append(action)
+	_pcs_staged_actions[action.card.owner] = pc_actions
+	
+	update_game_state_preview()
+	update_action_buttons()
+
 
 func staged_actions_for(pc: PlayerCharacter) -> Array[StagedAction]:
 	return _pcs_staged_actions.get(pc, [])
+
+
+func update_action_buttons() -> void:
+	var pc := _contexts.game_context.active_character
+	var pc_actions = _pcs_staged_actions.get(pc, []) if pc else []
 	
+	var state := _contexts.current_resolvable.get_ui_state(staged_actions) \
+		if _contexts.current_resolvable \
+		else get_default_ui_state()
 	
-func is_card_staged(card: CardInstance) -> bool:
-	return _original_card_locs.has(card)
+	if pc != _contexts.turn_context.character:
+		state.is_move_enabled = false
+		state.is_explore_enabled = false
 	
+	GameEvents.staged_actions_state_changed.emit(state)
+
+
+func update_game_state_preview() -> void:
+	if not _contexts.check_context: return
+	_contexts.check_context.update_preview_state(staged_actions)

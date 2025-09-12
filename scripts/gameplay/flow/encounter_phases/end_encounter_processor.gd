@@ -3,7 +3,8 @@ extends BaseProcessor
 	
 	
 func on_execute() -> void:
-	if !_contexts.encounter_context: return
+	if not _contexts.encounter_context \
+	or not _contexts.encounter_context.check_result: return
 	
 	var was_success := _contexts.encounter_context.check_result.was_success
 	var card := _contexts.encounter_context.card

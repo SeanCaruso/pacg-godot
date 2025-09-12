@@ -9,9 +9,9 @@ var _cards := GameServices.cards
 
 
 func on_execute() -> void:
-	if !_contexts.encounter_context: return
-	
-	if !_contexts.encounter_context.card.logic.can_evade(): return
+	if not _contexts.encounter_context \
+	or not _contexts.encounter_context.card.logic \
+	or not _contexts.encounter_context.card.logic.can_evade() : return
 	
 	# The Entangled scourge prevents evasion.
 	if _contexts.encounter_context.character.active_scourges.has(Scourge.ENTANGLED): return

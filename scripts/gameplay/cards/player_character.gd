@@ -50,15 +50,15 @@ var _card_manager := GameServices.cards
 var _contexts := GameServices.contexts
 
 
-func _init(character_data: CharacterData, _logic: CharacterLogicBase):
+func _init(character_data: CharacterData):
 	data = character_data
+	logic = character_data.logic
 
 	# Populate ICard members
 	name = character_data.character_name
 	card_type = CardType.CHARACTER
 	traits = character_data.traits
 
-	logic = _logic
 	deck = Deck.new()
 
 	for attr in character_data.attributes:

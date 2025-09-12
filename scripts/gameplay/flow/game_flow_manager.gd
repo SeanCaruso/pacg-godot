@@ -5,16 +5,12 @@ var _queue_stack: Array[PhaseQueue] = []
 var current: PhaseQueue:
 	get: return _queue_stack.back()
 
-# Dependency injection
-var _contexts: ContextManager
+var _contexts: ContextManager:
+	get: return GameServices.contexts
 
 
 func _to_string() -> String:
 	return get_script().get_global_name()
-
-
-func initialize(game_services: GameServices):
-	_contexts = game_services.contexts
 
 # ========================================================================================
 # PUBLIC API FOR PROCESSORS

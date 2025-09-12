@@ -3,15 +3,10 @@ extends RefCounted
 
 const CardLocation = preload("res://scripts/core/enums/card_location.gd").CardLocation
 
-# Dependency injection
-# var _asm: ActionStagingManager
-var _card_manager: CardManager
-var _game_services: GameServices
-
-func initialize(game_services: GameServices):
-	#_asm = game_services.asm
-	_card_manager = game_services.cards
-	_game_services = game_services
+var _asm: ActionStagingManager:
+	get: return GameServices.asm
+var _card_manager: CardManager:
+	get: return GameServices.cards
 
 ###############################################################################
 # THE CONTEXTS
@@ -42,8 +37,8 @@ func end_turn():
 func new_encounter(context: EncounterContext):
 	encounter_context = context
 	
-	#encounter_context.explore_effects.append_array(turn_context.explore_effects)
-	#turn_context.explore_effects.clear()
+	encounter_context.explore_effects.append_array(turn_context.explore_effects)
+	turn_context.explore_effects.clear()
 
 ## This only sets the context to null. Event sending must be handled by the caller.
 func end_encounter(): encounter_context = null
@@ -61,7 +56,7 @@ func new_resolvable(resolvable: BaseResolvable):
 	# If this is a damage resolvable, check to see if we have any responses for it.
 	# If so, we'll need to handle those responses first.
 	if resolvable is DamageResolvable:
-		var args = DiscardEventArgs.new(
+		var args := DiscardEventArgs.new(
 			resolvable.character,
 			[],
 			CardLocation.HAND,
@@ -70,19 +65,52 @@ func new_resolvable(resolvable: BaseResolvable):
 		_card_manager.trigger_before_discard(args)
 		
 		if args.has_responses:
-			pass
+			var options: Array[ChoiceOption] = []
+			for response: CardResponse in args.card_responses:
+				options.append(ChoiceOption.new(response.description, response.on_accept))
+			options.append(ChoiceOption.new("Skip", func(): pass))
+			
+			var choice_resolvable = PlayerChoiceResolvable.new("Use Power?", options)
+			var damage_processor = NewResolvableProcessor.new(resolvable)
+			choice_resolvable.override_next_processor(damage_processor)
+			
+			var choice_processor = NewResolvableProcessor.new(choice_resolvable)
+			GameServices.game_flow.start_phase(choice_processor, "Power Options")
+			return
 		
-		current_resolvable = resolvable
+	current_resolvable = resolvable
 		
-		if current_resolvable is CheckResolvable:
-			check_context = CheckContext.new(current_resolvable)
+	if current_resolvable is CheckResolvable:
+		check_context = CheckContext.new(current_resolvable)
+		DialogEvents.check_start_event.emit(check_context)
+		
+		if encounter_context:
+			check_context.explore_effects.append_array(encounter_context.explore_effects)
+			encounter_context.explore_effects = encounter_context.explore_effects.filter(
+				func(e: BaseExploreEffect):
+					return not (e is SkillBonusExploreEffect and e.is_for_one_check)
+			)
+	# Now that it's set as our current resolvable and we have a CheckContext if needed,
+	# do any post-construction setup.
+	resolvable.initialize()
+	
+	# Update the UI.
+	GameEvents.turn_state_changed.emit()
+	_asm.update_game_state_preview()
+	_asm.update_action_buttons()
 
-# func end_resolvable()
+
+func end_resolvable():
+	current_resolvable.resolve()
+	current_resolvable = null
+	GameEvents.turn_state_changed.emit()
+
 
 func end_check():
-	# raise end check event
+	DialogEvents.check_end_event.emit()
 	check_context = null
-	# raise turn state changed
+	GameEvents.turn_state_changed.emit()
+
 
 ###############################################################################
 # CONVENIENCE PROPERTIES/FUNCTIONS
@@ -101,4 +129,5 @@ var are_cards_playable: bool:
 
 var is_explore_possible: bool:
 	get:
+		if not turn_pc_location: return false
 		return are_cards_playable and turn_pc_location.count > 0
