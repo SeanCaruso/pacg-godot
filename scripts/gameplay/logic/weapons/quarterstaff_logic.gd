@@ -31,7 +31,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 			actions.append(PlayCardAction.new(card, Action.DISCARD, reveal_and_discard_modifier, {"IsCombat": true}))
 			
 		# Otherwise, if this card has already been played, present the discard option only.
-		elif _asm.card_staged(card):
+		elif _asm.staged_cards.has(card):
 			var discard_modifier := CheckModifier.new(card)
 			discard_modifier.restricted_category = CheckCategory.COMBAT
 			discard_modifier.restricted_skills = [Skill.STRENGTH, Skill.MELEE]

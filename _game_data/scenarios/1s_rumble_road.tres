@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ScenarioData" load_steps=14 format=3 uid="uid://b4l7y8pxnda3a"]
+[gd_resource type="Resource" script_class="ScenarioData" load_steps=16 format=3 uid="uid://b4l7y8pxnda3a"]
 
 [ext_resource type="Script" uid="uid://da4cui72j4cfr" path="res://scripts/data/scenario_data/story_bane.gd" id="1_vna47"]
 [ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="2_agfxn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b2ggt2ekmayq4" path="res://scripts/data/scenario_data/scenario_data.gd" id="3_p0208"]
 [ext_resource type="Resource" uid="uid://bnkg2ukquj3n5" path="res://_game_data/locations/caravan.tres" id="4_p0208"]
 [ext_resource type="Resource" uid="uid://brpghxda38gyh" path="res://_game_data/story_banes/dire_wolf.tres" id="5_ji1jf"]
+[ext_resource type="Script" uid="uid://dsdxb46r1d6ni" path="res://scripts/gameplay/logic/scenarios/rumble_road_logic.gd" id="9_43lks"]
 
 [sub_resource type="Resource" id="Resource_agfxn"]
 script = ExtResource("1_vna47")
@@ -36,6 +37,10 @@ num_pcs = 1
 location_data = ExtResource("4_p0208")
 metadata/_custom_type_script = "uid://by1g5dmut7cpo"
 
+[sub_resource type="Resource" id="Resource_6ym3k"]
+script = ExtResource("9_43lks")
+metadata/_custom_type_script = "uid://dsdxb46r1d6ni"
+
 [resource]
 script = ExtResource("3_p0208")
 name = "1S: Rumble Road"
@@ -51,4 +56,5 @@ during_scenario_power_disabled = ExtResource("2_agfxn")
 dangers = Array[ExtResource("1_vna47")]([SubResource("Resource_agfxn")])
 henchmen = Array[ExtResource("1_vna47")]([SubResource("Resource_43lks")])
 reward = "Each character gets a new level 1 boon of any type."
+logic = SubResource("Resource_6ym3k")
 metadata/_custom_type_script = "uid://b2ggt2ekmayq4"

@@ -24,7 +24,8 @@ func on_execute() -> void:
 	_contexts.turn_context.can_freely_explore = pc.location.count > 0 if pc.location else false
 	_contexts.turn_context.can_close_location = pc.location.count == 0 if pc.location else false
 	
-	if false: #_contexts.game_context.scenario_logic.has_available_actions:
+	if _contexts.game_context.scenario_logic \
+	and _contexts.game_context.scenario_logic.has_available_actions():
 		_contexts.turn_context.has_scenario_turn_action = true
 		_contexts.turn_context.can_use_scenario_turn_action = true
 		

@@ -1,4 +1,9 @@
 class_name ScenarioLogicBase
 extends Resource
 
-var has_available_actions: bool = false
+func has_available_actions() -> bool:
+	return false
+
+
+func invoke_action() -> void:
+	pass

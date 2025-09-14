@@ -27,7 +27,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		actions.append(PlayCardAction.new(card, Action.RELOAD, reveal_and_reload_mod, {"IsCombat": true}))
 	
 	# Otherwise, if this card has been played, present the reload option if proficient
-	elif _asm.is_card_staged(card) and _contexts.check_context.character.is_proficient(card):
+	elif _asm.staged_cards.has(card) and _contexts.check_context.character.is_proficient(card):
 		var reload_mod := CheckModifier.new(card)
 		reload_mod.restricted_category = CheckCategory.COMBAT
 		reload_mod.restricted_skills = [Skill.STRENGTH, Skill.MELEE]

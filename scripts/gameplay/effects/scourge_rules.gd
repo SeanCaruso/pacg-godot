@@ -34,7 +34,7 @@ static func handle_wounded_deck_discard(pc: PlayerCharacter) -> void:
 	var top_card := pc.draw_from_deck()
 	if !top_card: return
 	var args := DiscardEventArgs.new(pc, [top_card], CardLocation.DECK)
-	GameServices.card.trigger_before_discard(args)
+	GameServices.cards.trigger_before_discard(args)
 	
 	var default_discard := func default_discard() -> void:
 		GameServices.cards.move_card_to(top_card, CardLocation.DISCARDS)

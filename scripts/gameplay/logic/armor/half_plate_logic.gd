@@ -50,7 +50,7 @@ func _can_draw(card: CardInstance) -> bool:
 
 func _can_freely_draw(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
-		and _asm.card_staged(card) \
+		and _asm.staged_cards.has(card) \
 		and _contexts.current_resolvable is DamageResolvable \
 		and (_contexts.current_resolvable as DamageResolvable).damage_type == "Combat" \
 		and (_contexts.current_resolvable as DamageResolvable).character == card.owner
@@ -66,7 +66,7 @@ func _can_bury(card: CardInstance) -> bool:
 
 func _can_freely_bury(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
-		and _asm.card_staged(card) \
+		and _asm.staged_cards.has(card) \
 		and card.owner.is_proficient(card) \
 		and _contexts.current_resolvable is DamageResolvable \
 		and (_contexts.current_resolvable as DamageResolvable).character == card.owner

@@ -42,4 +42,4 @@ func _can_recharge(card: CardInstance) -> bool:
 	return _contexts.check_context \
 	and _contexts.check_context.is_local(card.owner) \
 	and _contexts.check_context.resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.invokes_traits(["Intelligence", "Craft"])
+	and _contexts.check_context.can_use_skill([Skill.INTELLIGENCE, Skill.CRAFT])

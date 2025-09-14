@@ -2,31 +2,26 @@ class_name SleepLogic
 extends CardLogicBase
 
 
-func on_commit(action: StagedAction) -> void:
-	if not _contexts.encounter_context or _contexts.encounter_context.card.card_type != CardType.MONSTER:
-		return
-	
-	_contexts.encounter_context.ignore_after_acting_powers = true
-
-
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
-	# Playable for Arcane/Divine +1d4 on the owner's combat check.
-	if not _contexts.check_context \
-	or not _contexts.check_context.is_combat_valid \
-	or not _contexts.current_resolvable is CheckResolvable \
-	or not _contexts.current_resolvable.has_combat \
-	or _contexts.current_resolvable.character != card.owner \
-	or not _contexts.current_resolvable.can_stage_type(card.card_type):
-		return []
+	var can_banish_to_evade := \
+	_contexts.encounter_context \
+	and _contexts.encounter_context.current_phase == EncounterContext.EncounterPhase.EVASION \
+	and _contexts.encounter_context.card.card_type == CardType.MONSTER \
+	and card.owner.local_characters.has(_contexts.encounter_context.character)
+	
+	var resolvable := _contexts.current_resolvable as CheckResolvable
+	var can_banish_on_check := \
+	resolvable \
+	and resolvable.card.card_type in [CardType.ALLY, CardType.MONSTER] \
+	and resolvable.character.local_characters.has(card.owner) \
+	and resolvable.can_stage_type(card.card_type)
+	
+	if not can_banish_on_check and not can_banish_to_evade: return []
 	
 	var modifier := CheckModifier.new(card)
-	modifier.restricted_category = CheckCategory.COMBAT
-	modifier.added_valid_skills = [Skill.ARCANE, Skill.DIVINE]
-	modifier.restricted_skills = [Skill.ARCANE, Skill.DIVINE]
-	modifier.added_dice = [4]
-	modifier.added_traits = card.traits
+	modifier.added_dice = [6]
 	
-	return [PlayCardAction.new(card, Action.BANISH, modifier, {"IsCombat": true})]
+	return [PlayCardAction.new(card, Action.BANISH, modifier)]
 
 
 func get_recovery_resolvable(card: CardInstance) -> BaseResolvable:
@@ -36,7 +31,7 @@ func get_recovery_resolvable(card: CardInstance) -> BaseResolvable:
 	var resolvable := CheckResolvable.new(
 		card,
 		card.owner,
-		CardUtils.skill_check(5, [Skill.ARCANE, Skill.DIVINE])
+		CardUtils.skill_check(9, [Skill.ARCANE])
 	)
 	resolvable.on_success = func(): card.owner.recharge(card)
 	resolvable.on_failure = func(): card.owner.discard(card)

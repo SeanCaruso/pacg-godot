@@ -41,7 +41,7 @@ func move_card_to(card: CardInstance, new_location: CardLocation):
 
 func move_card_by(card: CardInstance, action: Action):
 	if not card.owner:
-		print("%s has no owner - use move_card(CardInstance, CardLocation) instead!" % card)
+		print("%s has no owner - use move_card_to(CardInstance, CardLocation) instead!" % card)
 
 	match action:
 		Action.BANISH:

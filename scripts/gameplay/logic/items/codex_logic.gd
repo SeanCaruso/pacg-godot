@@ -3,6 +3,8 @@ extends CardLogicBase
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
+	var actions: Array[StagedAction] = []
+	
 	# Reveal for +1 on your check to acquire.
 	if _contexts.current_resolvable is CheckResolvable \
 	and _contexts.current_resolvable.card is CardInstance \
@@ -11,7 +13,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and _contexts.current_resolvable.character == card.owner:
 		var modifier := CheckModifier.new(card)
 		modifier.added_bonus = 1
-		return [PlayCardAction.new(card, Action.REVEAL, modifier)]
+		actions.append(PlayCardAction.new(card, Action.REVEAL, modifier))
 	
 	# Discard for +Knowledge on a local check to acquire
 	if _contexts.current_resolvable is CheckResolvable \
@@ -23,6 +25,6 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		var modifier := CheckModifier.new(card)
 		modifier.added_dice = [skill_info.die]
 		modifier.added_bonus = skill_info.bonus
-		return [PlayCardAction.new(card, Action.DISCARD, modifier)]
+		actions.append(PlayCardAction.new(card, Action.DISCARD, modifier))
 	
-	return []
+	return actions

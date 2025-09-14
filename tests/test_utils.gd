@@ -10,7 +10,7 @@ static func load_card_data(card_name: String):
 	# Define search paths for different card types
 	var search_paths = [
 		"res://_game_data/allies/",
-		"res://_game_data/armors/", 
+		"res://_game_data/armor/", 
 		"res://_game_data/barriers/",
 		"res://_game_data/blessings/",
 		"res://_game_data/characters/",
@@ -54,6 +54,11 @@ static func get_location(location_name: String) -> Location:
 	return Location.new(location_data)
 
 
+static func get_scenario(scenario_name: String) -> ScenarioData:
+	var scenario_data = load_card_data(scenario_name) as ScenarioData
+	return scenario_data
+
+
 static func setup_encounter(character_name: String, card_name: String):
 	var pc = get_character(character_name)
 	var encounter_card = get_card(card_name)
@@ -63,8 +68,9 @@ static func setup_encounter(character_name: String, card_name: String):
 static func setup_encounter_with_instances(pc: PlayerCharacter, card: CardInstance):
 	var location = get_location("Caravan")  # Default test location
 	
-	var game_context = GameContext.new(1, null)  # You might need to adjust constructor
-	GameServices.contexts.new_game(game_context)
+	if not GameServices.contexts.game_context:
+		var game_context = GameContext.new(1, null)
+		GameServices.contexts.new_game(game_context)
 	pc.location = location
 	
 	var turn_context = TurnContext.new(pc)

@@ -18,7 +18,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and _contexts.encounter_context.current_phase == EncounterContext.EncounterPhase.EVASION \
 	and _contexts.encounter_context.character == card.owner \
 	and _contexts.encounter_context.card.is_bane \
-	and _contexts.encounter_context.has_traits(["Obstacle", "Trap"]):
+	and _contexts.encounter_context.has_trait(["Obstacle", "Trap"]):
 		return [PlayCardAction.new(card, Action.BURY, null)]
 	
 	# Can discard if the owner can explore.

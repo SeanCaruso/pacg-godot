@@ -27,7 +27,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_reveal(card: CardInstance) -> bool:
 	# Can freely reveal once if the owner has a Combat DamageResolvable.
-	return not _asm.card_staged(card) \
+	return not _asm.staged_cards.has(card) \
 		and _contexts.current_resolvable is DamageResolvable \
 		and (_contexts.current_resolvable as DamageResolvable).damage_type == "Combat" \
 		and (_contexts.current_resolvable as DamageResolvable).character == card.owner

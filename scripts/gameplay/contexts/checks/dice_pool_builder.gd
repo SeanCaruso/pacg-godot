@@ -19,8 +19,9 @@ static func build(check_context: CheckContext, actions: Array[StagedAction]) -> 
 	# 2. Find and apply the used skill die and blessings.
 	# First, look for a die override.
 	var die_overrides := modifiers.filter(func(m): return m.die_override > 0)
-	var skill_die = die_overrides[0] if die_overrides.size() > 0 else check_context.character.get_skill(check_context.used_skill).die
-	var skill_bonus = check_context.character.get_skill(check_context.used_skill).bonus
+	var skill_die = die_overrides[0].die_override if die_overrides.size() > 0 \
+		else check_context.character.get_skill(check_context.used_skill).get("skill", 4)
+	var skill_bonus = check_context.character.get_skill(check_context.used_skill)["bonus"]
 	
 	var total_skill_dice := 1
 	for modifier in modifiers:
@@ -35,4 +36,3 @@ static func build(check_context: CheckContext, actions: Array[StagedAction]) -> 
 		dice_pool.add_bonus(modifier.added_bonus)
 
 	return dice_pool
-	

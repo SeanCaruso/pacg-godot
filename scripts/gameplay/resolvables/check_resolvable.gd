@@ -50,4 +50,4 @@ func can_stage_action(_action: StagedAction) -> bool:
 
 func can_stage_type(card_type: CardType) -> bool:
 	var staged_actions := _asm.staged_actions
-	return staged_actions.count(func(a: StagedAction): return a.card.card_type == card_type and !a.is_freely) == 0
+	return not staged_actions.any(func(a: StagedAction): return a.card.card_type == card_type and !a.is_freely)

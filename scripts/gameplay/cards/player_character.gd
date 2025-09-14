@@ -234,6 +234,6 @@ var distant_characters: Array[PlayerCharacter]:
 
 # Facade pattern for CharacterLogic
 var start_of_turn_power: CharacterPower:
-	get: return null #logic.get_start_of_turn_power(self)
+	get: return logic.get_start_of_turn_power(self) if logic else null
 var end_of_turn_power: CharacterPower:
-	get: return null #logic.get_end_of_turn_power(self)
+	get: return logic.get_end_of_turn_power(self) if logic else null

@@ -3,17 +3,19 @@ extends CardLogicBase
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
+	var actions: Array[StagedAction] = []
+	
 	# Can freely reveal for Combat damage to the owner if not staged already.
 	if _contexts.current_resolvable is DamageResolvable \
 	and (_contexts.current_resolvable as DamageResolvable).damage_type == "Combat" \
 	and (_contexts.current_resolvable as DamageResolvable).character == card.owner \
-	and not _asm.card_staged(card):
-		return [PlayCardAction.new(card, Action.REVEAL, null, {"Damage": 1, "IsFreely": true})]
+	and not _asm.staged_cards.has(card):
+		actions.append(PlayCardAction.new(card, Action.REVEAL, null, {"Damage": 1, "IsFreely": true}))
 	
 	# Can recharge for any damage to the owner.
 	if _contexts.current_resolvable is DamageResolvable \
 	and (_contexts.current_resolvable as DamageResolvable).character == card.owner \
 	and _contexts.current_resolvable.can_stage_type(card.card_type):
-		return [PlayCardAction.new(card, Action.RECHARGE, null, {"Damage": 1})]
+		actions.append(PlayCardAction.new(card, Action.RECHARGE, null, {"Damage": 1}))
 	
-	return []
+	return actions

@@ -2,7 +2,7 @@ class_name EndOfTurnProcessor
 extends BaseProcessor
 
 func on_execute() -> void:
-	var location_power: LocationPower = _contexts.turn_pc_location.get_end_of_turn_power()
+	var location_power: LocationPower = _contexts.turn_pc_location.end_of_turn_power
 	var character_power: CharacterPower = null
 	
 	if !_contexts.turn_context.force_end_turn:

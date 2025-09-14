@@ -9,9 +9,9 @@ var _cards := GameServices.cards
 
 
 func on_execute() -> void:
-	if not _contexts.encounter_context \
-	or not _contexts.encounter_context.card.logic \
-	or not _contexts.encounter_context.card.logic.can_evade() : return
+	if _contexts.encounter_context \
+	and _contexts.encounter_context.card.logic \
+	and not _contexts.encounter_context.card.logic.can_evade() : return
 	
 	# The Entangled scourge prevents evasion.
 	if _contexts.encounter_context.character.active_scourges.has(Scourge.ENTANGLED): return
@@ -43,14 +43,14 @@ func prompt_for_evasion(on_evade: Callable) -> void:
 	_contexts.new_resolvable(resolvable)
 	
 	
-func evade_encounter() -> void:
-	if !_contexts.encounter_context: return
+static func evade_encounter() -> void:
+	if not GameServices.contexts.encounter_context: return
 	
-	print("[%s] Evading %s" % [self, _contexts.encounter_context.card])
+	print("Evading %s" % [GameServices.contexts.encounter_context.card])
 	
-	if _contexts.encounter_context.card.current_location == CardLocation.DECK:
-		_contexts.encounter_pc_location.shuffle_in(_contexts.encounter_context.card, true)
+	if GameServices.contexts.encounter_context.card.current_location == CardLocation.DECK:
+		GameServices.contexts.encounter_pc_location.shuffle_in(GameServices.contexts.encounter_context.card, true)
 		
 	# Null out the encounter for the subsequent Encounter sub-processors
 	GameEvents.encounter_ended.emit()
-	_contexts.end_encounter()
+	GameServices.contexts.end_encounter()

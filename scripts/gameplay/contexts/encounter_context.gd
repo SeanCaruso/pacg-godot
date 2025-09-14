@@ -29,7 +29,15 @@ func _init(pc: PlayerCharacter, encountered_card: CardInstance):
 
 
 func has_trait(traits: Array[String]) -> bool:
-	return traits.any(func(card_trait: String): card_data.traits.has(card_trait))
+	print("Checking traits: ", traits)
+	print("Card traits: ", card_data.traits)
+	var result = traits.any(func(card_trait: String):
+		var has_it = card_data.traits.has(card_trait)
+		print("Checking trait '", card_trait, "': ", has_it)
+		return has_it
+	)
+	print("Final result: ", result)
+	return result
 
 
 func add_prohibited_traits(pc: PlayerCharacter, traits: Array[String]):

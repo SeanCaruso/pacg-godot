@@ -36,6 +36,7 @@ func end_turn():
 
 func new_encounter(context: EncounterContext):
 	encounter_context = context
+	if not turn_context: return
 	
 	encounter_context.explore_effects.append_array(turn_context.explore_effects)
 	turn_context.explore_effects.clear()

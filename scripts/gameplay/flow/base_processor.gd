@@ -1,8 +1,10 @@
 class_name BaseProcessor
 extends RefCounted
 
-var _contexts := GameServices.contexts
-var _game_flow := GameServices.game_flow
+var _contexts: ContextManager:
+	get: return GameServices.contexts
+var _game_flow: GameFlowManager:
+	get: return GameServices.game_flow
 
 
 func _to_string() -> String:

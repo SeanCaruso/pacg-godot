@@ -22,7 +22,10 @@ var staged_actions: Array[StagedAction]:
 		return actions
 
 var staged_cards: Array[CardInstance]:
-	get: return _original_card_locs.keys()
+	get: 
+		var result: Array[CardInstance] = []
+		result.assign(_original_card_locs.keys())
+		return result
 
 
 func _to_string() -> String:
@@ -106,10 +109,6 @@ func get_staged_dice_pool() -> DicePool:
 	return _contexts.check_context.dice_pool(staged_actions)
 
 
-func is_card_staged(card: CardInstance) -> bool:
-	return _original_card_locs.has(card)
-
-
 func skip() -> void:
 	if _contexts.current_resolvable:
 		_contexts.current_resolvable.on_skip()
@@ -148,18 +147,22 @@ func stage_action(action: StagedAction) -> void:
 
 
 func staged_actions_for(pc: PlayerCharacter) -> Array[StagedAction]:
-	return _pcs_staged_actions.get(pc, [])
+	var actions: Array[StagedAction] = []
+	actions.append_array(_pcs_staged_actions.get(pc, []))
+	return actions
 
 
 func update_action_buttons() -> void:
 	var pc := _contexts.game_context.active_character
-	var pc_actions = _pcs_staged_actions.get(pc, []) if pc else []
+	var pc_actions: Array[StagedAction] = []
+	pc_actions.append_array(_pcs_staged_actions.get(pc, []) if pc else [])
 	
-	var state := _contexts.current_resolvable.get_ui_state(staged_actions) \
+	var state := _contexts.current_resolvable.get_ui_state(pc_actions) \
 		if _contexts.current_resolvable \
 		else get_default_ui_state()
 	
-	if pc != _contexts.turn_context.character:
+	if not _contexts.turn_context \
+	or pc != _contexts.turn_context.character:
 		state.is_move_enabled = false
 		state.is_explore_enabled = false
 	

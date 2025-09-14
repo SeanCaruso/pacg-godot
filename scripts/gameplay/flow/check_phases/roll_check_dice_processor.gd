@@ -27,7 +27,7 @@ func on_execute() -> void:
 		print("%s has a reroll action" % pc_card)
 		
 		
-	has_reroll_options |= !_contexts.check_context.context_data.get("rerollCards", []).is_empty()
+	has_reroll_options = has_reroll_options or !_contexts.check_context.context_data.get("rerollCards", []).is_empty()
 	
 	# If we don't need to reroll or we have no options, we're done!
 	if !needs_reroll or !has_reroll_options:
