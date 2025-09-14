@@ -18,7 +18,7 @@ var _skills: Dictionary = {} # Skill -> Dictionary["die": int, "bonus": int]
 
 
 func get_skill(skill: Skill) -> Dictionary:
-	return _skills.get(skill, {"skill": 4, "bonus": 0})
+	return _skills.get(skill, {"die": 4, "bonus": 0})
 
 
 var _skill_attrs: Dictionary = {} # Skill -> Skill

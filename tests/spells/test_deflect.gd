@@ -7,9 +7,6 @@ func before_each():
 	super()
 	_deflect = TestUtils.get_card("Deflect")
 	ezren.add_to_hand(_deflect)
-	
-	GameServices.contexts.new_game(GameContext.new(1, null))
-	ezren.location = caravan
 
 func test_deflect_reduces_four_combat_damage_to_owner():
 	GameServices.contexts.new_encounter(EncounterContext.new(ezren, zombie))

@@ -22,7 +22,7 @@ func _init(check_resolvable: CheckResolvable):
 	_type_determinator = CheckTypeDeterminator.new(check_resolvable)
 	_traits = TraitAccumulator.new(check_resolvable)
 	
-	used_skill = character.get_best_skill(get_current_valid_skills())["skill"]
+	used_skill = character.get_best_skill(get_current_valid_skills())["die"]
 	
 	
 func update_preview_state(staged_actions: Array[StagedAction]):

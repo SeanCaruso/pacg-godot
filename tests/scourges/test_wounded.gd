@@ -15,7 +15,7 @@ func test_wounded_scourged_discards_at_start_of_turn():
 	GameServices.game_flow.start_phase(StartTurnController.new(valeros), "Turn")
 	
 	assert_eq(valeros.deck.count, 0)
-	assert_eq(valeros.discards.count, 1)
+	assert_eq(valeros.discards.size(), 1)
 	assert_eq(valeros.discards[0], longsword)
 
 func test_wounded_removal_prompt_on_heal():

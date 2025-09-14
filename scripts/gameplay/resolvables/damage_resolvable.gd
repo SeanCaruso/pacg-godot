@@ -39,12 +39,11 @@ func can_commit(_actions: Array[StagedAction]) -> bool:
 	
 	var total_resolved := 0
 	for action in _actions:
-		match action:
-			DefaultAction:
-				total_resolved += 1
-			PlayCardAction:
-				total_resolved += action.action_data.get("Damage", 0)
-				amount = action.action_data.get("ReduceDamageTo", amount)
+		if action is DefaultAction:
+			total_resolved += 1
+		if action is PlayCardAction:
+			total_resolved += action.action_data.get("Damage", 0)
+			amount = action.action_data.get("ReduceDamageTo", amount)
 	
 	
 	_current_resolved = total_resolved
@@ -55,3 +54,15 @@ func can_commit(_actions: Array[StagedAction]) -> bool:
 	
 	GameEvents.set_status_text.emit("Damage: Discard %d" % (amount - total_resolved))
 	return false
+
+
+func can_stage_action(action: StagedAction) -> bool:
+	return action.is_freely or can_stage_type(action.card.card_type)
+
+
+func can_stage_type(card_type: CardType) -> bool:
+	var staged_actions := _asm.staged_actions
+	return not staged_actions.any(
+		func(a: StagedAction):
+			return a.card.card_type == card_type and not a.is_freely
+	)

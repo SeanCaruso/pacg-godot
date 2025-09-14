@@ -10,6 +10,8 @@ func before_each():
 	_bracers_instance = GameServices.cards.new_card(bracers_data, ezren)
 	_bracers_instance.current_location = CardLocation.HAND
 	ezren.add_to_hand(_bracers_instance)
+	ezren.add_to_hand(longsword)
+	ezren.add_to_hand(TestUtils.get_card("Frostbite"))
 
 
 func test_bracers_of_protection_two_actions_combat_damage():

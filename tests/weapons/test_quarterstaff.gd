@@ -107,11 +107,12 @@ func test_quarterstaff_no_evade_non_obstacle_or_trap():
 	check_requirement.mode = CheckRequirement.CheckMode.SINGLE
 	var check_step = CheckStep.new()
 	check_step.category = CheckStep.CheckCategory.SKILL
-	check_step.allowed_skills.assign([])
+	check_step.allowed_skills.assign([Skill.STRENGTH])
 	check_requirement.check_steps.assign([check_step])
 	encounter_data.check_requirement = check_requirement
 	
 	var encounter_instance = CardInstance.new(encounter_data, null)
+	encounter_instance.logic = zombie.logic
 	
 	GameServices.contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	

@@ -70,7 +70,6 @@ func _can_freely_bury(card: CardInstance) -> bool:
 		and (_contexts.current_resolvable as DamageResolvable).character == card.owner
 
 
-# TODO: Implement IOnBeforeDiscardResponse interface
 func on_before_discard(source_card: CardInstance, args: DiscardEventArgs) -> void:
 	if source_card.owner != args.character:
 		return
@@ -83,7 +82,6 @@ func on_before_discard(source_card: CardInstance, args: DiscardEventArgs) -> voi
 	if not (args.original_location == CardLocation.DECK or (args.damage_resolvable and args.damage_resolvable.damage_type == "Mental")):
 		return
 	
-	# TODO: Implement CardResponse system
 	var offer := CardResponse.new(
 		source_card,
 		"Recharge %s" % source_card,
