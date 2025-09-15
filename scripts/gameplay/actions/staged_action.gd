@@ -8,6 +8,10 @@ var action_type: ActionType
 var is_freely: bool
 var action_data: Dictionary = {} # String -> Variant
 
+var label: String:
+	get:
+		return ActionType.find_key(action_type)
+
 
 func _to_string() -> String:
 	return "%s %s" % [ActionType.find_key(action_type), card]

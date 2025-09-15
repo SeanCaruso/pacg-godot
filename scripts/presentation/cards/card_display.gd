@@ -59,6 +59,9 @@ var _original_pos: Vector2
 var _original_z_idx: int
 var _is_dragging: bool = false
 
+var card_instance: CardInstance:
+	get: return _card_instance
+
 
 ## Main entry point - call this to tell the card what to display.
 func display_card(card: CardInstance) -> void:

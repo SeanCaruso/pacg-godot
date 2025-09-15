@@ -1,6 +1,7 @@
 # card_preview.gd
 extends Control
 
+const ActionButton := preload("res://scenes/ui_objects/action_button.tscn")
 const CardDisplay := preload("res://scripts/presentation/cards/card_display.gd")
 
 @onready var background_button: Control = %BackgroundButton
@@ -10,6 +11,9 @@ const CardDisplay := preload("res://scripts/presentation/cards/card_display.gd")
 var _current_card: CardDisplay = null
 var _original_parent: Control = null
 var _placeholder: Control = null
+
+var _contexts: ContextManager:
+	get: return GameServices.contexts
 
 
 func _ready() -> void:
@@ -25,33 +29,49 @@ func _ready() -> void:
 
 
 func end_preview() -> void:
+	# Clean up placeholder.
+	if _placeholder:
+		_placeholder.queue_free()
+		_placeholder = null
+	
 	if not _current_card:
 		return
 	
-	# Animate back to original size.
-	var original_scale := _placeholder.scale
-	var target_pos := _placeholder.global_position - card_container.global_position
-	
-	var tween := create_tween()
-	tween.parallel().tween_property(_current_card, "position", target_pos, 0.1)
-	tween.parallel().tween_property(_current_card, "scale", original_scale, 0.1)
-	
-	# When animation completes, restore hierarchy.
-	await tween.finished
-	
-	# Move card back to original parent.
-	var index := _placeholder.get_index()
-	_current_card.reparent(_original_parent)
-	_original_parent.move_child(_current_card, index)
-	
-	# Clean up placeholder.
-	_placeholder.queue_free()
 	_current_card.is_previewed = false
 	
 	_current_card = null
-	_placeholder = null
 	_original_parent = null
+	
+	for button in action_buttons_container.get_children():
+		button.queue_free()
+	
 	hide()
+
+
+func generate_action_buttons() -> void:
+	if not _current_card: return
+	var card := _current_card.card_instance
+	
+	var actions: Array[StagedAction] = []
+	# If there's an encountered card, grab any additional actions that card might add to the previewed card.
+	if _contexts.encounter_context and _contexts.encounter_context.card:
+		actions.append_array(_contexts.encounter_context.card.get_additional_actions_for_card(card))
+	
+	# If there's a resolvable, grab any additional actions from that.
+	if _contexts.current_resolvable:
+		actions.append_array(_contexts.current_resolvable.get_additional_actions_for_card(card))
+	
+	actions.append_array(card.get_available_actions())
+	
+	for action in actions:
+		var button := ActionButton.instantiate()
+		action_buttons_container.add_child(button)
+		button.text = action.label
+		button.pressed.connect(
+			func():
+				GameServices.asm.stage_action(action)
+				end_preview()
+		)
 
 
 func start_preview(card_display: CardDisplay) -> void:
@@ -85,12 +105,14 @@ func start_preview(card_display: CardDisplay) -> void:
 	var tween := create_tween()
 	tween.parallel().tween_property(card_display, "position", target_pos, 0.1)
 	tween.parallel().tween_property(card_display, "scale", target_scale, 0.1)
+	
+	generate_action_buttons()
 
 
 func _on_background_clicked(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			end_preview()
+			_return_card_to_origin()
 
 
 func _on_card_clicked(card_display: CardDisplay):
@@ -101,3 +123,25 @@ func _on_node_added(node: Node) -> void:
 	if node.is_in_group("cards"):
 		if node.has_signal("card_clicked") and not node.card_clicked.is_connected(_on_card_clicked):
 			node.card_clicked.connect(_on_card_clicked)
+
+
+func _return_card_to_origin() -> void:
+	if not _current_card or not _placeholder: return
+	
+	# Animate back to original size.
+	var original_scale := _placeholder.scale
+	var target_pos := _placeholder.global_position - card_container.global_position
+	
+	var tween := create_tween()
+	tween.parallel().tween_property(_current_card, "position", target_pos, 0.1)
+	tween.parallel().tween_property(_current_card, "scale", original_scale, 0.1)
+	
+	# When animation completes, restore hierarchy.
+	await tween.finished
+	
+	# Move card back to original parent.
+	var index := _placeholder.get_index()
+	_current_card.reparent(_original_parent)
+	_original_parent.move_child(_current_card, index)
+	
+	end_preview()
