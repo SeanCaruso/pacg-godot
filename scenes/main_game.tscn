@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=43 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
@@ -41,6 +41,7 @@
 [ext_resource type="Resource" uid="uid://byprk01fa7g26" path="res://_game_data/spells/magic_eye.tres" id="39_trxsc"]
 [ext_resource type="Resource" uid="uid://cnji25sa517mb" path="res://_game_data/spells/sleep.tres" id="40_cg2cl"]
 [ext_resource type="Resource" uid="uid://ctv257oa6m68o" path="res://_game_data/weapons/quarterstaff.tres" id="41_meg3e"]
+[ext_resource type="Script" uid="uid://htp6dbeuwvx8" path="res://scripts/shared_api/debug_input.gd" id="42_oojmo"]
 
 [node name="MainGame" type="Control"]
 layout_mode = 3
@@ -142,3 +143,6 @@ ExtResource("12_wdxbp"): [ExtResource("13_on6n6"), ExtResource("14_x3ega"), ExtR
 ExtResource("26_g2o8j"): [ExtResource("27_oojmo"), ExtResource("28_5noht"), ExtResource("29_4v0b0"), ExtResource("30_mkn3m"), ExtResource("31_wpxwh"), ExtResource("32_jk70c"), ExtResource("33_t42xu"), ExtResource("34_34vfp"), ExtResource("35_cp8wt"), ExtResource("36_1w5q7"), ExtResource("37_ssxou"), ExtResource("38_jm67w"), ExtResource("39_trxsc"), ExtResource("40_cg2cl"), ExtResource("41_meg3e")]
 }
 characters_to_use = Array[String](["Valeros", "Ezren"])
+
+[node name="DebugInput" type="Node" parent="."]
+script = ExtResource("42_oojmo")
