@@ -64,3 +64,18 @@ func _update_pc_icon(current_pc: PlayerCharacter, icon_pc: PlayerCharacter, butt
 	for connection in button.pressed.get_connections():
 		button.pressed.disconnect(connection["callable"])
 	button.pressed.connect(icon_pc.set_active)
+	
+	if not button.mouse_entered.is_connected(_on_mouse_entered):
+		button.mouse_entered.connect(_on_mouse_entered.bind(button))
+	if not button.mouse_exited.is_connected(_on_mouse_exited):
+		button.mouse_exited.connect(_on_mouse_exited.bind(button))
+
+
+func _on_mouse_entered(button: TextureButton) -> void:
+	if button.disabled: return
+	button.modulate = Color(1.1, 1.1, 1.1)
+
+
+func _on_mouse_exited(button: TextureButton) -> void:
+	if button.disabled: return
+	button.modulate = Color.WHITE
