@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://smvna3svyub0"]
+[gd_scene load_steps=6 format=3 uid="uid://smvna3svyub0"]
 
+[ext_resource type="Script" uid="uid://cpks2y1o8qkbq" path="res://scenes/game_areas/character_list.gd" id="1_7xw7y"]
 [ext_resource type="Theme" uid="uid://dofpxe3roxdeb" path="res://ui/game_theme.tres" id="1_yny4u"]
 [ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="2_3254e"]
 
@@ -22,12 +23,16 @@ variation_opentype = {
 }
 
 [node name="CharacterList" type="PanelContainer"]
+custom_minimum_size = Vector2(255, 0)
 offset_right = 255.0
-offset_bottom = 384.0
+offset_bottom = 207.0
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_k8lxm")
+script = ExtResource("1_7xw7y")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -35,11 +40,13 @@ theme_override_constants/margin_bottom = 5
 
 [node name="AllCharactersVBox" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="LocalCharacters" type="VBoxContainer" parent="MarginContainer/AllCharactersVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="MarginContainer/AllCharactersVBox/LocalCharacters"]
@@ -53,56 +60,66 @@ text = "LOCAL CHARACTERS"
 [node name="LocalRow1" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/LocalCharacters"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 5
 
-[node name="LocalImage1" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
+[node name="Local1" type="TextureButton" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LocalImage2" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
+[node name="Local2" type="TextureButton" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LocalImage3" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
+[node name="Local3" type="TextureButton" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="LocalRow2" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/LocalCharacters"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 5
 
-[node name="LocalImage4" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
+[node name="Local4" type="TextureButton" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LocalImage5" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
+[node name="Local5" type="TextureButton" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LocalImage6" type="TextureRect" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
+[node name="Local6" type="TextureButton" parent="MarginContainer/AllCharactersVBox/LocalCharacters/LocalRow2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="DistantCharacters" type="VBoxContainer" parent="MarginContainer/AllCharactersVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="Label2" type="Label" parent="MarginContainer/AllCharactersVBox/DistantCharacters"]
-unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_yny4u")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -113,45 +130,55 @@ text = "DISTANT CHARACTERS"
 [node name="DistantRow1" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/DistantCharacters"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 5
 
-[node name="DistantImage1" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
+[node name="Distant1" type="TextureButton" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="DistantImage2" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
+[node name="Distant2" type="TextureButton" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="DistantImage3" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
+[node name="Distant3" type="TextureButton" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="DistantRow2" type="HBoxContainer" parent="MarginContainer/AllCharactersVBox/DistantCharacters"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 5
 
-[node name="DistantImage4" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
+[node name="Distant4" type="TextureButton" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="DistantImage5" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
+[node name="Distant5" type="TextureButton" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="DistantImage6" type="TextureRect" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
+[node name="Distant6" type="TextureButton" parent="MarginContainer/AllCharactersVBox/DistantCharacters/DistantRow2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-expand_mode = 1
+ignore_texture_size = true
+stretch_mode = 0

@@ -1,5 +1,12 @@
 extends Node
 
+var _pc: PlayerCharacter
+
+
+func _ready() -> void:
+	GameEvents.player_character_changed.connect(_set_pc)
+
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_discard"):
 		_discard_card()
@@ -10,24 +17,19 @@ func _input(event: InputEvent) -> void:
 
 
 func _discard_card() -> void:
-	if GameServices.contexts.turn_context \
-	and GameServices.contexts.turn_context.character:
-		var pc := GameServices.contexts.turn_context.character
-		if pc.hand.size() == 0: return
-		pc.discard(pc.hand[0])
+	if _pc.hand.size() == 0: return
+	_pc.discard(_pc.hand[0])
 
 
 func _draw_card() -> void:
-	if GameServices.contexts.turn_context \
-	and GameServices.contexts.turn_context.character:
-		var pc :=  GameServices.contexts.turn_context.character
-		if pc.deck.count == 0: return
-		pc.add_to_hand(pc.draw_from_deck())
+	if _pc.deck.count == 0: return
+	_pc.add_to_hand(_pc.draw_from_deck())
 
 
 func _recharge_card() -> void:
-	if GameServices.contexts.turn_context \
-	and GameServices.contexts.turn_context.character:
-		var pc := GameServices.contexts.turn_context.character
-		if pc.hand.size() == 0: return
-		pc.recharge(pc.hand[0])
+	if _pc.hand.size() == 0: return
+	_pc.recharge(_pc.hand[0])
+
+
+func _set_pc(pc: PlayerCharacter):
+	_pc = pc
