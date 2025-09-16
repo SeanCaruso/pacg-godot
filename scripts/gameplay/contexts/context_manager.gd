@@ -24,7 +24,7 @@ func new_game(_game_context: GameContext): game_context = _game_context
 
 func new_turn(context: TurnContext):
 	turn_context = context
-	game_context.active_character = context.character
+	game_context.set_active_character(context.character)
 
 func end_turn():
 	if check_context:
@@ -47,7 +47,7 @@ func end_encounter(): encounter_context = null
 ## USE ONLY IF YOU KNOW WHAT YOU'RE DOING!!!
 ##
 ## NewResolvableProcessor is probably better.
-func new_resolvable(resolvable: BaseResolvable):
+func new_resolvable(resolvable: BaseResolvable) -> void:
 	if current_resolvable:
 		print("[%s] Created resolvable %s is overwriting %s!", [self, resolvable, current_resolvable])
 	
@@ -101,13 +101,13 @@ func new_resolvable(resolvable: BaseResolvable):
 	_asm.update_action_buttons()
 
 
-func end_resolvable():
+func end_resolvable() -> void:
 	current_resolvable.resolve()
 	current_resolvable = null
 	GameEvents.turn_state_changed.emit()
 
 
-func end_check():
+func end_check() -> void:
 	DialogEvents.check_end_event.emit()
 	check_context = null
 	GameEvents.turn_state_changed.emit()

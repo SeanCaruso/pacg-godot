@@ -37,5 +37,5 @@ func resolve():
 
 
 ## The Examine GUI handles its own button.
-func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:	
+func get_ui_state(_actions: Array[StagedAction]) -> StagedActionsState:	
 	return StagedActionsState.new()

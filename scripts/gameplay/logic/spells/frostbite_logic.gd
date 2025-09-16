@@ -2,7 +2,7 @@ class_name FrostbiteLogic
 extends CardLogicBase
 
 
-func on_commit(action: StagedAction) -> void:
+func on_commit(_action: StagedAction) -> void:
 	if not _contexts.encounter_context or not _contexts.encounter_context.card.is_bane:
 		return
 	

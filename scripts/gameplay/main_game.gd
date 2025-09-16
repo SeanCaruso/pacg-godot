@@ -39,6 +39,6 @@ func _ready() -> void:
 		character.draw_initial_hand()
 	
 	var first_pc := game_context.characters[0]
-	GameEvents.player_character_changed.emit(first_pc)
+	GameServices.contexts.game_context.set_active_character(first_pc)
 	var turn_controller := StartTurnController.new(first_pc)
 	GameServices.game_flow.start_phase(turn_controller, "Turn")

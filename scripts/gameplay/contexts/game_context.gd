@@ -11,7 +11,10 @@ var turn_number: int = 1
 var locations: Array[Location] = []
 var characters: Array[PlayerCharacter] = []
 
-var active_character: PlayerCharacter
+var _active_character: PlayerCharacter
+var active_character: PlayerCharacter:
+	get:
+		return _active_character
 
 func _init(
 	_adventure_number: int,
@@ -26,3 +29,8 @@ func _init(
 
 func get_characters_at(loc: Location) -> Array[PlayerCharacter]:
 	return characters.filter(func(pc: PlayerCharacter): return pc.location == loc) if loc else []
+
+
+func set_active_character(pc: PlayerCharacter) -> void:
+	_active_character = pc
+	GameEvents.player_character_changed.emit(pc)

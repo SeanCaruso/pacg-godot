@@ -66,7 +66,7 @@ func generate_action_buttons() -> void:
 	for action in actions:
 		var button := ActionButton.instantiate()
 		action_buttons_container.add_child(button)
-		button.text = action.label
+		button.text = action.label.to_pascal_case()
 		button.pressed.connect(
 			func():
 				GameServices.asm.stage_action(action)

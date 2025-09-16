@@ -73,8 +73,7 @@ func _init(character_data: CharacterData):
 
 
 func set_active() -> void:
-	_contexts.game_context.active_character = self
-	GameEvents.player_character_changed.emit(self)
+	_contexts.game_context.set_active_character(self)
 
 
 # ==============================================================================
@@ -173,7 +172,7 @@ func draw_to_hand_size() -> void:
 		add_to_hand(draw_from_deck())
 
 
-func heal(amount: int, source: CardInstance = null):
+func heal(amount: int, source: CardInstance = null) -> void:
 	# If we're wounded, prompt to remove the scourge. Return without healing if removed.
 	if (active_scourges.has(Scourge.WOUNDED)):
 		ScourgeRules.prompt_for_wounded_removal(self)

@@ -51,12 +51,12 @@ func get_available_actions(card: CardInstance) -> Array[StagedAction]:
 	return get_available_card_actions(card)
 
 
-func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
+func get_available_card_actions(_card: CardInstance) -> Array[StagedAction]:
 	return []
 
 
 ## Applies the permanent, one-time effects of an action when committed.
-func on_commit(action: StagedAction) -> void:
+func on_commit(_action: StagedAction) -> void:
 	pass
 
 
@@ -64,16 +64,16 @@ func on_encounter() -> void:
 	pass
 
 
-func get_on_encounter_resolvable(card: CardInstance) -> BaseResolvable: return null
+func get_on_encounter_resolvable(_card: CardInstance) -> BaseResolvable: return null
 
 
-func get_before_acting_resolvable(card: CardInstance) -> BaseResolvable: return null
+func get_before_acting_resolvable(_card: CardInstance) -> BaseResolvable: return null
 
 
-func get_resolve_encounter_resolvable(card: CardInstance) -> BaseResolvable: return null
+func get_resolve_encounter_resolvable(_card: CardInstance) -> BaseResolvable: return null
 
 
-func get_after_acting_resolvable(card: CardInstance) -> BaseResolvable: return null
+func get_after_acting_resolvable(_card: CardInstance) -> BaseResolvable: return null
 
 
 func get_check_resolvable(card: CardInstance) -> BaseResolvable:
@@ -101,4 +101,4 @@ func on_undefeated(card: CardInstance) -> void:
 		GameServices.cards.move_card_to(card, CardLocation.VAULT)
 
 
-func get_recovery_resolvable(card: CardInstance) -> BaseResolvable: return null
+func get_recovery_resolvable(_card: CardInstance) -> BaseResolvable: return null

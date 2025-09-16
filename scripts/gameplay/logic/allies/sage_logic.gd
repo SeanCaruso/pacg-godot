@@ -20,7 +20,6 @@ func on_commit(action: StagedAction) -> void:
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	if not _contexts.check_context: return []
-	var test := _contexts.check_context.character.local_characters
 	
 	# Can recharge for +1d6 on a local Arcane or Knowledge non-combat check.
 	if _contexts.check_context \
