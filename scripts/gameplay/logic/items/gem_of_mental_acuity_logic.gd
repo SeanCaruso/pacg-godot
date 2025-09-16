@@ -12,6 +12,6 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	
 	var modifier := CheckModifier.new(card)
 	modifier.restricted_category = CheckCategory.SKILL
-	modifier.die_override = card.owner.get_best_skill([Skill.INTELLIGENCE, Skill.WISDOM, Skill.CHARISMA]).die
+	modifier.die_override = card.owner.get_best_skill([Skill.INTELLIGENCE, Skill.WISDOM, Skill.CHARISMA])["die"]
 	
 	return [PlayCardAction.new(card, Action.RECHARGE, modifier)]

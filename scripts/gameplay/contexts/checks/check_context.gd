@@ -55,7 +55,7 @@ func update_preview_state(staged_actions: Array[StagedAction]):
 	# Update the context
 	var new_valid_skills = get_current_valid_skills()
 	if !new_valid_skills.has(used_skill):
-		used_skill = character.get_best_skill(new_valid_skills).skill
+		used_skill = character.get_best_skill(new_valid_skills)["skill"]
 		
 	DialogEvents.valid_skills_changed.emit(new_valid_skills)
 	
@@ -67,7 +67,9 @@ func get_current_valid_skills() -> Array[Skill]:
 	for i in range(valid_skills.size() - 1, -1, -1):
 		var skill := valid_skills[i]
 		var attr = character.get_attribute_for_skill(skill)
-		if !_traits.required_traits.has(str(skill).to_pascal_case()) and !_traits.required_traits.has(str(attr).to_pascal_case()):
+		var skill_str := str(Skill.find_key(skill)).to_pascal_case()
+		var attr_str := str(Skill.find_key(attr)).to_pascal_case()
+		if !_traits.required_traits.has(skill_str) and !_traits.required_traits.has(attr_str):
 			valid_skills.remove_at(i)
 		
 	return valid_skills
