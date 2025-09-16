@@ -24,12 +24,12 @@ func _on_player_changed(player: PlayerCharacter):
 	_populate_initial_hand()
 
 
-func _on_card_location_changed(card: CardInstance, old_location: CardLocation, new_location: CardLocation) -> void:
+func _on_card_location_changed(card: CardInstance, old_location: CardLocation) -> void:
 	if card.owner != current_player:
 		return
 	
 	# Card entering hand
-	if new_location == CardLocation.HAND:
+	if card.current_location == CardLocation.HAND:
 		_create_card_display(card)
 	# Card leaving hand  
 	elif old_location == CardLocation.HAND and card in card_to_display_map:
@@ -41,7 +41,7 @@ func _on_card_location_changed(card: CardInstance, old_location: CardLocation, n
 func _create_card_display(card: CardInstance) -> void:
 	var card_display := CARD_DISPLAY_SCENE.instantiate()
 	hand_layout.add_child(card_display)
-	card_display.display_card(card)
+	card_display.set_card_instance(card)
 	
 	card_to_display_map[card] = card_display
 

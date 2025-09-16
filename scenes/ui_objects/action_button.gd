@@ -1,4 +1,4 @@
-class_name ActionButton
+# action_button.gd
 extends TextureButton
 
 @onready var text_label: Label = %Text

@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_qa4j5"]
 script = ExtResource("1_q03q2")
 base_dc = 6
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([4, 15])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_w8ir7"]
 script = ExtResource("2_ism0g")
-mode = 0
 check_steps = Array[ExtResource("1_q03q2")]([SubResource("Resource_qa4j5")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("3_pxu17")
 card_id = "Spyglass"
 card_name = "Spyglass"
 card_type = 3
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_w8ir7")
-reroll_threshold = 0
 powers = "On your Perception check, reveal to add 1d6.
 
 Discard to examine the top 2 cards of your location and return them in any order."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Object"])
 logic = SubResource("Resource_pxu17")

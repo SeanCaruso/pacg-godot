@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_u55wn")
 base_dc = 6
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([0, 14])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_j6fhi"]
 script = ExtResource("2_7hj3m")
-mode = 0
 check_steps = Array[ExtResource("1_u55wn")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("3_g10ym")
 card_id = "Longspear"
 card_name = "Longspear"
 card_type = 5
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_j6fhi")
-reroll_threshold = 0
 powers = "For your combat check, reveal to use Strength or Melee + 1d8; you may additionally discard to reroll.
 
 After playing this weapon, you may not play an Offhand boon this encounter."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Spear", "Melee", "Piercing", "2-Handed"])
 logic = SubResource("Resource_g10ym")

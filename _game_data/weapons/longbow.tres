@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_q3chd")
 base_dc = 7
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([1, 16])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_j6fhi"]
 script = ExtResource("2_7ajxs")
-mode = 0
 check_steps = Array[ExtResource("1_q3chd")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,18 +26,11 @@ script = ExtResource("3_vec15")
 card_id = "Longbow"
 card_name = "Longbow"
 card_type = 5
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_j6fhi")
-reroll_threshold = 0
 powers = "For your combat check, reveal to use Dexterity or Ranged + 1d8.
 
 If proficient, on another character's combat check, freely discard to add 1d8.
 
 After playing this weapon, you may not play an Offhand boon this encounter."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Bow", "Ranged", "Piercing", "2-Handed"])
 logic = SubResource("Resource_vec15")

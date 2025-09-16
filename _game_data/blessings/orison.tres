@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_6l625"]
 script = ExtResource("1_2k7j5")
 base_dc = 2
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([4, 11])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_ix0fr"]
 script = ExtResource("2_25es5")
-mode = 0
 check_steps = Array[ExtResource("1_2k7j5")]([SubResource("Resource_6l625")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("1_aef5w")
 card_id = "Orison"
 card_name = "Orison"
 card_type = 2
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_ix0fr")
-reroll_threshold = 0
 powers = "On a local check, discard to bless. If the hour's level is 0, you may recharge instead.
 
 Discard to explore."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Divine"])
 logic = SubResource("Resource_7vn5w")

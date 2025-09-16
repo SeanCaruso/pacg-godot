@@ -34,7 +34,7 @@ func move_card_to(card: CardInstance, new_location: CardLocation):
 
 	var prev_location := card.current_location
 	card.current_location = new_location
-	GameEvents.card_location_changed.emit(card, prev_location, new_location)
+	GameEvents.card_location_changed.emit(card, prev_location)
 	
 	if card.owner:
 		GameEvents.player_deck_count_changed.emit(card.owner.deck.count)

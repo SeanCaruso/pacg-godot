@@ -56,6 +56,7 @@ var is_previewed: bool = false
 var _card_instance: CardInstance
 var _panel_color: Color
 var _original_pos: Vector2
+var _original_scale: Vector2
 var _original_z_idx: int
 var _is_dragging: bool = false
 
@@ -64,7 +65,7 @@ var card_instance: CardInstance:
 
 
 ## Main entry point - call this to tell the card what to display.
-func display_card(card: CardInstance) -> void:
+func set_card_instance(card: CardInstance) -> void:
 	if not card:
 		visible = false
 		return
@@ -77,6 +78,10 @@ func display_card(card: CardInstance) -> void:
 
 
 func _update_display():
+	if not top_panel:
+		printerr("CardDisplay is null - add it to the scene first!")
+		return
+	
 	var data := _card_instance.data
 	
 	_panel_color = GuiUtils.get_color_for_card_type(data.card_type)
@@ -182,6 +187,7 @@ func _on_card_clicked(card_display: Control) -> void:
 func _on_drag_started(_card: CardInstance) -> void:
 	# Store initial state
 	_original_pos = position
+	_original_scale = scale
 	_original_z_idx = z_index
 	_is_dragging = true
 	
@@ -199,5 +205,5 @@ func _on_drag_updated(_card: CardInstance, delta: Vector2) -> void:
 func _on_drag_ended(_card: CardInstance, _global_pos: Vector2) -> void:
 	_is_dragging = false
 	position = _original_pos
+	scale = _original_scale
 	z_index = _original_z_idx
-	scale = Vector2.ONE

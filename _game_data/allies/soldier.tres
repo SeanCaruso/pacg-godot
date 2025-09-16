@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_dgm6s"]
 script = ExtResource("1_2njw7")
 base_dc = 4
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([5, 9, 14])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_q5tms"]
 script = ExtResource("2_6n7ui")
-mode = 0
 check_steps = Array[ExtResource("1_2njw7")]([SubResource("Resource_dgm6s")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -27,17 +25,9 @@ metadata/_custom_type_script = "uid://swbixkthmfq5"
 script = ExtResource("3_5ja1j")
 card_id = "Soldier"
 card_name = "Soldier"
-card_type = 0
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_q5tms")
-reroll_threshold = 0
 powers = "On a local Strength or Melee check, recharge to add 1d4.
 
 Discard to explore. This exploration, on your Strength and Melee checks, add 1d4."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Human", "Soldier"])
 logic = SubResource("Resource_5ja1j")

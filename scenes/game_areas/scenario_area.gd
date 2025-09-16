@@ -18,5 +18,5 @@ func set_scenario(scenario: ScenarioData) -> void:
 	var danger_instance := CardInstance.new(scenario.dangers[0].card_data)
 	var danger_display := CARD_DISPLAY_SCENE.instantiate()
 	danger_container.add_child(danger_display)
-	danger_display.display_card(danger_instance)
+	danger_display.set_card_instance(danger_instance)
 	danger_display.scale = Vector2(.5, .5)

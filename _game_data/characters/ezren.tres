@@ -17,50 +17,42 @@
 
 [sub_resource type="Resource" id="Resource_7fin5"]
 script = ExtResource("1_7fin5")
-attribute = 0
 die = 6
-bonus = 0
 metadata/_custom_type_script = "uid://cshfrnvcq5w30"
 
 [sub_resource type="Resource" id="Resource_7xhdt"]
 script = ExtResource("1_7fin5")
 attribute = 1
 die = 6
-bonus = 0
 metadata/_custom_type_script = "uid://cshfrnvcq5w30"
 
 [sub_resource type="Resource" id="Resource_l2efr"]
 script = ExtResource("1_7fin5")
 attribute = 2
 die = 4
-bonus = 0
 metadata/_custom_type_script = "uid://cshfrnvcq5w30"
 
 [sub_resource type="Resource" id="Resource_1swr2"]
 script = ExtResource("1_7fin5")
 attribute = 3
 die = 12
-bonus = 0
 metadata/_custom_type_script = "uid://cshfrnvcq5w30"
 
 [sub_resource type="Resource" id="Resource_nbdix"]
 script = ExtResource("1_7fin5")
 attribute = 4
 die = 8
-bonus = 0
 metadata/_custom_type_script = "uid://cshfrnvcq5w30"
 
 [sub_resource type="Resource" id="Resource_dqylw"]
 script = ExtResource("1_7fin5")
 attribute = 5
 die = 6
-bonus = 0
 metadata/_custom_type_script = "uid://cshfrnvcq5w30"
 
 [sub_resource type="Resource" id="Resource_4q10h"]
 script = ExtResource("2_7xhdt")
 card_type = 4
-card_trait = ""
 metadata/_custom_type_script = "uid://bqnv1l82iq12q"
 
 [sub_resource type="Resource" id="Resource_e1tk1"]

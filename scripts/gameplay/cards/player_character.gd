@@ -223,6 +223,8 @@ var displayed_cards: Array[CardInstance]:
 	get: return _card_manager.get_cards_owned_by(self, CardLocation.DISPLAYED)
 var recovery_cards: Array[CardInstance]:
 	get: return _card_manager.get_cards_owned_by(self, CardLocation.RECOVERY)
+var revealed_cards: Array[CardInstance]:
+	get: return _card_manager.get_cards_owned_by(self, CardLocation.REVEALED)
 var deck_cards: Array[CardInstance]:
 	get: return _card_manager.get_cards_owned_by(self, CardLocation.DECK)
 

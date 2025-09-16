@@ -9,7 +9,6 @@
 [sub_resource type="Resource" id="Resource_32tc8"]
 script = ExtResource("1_vey81")
 power_id = "caravan_at_location"
-type = 0
 is_activated_power = true
 sprite_enabled = ExtResource("3_kpdq2")
 sprite_disabled = ExtResource("2_vey81")
@@ -24,7 +23,6 @@ metadata/_custom_type_script = "uid://chqknp275pj3s"
 script = ExtResource("1_vey81")
 power_id = "caravan_close"
 type = 1
-is_activated_power = false
 text = "Either succeed at a Wisdom or Perception 5+# check or summon and defeat the danger."
 metadata/_custom_type_script = "uid://bfse33mcxvrsx"
 
@@ -32,7 +30,6 @@ metadata/_custom_type_script = "uid://bfse33mcxvrsx"
 script = ExtResource("1_vey81")
 power_id = "caravan_closed"
 type = 2
-is_activated_power = false
 text = "After you move, you may give a card to a local character."
 metadata/_custom_type_script = "uid://bfse33mcxvrsx"
 
@@ -40,7 +37,6 @@ metadata/_custom_type_script = "uid://bfse33mcxvrsx"
 script = ExtResource("4_mon6i")
 card_id = "Caravan"
 card_name = "Caravan"
-card_level = 0
 at_location_power = SubResource("Resource_32tc8")
 to_close_power = SubResource("Resource_nyusg")
 when_closed_power = SubResource("Resource_s7ksu")
@@ -51,7 +47,6 @@ num_spells = 1
 num_armors = 1
 num_items = 1
 num_allies = 2
-num_blessings = 0
 traits = Array[String](["Urban"])
 logic = SubResource("Resource_qktg1")
 metadata/_custom_type_script = "uid://cnouj1m0t8066"

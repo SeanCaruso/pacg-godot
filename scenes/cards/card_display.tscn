@@ -111,7 +111,7 @@ grow_horizontal = 2
 color = Color(1, 0, 1, 1)
 
 [node name="Top_Panel_Margin" type="MarginContainer" parent="MarginContainer/ContentBackground/TopPanel"]
-layout_mode = 2
+layout_mode = 0
 offset_right = 240.0
 offset_bottom = 20.0
 theme_override_constants/margin_left = 3
@@ -170,7 +170,7 @@ grow_horizontal = 0
 color = Color(1, 0, 1, 1)
 
 [node name="Story_Bane_Margin" type="MarginContainer" parent="MarginContainer/ContentBackground/StoryBanePanel"]
-layout_mode = 2
+layout_mode = 0
 offset_right = 100.0
 offset_bottom = 15.0
 theme_override_constants/margin_left = 5

@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_1323v")
 base_dc = 6
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([0, 1, 14, 16])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_j6fhi"]
 script = ExtResource("2_r87j4")
-mode = 0
 check_steps = Array[ExtResource("1_1323v")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("3_gel1x")
 card_id = "ThrowingAxe"
 card_name = "Throwing Axe"
 card_type = 5
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_j6fhi")
-reroll_threshold = 0
 powers = "For your combat check, reveal to use Strength, Dexterity, Melee, or Ranged + 1d6.
 
 If proficient, on a local combat check, freely discard to add 1d6. You may use this power even if you have previously revealed this card on this check."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Axe", "Melee", "Ranged", "Slashing"])
 logic = SubResource("Resource_gel1x")

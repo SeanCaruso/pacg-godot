@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_qa4j5"]
 script = ExtResource("1_4pqjl")
 base_dc = 5
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([3, 7])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_w8ir7"]
 script = ExtResource("2_f8fob")
-mode = 0
 check_steps = Array[ExtResource("1_4pqjl")]([SubResource("Resource_qa4j5")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("1_k8cg3")
 card_id = "BracersOfProtection"
 card_name = "Bracers of Protection"
 card_type = 3
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_w8ir7")
-reroll_threshold = 0
 powers = "When you suffer Combat damage, freely reveal to reduce it by 1.
 
 When you suffer any damage, recharge to reduce it by 1."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Accessory", "Magic"])
 logic = SubResource("Resource_htpej")

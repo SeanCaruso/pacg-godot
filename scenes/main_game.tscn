@@ -1,7 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=44 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
+[ext_resource type="Script" uid="uid://bxohds0cju6ux" path="res://scenes/card_areas/face_up_card_areas.gd" id="2_5noht"]
 [ext_resource type="PackedScene" uid="uid://ceqg655f53sto" path="res://scenes/game_areas/character_area.tscn" id="3_70vka"]
 [ext_resource type="PackedScene" uid="uid://dv8bkfdth0me3" path="res://scenes/card_areas/card_preview.tscn" id="3_d2op2"]
 [ext_resource type="PackedScene" uid="uid://bxb52yyk2h88d" path="res://scenes/game_areas/location_area.tscn" id="4_0rdsr"]
@@ -54,6 +55,58 @@ script = ExtResource("1_72e8q")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="FaceUpCardAreas" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_5noht")
+
+[node name="DisplayedArea" type="HBoxContainer" parent="UI/FaceUpCardAreas"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 210)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -585.0
+offset_right = -15.0
+offset_bottom = -375.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="RevealedArea" type="HBoxContainer" parent="UI/FaceUpCardAreas"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 210)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -590.0
+offset_bottom = -380.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="RecoveryArea" type="HBoxContainer" parent="UI/FaceUpCardAreas"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 210)
+layout_mode = 0
+offset_left = 600.0
+offset_top = 25.0
+offset_right = 600.0
+offset_bottom = 235.0
+theme_override_constants/separation = -175
+
 [node name="PlayerHand" parent="UI" instance=ExtResource("1_s3esy")]
 unique_name_in_owner = true
 
@@ -76,42 +129,6 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = -1400.0
 offset_bottom = -335.0
-
-[node name="DisplayedArea" type="HBoxContainer" parent="UI"]
-custom_minimum_size = Vector2(0, 210)
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -15.0
-offset_top = -585.0
-offset_right = -15.0
-offset_bottom = -375.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/separation = 15
-
-[node name="RevealedArea" type="HBoxContainer" parent="UI"]
-custom_minimum_size = Vector2(0, 210)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = -590.0
-offset_bottom = -380.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 15
-
-[node name="RecoveryArea" type="HBoxContainer" parent="UI"]
-custom_minimum_size = Vector2(0, 210)
-offset_left = 600.0
-offset_top = 25.0
-offset_right = 600.0
-offset_bottom = 235.0
-theme_override_constants/separation = -175
 
 [node name="TurnButtons" parent="UI" instance=ExtResource("4_ipu61")]
 anchors_preset = 1

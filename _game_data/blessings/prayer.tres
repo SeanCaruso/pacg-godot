@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_6l625"]
 script = ExtResource("1_vi6hr")
 base_dc = 3
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([4, 11])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_ix0fr"]
 script = ExtResource("2_2eu32")
-mode = 0
 check_steps = Array[ExtResource("1_vi6hr")]([SubResource("Resource_6l625")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("3_18mkj")
 card_id = "Prayer"
 card_name = "Prayer"
 card_type = 2
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_ix0fr")
-reroll_threshold = 0
 powers = "On any check, discard to bless.
 
 Discard to examine the top card of your location, then you may explore."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Divine"])
 logic = SubResource("Resource_18mkj")

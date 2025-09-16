@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_dgm6s"]
 script = ExtResource("1_dgm6s")
 base_dc = 5
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([4, 7, 18])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_q5tms"]
 script = ExtResource("2_jslca")
-mode = 0
 check_steps = Array[ExtResource("1_dgm6s")]([SubResource("Resource_dgm6s")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -27,17 +25,9 @@ metadata/_custom_type_script = "uid://bixm83e1k7q52"
 script = ExtResource("1_3elsf")
 card_id = "Cat"
 card_name = "Cat"
-card_type = 0
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_q5tms")
-reroll_threshold = 0
 powers = "On a local check against a spell, rechage to add 1d4.
 
 Discard to explore. This exploration, on checks that invoke the Magic trait, add 1d4."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Animal"])
 logic = SubResource("Resource_yly2k")

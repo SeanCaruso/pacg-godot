@@ -14,14 +14,11 @@
 [sub_resource type="Resource" id="Resource_agfxn"]
 script = ExtResource("1_vna47")
 card_data = ExtResource("2_ljuc7")
-custom_name = ""
-is_closing = false
 metadata/_custom_type_script = "uid://da4cui72j4cfr"
 
 [sub_resource type="Resource" id="Resource_43lks"]
 script = ExtResource("1_vna47")
 card_data = ExtResource("5_ji1jf")
-custom_name = ""
 is_closing = true
 metadata/_custom_type_script = "uid://da4cui72j4cfr"
 

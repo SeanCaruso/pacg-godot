@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_ldbn6"]
 script = ExtResource("1_pkrqt")
 base_dc = 4
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([0, 14])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_j6fhi"]
 script = ExtResource("2_8wg88")
-mode = 0
 check_steps = Array[ExtResource("1_pkrqt")]([SubResource("Resource_ldbn6")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,18 +26,11 @@ script = ExtResource("3_gt8ot")
 card_id = "Quarterstaff"
 card_name = "Quarterstaff"
 card_type = 5
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_j6fhi")
-reroll_threshold = 0
 powers = "For your combat check, reveal to use Strength or Melee + 1d6; you may additionally discard to add another 1d6.
 
 Discard to evade an Obstacle or Trap barrier you encounter.
 
 After playing this weapon, you may not play an Offhand boon this encounter."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Staff", "Melee", "Bludgeoning", "2-Handed"])
 logic = SubResource("Resource_gt8ot")

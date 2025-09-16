@@ -8,14 +8,12 @@
 [sub_resource type="Resource" id="Resource_qa4j5"]
 script = ExtResource("1_v5min")
 base_dc = 6
-adventure_level_mult = 0
 category = 1
 allowed_skills = Array[int]([3, 13])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_w8ir7"]
 script = ExtResource("2_yiu66")
-mode = 0
 check_steps = Array[ExtResource("1_v5min")]([SubResource("Resource_qa4j5")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,9 @@ script = ExtResource("3_vmsno")
 card_id = "SagesJournal"
 card_name = "Sage's Journal"
 card_type = 3
-story_bane_type = 0
-card_level = 0
 check_requirement = SubResource("Resource_w8ir7")
-reroll_threshold = 0
 powers = "On your check against a story bane, reveal to add 1d4.
 
 On a local check against a bane, bury to add your Knowledge."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Book"])
 logic = SubResource("Resource_vmsno")

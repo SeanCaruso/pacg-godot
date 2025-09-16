@@ -37,15 +37,9 @@ card_id = "Rescue"
 card_name = "Rescue"
 card_type = 8
 story_bane_type = 6
-card_level = 0
 check_requirement = SubResource("Resource_3hc1h")
-reroll_threshold = 0
 powers = "On the check to defeat, you may recharge any number of allies; for each ally recharged, add 1d4.
 
 If defeated, draw a new ally that lists Diplomacy in its check to acquire."
-recovery = ""
-immunities = Array[String]([])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Task", "Veteran"])
 logic = SubResource("Resource_1qmds")
