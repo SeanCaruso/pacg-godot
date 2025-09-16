@@ -49,15 +49,16 @@ func update_preview_state(staged_actions: Array[StagedAction]):
 		_traits.add_traits(modifier.source_card, modifier.added_traits)
 		_traits.add_required_traits(modifier.source_card, modifier.required_traits)
 		_traits.add_prohibited_traits(modifier.source_card, modifier.prohibited_traits)
-		
-	GameEvents.dice_pool_changed.emit(DicePoolBuilder.build(self, staged_actions))
 	
 	# Update the context
 	var new_valid_skills = get_current_valid_skills()
 	if !new_valid_skills.has(used_skill):
 		used_skill = character.get_best_skill(new_valid_skills)["skill"]
-		
+	
 	DialogEvents.valid_skills_changed.emit(new_valid_skills)
+	
+	var _dice_pool := DicePoolBuilder.build(self, staged_actions)
+	GameEvents.dice_pool_changed.emit(_dice_pool)
 	
 	
 func get_current_valid_skills() -> Array[Skill]:

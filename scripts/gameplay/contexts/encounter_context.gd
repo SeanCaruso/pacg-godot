@@ -47,4 +47,4 @@ func add_prohibited_traits(pc: PlayerCharacter, traits: Array[String]):
 
 func get_prohibited_traits(pc: PlayerCharacter) -> Array[String]:
 	if not _prohibited_traits.has(pc): return []
-	return _prohibited_traits[pc]
+	return _prohibited_traits[pc] as Array[String]

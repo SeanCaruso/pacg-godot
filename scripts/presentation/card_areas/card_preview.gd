@@ -29,23 +29,23 @@ func _ready() -> void:
 
 
 func end_preview() -> void:
+	hide()
+	
 	# Clean up placeholder.
 	if _placeholder:
 		_placeholder.queue_free()
 		_placeholder = null
-	
-	if not _current_card:
-		return
-	
-	_current_card.is_previewed = false
-	
-	_current_card = null
+		
 	_original_parent = null
 	
 	for button in action_buttons_container.get_children():
 		button.queue_free()
 	
-	hide()
+	if not _current_card:
+		return
+	
+	_current_card.is_previewed = false
+	_current_card = null
 
 
 func generate_action_buttons() -> void:
@@ -70,6 +70,7 @@ func generate_action_buttons() -> void:
 		button.pressed.connect(
 			func():
 				GameServices.asm.stage_action(action)
+				_current_card.queue_free()
 				end_preview()
 		)
 

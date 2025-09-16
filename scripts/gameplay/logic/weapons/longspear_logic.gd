@@ -32,8 +32,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 func on_commit(action: StagedAction):
 	_contexts.encounter_context.add_prohibited_traits(action.card.owner, ["Offhand"])
 	
-	var reroll_sources: Array[CardLogicBase] = \
-		_contexts.check_context.context_data.get_or_add("rerollCards", [])
+	var reroll_sources = _contexts.check_context.context_data.get_or_add("rerollCards", [])
 	
 	match action.action_type:
 		Action.REVEAL:

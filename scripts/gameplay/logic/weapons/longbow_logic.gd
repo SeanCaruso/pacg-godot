@@ -33,6 +33,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 func _can_reveal(card: CardInstance) -> bool:
 	# Reveal power can be used by the current owner while playing cards for a Dexterity or Ranged combat check.
 	return _contexts.check_context \
+		and _contexts.current_resolvable \
 		and _contexts.check_context.is_combat_valid \
 		and _contexts.check_context.character == card.owner \
 		and _contexts.current_resolvable.can_stage_type(card.card_type) \

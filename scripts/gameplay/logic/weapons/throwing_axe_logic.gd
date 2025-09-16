@@ -1,7 +1,7 @@
 class_name ThrowingAxeLogic
 extends CardLogicBase
 
-const _valid_skills := [Skill.STRENGTH, Skill.DEXTERITY, Skill.MELEE, Skill.RANGED]
+const _valid_skills: Array[Skill] = [Skill.STRENGTH, Skill.DEXTERITY, Skill.MELEE, Skill.RANGED]
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:

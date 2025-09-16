@@ -22,8 +22,8 @@ func num_dice(sides: int):
 func roll() -> int:
 	var roll_result := _bonus
 	for sides in _dice:
-		roll_result += DiceUtils.roll_dice(sides, _dice[sides])
-
+		roll_result += DiceUtils.roll_dice(_dice[sides], sides)
+	
 	return roll_result
 
 
@@ -35,7 +35,6 @@ func _to_string() -> String:
 	for sides in sorted_sides:
 		retval += "" if retval.is_empty() else " + "
 		retval += "%dd%d" % [_dice[sides], sides]
-
+	
 	retval += "" if _bonus == 0 else " + %d" % _bonus
 	return retval
-		

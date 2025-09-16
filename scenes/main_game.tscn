@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=47 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://b2ustwy17bah5" path="res://scenes/game_areas/turn_buttons.tscn" id="4_ipu61"]
 [ext_resource type="PackedScene" uid="uid://c0pmjyy1d48yf" path="res://scenes/game_areas/scenario_area.tscn" id="5_ygxny"]
 [ext_resource type="PackedScene" uid="uid://bi3upsqpc3fhh" path="res://scenes/game_areas/action_buttons.tscn" id="6_wi4c7"]
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="8_4v0b0"]
 [ext_resource type="Script" uid="uid://dab1cuops07wt" path="res://scripts/gameplay/test_data.gd" id="9_2l77h"]
+[ext_resource type="Script" uid="uid://d0rwouwo5lxd7" path="res://scenes/ui_objects/status_text.gd" id="9_mkn3m"]
 [ext_resource type="Resource" uid="uid://b4l7y8pxnda3a" path="res://_game_data/scenarios/1s_rumble_road.tres" id="10_5cypo"]
+[ext_resource type="Script" uid="uid://uctl8bbd3y6a" path="res://scenes/ui_objects/dice_preview.gd" id="10_wpxwh"]
 [ext_resource type="Resource" uid="uid://duhf2v1lx10aq" path="res://_game_data/blessings/orison.tres" id="11_o6v7o"]
 [ext_resource type="Resource" uid="uid://bwwns71g3fjrj" path="res://_game_data/characters/valeros.tres" id="12_wdxbp"]
 [ext_resource type="Resource" uid="uid://bysdn00b41poj" path="res://_game_data/allies/horse.tres" id="13_on6n6"]
@@ -109,6 +112,8 @@ theme_override_constants/separation = -175
 
 [node name="PlayerHand" parent="UI" instance=ExtResource("1_s3esy")]
 unique_name_in_owner = true
+offset_top = -175.0
+offset_bottom = 175.0
 
 [node name="Discards" type="Control" parent="UI"]
 custom_minimum_size = Vector2(187.5, 262.5)
@@ -144,6 +149,40 @@ offset_left = -370.0
 offset_top = 100.0
 offset_right = -10.0
 offset_bottom = 431.0
+
+[node name="StatusText" type="Label" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -280.0
+offset_bottom = -226.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("8_4v0b0")
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_mkn3m")
+
+[node name="DicePreview" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -330.0
+offset_bottom = -276.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_constants/separation = 5
+alignment = 1
+script = ExtResource("10_wpxwh")
 
 [node name="ActionButtons" parent="UI" instance=ExtResource("6_wi4c7")]
 

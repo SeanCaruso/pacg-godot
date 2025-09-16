@@ -63,7 +63,12 @@ func _update_pc_icon(current_pc: PlayerCharacter, icon_pc: PlayerCharacter, butt
 	
 	for connection in button.pressed.get_connections():
 		button.pressed.disconnect(connection["callable"])
-	button.pressed.connect(icon_pc.set_active)
+		
+	var on_pressed := func():
+		icon_pc.set_active()
+		button.modulate = Color.WHITE
+		
+	button.pressed.connect(on_pressed)
 	
 	if not button.mouse_entered.is_connected(_on_mouse_entered):
 		button.mouse_entered.connect(_on_mouse_entered.bind(button))
