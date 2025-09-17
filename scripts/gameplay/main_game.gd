@@ -30,7 +30,7 @@ func _ready() -> void:
 		if not test_data.characters_to_use.has(pc.character_name): continue
 		var character = PlayerCharacter.new(pc)
 		game_context.characters.append(character)
-		character.location = game_context.locations.front()
+		character.location = game_context.locations.filter(func(l): return l.name == "Caravan").front()
 		
 		for pc_card in test_data.test_characters[pc]:
 			var card_instance := GameServices.cards.new_card(pc_card, character)

@@ -3,6 +3,19 @@ extends Node
 
 const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 
+
+static func add_mouseover_effect_to_button(button: TextureButton) -> void:
+	if not button.mouse_entered.has_connections():
+		button.mouse_entered.connect(
+			func(): 
+				if not button.disabled: button.modulate = Color(1.1, 1.1, 1.1)
+		)
+	if not button.mouse_exited.has_connections():
+		button.mouse_exited.connect(
+			func(): button.modulate = Color.WHITE
+		)
+
+
 static func set_panel_color(panel: PanelContainer, color: Color):
 	var stylebox = panel.get_theme_stylebox("panel")
 	

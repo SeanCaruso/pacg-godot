@@ -8,7 +8,7 @@ const CardDisplay := preload("res://scripts/presentation/cards/card_display.gd")
 @onready var card_container: Control = %CardContainer
 @onready var action_buttons_container: VBoxContainer = %ActionButtonsContainer
 
-var _current_card: CardDisplay = null
+var _current_card: Control = null
 var _original_parent: Control = null
 var _placeholder: Control = null
 
@@ -49,8 +49,9 @@ func end_preview() -> void:
 
 
 func generate_action_buttons() -> void:
-	if not _current_card: return
-	var card := _current_card.card_instance
+	if not _current_card or _current_card is not CardDisplay:
+		return
+	var card := (_current_card as CardDisplay).card_instance
 	
 	var actions: Array[StagedAction] = []
 	# If there's an encountered card, grab any additional actions that card might add to the previewed card.
@@ -75,7 +76,7 @@ func generate_action_buttons() -> void:
 		)
 
 
-func start_preview(card_display: CardDisplay) -> void:
+func start_preview(card_display: Control) -> void:
 	if _current_card:
 		return
 	
@@ -116,7 +117,7 @@ func _on_background_clicked(event: InputEvent):
 			_return_card_to_origin()
 
 
-func _on_card_clicked(card_display: CardDisplay):
+func _on_card_clicked(card_display: Control):
 	start_preview(card_display)
 
 

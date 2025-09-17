@@ -30,7 +30,7 @@ func _ready() -> void:
 	GameEvents.player_character_changed.connect(_on_player_character_changed)
 
 
-func _on_pc_location_changed(pc: PlayerCharacter, _loc: Location):
+func _on_pc_location_changed(pc: PlayerCharacter):
 	_on_player_character_changed(pc)
 
 

@@ -10,7 +10,7 @@ signal scenario_has_danger(card: CardInstance)
 # Turn phase events
 signal turn_state_changed()
 signal hour_changed(hour_card: CardInstance)
-signal pc_location_changed(pc: PlayerCharacter, location: Location)
+signal pc_location_changed(pc: PlayerCharacter)
 signal encounter_started(card: CardInstance)
 signal encounter_ended()
 

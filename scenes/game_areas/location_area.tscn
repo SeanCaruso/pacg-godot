@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxb52yyk2h88d"]
+[gd_scene load_steps=7 format=3 uid="uid://bxb52yyk2h88d"]
 
+[ext_resource type="Script" uid="uid://cyujxn7t106x4" path="res://scenes/card_areas/location_card_container.gd" id="1_23cbi"]
 [ext_resource type="Texture2D" uid="uid://dvm2alqwilo71" path="res://assets/textures/card_back.png" id="1_k8lxm"]
 [ext_resource type="Texture2D" uid="uid://vq8csgqsbd1q" path="res://assets/textures/card_back_disabled.png" id="2_2dhwr"]
 [ext_resource type="PackedScene" uid="uid://smvna3svyub0" path="res://scenes/game_areas/character_list.tscn" id="2_6b3ie"]
@@ -24,6 +25,7 @@ layout_mode = 1
 anchors_preset = 0
 offset_right = 250.0
 offset_bottom = 350.0
+script = ExtResource("1_23cbi")
 
 [node name="LocationDeck" type="TextureButton" parent="."]
 unique_name_in_owner = true

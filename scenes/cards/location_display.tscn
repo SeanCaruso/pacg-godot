@@ -1,0 +1,315 @@
+[gd_scene load_steps=12 format=3 uid="uid://bixget8gifffr"]
+
+[ext_resource type="Theme" uid="uid://dofpxe3roxdeb" path="res://ui/game_theme.tres" id="1_474e3"]
+[ext_resource type="Texture2D" uid="uid://b0aqh2doac3ga" path="res://assets/textures/cardBlackBorder.png" id="2_vvtea"]
+[ext_resource type="Script" uid="uid://cub6h47pj0t5o" path="res://scripts/presentation/cards/location_display.gd" id="3_474e3"]
+[ext_resource type="Texture2D" uid="uid://7gjcgn72fyrs" path="res://assets/textures/cardWhiteBorder.png" id="4_5nggc"]
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="5_krysx"]
+[ext_resource type="Script" uid="uid://dd1ry0k0rbmnx" path="res://scripts/presentation/cards/card_input_handler.gd" id="6_xiyyn"]
+
+[sub_resource type="FontVariation" id="FontVariation_eh4pr"]
+base_font = ExtResource("5_krysx")
+variation_opentype = {
+2003265652: 400
+}
+variation_embolden = 0.15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_474e3"]
+bg_color = Color(0.91764706, 0.8392157, 0.75686276, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.34117648, 0.2784314, 0.21176471, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="FontVariation" id="FontVariation_474e3"]
+base_font = ExtResource("5_krysx")
+variation_opentype = {
+2003265652: 500
+}
+
+[sub_resource type="FontVariation" id="FontVariation_vvtea"]
+base_font = ExtResource("5_krysx")
+variation_opentype = {
+2003265652: 325
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkaug"]
+bg_color = Color(0.34117648, 0.2784314, 0.21176471, 1)
+
+[node name="LocationDisplay" type="TextureRect" groups=["cards"]]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_474e3")
+texture = ExtResource("2_vvtea")
+script = ExtResource("3_474e3")
+
+[node name="CardInputHandler" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_xiyyn")
+
+[node name="MarginContainer" type="MarginContainer" parent="CardInputHandler"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ContentBackground" type="TextureRect" parent="CardInputHandler/MarginContainer"]
+self_modulate = Color(0.329412, 0.266667, 0.133333, 1)
+clip_children = 2
+layout_mode = 2
+texture = ExtResource("4_5nggc")
+expand_mode = 1
+
+[node name="TopPanel" type="ColorRect" parent="CardInputHandler/MarginContainer/ContentBackground"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+mouse_filter = 1
+color = Color(0.34117648, 0.2784314, 0.21176471, 1)
+
+[node name="Top_Panel_Margin" type="MarginContainer" parent="CardInputHandler/MarginContainer/ContentBackground/TopPanel"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 20.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="Top_Panel_HBox" type="HBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin"]
+layout_mode = 2
+
+[node name="CardName" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin/Top_Panel_HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "CARD NAME"
+vertical_alignment = 1
+
+[node name="CardType" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin/Top_Panel_HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "LOCATION"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CardLevel" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/TopPanel/Top_Panel_Margin/Top_Panel_HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_eh4pr")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="PowersMargin" type="MarginContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="PowersArea" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin"]
+layout_mode = 2
+alignment = 2
+
+[node name="AtLocationPanel" type="PanelContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_474e3")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/AtLocationPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/AtLocationPanel/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AtLocationLabel" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/AtLocationPanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_474e3")
+theme_override_font_sizes/font_size = 12
+text = "AT THIS LOCATION"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/AtLocationPanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="AtLocationText" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/AtLocationPanel/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_vvtea")
+theme_override_font_sizes/font_size = 12
+text = "At the end of your turn, you may heal a card."
+autowrap_mode = 2
+
+[node name="AtLocationButton" type="TextureButton" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/AtLocationPanel/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ToClosePanel" type="PanelContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_474e3")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/ToClosePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/ToClosePanel/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ToCloseLabel" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/ToClosePanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_474e3")
+theme_override_font_sizes/font_size = 12
+text = "TO CLOSE OR GUARD"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/ToClosePanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="ToCloseText" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/ToClosePanel/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_vvtea")
+theme_override_font_sizes/font_size = 12
+text = "At the end of your turn, you may heal a card."
+autowrap_mode = 2
+
+[node name="ToCloseButton" type="TextureButton" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/ToClosePanel/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="WhenClosingPanel" type="PanelContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_474e3")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/WhenClosingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/WhenClosingPanel/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="WhenClosingLabel" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/WhenClosingPanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_474e3")
+theme_override_font_sizes/font_size = 12
+text = "WHEN CLOSING"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/WhenClosingPanel/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="WhenClosingText" type="Label" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/WhenClosingPanel/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_vvtea")
+theme_override_font_sizes/font_size = 12
+text = "At the end of your turn, you may heal a card."
+autowrap_mode = 2
+
+[node name="WhenClosingButton" type="TextureButton" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/PowersMargin/PowersArea/WhenClosingPanel/MarginContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Traits_Area" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer"]
+layout_mode = 2
+
+[node name="Traits_Panel" type="PanelContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/Traits_Area"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_lkaug")
+
+[node name="MarginContainer" type="MarginContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/Traits_Area/Traits_Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="Traits_Container" type="VBoxContainer" parent="CardInputHandler/MarginContainer/ContentBackground/VBoxContainer/Traits_Area/Traits_Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Bottom_Panel" type="ColorRect" parent="CardInputHandler/MarginContainer/ContentBackground"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.34117648, 0.2784314, 0.21176471, 1)
+
+[connection signal="card_clicked" from="CardInputHandler" to="." method="_on_card_clicked"]
+[connection signal="card_drag_ended" from="CardInputHandler" to="." method="_on_drag_ended"]
+[connection signal="card_drag_started" from="CardInputHandler" to="." method="_on_drag_started"]
+[connection signal="card_drag_updated" from="CardInputHandler" to="." method="_on_drag_updated"]
