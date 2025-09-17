@@ -128,10 +128,15 @@ func get_dc() -> int:
 # =====================================================================================
 # SKILL PASSTHROUGHS TO CheckSkillAccumulator
 # =====================================================================================
+## Returns true if all given skills can't be used based on the list of restricted skills.
+func are_skills_blocked(skills: Array[Skill]) -> bool:
+	return _skills.are_skills_blocked(skills)
+
+
 ## Convenience function to determine if a card power with the given skills can be played on the
 ## current set of valid skills for the check.
-func can_use_skill(skills: Array[Skill]) -> bool:
-	return _skills.can_use_skill(skills)
+func has_valid_skill(skills: Array[Skill]) -> bool:
+	return _skills.has_valid_skill(skills)
 
 # =====================================================================================
 # CHECK RESULTS ENCAPSULATION

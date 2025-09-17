@@ -25,7 +25,6 @@ func test_longsword_logic_setup_was_successful():
 func test_longsword_combat_proficient_actions():
 	# Set up encounter with Zombie (combat)
 	TestUtils.setup_encounter("valeros", "zombie")
-	var longsword = TestUtils.get_card("longsword")
 	GameServices.contexts.encounter_context.character.add_to_hand(longsword)
 	
 	# Before staging, a proficient PC has two actions

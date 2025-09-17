@@ -26,7 +26,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and _contexts.check_context.character.local_characters.has(card.owner) \
 	and _contexts.current_resolvable.can_stage_type(card.card_type) \
 	and _contexts.check_context.is_skill_valid \
-	and _contexts.check_context.can_use_skill([Skill.ARCANE, Skill.KNOWLEDGE]):
+	and _contexts.check_context.has_valid_skill([Skill.ARCANE, Skill.KNOWLEDGE]):
 		var modifier := CheckModifier.new(card)
 		modifier.restricted_category = CheckCategory.SKILL
 		modifier.restricted_skills = [Skill.ARCANE, Skill.KNOWLEDGE]

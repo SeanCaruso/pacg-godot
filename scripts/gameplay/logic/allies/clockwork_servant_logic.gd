@@ -14,7 +14,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Recharge for +1d6 on a local Intelligence or Craft check.
 	if _can_recharge(card):
 		var modifier := CheckModifier.new(card)
-		modifier.required_traits = ["Intelligence", "Craft"]
+		modifier.restricted_skills = [Skill.INTELLIGENCE, Skill.CRAFT]
 		modifier.added_dice = [6]
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]
 	
@@ -42,4 +42,4 @@ func _can_recharge(card: CardInstance) -> bool:
 	return _contexts.check_context \
 	and _contexts.check_context.is_local(card.owner) \
 	and _contexts.check_context.resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.can_use_skill([Skill.INTELLIGENCE, Skill.CRAFT])
+	and _contexts.check_context.has_valid_skill([Skill.INTELLIGENCE, Skill.CRAFT])

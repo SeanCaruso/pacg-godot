@@ -36,7 +36,7 @@ func _can_reveal(card: CardInstance) -> bool:
 		and _contexts.current_resolvable.has_combat \
 		and _contexts.check_context.character == card.owner \
 		and _contexts.current_resolvable.can_stage_type(card.card_type) \
-		and _contexts.check_context.can_use_skill(_valid_skills)
+		and not _contexts.check_context.are_skills_blocked(_valid_skills)
 
 
 func _can_discard(card: CardInstance) -> bool:

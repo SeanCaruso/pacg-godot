@@ -31,5 +31,5 @@ func _can_reveal(card: CardInstance) -> bool:
 	return _contexts.check_context != null \
 		and _contexts.current_resolvable is CheckResolvable \
 		and _contexts.check_context.character == card.owner \
-		and _contexts.check_context.can_use_skill([Skill.PERCEPTION]) \
+		and _contexts.check_context.has_valid_skill([Skill.PERCEPTION]) \
 		and _contexts.current_resolvable.can_stage_type(card.card_type)

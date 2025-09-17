@@ -12,29 +12,39 @@ func _init(resolvable: CheckResolvable):
 	for check_step in resolvable.check_steps:
 		if check_step.category == CheckCategory.COMBAT:
 			_base_valid_skills.append_array([Skill.STRENGTH, Skill.MELEE])
-
+		
 		else:
 			_base_valid_skills.append_array(check_step.allowed_skills)
-			
-			
-func add_valid_skills(card: CardInstance, skills: Array[Skill]):
+
+
+func add_valid_skills(card: CardInstance, skills: Array[Skill]) -> void:
 	_staged_skill_additions.get_or_add(card, []).append_array(skills)
 	DialogEvents.valid_skills_changed.emit(get_current_valid_skills())
+
+
+func are_skills_blocked(skills: Array[Skill]) -> bool:
+	if _staged_skill_restrictions.is_empty():
+		return false
 	
-	
-func restrict_valid_skills(card: CardInstance, skills: Array[Skill]):
+	for skill_restrictions in _staged_skill_restrictions.values():
+		skills = skills.filter(func(s): return s in skill_restrictions)
+	return skills.is_empty()
+
+
+func restrict_valid_skills(card: CardInstance, skills: Array[Skill]) -> void:
 	if (skills.is_empty()): return
 	_staged_skill_restrictions.get_or_add(card, []).append_array(skills)
 	DialogEvents.valid_skills_changed.emit(get_current_valid_skills())
-	
-	
-func can_use_skill(skills: Array[Skill]) -> bool:
+
+
+## Returns true if at least one of the given skills is a valid skill.
+func has_valid_skill(skills: Array[Skill]) -> bool:
 	for _skill in skills:
 		if get_current_valid_skills().has(_skill): return true
 	
 	return false
-	
-	
+
+
 func get_current_valid_skills() -> Array[Skill]:
 	var skills := _base_valid_skills.duplicate()
 	

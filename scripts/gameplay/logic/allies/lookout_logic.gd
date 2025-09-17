@@ -42,4 +42,4 @@ func _can_recharge_for_check(card: CardInstance) -> bool:
 	and _contexts.check_context != null \
 	and _contexts.check_context.is_local(card.owner) \
 	and _contexts.check_context.resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.can_use_skill([Skill.PERCEPTION])
+	and _contexts.check_context.has_valid_skill([Skill.PERCEPTION])

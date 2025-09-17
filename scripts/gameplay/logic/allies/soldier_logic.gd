@@ -15,7 +15,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Recharge for +1d4 on a local Strength or Melee check.
 	if _can_recharge(card):
 		var modifier := CheckModifier.new(card)
-		modifier.required_traits = ["Strength", "Melee"]
+		modifier.restricted_skills.append_array([Skill.STRENGTH, Skill.MELEE])
 		modifier.added_dice = [4]
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]
 	
@@ -29,4 +29,4 @@ func _can_recharge(card: CardInstance) -> bool:
 	return _contexts.check_context \
 	and _contexts.check_context.is_local(card.owner) \
 	and _contexts.check_context.resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.invokes(["Strength", "Melee"])
+	and _contexts.check_context.has_valid_skill([Skill.STRENGTH, Skill.MELEE])

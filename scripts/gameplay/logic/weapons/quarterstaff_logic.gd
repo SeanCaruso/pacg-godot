@@ -51,7 +51,7 @@ func _is_playable_for_combat(card: CardInstance) -> bool:
 	return _contexts.check_context \
 		and _contexts.check_context.is_combat_valid \
 		and _contexts.check_context.character == card.owner \
-		and _contexts.check_context.can_use_skill([Skill.STRENGTH, Skill.MELEE])
+		and not _contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])
 
 
 # Can be played by the owner to evade an Obstacle or Trap barrier.

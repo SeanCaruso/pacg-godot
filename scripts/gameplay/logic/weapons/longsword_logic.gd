@@ -43,4 +43,4 @@ func _is_card_playable(card: CardInstance) -> bool:
 	and _contexts.current_resolvable is CheckResolvable \
 	and _contexts.current_resolvable.has_combat \
 	and _contexts.check_context.character == card.owner \
-	and _contexts.check_context.can_use_skill([Skill.STRENGTH, Skill.MELEE])
+	and not _contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])
