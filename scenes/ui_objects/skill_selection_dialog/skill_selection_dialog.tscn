@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://wlewkllpt0st"]
+
+[ext_resource type="PackedScene" uid="uid://cbwpmauoliprj" path="res://scenes/ui_objects/skill_selection_dialog/skill_dropdown_panel.tscn" id="1_k3lgr"]
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="1_o4pul"]
+[ext_resource type="Script" uid="uid://d2p07kwosu0g5" path="res://scenes/ui_objects/skill_selection_dialog/skill_selection_dialog.gd" id="1_td736"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4pul"]
+bg_color = Color(0.427451, 0.0313726, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_k3lgr"]
+base_font = ExtResource("1_o4pul")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3lgr"]
+bg_color = Color(1, 0, 1, 1)
+
+[node name="SkillSelectionDialog" type="Control"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+grow_horizontal = 2
+script = ExtResource("1_td736")
+
+[node name="SkillDropdownPanel" parent="." instance=ExtResource("1_k3lgr")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_top = 143.0
+offset_right = 500.0
+offset_bottom = 218.0
+grow_horizontal = 1
+
+[node name="HeaderVBox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+
+[node name="CheckTypePanel" type="PanelContainer" parent="HeaderVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o4pul")
+
+[node name="MarginContainer" type="MarginContainer" parent="HeaderVBox/CheckTypePanel"]
+layout_mode = 2
+theme_override_constants/margin_top = 35
+
+[node name="CheckLabel" type="Label" parent="HeaderVBox/CheckTypePanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_k3lgr")
+theme_override_font_sizes/font_size = 36
+text = "CHECK TO DEFEAT:"
+horizontal_alignment = 1
+
+[node name="CardNamePanel" type="PanelContainer" parent="HeaderVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k3lgr")
+
+[node name="CardNameLabel" type="Label" parent="HeaderVBox/CardNamePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("FontVariation_k3lgr")
+theme_override_font_sizes/font_size = 36
+text = "THIS IS A LONG CARD NAME"
+horizontal_alignment = 1

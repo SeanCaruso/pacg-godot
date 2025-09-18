@@ -17,6 +17,11 @@ var location: Location
 var _skills: Dictionary = {} # Skill -> Dictionary["die": int, "bonus": int]
 
 
+## Finds the character's skill die and bonus
+##
+## The return value is a Dictionary with the following key-value pairs:[br]
+## "die": int - attribute die for the skill[br]
+## "bonus": int - the total bonus for the skill (attribute bonus plus skill bonus)
 func get_skill(skill: Skill) -> Dictionary:
 	return _skills.get(skill, {"die": 4, "bonus": 0})
 

@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbwpmauoliprj"]
+
+[ext_resource type="Script" uid="uid://caa050xbj5ifv" path="res://scenes/ui_objects/skill_selection_dialog/skill_dropdown_panel.gd" id="1_8863e"]
+[ext_resource type="Texture2D" uid="uid://bwaqlxiyukdnf" path="res://assets/textures/d4.png" id="1_poxin"]
+[ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="2_lf2by"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_poxin"]
+bg_color = Color(0.427451, 0.0313726, 0, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8863e"]
+
+[node name="SkillDropdownPanel" type="VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_8863e")
+
+[node name="SkillRowsContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SelectedSkillRow" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_poxin")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectedSkillRow"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="SelectedSkillRow/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LeftArrow" type="TextureRect" parent="SelectedSkillRow/HBoxContainer/Control"]
+unique_name_in_owner = true
+self_modulate = Color(0.20392157, 0.29803923, 0.41960785, 1)
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 19.0
+offset_top = 15.0
+offset_right = 64.0
+offset_bottom = 60.0
+pivot_offset = Vector2(22.5, 22.5)
+texture = ExtResource("1_poxin")
+expand_mode = 1
+
+[node name="SkillLabel" type="Label" parent="SelectedSkillRow/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_lf2by")
+theme_override_font_sizes/font_size = 36
+text = "CONSTITUTION"
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="Control" parent="SelectedSkillRow/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RightArrow" type="TextureRect" parent="SelectedSkillRow/HBoxContainer/CenterContainer2"]
+unique_name_in_owner = true
+self_modulate = Color(0.20392157, 0.29803923, 0.41960785, 1)
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 60.0
+offset_bottom = 60.0
+pivot_offset = Vector2(22.5, 22.5)
+texture = ExtResource("1_poxin")
+expand_mode = 1
+
+[node name="SelectedSkillButton" type="Button" parent="SelectedSkillRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8863e")
+flat = true
+
+[connection signal="pressed" from="SelectedSkillRow/SelectedSkillButton" to="." method="_on_show_hide"]

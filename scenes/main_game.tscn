@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=48 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bxb52yyk2h88d" path="res://scenes/game_areas/location_area.tscn" id="4_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://b2ustwy17bah5" path="res://scenes/game_areas/turn_buttons.tscn" id="4_ipu61"]
 [ext_resource type="PackedScene" uid="uid://c0pmjyy1d48yf" path="res://scenes/game_areas/scenario_area.tscn" id="5_ygxny"]
+[ext_resource type="Script" uid="uid://wqo47mfliq1k" path="res://scenes/game_areas/skill_dialog_area.gd" id="6_jk70c"]
 [ext_resource type="PackedScene" uid="uid://bi3upsqpc3fhh" path="res://scenes/game_areas/action_buttons.tscn" id="6_wi4c7"]
 [ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="8_4v0b0"]
 [ext_resource type="Script" uid="uid://dab1cuops07wt" path="res://scripts/gameplay/test_data.gd" id="9_2l77h"]
@@ -134,6 +135,17 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = -1400.0
 offset_bottom = -335.0
+
+[node name="SkillDialogArea" type="Control" parent="UI"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+grow_horizontal = 2
+script = ExtResource("6_jk70c")
 
 [node name="TurnButtons" parent="UI" instance=ExtResource("4_ipu61")]
 anchors_preset = 1
