@@ -49,9 +49,10 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 # Can be played on Strength or Melee combat checks.
 func _is_playable_for_combat(card: CardInstance) -> bool:
 	return _contexts.check_context \
-		and _contexts.check_context.is_combat_valid \
-		and _contexts.check_context.character == card.owner \
-		and not _contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])
+	and _contexts.current_resolvable is CheckResolvable \
+	and _contexts.check_context.is_combat_valid \
+	and _contexts.check_context.character == card.owner \
+	and not _contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])
 
 
 # Can be played by the owner to evade an Obstacle or Trap barrier.

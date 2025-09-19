@@ -1,6 +1,7 @@
 class_name CharacterArea
 extends Control
 
+var _pc: PlayerCharacter
 var _power_button_map: Dictionary # CharacterPower -> TextureButton
 
 @onready var deck_count: Label = %DeckCount
@@ -16,6 +17,7 @@ func _ready() -> void:
 
 
 func _on_player_character_changed(pc: PlayerCharacter) -> void:
+	_pc = pc
 	_on_player_deck_count_changed(pc.deck.count)
 	
 	var buttons: Array[TextureButton] = [power_button_1, power_button_2, power_button_3]
@@ -36,4 +38,4 @@ func _on_player_power_enabled(power: CharacterPower, enabled: bool) -> void:
 	if not _power_button_map.has(power): return
 	var button: TextureButton = _power_button_map[power]
 	button.disabled = !enabled
-	button.pressed.connect(func(): print("%s pressed" % power.power_id))
+	button.pressed.connect(Callable(_pc.logic, power.power_id))

@@ -33,4 +33,4 @@ func can_commit(actions: Array[StagedAction]) -> bool:
 
 
 func resolve() -> void:
-	GameServices.contexts.turn_context.performed_character_powers.append("valeros_end")
+	GameServices.contexts.turn_context.performed_character_power_ids.append("valeros_end")

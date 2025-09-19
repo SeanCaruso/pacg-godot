@@ -26,9 +26,9 @@ func resolve():
 		
 func on_skip():
 	if _location_power:
-		_contexts.turn_context.performed_location_powers.append(_location_power)
+		_contexts.turn_context.performed_location_power_ids.append(_location_power.power_id)
 	if _character_power:
-		_contexts.turn_context.performed_character_powers.append(_character_power)
+		_contexts.turn_context.performed_character_power_ids.append(_character_power.power_id)
 		
 		
 func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:

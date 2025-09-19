@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=52 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
@@ -50,6 +50,8 @@
 [ext_resource type="Script" uid="uid://htp6dbeuwvx8" path="res://scripts/shared_api/debug_input.gd" id="42_oojmo"]
 [ext_resource type="Resource" uid="uid://bnkg2ukquj3n5" path="res://_game_data/locations/caravan.tres" id="48_cp8wt"]
 [ext_resource type="Resource" uid="uid://xyhegnhxpjjm" path="res://_game_data/monsters/zombie.tres" id="49_1w5q7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cp8wt"]
 
 [node name="MainGame" type="Control"]
 layout_mode = 3
@@ -120,17 +122,18 @@ unique_name_in_owner = true
 offset_top = -175.0
 offset_bottom = 175.0
 
-[node name="Discards" type="Control" parent="UI"]
+[node name="Discards" type="Button" parent="UI"]
 custom_minimum_size = Vector2(187.5, 262.5)
-layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = -50.0
+offset_top = -272.5
 offset_right = 197.5
 offset_bottom = -10.0
 grow_vertical = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cp8wt")
+flat = true
 script = ExtResource("4_t42xu")
 
 [node name="CharacterArea" parent="UI" instance=ExtResource("3_70vka")]
@@ -201,6 +204,8 @@ theme_override_constants/separation = 5
 alignment = 1
 script = ExtResource("10_wpxwh")
 
+[node name="ActionButtons" parent="UI" instance=ExtResource("6_wi4c7")]
+
 [node name="DeckExamineArea" type="Control" parent="UI"]
 unique_name_in_owner = true
 layout_mode = 3
@@ -210,8 +215,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="ActionButtons" parent="UI" instance=ExtResource("6_wi4c7")]
 
 [node name="CardPreview" parent="UI" instance=ExtResource("3_d2op2")]
 unique_name_in_owner = true
@@ -232,3 +235,5 @@ ExtResource("48_cp8wt"): [ExtResource("49_1w5q7")]
 
 [node name="DebugInput" type="Node" parent="."]
 script = ExtResource("42_oojmo")
+
+[connection signal="pressed" from="UI/Discards" to="UI/Discards" method="_examine_discards"]

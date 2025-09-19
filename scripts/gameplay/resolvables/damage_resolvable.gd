@@ -26,7 +26,7 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	
 	var actions: Array[StagedAction] = []
 	# Add default damage discard action if the card was in the player's hand.
-	if character.hand.has(card):
+	if character.hand.has(card) or character.revealed_cards.has(card):
 		actions.append(DefaultAction.new(card, _default_action_type))
 	
 	return actions

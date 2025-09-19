@@ -22,8 +22,8 @@ var force_end_turn: bool = false
 
 var explore_effects: Array[BaseExploreEffect] = []
 
-var performed_location_powers: Array[LocationPower] = []
-var performed_character_powers: Array[CharacterPower] = []
+var performed_location_power_ids: Array[String] = []
+var performed_character_power_ids: Array[String] = []
 
 func _init(turn_character: PlayerCharacter):
 	character = turn_character

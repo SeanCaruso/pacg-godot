@@ -50,9 +50,9 @@ func handled_start_of_turn_powers() -> bool:
 	var location_power := _contexts.turn_pc_location.start_of_turn_power
 	var character_power := _contexts.turn_context.character.start_of_turn_power
 	
-	if _contexts.turn_context.performed_location_powers.has(location_power):
+	if location_power and _contexts.turn_context.performed_location_power_ids.has(location_power.power_id):
 		location_power = null
-	if _contexts.turn_context.performed_character_powers.has(character_power):
+	if character_power and _contexts.turn_context.performed_character_power_ids.has(character_power.power_id):
 		character_power = null
 	
 	if !location_power and !character_power:

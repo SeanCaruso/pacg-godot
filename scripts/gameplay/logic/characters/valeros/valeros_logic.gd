@@ -19,10 +19,8 @@ func get_end_of_turn_power(pc: PlayerCharacter) -> CharacterPower:
 	return pc.data.powers[1]
 
 
-func execute_power(pc: PlayerCharacter, id: String) -> void:
-	match id:
-		"valeros_end":
-			var resolvable := ValerosEndOfTurnResolvable.new(_valid_cards)
-			var processor := NewResolvableProcessor.new(resolvable)
-			GameServices.game_flow.interrupt(processor)
-			GameServices.asm.commit()
+func valeros_end() -> void:
+	var resolvable := ValerosEndOfTurnResolvable.new(_valid_cards)
+	var processor := NewResolvableProcessor.new(resolvable)
+	GameServices.game_flow.interrupt(processor)
+	GameServices.asm.commit()

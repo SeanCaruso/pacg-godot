@@ -8,10 +8,10 @@ func on_execute() -> void:
 	if !_contexts.turn_context.force_end_turn:
 		character_power = _contexts.turn_context.character.end_of_turn_power
 		
-	if _contexts.turn_context.performed_character_powers.has(character_power):
+	if character_power and _contexts.turn_context.performed_character_power_ids.has(character_power.power_id):
 		character_power = null
 	
-	if _contexts.turn_context.performed_location_powers.has(location_power):
+	if location_power and _contexts.turn_context.performed_location_power_ids.has(location_power.power_id):
 		location_power = null
 	
 	if !character_power and !location_power:
