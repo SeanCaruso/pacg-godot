@@ -1,14 +1,15 @@
-[gd_scene load_steps=48 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=51 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
 [ext_resource type="Script" uid="uid://bxohds0cju6ux" path="res://scenes/card_areas/face_up_card_areas.gd" id="2_5noht"]
+[ext_resource type="Script" uid="uid://dfdgj8wq7saiv" path="res://scripts/presentation/ui.gd" id="2_34vfp"]
 [ext_resource type="PackedScene" uid="uid://ceqg655f53sto" path="res://scenes/game_areas/character_area.tscn" id="3_70vka"]
 [ext_resource type="PackedScene" uid="uid://dv8bkfdth0me3" path="res://scenes/card_areas/card_preview.tscn" id="3_d2op2"]
 [ext_resource type="PackedScene" uid="uid://bxb52yyk2h88d" path="res://scenes/game_areas/location_area.tscn" id="4_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://b2ustwy17bah5" path="res://scenes/game_areas/turn_buttons.tscn" id="4_ipu61"]
+[ext_resource type="Script" uid="uid://dpc0pie1ocu7f" path="res://scenes/game_areas/discards.gd" id="4_t42xu"]
 [ext_resource type="PackedScene" uid="uid://c0pmjyy1d48yf" path="res://scenes/game_areas/scenario_area.tscn" id="5_ygxny"]
-[ext_resource type="Script" uid="uid://wqo47mfliq1k" path="res://scenes/game_areas/skill_dialog_area.gd" id="6_jk70c"]
 [ext_resource type="PackedScene" uid="uid://bi3upsqpc3fhh" path="res://scenes/game_areas/action_buttons.tscn" id="6_wi4c7"]
 [ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="8_4v0b0"]
 [ext_resource type="Script" uid="uid://dab1cuops07wt" path="res://scripts/gameplay/test_data.gd" id="9_2l77h"]
@@ -47,6 +48,8 @@
 [ext_resource type="Resource" uid="uid://cnji25sa517mb" path="res://_game_data/spells/sleep.tres" id="40_cg2cl"]
 [ext_resource type="Resource" uid="uid://ctv257oa6m68o" path="res://_game_data/weapons/quarterstaff.tres" id="41_meg3e"]
 [ext_resource type="Script" uid="uid://htp6dbeuwvx8" path="res://scripts/shared_api/debug_input.gd" id="42_oojmo"]
+[ext_resource type="Resource" uid="uid://bnkg2ukquj3n5" path="res://_game_data/locations/caravan.tres" id="48_cp8wt"]
+[ext_resource type="Resource" uid="uid://xyhegnhxpjjm" path="res://_game_data/monsters/zombie.tres" id="49_1w5q7"]
 
 [node name="MainGame" type="Control"]
 layout_mode = 3
@@ -58,6 +61,7 @@ grow_vertical = 2
 script = ExtResource("1_72e8q")
 
 [node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("2_34vfp")
 
 [node name="FaceUpCardAreas" type="Control" parent="UI"]
 layout_mode = 3
@@ -127,6 +131,7 @@ offset_top = -50.0
 offset_right = 197.5
 offset_bottom = -10.0
 grow_vertical = 0
+script = ExtResource("4_t42xu")
 
 [node name="CharacterArea" parent="UI" instance=ExtResource("3_70vka")]
 
@@ -137,6 +142,7 @@ offset_right = -1400.0
 offset_bottom = -335.0
 
 [node name="SkillDialogArea" type="Control" parent="UI"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 3
 anchors_preset = 5
@@ -145,7 +151,6 @@ anchor_right = 0.5
 offset_left = -250.0
 offset_right = 250.0
 grow_horizontal = 2
-script = ExtResource("6_jk70c")
 
 [node name="TurnButtons" parent="UI" instance=ExtResource("4_ipu61")]
 anchors_preset = 1
@@ -196,6 +201,16 @@ theme_override_constants/separation = 5
 alignment = 1
 script = ExtResource("10_wpxwh")
 
+[node name="DeckExamineArea" type="Control" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="ActionButtons" parent="UI" instance=ExtResource("6_wi4c7")]
 
 [node name="CardPreview" parent="UI" instance=ExtResource("3_d2op2")]
@@ -211,6 +226,9 @@ ExtResource("12_wdxbp"): [ExtResource("13_on6n6"), ExtResource("14_x3ega"), ExtR
 ExtResource("26_g2o8j"): [ExtResource("27_oojmo"), ExtResource("28_5noht"), ExtResource("29_4v0b0"), ExtResource("30_mkn3m"), ExtResource("31_wpxwh"), ExtResource("32_jk70c"), ExtResource("33_t42xu"), ExtResource("34_34vfp"), ExtResource("35_cp8wt"), ExtResource("36_1w5q7"), ExtResource("37_ssxou"), ExtResource("38_jm67w"), ExtResource("39_trxsc"), ExtResource("40_cg2cl"), ExtResource("41_meg3e")]
 }
 characters_to_use = Array[String](["Valeros", "Ezren"])
+test_locations = {
+ExtResource("48_cp8wt"): [ExtResource("49_1w5q7")]
+}
 
 [node name="DebugInput" type="Node" parent="."]
 script = ExtResource("42_oojmo")

@@ -6,7 +6,7 @@ const CardDisplay := preload("res://scripts/presentation/cards/card_display.gd")
 
 signal card_clicked(card_display: Control)
 signal card_drag_started(card: ICard)
-signal card_drag_updated(card: ICard, delta: Vector2)
+signal card_drag_updated()
 signal card_drag_ended(card: ICard, global_pos: Vector2)
 
 const DRAG_THRESHOLD := 10.0
@@ -51,9 +51,7 @@ func _on_mouse_motion(pos: Vector2) -> void:
 	if card_display and card_display.is_previewed: return
 	
 	if is_dragging:
-		card_drag_updated.emit(card, pos - drag_start_pos)
+		card_drag_updated.emit()
 	elif not is_dragging and drag_start_pos and drag_start_pos.distance_to(pos) > DRAG_THRESHOLD:
-		if card is not CardInstance or not (card as CardInstance).owner:
-			return # Only owned cards can be dragged.
 		is_dragging = true
 		card_drag_started.emit(card)

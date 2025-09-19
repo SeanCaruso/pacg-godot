@@ -22,6 +22,9 @@ func _ready() -> void:
 		var location := Location.new(scenario_location.location_data)
 		game_context.locations.append(location)
 		
+		for loc_card in test_data.test_locations.get(location.data, []):
+			location.shuffle_in(GameServices.cards.new_card(loc_card), true)
+		
 		if not test_data.scenario_data.henchmen.is_empty():
 			var henchman_data = test_data.scenario_data.henchmen[0].card_data
 			location.shuffle_in(GameServices.cards.new_card(henchman_data), false)

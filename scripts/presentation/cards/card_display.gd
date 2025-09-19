@@ -2,6 +2,8 @@
 extends TextureRect
 
 signal card_clicked(card_display: Control)
+signal drag_started(card_display: Control)
+signal drag_ended(card_display: Control)
 
 const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
@@ -52,6 +54,8 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 @onready var card_input_handler: CardInputHandler = %CardInputHandler
 #endregion
 
+var drag_handled: bool
+var is_draggable: bool = false
 var is_previewed: bool = false
 var _card_instance: CardInstance
 var _panel_color: Color
@@ -62,6 +66,10 @@ var _is_dragging: bool = false
 
 var card_instance: CardInstance:
 	get: return _card_instance
+
+var global_rect: Rect2:
+	get:
+		return Rect2(global_position, size * scale)
 
 
 ## Main entry point - call this to tell the card what to display.
@@ -185,6 +193,8 @@ func _on_card_clicked(card_display: Control) -> void:
 
 
 func _on_drag_started(_card: CardInstance) -> void:
+	if not is_draggable: return
+	
 	# Store initial state
 	_original_pos = position
 	_original_scale = scale
@@ -194,16 +204,30 @@ func _on_drag_started(_card: CardInstance) -> void:
 	# Visual feedback
 	z_index = 100 # Bring to front.
 	scale *= 1.05
-
-
-func _on_drag_updated(_card: CardInstance, delta: Vector2) -> void:
-	if not _is_dragging: return
 	
-	position = _original_pos + delta
+	drag_started.emit(self)
+
+
+func _on_drag_updated() -> void:
+	if not _is_dragging: return
+
+	# Center card on mouse position
+	var mouse_pos = get_global_mouse_position()
+	var card_center = global_position + (size * scale) / 2
+	var offset = mouse_pos - card_center
+	position += offset
 
 
 func _on_drag_ended(_card: CardInstance, _global_pos: Vector2) -> void:
+	if not _is_dragging: return
 	_is_dragging = false
+	
+	drag_handled = false
+	drag_ended.emit(self)
+	
+	if drag_handled:
+		return
+	
 	position = _original_pos
 	scale = _original_scale
 	z_index = _original_z_idx

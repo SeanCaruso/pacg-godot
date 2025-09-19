@@ -1,6 +1,7 @@
 # PlayerHand.gd
 extends Control
 
+const CardDisplay := preload("res://scripts/presentation/cards/card_display.gd")
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
 @onready var hand_layout: HBoxContainer = %HandLayout
@@ -39,9 +40,10 @@ func _on_card_location_changed(card: CardInstance, old_location: CardLocation) -
 
 
 func _create_card_display(card: CardInstance) -> void:
-	var card_display := CARD_DISPLAY_SCENE.instantiate()
+	var card_display: CardDisplay = CARD_DISPLAY_SCENE.instantiate()
 	hand_layout.add_child(card_display)
 	card_display.set_card_instance(card)
+	card_display.is_draggable = true
 	
 	card_to_display_map[card] = card_display
 

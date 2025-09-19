@@ -14,6 +14,22 @@ func _input(event: InputEvent) -> void:
 		_draw_card()
 	if event.is_action_pressed("debug_recharge"):
 		_recharge_card()
+	
+	if event.is_pressed() and event is InputEventKey:
+		_handle_key_event(event)
+
+
+func _handle_key_event(event: InputEventKey) -> void:
+	if event.ctrl_pressed and event.shift_pressed and Input.is_key_pressed(KEY_E):
+		if event.keycode >= KEY_1 and event.keycode <= KEY_9:
+			var card_count := event.keycode - KEY_0
+			var resolvable := ExamineResolvable.new(
+				GameServices.contexts.game_context.active_character.location._deck,
+				card_count,
+				Input.is_key_pressed(KEY_ALT)
+			)
+			print("Examining %d" % card_count)
+			GameServices.contexts.new_resolvable(resolvable)
 
 
 func _discard_card() -> void:

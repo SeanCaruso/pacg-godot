@@ -9,13 +9,11 @@
 script = ExtResource("1_kgpuh")
 base_dc = 9
 adventure_level_mult = 2
-category = 0
 allowed_skills = Array[int]([0, 14])
 metadata/_custom_type_script = "uid://didae4gq6in6h"
 
 [sub_resource type="Resource" id="Resource_xhmd3"]
 script = ExtResource("2_gkd8k")
-mode = 0
 check_steps = Array[ExtResource("1_kgpuh")]([SubResource("Resource_b7eyb")])
 metadata/_custom_type_script = "uid://dm8c4qk6awsrf"
 
@@ -28,16 +26,11 @@ script = ExtResource("3_76lrx")
 card_id = "Zombie"
 card_name = "Zombie"
 card_type = 7
-story_bane_type = 0
 card_level = 1
 check_requirement = SubResource("Resource_xhmd3")
-reroll_threshold = 0
 powers = "Immune to Mental and Poison.
 
 If undefeated, a random character summons and encounters this monster."
-recovery = ""
 immunities = Array[String](["Mental", "Poison"])
-vulnerabilities = Array[String]([])
-is_loot = false
 traits = Array[String](["Undead", "Zombie", "Veteran"])
 logic = SubResource("Resource_76lrx")

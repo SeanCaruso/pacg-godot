@@ -1,0 +1,122 @@
+[gd_scene load_steps=5 format=3 uid="uid://djiwn8qu2mwgg"]
+
+[ext_resource type="Texture2D" uid="uid://duidw6qdapyiq" path="res://assets/textures/blue_button_bg.png" id="1_4nfua"]
+[ext_resource type="Script" uid="uid://cxo537qgtllyp" path="res://scenes/ui_objects/examine_gui.gd" id="1_f72jx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwwuv"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.427451, 0.0313726, 0, 1)
+border_color = Color(0.427451, 0.0313726, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nfua"]
+bg_color = Color(0.8, 0.62352943, 0.39215687, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="ExamineGui" type="Control"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -400.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f72jx")
+
+[node name="BackgroundButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_top = -140.0
+offset_right = 1920.0
+offset_bottom = 940.0
+flat = true
+
+[node name="Border" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwwuv")
+
+[node name="PanelContainer" type="PanelContainer" parent="Border"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4nfua")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Border/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="LeftPadding" type="Control" parent="Border/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardBacksContainer" type="HBoxContainer" parent="Border/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = -225
+alignment = 2
+
+[node name="CardsContainer" type="HBoxContainer" parent="Border/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 25
+
+[node name="RightPadding" type="Control" parent="Border/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ContinueButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -35.0
+offset_right = 100.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("1_4nfua")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="ContinueButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ContinueButton" to="." method="_end_examine"]
