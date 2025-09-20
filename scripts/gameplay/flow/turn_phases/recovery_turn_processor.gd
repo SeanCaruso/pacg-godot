@@ -6,9 +6,9 @@ const TurnPhase := preload("res://scripts/core/enums/turn_phase.gd").TurnPhase
 
 
 func on_execute() -> void:
-	if !_contexts.turn_context: return
+	if !Contexts.turn_context: return
 	
-	_contexts.turn_context.current_phase = TurnPhase.RECOVERY
+	Contexts.turn_context.current_phase = TurnPhase.RECOVERY
 	
 	var recovery_cards := GameServices.cards.get_cards_in_location(CardLocation.RECOVERY)
 	if recovery_cards.is_empty(): return
@@ -19,4 +19,4 @@ func on_execute() -> void:
 	var card: CardInstance = recovery_cards.pop_front()
 	var resolvable := card.get_recovery_resolvable()
 	if resolvable:
-		_contexts.new_resolvable(resolvable)
+		Contexts.new_resolvable(resolvable)

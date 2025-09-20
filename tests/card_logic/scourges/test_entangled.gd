@@ -14,48 +14,48 @@ func before_each():
 	game_context.characters.append(valeros)
 	game_context.locations.append_array([_location1, _location2])
 	valeros.location = _location1
-	GameServices.contexts.new_game(game_context)
+	Contexts.new_game(game_context)
 
 
 func test_entangled_unscourged_doesnt_prevent_move():
 	# Start turn without Entangled scourge
 	GameServices.game_flow.start_phase(StartTurnController.new(valeros), "Turn")
-	assert_true(GameServices.contexts.turn_context.can_move, "Should be able to move when not entangled")
+	assert_true(Contexts.turn_context.can_move, "Should be able to move when not entangled")
 
 
 func test_entangled_scourged_prevents_move():
 	# Add Entangled scourge and start turn
 	valeros.add_scourge(Scourge.ENTANGLED)
 	GameServices.game_flow.start_phase(StartTurnController.new(valeros), "Turn")
-	assert_false(GameServices.contexts.turn_context.can_move, "Should not be able to move when entangled")
+	assert_false(Contexts.turn_context.can_move, "Should not be able to move when entangled")
 
 
 func test_entangled_unscourged_doesnt_prevent_evasion():
 	# Start turn and encounter without Entangled
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	
 	var encounter = EncounterContext.new(valeros, zombie)
 	encounter.explore_effects.append(EvadeExploreEffect.new())
-	GameServices.contexts.new_encounter(encounter)
+	Contexts.new_encounter(encounter)
 	
 	GameServices.game_flow.start_phase(EvasionEncounterProcessor.new(), "Evasion")
-	assert_true(GameServices.contexts.current_resolvable is PlayerChoiceResolvable, "Should have evasion choice")
+	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable, "Should have evasion choice")
 	
-	var resolvable = GameServices.contexts.current_resolvable as PlayerChoiceResolvable
+	var resolvable = Contexts.current_resolvable as PlayerChoiceResolvable
 	assert_eq(resolvable.prompt, "Evade?", "Should ask about evasion")
 
 
 func test_entangled_scourged_prevents_evasion():
 	# Add Entangled scourge and test evasion prevention
 	valeros.add_scourge(Scourge.ENTANGLED)
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	
 	var encounter = EncounterContext.new(valeros, zombie)
 	encounter.explore_effects.append(EvadeExploreEffect.new())
-	GameServices.contexts.new_encounter(encounter)
+	Contexts.new_encounter(encounter)
 	
 	GameServices.game_flow.start_phase(EvasionEncounterProcessor.new(), "Evasion")
-	assert_null(GameServices.contexts.current_resolvable, "Should not have evasion choice when entangled")
+	assert_null(Contexts.current_resolvable, "Should not have evasion choice when entangled")
 
 
 func test_entangled_location_close_removes():

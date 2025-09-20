@@ -4,10 +4,10 @@ extends CardLogicBase
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Usable on any non-combat check by the owner.
-	if not _contexts.check_context \
-	or not _contexts.check_context.is_skill_valid \
-	or not _contexts.current_resolvable.can_stage_type(card.card_type) \
-	or _contexts.check_context.character != card.owner:
+	if not Contexts.check_context \
+	or not Contexts.check_context.is_skill_valid \
+	or not Contexts.current_resolvable.can_stage_type(card.card_type) \
+	or Contexts.check_context.character != card.owner:
 		return []
 	
 	var modifier := CheckModifier.new(card)

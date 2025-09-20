@@ -9,20 +9,20 @@ var _cards := GameServices.cards
 
 
 func on_execute() -> void:
-	if _contexts.encounter_context \
-	and _contexts.encounter_context.card.logic \
-	and not _contexts.encounter_context.card.logic.can_evade() : return
+	if Contexts.encounter_context \
+	and Contexts.encounter_context.card.logic \
+	and not Contexts.encounter_context.card.logic.can_evade() : return
 	
 	# The Entangled scourge prevents evasion.
-	if _contexts.encounter_context.character.active_scourges.has(Scourge.ENTANGLED): return
+	if Contexts.encounter_context.character.active_scourges.has(Scourge.ENTANGLED): return
 	
 	# First, see if there were any explore effects that added an evasion.
-	if _contexts.encounter_context.explore_effects.any(func(e): return e is EvadeExploreEffect):
+	if Contexts.encounter_context.explore_effects.any(func(e): return e is EvadeExploreEffect):
 		prompt_for_evasion(evade_encounter)
 		return
 		
 	# If not, update the phase and check for available evasion powers.
-	_contexts.encounter_context.current_phase = EncounterPhase.EVASION
+	Contexts.encounter_context.current_phase = EncounterPhase.EVASION
 	
 	# TODO: Check character powers
 
@@ -32,7 +32,7 @@ func on_execute() -> void:
 		
 	GameEvents.set_status_text.emit("Evade?")
 	
-	_contexts.new_resolvable(EvadeResolvable.new(evade_encounter))
+	Contexts.new_resolvable(EvadeResolvable.new(evade_encounter))
 	
 	
 func prompt_for_evasion(on_evade: Callable) -> void:
@@ -40,17 +40,17 @@ func prompt_for_evasion(on_evade: Callable) -> void:
 		ChoiceOption.new("Evade", on_evade),
 		ChoiceOption.new("Encounter", func(): pass)
 	])
-	_contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
 	
 static func evade_encounter() -> void:
-	if not GameServices.contexts.encounter_context: return
+	if not Contexts.encounter_context: return
 	
-	print("Evading %s" % [GameServices.contexts.encounter_context.card])
+	print("Evading %s" % [Contexts.encounter_context.card])
 	
-	if GameServices.contexts.encounter_context.card.current_location == CardLocation.DECK:
-		GameServices.contexts.encounter_pc_location.shuffle_in(GameServices.contexts.encounter_context.card, true)
+	if Contexts.encounter_context.card.current_location == CardLocation.DECK:
+		Contexts.encounter_pc_location.shuffle_in(Contexts.encounter_context.card, true)
 		
 	# Null out the encounter for the subsequent Encounter sub-processors
 	GameEvents.encounter_ended.emit()
-	GameServices.contexts.end_encounter()
+	Contexts.end_encounter()

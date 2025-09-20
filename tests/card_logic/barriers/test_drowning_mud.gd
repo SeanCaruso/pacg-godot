@@ -20,7 +20,7 @@ func before_each():
 
 func test_drowning_mud_undefeated_entangles():
 	# Set up encounter with Drowning Mud
-	GameServices.contexts.new_encounter(EncounterContext.new(_test_valeros, _drowning_mud))
+	Contexts.new_encounter(EncounterContext.new(_test_valeros, _drowning_mud))
 	_drowning_mud.logic.on_undefeated(_drowning_mud)
 	
 	assert_true(_test_valeros.active_scourges.has(Scourge.ENTANGLED), "Should have Entangled scourge")
@@ -28,7 +28,7 @@ func test_drowning_mud_undefeated_entangles():
 
 func test_drowning_mud_undefeated_exhausts():
 	# Set up encounter with Drowning Mud
-	GameServices.contexts.new_encounter(EncounterContext.new(_test_valeros, _drowning_mud))
+	Contexts.new_encounter(EncounterContext.new(_test_valeros, _drowning_mud))
 	_drowning_mud.logic.on_undefeated(_drowning_mud)
 	
 	assert_true(_test_valeros.active_scourges.has(Scourge.EXHAUSTED), "Should have Exhausted scourge")
@@ -36,7 +36,7 @@ func test_drowning_mud_undefeated_exhausts():
 
 func test_drowning_mud_undefeated_buries_top_card():
 	# Set up encounter with Drowning Mud
-	GameServices.contexts.new_encounter(EncounterContext.new(_test_valeros, _drowning_mud))
+	Contexts.new_encounter(EncounterContext.new(_test_valeros, _drowning_mud))
 	_drowning_mud.logic.on_undefeated(_drowning_mud)
 	
 	assert_eq(_test_valeros.deck.count, 0, "Deck should be empty after burying top card")

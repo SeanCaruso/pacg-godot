@@ -5,8 +5,8 @@ extends CardLogicBase
 func on_undefeated(card: CardInstance) -> void:
 	super.on_undefeated(card)
 	
-	if _contexts.encounter_context and _contexts.encounter_context.character:
-		var character := _contexts.encounter_context.character
+	if Contexts.encounter_context and Contexts.encounter_context.character:
+		var character := Contexts.encounter_context.character
 		character.add_scourge(Scourge.ENTANGLED)
 		character.add_scourge(Scourge.EXHAUSTED)
 		

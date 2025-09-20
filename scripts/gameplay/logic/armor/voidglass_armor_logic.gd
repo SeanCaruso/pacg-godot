@@ -25,16 +25,16 @@ func _can_display(card: CardInstance) -> bool:
 		return false
 	
 	# Can't display if another armor was played on the check.
-	if _contexts.current_resolvable and not _contexts.current_resolvable.can_stage_type(card.card_type):
+	if Contexts.current_resolvable and not Contexts.current_resolvable.can_stage_type(card.card_type):
 		return false
 	
 	# If there's no encounter or resolvable...
-	if _contexts.encounter_context == null and _contexts.current_resolvable == null:
+	if Contexts.encounter_context == null and Contexts.current_resolvable == null:
 		return true  # ... we can display.
 	
 	# Otherwise, we can only display if there's a DamageResolvable for this card's owner.
-	if _contexts.current_resolvable is DamageResolvable:
-		var resolvable := _contexts.current_resolvable as DamageResolvable
+	if Contexts.current_resolvable is DamageResolvable:
+		var resolvable := Contexts.current_resolvable as DamageResolvable
 		return resolvable.character == card.owner
 	
 	return false
@@ -42,32 +42,32 @@ func _can_display(card: CardInstance) -> bool:
 
 func _can_recharge_for_damage(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
-		and _contexts.current_resolvable is DamageResolvable \
-		and _contexts.current_resolvable.can_stage_type(card.card_type) \
-		and (_contexts.current_resolvable as DamageResolvable).character == card.owner
+		and Contexts.current_resolvable is DamageResolvable \
+		and Contexts.current_resolvable.can_stage_type(card.card_type) \
+		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_freely_recharge_for_damage(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
 		and _asm.staged_cards.has(card) \
-		and _contexts.current_resolvable is DamageResolvable \
-		and (_contexts.current_resolvable as DamageResolvable).character == card.owner
+		and Contexts.current_resolvable is DamageResolvable \
+		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_bury(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
 		and card.owner.is_proficient(card) \
-		and _contexts.current_resolvable is DamageResolvable \
-		and _contexts.current_resolvable.can_stage_type(card.card_type) \
-		and (_contexts.current_resolvable as DamageResolvable).character == card.owner
+		and Contexts.current_resolvable is DamageResolvable \
+		and Contexts.current_resolvable.can_stage_type(card.card_type) \
+		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_freely_bury(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
 		and _asm.staged_cards.has(card) \
 		and card.owner.is_proficient(card) \
-		and _contexts.current_resolvable is DamageResolvable \
-		and (_contexts.current_resolvable as DamageResolvable).character == card.owner
+		and Contexts.current_resolvable is DamageResolvable \
+		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
 
 
 func on_before_discard(source_card: CardInstance, args: DiscardEventArgs) -> void:

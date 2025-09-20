@@ -18,10 +18,10 @@ func test_force_missile_on_own_check():
 	
 	GameServices.asm.stage_action(actions[0])
 	
-	var dice = GameServices.contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
 	assert_eq(dice.to_string(), "1d12 + 2d4 + 2", "Should use Ezren's Arcane die")
 	
-	var traits = GameServices.contexts.check_context.traits
+	var traits = Contexts.check_context.traits
 	assert_true(traits.has("Magic"), "Should have Magic trait")
 	assert_true(traits.has("Arcane"), "Should have Arcane trait")
 	assert_true(traits.has("Attack"), "Should have Attack trait")
@@ -37,10 +37,10 @@ func test_force_missile_on_other_check():
 	
 	GameServices.asm.stage_action(actions[0])
 	
-	var dice = GameServices.contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
 	assert_eq(dice.to_string(), "1d10 + 2d4 + 2", "Should use Valeros's Melee die")
 	
-	var traits = GameServices.contexts.check_context.traits
+	var traits = Contexts.check_context.traits
 	assert_true(traits.has("Magic"), "Should have Magic trait")
 	assert_false(traits.has("Arcane"), "Should not have Arcane trait (not Ezren)")
 	assert_true(traits.has("Attack"), "Should have Attack trait")

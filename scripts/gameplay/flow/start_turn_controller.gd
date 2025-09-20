@@ -9,11 +9,11 @@ func _init(pc: PlayerCharacter):
 	
 	
 func on_execute() -> void:
-	print("===== STARTING TURN %d =====" % _contexts.game_context.turn_number)
-	_contexts.game_context.turn_number += 1
+	print("===== STARTING TURN %d =====" % Contexts.game_context.turn_number)
+	Contexts.game_context.turn_number += 1
 	
-	_contexts.new_turn(TurnContext.new(_pc))
-	_contexts.game_context.set_active_character(_pc)
+	Contexts.new_turn(TurnContext.new(_pc))
+	Contexts.game_context.set_active_character(_pc)
 	GameEvents.pc_location_changed.emit(_pc)
 	
 	_game_flow.queue_next_processor(AdvanceHourTurnProcessor.new())

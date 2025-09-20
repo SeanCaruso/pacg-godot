@@ -5,7 +5,7 @@ extends CardLogicBase
 func on_commit(action: StagedAction) -> void:
 	if action.action_type != Action.DISCARD:
 		return
-	_contexts.new_resolvable(ExamineResolvable.new(action.card.owner.location._deck, 2, true))
+	Contexts.new_resolvable(ExamineResolvable.new(action.card.owner.location._deck, 2, true))
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
@@ -17,8 +17,8 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		return [PlayCardAction.new(card, Action.REVEAL, modifier)]
 	
 	# Can discard to examine any time outside resolvables or encounters.
-	if _contexts.current_resolvable == null \
-	and _contexts.encounter_context == null \
+	if Contexts.current_resolvable == null \
+	and Contexts.encounter_context == null \
 	and card.owner.location.count > 0 \
 	and _asm.staged_actions.is_empty():
 		return [PlayCardAction.new(card, Action.DISCARD, null)]
@@ -28,8 +28,8 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_reveal(card: CardInstance) -> bool:
 	# Can reveal on your Perception check.
-	return _contexts.check_context != null \
-		and _contexts.current_resolvable is CheckResolvable \
-		and _contexts.check_context.character == card.owner \
-		and _contexts.check_context.has_valid_skill([Skill.PERCEPTION]) \
-		and _contexts.current_resolvable.can_stage_type(card.card_type)
+	return Contexts.check_context != null \
+		and Contexts.current_resolvable is CheckResolvable \
+		and Contexts.check_context.character == card.owner \
+		and Contexts.check_context.has_valid_skill([Skill.PERCEPTION]) \
+		and Contexts.current_resolvable.can_stage_type(card.card_type)

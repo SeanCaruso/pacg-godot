@@ -25,7 +25,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		var modifier := CheckModifier.new(card)
 		modifier.skill_dice_to_add = 1
 		return [PlayCardAction.new(card, Action.DISCARD, modifier, {"Bless": true})]
-	elif _contexts.is_explore_possible and _contexts.turn_context.character == card.owner:
+	elif Contexts.is_explore_possible and Contexts.turn_context.character == card.owner:
 		return [PlayCardAction.new(card, Action.DISCARD, null, {"Bless": false})]
 	
 	return []
@@ -33,5 +33,5 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_bless(card: CardInstance) -> bool:
 	# We can bless on any check.
-	return _contexts.current_resolvable is CheckResolvable \
-		and _contexts.current_resolvable.can_stage_type(card.card_type)
+	return Contexts.current_resolvable is CheckResolvable \
+		and Contexts.current_resolvable.can_stage_type(card.card_type)

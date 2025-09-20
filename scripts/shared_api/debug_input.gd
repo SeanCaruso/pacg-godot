@@ -24,12 +24,12 @@ func _handle_key_event(event: InputEventKey) -> void:
 		if event.keycode >= KEY_1 and event.keycode <= KEY_9:
 			var card_count := event.keycode - KEY_0
 			var resolvable := ExamineResolvable.new(
-				GameServices.contexts.game_context.active_character.location._deck,
+				Contexts.game_context.active_character.location._deck,
 				card_count,
 				Input.is_key_pressed(KEY_ALT)
 			)
 			print("Examining %d" % card_count)
-			GameServices.contexts.new_resolvable(resolvable)
+			Contexts.new_resolvable(resolvable)
 
 
 func _discard_card() -> void:

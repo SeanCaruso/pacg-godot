@@ -4,12 +4,12 @@ extends CardLogicBase
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	var can_banish_to_evade := \
-	_contexts.encounter_context \
-	and _contexts.encounter_context.current_phase == EncounterContext.EncounterPhase.EVASION \
-	and _contexts.encounter_context.card.card_type == CardType.MONSTER \
-	and card.owner.local_characters.has(_contexts.encounter_context.character)
+	Contexts.encounter_context \
+	and Contexts.encounter_context.current_phase == EncounterContext.EncounterPhase.EVASION \
+	and Contexts.encounter_context.card.card_type == CardType.MONSTER \
+	and card.owner.local_characters.has(Contexts.encounter_context.character)
 	
-	var resolvable := _contexts.current_resolvable as CheckResolvable
+	var resolvable := Contexts.current_resolvable as CheckResolvable
 	var can_banish_on_check := \
 	resolvable \
 	and resolvable.card.card_type in [CardType.ALLY, CardType.MONSTER] \

@@ -1,9 +1,9 @@
 # location_deck.gd
 extends TextureButton
 
-var _contexts: ContextManager:
+var Contexts: ContextManager:
 	get:
-		return GameServices.contexts
+		return Contexts
 
 
 func _ready() -> void:
@@ -26,10 +26,10 @@ func _on_staged_actions_changed(state: StagedActionsState) -> void:
 
 
 func _update_explore_button() -> void:
-	if _contexts.current_resolvable \
-	or not _contexts.turn_context \
-	or _contexts.game_context.active_character != _contexts.turn_context.character:
+	if Contexts.current_resolvable \
+	or not Contexts.turn_context \
+	or Contexts.game_context.active_character != Contexts.turn_context.character:
 		disabled = true
 		return
 	
-	disabled = !_contexts.turn_context.can_freely_explore
+	disabled = !Contexts.turn_context.can_freely_explore

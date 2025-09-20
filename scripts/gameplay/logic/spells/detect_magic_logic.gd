@@ -11,7 +11,7 @@ func on_commit(action: StagedAction) -> void:
 	var next_resolvable: BaseResolvable = null
 	
 	if top_card.traits.has("Magic"):
-		if action.card.owner == _contexts.turn_context.character:
+		if action.card.owner == Contexts.turn_context.character:
 			next_resolvable = CardUtils.create_explore_choice()
 	else:
 		next_resolvable = PlayerChoiceResolvable.new("Shuffle?", [
@@ -27,7 +27,7 @@ func on_commit(action: StagedAction) -> void:
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
-	if _contexts.are_cards_playable and card.owner.location.count > 0:
+	if Contexts.are_cards_playable and card.owner.location.count > 0:
 		return [PlayCardAction.new(card, Action.BANISH, null)]
 	
 	return []

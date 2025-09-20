@@ -3,7 +3,7 @@ extends BaseProcessor
 	
 	
 func on_execute() -> void:
-	var check := _contexts.check_context
+	var check := Contexts.check_context
 	if !check: return
 	
 	if check.check_result.was_success:
@@ -12,6 +12,6 @@ func on_execute() -> void:
 		var damage_resolvable = DamageResolvable.new(
 			check.resolvable.character,
 			-check.check_result.margin_of_success)
-		_contexts.new_resolvable(damage_resolvable)
+		Contexts.new_resolvable(damage_resolvable)
 		print("Rolled %d vs. %d - Take %d damage!" %
 			[check.check_result.final_roll_total, check.check_result.dc, damage_resolvable.amount])

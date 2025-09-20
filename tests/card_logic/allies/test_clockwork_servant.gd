@@ -13,11 +13,11 @@ func before_each():
 func test_clock_serv_can_recharge_vs_int():
 	# Set up a new encounter
 	TestUtils.setup_encounter("Valeros", "Deflect")
-	GameServices.contexts.encounter_context.character.add_to_hand(_clockwork_servant)
+	Contexts.encounter_context.character.add_to_hand(_clockwork_servant)
 	
 	# Check that the game pauses when reaching the required check resolvable
-	assert_not_null(GameServices.contexts.current_resolvable)
-	assert_true(GameServices.contexts.current_resolvable is CheckResolvable)
+	assert_not_null(Contexts.current_resolvable)
+	assert_true(Contexts.current_resolvable is CheckResolvable)
 	
 	# Check that the card has one recharge action
 	var actions := _clockwork_servant.get_available_actions()
@@ -35,18 +35,18 @@ func test_clock_serv_can_recharge_vs_craft():
 func test_clock_serv_can_not_recharge():
 	# Set up a new encounter with an item
 	TestUtils.setup_encounter("Valeros", "Spyglass")
-	GameServices.contexts.encounter_context.character.add_to_hand(_clockwork_servant)
+	Contexts.encounter_context.character.add_to_hand(_clockwork_servant)
 	
 	# Check that the game pauses when reaching the required check resolvable
-	assert_not_null(GameServices.contexts.current_resolvable)
-	assert_true(GameServices.contexts.current_resolvable is CheckResolvable)
+	assert_not_null(Contexts.current_resolvable)
+	assert_true(Contexts.current_resolvable is CheckResolvable)
 	
 	# Check that the card doesn't have a recharge action
 	var actions := _clockwork_servant.get_available_actions()
 	assert_eq(actions.size(), 0)
 
 func test_clock_serv_two_explore_options():
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	valeros.add_to_hand(_clockwork_servant)
 	
 	# Set up the location with a zombie card

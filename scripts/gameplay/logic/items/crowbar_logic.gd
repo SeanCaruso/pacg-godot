@@ -34,20 +34,20 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 
 func _is_card_playable(card: CardInstance) -> bool:
-	if _contexts.check_context == null:
+	if Contexts.check_context == null:
 		return false  # Must be in a check...
 	
-	if not _contexts.current_resolvable is CheckResolvable:
+	if not Contexts.current_resolvable is CheckResolvable:
 		return false  # ... for a CheckResolvable...
 	
-	var resolvable := _contexts.current_resolvable as CheckResolvable
+	var resolvable := Contexts.current_resolvable as CheckResolvable
 	if resolvable.character != card.owner:
 		return false  # ... for the card's owner...
 	
 	if not resolvable.can_stage_type(card.card_type):
 		return false  # ... with no Items played.
 	
-	if _contexts.check_context.invokes(["Strength"]):
+	if Contexts.check_context.invokes(["Strength"]):
 		return true  # We can play on Strength checks...
 	
 	if _is_lock_obstacle_barrier():
@@ -57,11 +57,11 @@ func _is_card_playable(card: CardInstance) -> bool:
 
 
 func _is_lock_obstacle_barrier() -> bool:
-	if not _contexts.encounter_context:
+	if not Contexts.encounter_context:
 		return false
 	
-	if _contexts.encounter_context.card_data.card_type != CardType.BARRIER:
+	if Contexts.encounter_context.card_data.card_type != CardType.BARRIER:
 		return false
 	
-	var traits := _contexts.encounter_context.card_data.traits
+	var traits := Contexts.encounter_context.card_data.traits
 	return traits.has("Lock") or traits.has("Obstacle")

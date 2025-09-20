@@ -5,7 +5,7 @@ const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scou
 
 ## We have an available turn action if the player has discarded cards or an applicable scourge and can freely explore.
 func has_available_actions() -> bool:
-	var contexts := GameServices.contexts
+	var contexts := Contexts
 	
 	if contexts.check_context \
 	or contexts.current_resolvable \
@@ -21,7 +21,7 @@ func has_available_actions() -> bool:
 
 
 func invoke_action() -> void:
-	var contexts := GameServices.contexts
+	var contexts := Contexts
 	if not contexts.turn_context: return
 	
 	# Instead of the first exploration, heal 1d4 cards.

@@ -16,7 +16,7 @@ func on_execute() -> void:
 	if !GameServices.cards.get_cards_in_location(CardLocation.RECOVERY).is_empty():
 		_game_flow.queue_next_processor(RecoveryTurnProcessor.new())
 		
-	var pc := _contexts.turn_context.character
+	var pc := Contexts.turn_context.character
 	if !_skip_optional_discards or pc.hand.size() > pc.data.hand_size:
 		_game_flow.queue_next_processor(DiscardDuringResetTurnProcessor.new())
 		

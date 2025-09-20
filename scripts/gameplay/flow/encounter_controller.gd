@@ -11,7 +11,7 @@ func _init(pc: PlayerCharacter, card: CardInstance):
 	
 	
 func on_execute() -> void:
-	_contexts.new_encounter(EncounterContext.new(_pc, _card))
+	Contexts.new_encounter(EncounterContext.new(_pc, _card))
 	GameEvents.encounter_started.emit(_card)
 	
 	_game_flow.queue_next_processor(OnEncounterProcessor.new())

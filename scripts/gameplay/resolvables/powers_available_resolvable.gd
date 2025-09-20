@@ -5,7 +5,6 @@ var _location_power: LocationPower = null
 var _character_power: CharacterPower = null
 var hide_cancel_button: bool = false
 
-var _contexts := GameServices.contexts
 
 func _init(location_power: LocationPower, character_power: CharacterPower):
 	_location_power = location_power
@@ -26,9 +25,9 @@ func resolve():
 		
 func on_skip():
 	if _location_power:
-		_contexts.turn_context.performed_location_power_ids.append(_location_power.power_id)
+		Contexts.turn_context.performed_location_power_ids.append(_location_power.power_id)
 	if _character_power:
-		_contexts.turn_context.performed_character_power_ids.append(_character_power.power_id)
+		Contexts.turn_context.performed_character_power_ids.append(_character_power.power_id)
 		
 		
 func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:

@@ -11,7 +11,7 @@ const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardL
 func _ready() -> void:
 	scenario_area.set_scenario(test_data.scenario_data)
 	var game_context := GameContext.new(1, test_data.scenario_data)
-	GameServices.contexts.new_game(game_context)
+	Contexts.new_game(game_context)
 	
 	for i in range(30):
 		game_context.hour_deck.shuffle_in(GameServices.cards.new_card(test_data.hour_card_data))
@@ -42,6 +42,6 @@ func _ready() -> void:
 		character.draw_initial_hand()
 	
 	var first_pc := game_context.characters[0]
-	GameServices.contexts.game_context.set_active_character(first_pc)
+	Contexts.game_context.set_active_character(first_pc)
 	var turn_controller := StartTurnController.new(first_pc)
 	GameServices.game_flow.start_phase(turn_controller, "Turn")

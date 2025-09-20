@@ -4,9 +4,6 @@ extends Node
 # The main service references
 var asm: ActionStagingManager
 var cards: CardManager
-var contexts: ContextManager:
-	get:
-		return Contexts
 var game_flow: GameFlowManager
 
 var adventure_number := 1

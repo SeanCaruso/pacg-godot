@@ -12,7 +12,7 @@ func test_exhausted_limits_to_one_boon():
 	valeros.add_to_hand(soldier)
 	
 	var resolvable = CheckResolvable.new(zombie, valeros, zombie.data.check_requirement)
-	GameServices.contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
 	assert_eq(longsword.get_available_actions().size(), 2)
 	GameServices.asm.stage_action(longsword.get_available_actions()[0])
@@ -24,7 +24,7 @@ func test_exhausted_doesnt_limit_same_boon():
 	valeros.add_to_hand(longsword)
 	
 	var resolvable = CheckResolvable.new(zombie, valeros, zombie.data.check_requirement)
-	GameServices.contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
 	assert_eq(longsword.get_available_actions().size(), 2)
 	GameServices.asm.stage_action(longsword.get_available_actions()[0])
@@ -33,18 +33,18 @@ func test_exhausted_doesnt_limit_same_boon():
 
 func test_exhausted_removal_prompt_on_turn_start():
 	valeros.add_scourge(Scourge.EXHAUSTED)
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	
 	GameServices.game_flow.start_phase(StartTurnProcessor.new(), "Turn")
-	assert_true(GameServices.contexts.current_resolvable is PlayerChoiceResolvable)
+	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable)
 
 func test_exhausted_removed():
 	valeros.add_scourge(Scourge.EXHAUSTED)
 	ScourgeRules.prompt_for_exhausted_removal(valeros)
 	
-	assert_true(GameServices.contexts.current_resolvable is PlayerChoiceResolvable)
+	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable)
 	
-	var resolvable = GameServices.contexts.current_resolvable as PlayerChoiceResolvable
+	var resolvable = Contexts.current_resolvable as PlayerChoiceResolvable
 	resolvable.options[1].action.call()
 	assert_true(valeros.active_scourges.size() == 1)
 	assert_true(valeros.active_scourges.has(Scourge.EXHAUSTED))

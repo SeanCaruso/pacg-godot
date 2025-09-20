@@ -10,7 +10,8 @@ var logic: LocationLogicBase
 
 var _deck: Deck
 var count: int:
-	get: return _deck.count
+	get:
+		return _deck.count
 
 func shuffle(): _deck.shuffle()
 
@@ -18,10 +19,8 @@ var _known_composition: Dictionary = {}
 var _unknown_card_count: int = 0
 
 var characters: Array[PlayerCharacter]:
-	get: return _contexts.game_context.get_characters_at(self)
-
-# Dependency injections
-var _contexts := GameServices.contexts
+	get:
+		return Contexts.game_context.get_characters_at(self)
 
 func _init(location_data: LocationData):
 	# Populate ICard members

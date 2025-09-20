@@ -3,11 +3,11 @@ extends BaseProcessor
 	
 	
 func on_execute() -> void:
-	if not _contexts.encounter_context \
-	or not _contexts.encounter_context.check_result: return
+	if not Contexts.encounter_context \
+	or not Contexts.encounter_context.check_result: return
 	
-	var was_success := _contexts.encounter_context.check_result.was_success
-	var card := _contexts.encounter_context.card
+	var was_success := Contexts.encounter_context.check_result.was_success
+	var card := Contexts.encounter_context.card
 	
 	if was_success:
 		card.on_defeated()
@@ -17,7 +17,7 @@ func on_execute() -> void:
 	GameEvents.encounter_ended.emit()
 	
 	if was_success and _is_closing_henchman(card):
-		var pc := _contexts.encounter_context.character
+		var pc := Contexts.encounter_context.character
 		
 		var close_choice_resolvable = PlayerChoiceResolvable.new("Close location?", [
 			ChoiceOption.new("Close", func():
@@ -30,11 +30,11 @@ func on_execute() -> void:
 		var next_processor := NewResolvableProcessor.new(close_choice_resolvable)
 		_game_flow.interrupt(next_processor)
 
-	_contexts.end_encounter()
+	Contexts.end_encounter()
 	
 	
 func _is_closing_henchman(card: CardInstance) -> bool:
-	if !card or !_contexts.game_context or !_contexts.game_context.scenario_data: return false
+	if !card or !Contexts.game_context or !Contexts.game_context.scenario_data: return false
 	
-	var henchmen := _contexts.game_context.scenario_data.henchmen
+	var henchmen := Contexts.game_context.scenario_data.henchmen
 	return henchmen.any(func(h: StoryBane): return h.card_data.card_id == card.data.card_id and h.is_closing)

@@ -9,8 +9,8 @@ func test_skill_restrictions_longbow_blocks_soldier() -> void:
 	
 	TestUtils.setup_encounter_with_instances(valeros, zombie)
 	
-	assert_not_null(GameServices.contexts.current_resolvable)
-	assert_true(GameServices.contexts.current_resolvable is CheckResolvable)
+	assert_not_null(Contexts.current_resolvable)
+	assert_true(Contexts.current_resolvable is CheckResolvable)
 	
 	# Longbow should be usable - no skill restrictions yet.
 	var longbow_actions := longbow.get_available_actions()
@@ -33,8 +33,8 @@ func test_skill_restrictions_soldier_blocks_longbow() -> void:
 	
 	TestUtils.setup_encounter_with_instances(valeros, zombie)
 	
-	assert_not_null(GameServices.contexts.current_resolvable)
-	assert_true(GameServices.contexts.current_resolvable is CheckResolvable)
+	assert_not_null(Contexts.current_resolvable)
+	assert_true(Contexts.current_resolvable is CheckResolvable)
 	
 	# Longbow should be usable - no skill restrictions yet.
 	var longbow_actions := longbow.get_available_actions()

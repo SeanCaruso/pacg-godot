@@ -14,7 +14,7 @@ func before_each():
 func test_quarterstaff_combat_proficient_actions():
 	# Set up encounter with Zombie (combat)
 	TestUtils.setup_encounter("Valeros", "Zombie")
-	GameServices.contexts.encounter_context.character.add_to_hand(_quarterstaff)
+	Contexts.encounter_context.character.add_to_hand(_quarterstaff)
 	
 	# Before staging, any PC has two actions
 	var actions := _quarterstaff.get_available_actions()
@@ -31,7 +31,7 @@ func test_quarterstaff_combat_proficient_actions():
 
 func test_quarterstaff_evade_obstacle():
 	# Set up a new encounter with an Obstacle barrier
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	
 	var encounter_data = CardData.new()
 	encounter_data.card_type = CardType.BARRIER
@@ -39,14 +39,14 @@ func test_quarterstaff_evade_obstacle():
 	
 	var encounter_instance = CardInstance.new(encounter_data, null)
 	
-	GameServices.contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
+	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
 	GameServices.game_flow.start_phase(EncounterController.new(valeros, encounter_instance), "Encounter")
 	
 	# Check that the game pauses when reaching an EvadeResolvable
-	assert_not_null(GameServices.contexts.current_resolvable, "Should have current resolvable")
-	assert_true(GameServices.contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_not_null(Contexts.current_resolvable, "Should have current resolvable")
+	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the quarterstaff has one evade action
 	var actions := _quarterstaff.get_available_actions()
@@ -58,13 +58,13 @@ func test_quarterstaff_evade_obstacle():
 	GameServices.asm.commit()
 	
 	# Check that the encounter ends
-	assert_null(GameServices.contexts.current_resolvable, "Should have no current resolvable")
-	assert_null(GameServices.contexts.encounter_context, "Encounter context should be cleared")
+	assert_null(Contexts.current_resolvable, "Should have no current resolvable")
+	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
 
 
 func test_quarterstaff_evade_trap():
 	# Set up a new encounter with a Trap barrier
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	
 	var encounter_data = CardData.new()
 	encounter_data.card_type = CardType.BARRIER
@@ -72,14 +72,14 @@ func test_quarterstaff_evade_trap():
 	
 	var encounter_instance = CardInstance.new(encounter_data, null)
 	
-	GameServices.contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
+	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
 	GameServices.game_flow.start_phase(EncounterController.new(valeros, encounter_instance), "Encounter")
 	
 	# Check that the game pauses when reaching an EvadeResolvable
-	assert_not_null(GameServices.contexts.current_resolvable, "Should have current resolvable")
-	assert_true(GameServices.contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_not_null(Contexts.current_resolvable, "Should have current resolvable")
+	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the quarterstaff has one evade action
 	var actions := _quarterstaff.get_available_actions()
@@ -91,13 +91,13 @@ func test_quarterstaff_evade_trap():
 	GameServices.asm.commit()
 	
 	# Check that the encounter ends
-	assert_null(GameServices.contexts.current_resolvable, "Should have no current resolvable")
-	assert_null(GameServices.contexts.encounter_context, "Encounter context should be cleared")
+	assert_null(Contexts.current_resolvable, "Should have no current resolvable")
+	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
 
 
 func test_quarterstaff_no_evade_non_obstacle_or_trap():
 	# Set up a new encounter with a barrier that's neither Obstacle nor Trap
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	
 	var encounter_data = CardData.new()
 	encounter_data.card_type = CardType.BARRIER
@@ -114,14 +114,14 @@ func test_quarterstaff_no_evade_non_obstacle_or_trap():
 	var encounter_instance = CardInstance.new(encounter_data, null)
 	encounter_instance.logic = zombie.logic
 	
-	GameServices.contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
+	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
 	GameServices.game_flow.start_phase(EncounterController.new(valeros, encounter_instance), "Encounter")
 	
 	# Check that the game pauses when reaching a CheckResolvable, not EvadeResolvable
-	assert_not_null(GameServices.contexts.current_resolvable, "Should have current resolvable")
-	assert_true(GameServices.contexts.current_resolvable is CheckResolvable, "Should be check resolvable")
+	assert_not_null(Contexts.current_resolvable, "Should have current resolvable")
+	assert_true(Contexts.current_resolvable is CheckResolvable, "Should be check resolvable")
 	
 	# Check that the quarterstaff has no evade actions
 	var actions := _quarterstaff.get_available_actions()

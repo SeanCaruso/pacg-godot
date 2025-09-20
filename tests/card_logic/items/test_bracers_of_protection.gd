@@ -17,7 +17,7 @@ func before_each():
 func test_bracers_of_protection_two_actions_combat_damage():
 	# Set up damage resolvable for combat damage
 	var resolvable = DamageResolvable.new(ezren, 2)
-	GameServices.contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
 	var actions := _bracers_instance.get_available_actions()
 	assert_eq(actions.size(), 2, "Bracers should have two actions for combat damage")
@@ -41,7 +41,7 @@ func test_bracers_of_protection_two_actions_combat_damage():
 func test_bracers_of_protection_one_action_other_damage():
 	# Set up damage resolvable for non-combat damage
 	var resolvable = DamageResolvable.new(ezren, 1, "Other")
-	GameServices.contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
 	var actions := _bracers_instance.get_available_actions()
 	assert_eq(actions.size(), 1, "Bracers should have one action for other damage")

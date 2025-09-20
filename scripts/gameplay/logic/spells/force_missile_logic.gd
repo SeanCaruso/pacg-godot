@@ -4,11 +4,11 @@ extends CardLogicBase
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Playable for +2d4 on any combat check.
-	if not _contexts.check_context \
-	or not _contexts.check_context.is_combat_valid \
-	or not _contexts.current_resolvable is CheckResolvable \
-	or not _contexts.current_resolvable.has_combat \
-	or not _contexts.current_resolvable.can_stage_type(card.card_type):
+	if not Contexts.check_context \
+	or not Contexts.check_context.is_combat_valid \
+	or not Contexts.current_resolvable is CheckResolvable \
+	or not Contexts.current_resolvable.has_combat \
+	or not Contexts.current_resolvable.can_stage_type(card.card_type):
 		return []
 	
 	var modifier := CheckModifier.new(card)
@@ -17,7 +17,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	modifier.restricted_category = CheckCategory.COMBAT
 	
 	# Also adds Arcane skill for the owner.
-	if card.owner == _contexts.check_context.resolvable.character:
+	if card.owner == Contexts.check_context.resolvable.character:
 		modifier.added_traits.append("Arcane")
 		modifier.added_valid_skills.append(Skill.ARCANE)
 		modifier.restricted_skills.append(Skill.ARCANE)

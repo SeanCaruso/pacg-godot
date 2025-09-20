@@ -36,7 +36,7 @@ func before_each():
 	var game_context = GameContext.new(1, null)
 	game_context.characters.append_array([ezren, valeros])
 	game_context.locations.append(caravan)
-	GameServices.contexts.new_game(game_context)
+	Contexts.new_game(game_context)
 	
 	# Put the characters at the location
 	ezren.location = caravan
@@ -45,11 +45,11 @@ func before_each():
 
 func after_each():
 	# Clean up all contexts in proper order
-	if GameServices.contexts.check_context:
-		GameServices.contexts.end_check()
-	while GameServices.contexts.current_resolvable:
-		GameServices.contexts.end_resolvable()
-	if GameServices.contexts.encounter_context:
-		GameServices.contexts.end_encounter()
-	if GameServices.contexts.turn_context:
-		GameServices.contexts.end_turn()
+	if Contexts.check_context:
+		Contexts.end_check()
+	while Contexts.current_resolvable:
+		Contexts.end_resolvable()
+	if Contexts.encounter_context:
+		Contexts.end_encounter()
+	if Contexts.turn_context:
+		Contexts.end_turn()

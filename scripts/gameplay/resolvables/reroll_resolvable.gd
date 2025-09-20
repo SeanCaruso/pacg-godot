@@ -14,7 +14,7 @@ func _init(pc: PlayerCharacter, _dice_pool: DicePool, check_context: CheckContex
 
 func create_processor() -> BaseProcessor:
 	# If something set the "doReroll" context data to true, process the roll again.
-	if !GameServices.contexts.check_context.context_data.get("doReroll", false):
+	if !Contexts.check_context.context_data.get("doReroll", false):
 		return null
 	
 	print("[%s] User chose to reroll - returning a processor." % self)

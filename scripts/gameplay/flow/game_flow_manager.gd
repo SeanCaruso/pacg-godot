@@ -5,9 +5,6 @@ var _queue_stack: Array[PhaseQueue] = []
 var current: PhaseQueue:
 	get: return _queue_stack.back()
 
-var _contexts: ContextManager:
-	get: return GameServices.contexts
-
 
 func _to_string() -> String:
 	return get_script().get_global_name()
@@ -52,8 +49,8 @@ func start_phase(phase_processor: BaseProcessor, name: String):
 
 func process() -> void:
 	# Pause if we have a pending resolvable.
-	if _contexts.current_resolvable:
-		print("[%s] Process paused - found %s" % [self, _contexts.current_resolvable])
+	if Contexts.current_resolvable:
+		print("[%s] Process paused - found %s" % [self, Contexts.current_resolvable])
 		return
 		
 	# Clean up empty queues (pop back to parent phase)

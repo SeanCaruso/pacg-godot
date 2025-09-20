@@ -14,7 +14,7 @@ func before_each():
 func test_gem_mental_acuity_combat_no_actions():
 	# Set up encounter with Zombie (combat check)
 	TestUtils.setup_encounter("Valeros", "Zombie")
-	GameServices.contexts.encounter_context.character.add_to_hand(_gem_instance)
+	Contexts.encounter_context.character.add_to_hand(_gem_instance)
 	
 	var actions := _gem_instance.get_available_actions()
 	assert_eq(actions.size(), 0, "Gem of Mental Acuity should have no actions in combat")
@@ -23,7 +23,7 @@ func test_gem_mental_acuity_combat_no_actions():
 func test_gem_mental_acuity_non_combat_one_action():
 	# Set up encounter with Soldier (non-combat check)
 	TestUtils.setup_encounter("Valeros", "Soldier")
-	GameServices.contexts.turn_context.character.add_to_hand(_gem_instance)
+	Contexts.turn_context.character.add_to_hand(_gem_instance)
 	
 	var actions := _gem_instance.get_available_actions()
 	assert_eq(actions.size(), 1, "Gem of Mental Acuity should have one action for non-combat")
@@ -32,7 +32,7 @@ func test_gem_mental_acuity_non_combat_one_action():
 func test_gem_mental_acuity_valeros_d6():
 	# Set up encounter with Soldier (non-combat check)
 	TestUtils.setup_encounter("Valeros", "Soldier")
-	GameServices.contexts.turn_context.character.add_to_hand(_gem_instance)
+	Contexts.turn_context.character.add_to_hand(_gem_instance)
 	
 	# Default should be Melee
 	var dice_pool := GameServices.asm.get_staged_dice_pool()

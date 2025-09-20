@@ -5,7 +5,7 @@ const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scou
 
 
 func get_end_of_turn_power(location: Location) -> LocationPower:
-	var pc := _contexts.turn_context.character
+	var pc := Contexts.turn_context.character
 	
 	# At end of turn, you may heal a card (also prompt for Poisoned/Wounded)
 	if pc.discards.is_empty() \

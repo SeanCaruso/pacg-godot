@@ -7,7 +7,7 @@ const CARD_DISPLAY_SCENE := preload("res://scenes/cards/card_display.tscn")
 
 var active_character: PlayerCharacter:
 	get:
-		return GameServices.contexts.game_context.active_character
+		return Contexts.game_context.active_character
 
 
 func _ready() -> void:

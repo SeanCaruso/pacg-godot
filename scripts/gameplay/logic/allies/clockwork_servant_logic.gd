@@ -7,7 +7,7 @@ func on_commit(action: StagedAction) -> void:
 	if action.action_type not in [Action.BURY, Action.BANISH]:
 		return
 	
-	_contexts.turn_context.explore_effects.append(BaseExploreEffect.new())
+	Contexts.turn_context.explore_effects.append(BaseExploreEffect.new())
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
@@ -19,7 +19,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]
 	
 	# Bury or banish to explore
-	if _contexts.is_explore_possible and card.owner == _contexts.turn_context.character:
+	if Contexts.is_explore_possible and card.owner == Contexts.turn_context.character:
 		return [
 			ExploreAction.new(card, Action.BURY),
 			ExploreAction.new(card, Action.BANISH)
@@ -39,7 +39,7 @@ func get_recovery_resolvable(card: CardInstance) -> BaseResolvable:
 
 
 func _can_recharge(card: CardInstance) -> bool:
-	return _contexts.check_context \
-	and _contexts.check_context.is_local(card.owner) \
-	and _contexts.check_context.resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.has_valid_skill([Skill.INTELLIGENCE, Skill.CRAFT])
+	return Contexts.check_context \
+	and Contexts.check_context.is_local(card.owner) \
+	and Contexts.check_context.resolvable.can_stage_type(card.card_type) \
+	and Contexts.check_context.has_valid_skill([Skill.INTELLIGENCE, Skill.CRAFT])

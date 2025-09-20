@@ -12,8 +12,8 @@ var _current_card: Control = null
 var _original_parent: Control = null
 var _placeholder: Control = null
 
-var _contexts: ContextManager:
-	get: return GameServices.contexts
+var Contexts: ContextManager:
+	get: return Contexts
 
 
 func _ready() -> void:
@@ -55,12 +55,12 @@ func generate_action_buttons() -> void:
 	
 	var actions: Array[StagedAction] = []
 	# If there's an encountered card, grab any additional actions that card might add to the previewed card.
-	if _contexts.encounter_context and _contexts.encounter_context.card:
-		actions.append_array(_contexts.encounter_context.card.get_additional_actions_for_card(card))
+	if Contexts.encounter_context and Contexts.encounter_context.card:
+		actions.append_array(Contexts.encounter_context.card.get_additional_actions_for_card(card))
 	
 	# If there's a resolvable, grab any additional actions from that.
-	if _contexts.current_resolvable:
-		actions.append_array(_contexts.current_resolvable.get_additional_actions_for_card(card))
+	if Contexts.current_resolvable:
+		actions.append_array(Contexts.current_resolvable.get_additional_actions_for_card(card))
 	
 	actions.append_array(card.get_available_actions())
 	

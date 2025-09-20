@@ -1,10 +1,6 @@
 # turn_buttons.gd
 extends HBoxContainer
 
-var _contexts : ContextManager:
-	get:
-		return GameServices.contexts
-
 @onready var give_button: TextureButton = %GiveButton
 @onready var move_button: TextureButton = %MoveButton
 @onready var optional_discards_button: TextureButton = %OptionalDiscardsButton
@@ -21,7 +17,7 @@ func _ready() -> void:
 	GuiUtils.add_mouseover_effect_to_button(move_button)
 	move_button.pressed.connect(
 		func():
-			DialogEvents.move_clicked_event.emit(_contexts.turn_context.character)
+			DialogEvents.move_clicked_event.emit(Contexts.turn_context.character)
 	)
 	
 	GuiUtils.add_mouseover_effect_to_button(optional_discards_button)
@@ -46,16 +42,16 @@ func _on_staged_actions_chaged(state: StagedActionsState) -> void:
 
 
 func _update_turn_buttons() -> void:
-	if _contexts.current_resolvable \
-	or not _contexts.turn_context \
-	or _contexts.game_context.active_character != _contexts.turn_context.character:
+	if Contexts.current_resolvable \
+	or not Contexts.turn_context \
+	or Contexts.game_context.active_character != Contexts.turn_context.character:
 		give_button.disabled = true
 		move_button.disabled = true
 		optional_discards_button.disabled = true
 		end_turn_button.disabled = true
 		return
 	
-	give_button.disabled = not _contexts.turn_context.can_give
-	move_button.disabled = not _contexts.turn_context.can_move
-	optional_discards_button.disabled = _contexts.turn_context.character.hand.is_empty()
+	give_button.disabled = not Contexts.turn_context.can_give
+	move_button.disabled = not Contexts.turn_context.can_move
+	optional_discards_button.disabled = Contexts.turn_context.character.hand.is_empty()
 	end_turn_button.disabled = false

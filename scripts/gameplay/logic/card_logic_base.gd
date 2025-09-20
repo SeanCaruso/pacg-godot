@@ -11,8 +11,6 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 var _asm: ActionStagingManager:
 	get: return GameServices.asm
-var _contexts: ContextManager:
-	get: return GameServices.contexts
 var _game_flow: GameFlowManager:
 	get: return GameServices.game_flow
 

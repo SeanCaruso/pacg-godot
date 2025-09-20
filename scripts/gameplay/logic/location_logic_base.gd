@@ -1,9 +1,6 @@
 class_name LocationLogicBase
 extends Resource
 
-@warning_ignore("unused_private_class_variable")
-var _contexts := GameServices.contexts
-
 
 func get_start_of_turn_resolvable() -> BaseResolvable: return null
 func get_start_of_turn_power(_location: Location) -> LocationPower: return null

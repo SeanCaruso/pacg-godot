@@ -7,8 +7,8 @@ func can_evade() -> bool:
 
 
 func on_encounter() -> void:
-	if _contexts.encounter_context:
-		_contexts.encounter_context.resolvable_modifiers.append(_modify_damage_resolvable)
+	if Contexts.encounter_context:
+		Contexts.encounter_context.resolvable_modifiers.append(_modify_damage_resolvable)
 
 
 func _modify_damage_resolvable(resolvable: BaseResolvable) -> void:

@@ -8,7 +8,7 @@ func on_commit(action: StagedAction) -> void:
 		return
 	
 	var explore_effect := SkillBonusExploreEffect.new(1, 4, 0, false, [Skill.STRENGTH, Skill.MELEE])
-	_contexts.turn_context.explore_effects.append(explore_effect)
+	Contexts.turn_context.explore_effects.append(explore_effect)
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
@@ -19,15 +19,15 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		modifier.added_dice = [4]
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]
 	
-	if _contexts.is_explore_possible and card.owner == _contexts.turn_context.character:
+	if Contexts.is_explore_possible and card.owner == Contexts.turn_context.character:
 		return [ExploreAction.new(card, Action.DISCARD)]
 	
 	return []
 
 
 func _can_recharge(card: CardInstance) -> bool:
-	return _contexts.check_context \
-	and _contexts.current_resolvable is CheckResolvable \
-	and _contexts.check_context.is_local(card.owner) \
-	and _contexts.check_context.resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.has_valid_skill([Skill.STRENGTH, Skill.MELEE])
+	return Contexts.check_context \
+	and Contexts.current_resolvable is CheckResolvable \
+	and Contexts.check_context.is_local(card.owner) \
+	and Contexts.check_context.resolvable.can_stage_type(card.card_type) \
+	and Contexts.check_context.has_valid_skill([Skill.STRENGTH, Skill.MELEE])

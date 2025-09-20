@@ -16,7 +16,7 @@ func test_sage_no_actions_combat():
 	ezren.add_to_hand(frostbite)
 	GameServices.asm.stage_action(frostbite.get_available_actions()[0])
 	
-	assert_eq(GameServices.contexts.check_context.used_skill, Skill.ARCANE)
+	assert_eq(Contexts.check_context.used_skill, Skill.ARCANE)
 	
 	var actions := _sage.get_available_actions()
 	assert_eq(actions.size(), 0)
@@ -25,7 +25,7 @@ func test_sage_no_actions_non_arcane_knowledge_skill():
 	var soldier = TestUtils.get_card("Soldier")
 	TestUtils.setup_encounter_with_instances(ezren, soldier)
 	
-	assert_true(GameServices.contexts.check_context.is_skill_valid)
+	assert_true(Contexts.check_context.is_skill_valid)
 	
 	var actions := _sage.get_available_actions()
 	assert_eq(actions.size(), 0)

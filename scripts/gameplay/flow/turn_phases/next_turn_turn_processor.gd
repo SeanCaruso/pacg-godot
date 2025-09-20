@@ -3,15 +3,15 @@ class_name NextTurnTurnProcessor
 extends BaseProcessor
 
 func on_execute() -> void:
-	if !_contexts.turn_context or !_contexts.turn_context.character: return
+	if !Contexts.turn_context or !Contexts.turn_context.character: return
 	
-	_contexts.turn_context.character.draw_to_hand_size()
+	Contexts.turn_context.character.draw_to_hand_size()
 	
-	var idx := _contexts.game_context.characters.find(_contexts.turn_context.character) + 1
-	idx %= _contexts.game_context.characters.size()
-	var next_pc := _contexts.game_context.characters[idx]
+	var idx := Contexts.game_context.characters.find(Contexts.turn_context.character) + 1
+	idx %= Contexts.game_context.characters.size()
+	var next_pc := Contexts.game_context.characters[idx]
 	
-	_contexts.end_turn()
+	Contexts.end_turn()
 	_game_flow.queue_next_processor(StartTurnController.new(next_pc))
 	
 	GameEvents.turn_state_changed.emit()

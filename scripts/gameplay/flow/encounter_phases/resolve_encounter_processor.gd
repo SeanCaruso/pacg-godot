@@ -5,10 +5,10 @@ const EncounterPhase := preload("res://scripts/core/enums/encounter_phase.gd").E
 	
 	
 func on_execute() -> void:
-	if !_contexts.encounter_context: return
+	if !Contexts.encounter_context: return
 	
-	_contexts.encounter_context.current_phase = EncounterPhase.RESOLVE
+	Contexts.encounter_context.current_phase = EncounterPhase.RESOLVE
 	
-	var resolvable := _contexts.encounter_context.card.get_resolve_encounter_resolvable()
+	var resolvable := Contexts.encounter_context.card.get_resolve_encounter_resolvable()
 	if resolvable:
-		_contexts.new_resolvable(resolvable)
+		Contexts.new_resolvable(resolvable)

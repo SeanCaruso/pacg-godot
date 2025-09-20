@@ -3,7 +3,7 @@ extends CardLogicBase
 
 
 func on_commit(action: StagedAction) -> void:
-	_contexts.encounter_context.add_prohibited_traits(action.card.owner, ["Offhand"])
+	Contexts.encounter_context.add_prohibited_traits(action.card.owner, ["Offhand"])
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
@@ -11,7 +11,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	
 	if _is_playable_for_combat(card):
 		# If a weapon hasn't been played yet, display both combat options.
-		if _contexts.current_resolvable.can_stage_type(card.card_type):
+		if Contexts.current_resolvable.can_stage_type(card.card_type):
 			var reveal_modifier := CheckModifier.new(card)
 			reveal_modifier.restricted_category = CheckCategory.COMBAT
 			reveal_modifier.added_traits = card.traits
@@ -48,17 +48,17 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 # Can be played on Strength or Melee combat checks.
 func _is_playable_for_combat(card: CardInstance) -> bool:
-	return _contexts.check_context \
-	and _contexts.current_resolvable is CheckResolvable \
-	and _contexts.check_context.is_combat_valid \
-	and _contexts.check_context.character == card.owner \
-	and not _contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])
+	return Contexts.check_context \
+	and Contexts.current_resolvable is CheckResolvable \
+	and Contexts.check_context.is_combat_valid \
+	and Contexts.check_context.character == card.owner \
+	and not Contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])
 
 
 # Can be played by the owner to evade an Obstacle or Trap barrier.
 func _can_discard_to_evade(card: CardInstance) -> bool:
-	return _contexts.encounter_context \
-		and _contexts.encounter_context.current_phase == EncounterContext.EncounterPhase.EVASION \
-		and _contexts.encounter_context.card_data.card_type == CardType.BARRIER \
-		and _contexts.encounter_context.has_trait(["Obstacle", "Trap"]) \
-		and _contexts.encounter_context.character == card.owner
+	return Contexts.encounter_context \
+		and Contexts.encounter_context.current_phase == EncounterContext.EncounterPhase.EVASION \
+		and Contexts.encounter_context.card_data.card_type == CardType.BARRIER \
+		and Contexts.encounter_context.has_trait(["Obstacle", "Trap"]) \
+		and Contexts.encounter_context.character == card.owner

@@ -68,11 +68,11 @@ static func setup_encounter(character_name: String, card_name: String):
 static func setup_encounter_with_instances(pc: PlayerCharacter, card: CardInstance):
 	var location = get_location("Caravan")  # Default test location
 	
-	if not GameServices.contexts.game_context:
+	if not Contexts.game_context:
 		var game_context = GameContext.new(1, null)
-		GameServices.contexts.new_game(game_context)
+		Contexts.new_game(game_context)
 	pc.location = location
 	
 	var turn_context = TurnContext.new(pc)
-	GameServices.contexts.new_turn(turn_context)
+	Contexts.new_turn(turn_context)
 	GameServices.game_flow.start_phase(EncounterController.new(pc, card), "Encounter")

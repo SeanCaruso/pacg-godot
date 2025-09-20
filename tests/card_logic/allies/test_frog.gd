@@ -28,7 +28,7 @@ func test_frog_evade_obstacle():
 	TestUtils.setup_encounter_with_instances(ezren, encounter_instance)
 	
 	# Check that the game pauses when reaching an Evade Resolvable
-	assert_true(GameServices.contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the frog has one evade action
 	var actions := _frog.get_available_actions()
@@ -40,8 +40,8 @@ func test_frog_evade_obstacle():
 	GameServices.asm.commit()
 	
 	# Check that the encounter ends
-	assert_null(GameServices.contexts.encounter_context, "Encounter context should be cleared")
-	assert_true(GameServices.contexts.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
+	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
+	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
 
 
 func test_frog_evade_trap():
@@ -55,7 +55,7 @@ func test_frog_evade_trap():
 	TestUtils.setup_encounter_with_instances(ezren, encounter_instance)
 	
 	# Check that the game pauses when reaching an Evade Resolvable
-	assert_true(GameServices.contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the frog has one evade action
 	var actions := _frog.get_available_actions()
@@ -67,16 +67,16 @@ func test_frog_evade_trap():
 	GameServices.asm.commit()
 	
 	# Check that the encounter ends
-	assert_null(GameServices.contexts.encounter_context, "Encounter context should be cleared")
-	assert_true(GameServices.contexts.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
+	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
+	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
 
 
 func test_frog_explore_ignores_first_scourge():
 	# Set up game and location
-	GameServices.contexts.new_game(GameContext.new(1, null))
+	Contexts.new_game(GameContext.new(1, null))
 	ezren.location = caravan
 	
-	GameServices.contexts.new_turn(TurnContext.new(ezren))
+	Contexts.new_turn(TurnContext.new(ezren))
 	ezren.location.shuffle_in(longsword, true)
 	
 	var actions := _frog.get_available_actions()
@@ -85,8 +85,8 @@ func test_frog_explore_ignores_first_scourge():
 	
 	# Commit the frog action to get explore effect
 	_frog.logic.on_commit(actions[0])
-	assert_eq(GameServices.contexts.turn_context.explore_effects.size(), 1, "Should have one explore effect")
-	assert_true(GameServices.contexts.turn_context.explore_effects[0] is ScourgeImmunityExploreEffect, "Should be scourge immunity effect")
+	assert_eq(Contexts.turn_context.explore_effects.size(), 1, "Should have one explore effect")
+	assert_true(Contexts.turn_context.explore_effects[0] is ScourgeImmunityExploreEffect, "Should be scourge immunity effect")
 	
 	# Test scourge immunity - first scourge should be ignored
 	ezren.add_scourge(Scourge.ENTANGLED)

@@ -14,7 +14,7 @@ func before_each():
 func test_spyglass_usable_with_perception():
 	# Set up a new encounter with Dire Badger (requires perception)
 	TestUtils.setup_encounter("Valeros", "Dire Badger")
-	GameServices.contexts.encounter_context.character.add_to_hand(_spyglass_instance)
+	Contexts.encounter_context.character.add_to_hand(_spyglass_instance)
 	
 	var actions := _spyglass_instance.get_available_actions()
 	assert_eq(actions.size(), 1, "Spyglass should have one action with perception check")
@@ -27,7 +27,7 @@ func test_spyglass_usable_with_perception():
 func test_spyglass_unusable_without_perception():
 	# Set up a new encounter with Soldier (doesn't require perception)
 	TestUtils.setup_encounter("Valeros", "Soldier")
-	GameServices.contexts.encounter_context.character.add_to_hand(_spyglass_instance)
+	Contexts.encounter_context.character.add_to_hand(_spyglass_instance)
 	
 	var actions := _spyglass_instance.get_available_actions()
 	assert_eq(actions.size(), 0, "Spyglass should have no actions without perception check")

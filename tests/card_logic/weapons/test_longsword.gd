@@ -25,7 +25,7 @@ func test_longsword_logic_setup_was_successful():
 func test_longsword_combat_proficient_actions():
 	# Set up encounter with Zombie (combat)
 	TestUtils.setup_encounter("valeros", "zombie")
-	GameServices.contexts.encounter_context.character.add_to_hand(longsword)
+	Contexts.encounter_context.character.add_to_hand(longsword)
 	
 	# Before staging, a proficient PC has two actions
 	var actions := longsword.get_available_actions()
@@ -43,7 +43,7 @@ func test_longsword_combat_proficient_actions():
 func test_longsword_reveal_then_reload():
 	# Set up encounter with Zombie
 	TestUtils.setup_encounter("valeros", "zombie")
-	GameServices.contexts.encounter_context.character.add_to_hand(_longsword)
+	Contexts.encounter_context.character.add_to_hand(_longsword)
 	
 	var actions := _longsword.get_available_actions()
 	GameServices.asm.stage_action(actions[0])
@@ -68,7 +68,7 @@ func test_longsword_reveal_then_reload():
 func test_longsword_reload():
 	# Set up encounter with Zombie
 	TestUtils.setup_encounter("valeros", "zombie")
-	GameServices.contexts.encounter_context.character.add_to_hand(_longsword)
+	Contexts.encounter_context.character.add_to_hand(_longsword)
 	
 	var actions := _longsword.get_available_actions()
 	GameServices.asm.stage_action(actions[1])  # Stage reload action
@@ -84,20 +84,20 @@ func test_longsword_reload():
 func test_longsword_adds_traits():
 	# Set up encounter with Zombie
 	TestUtils.setup_encounter("valeros", "zombie")
-	GameServices.contexts.encounter_context.character.add_to_hand(_longsword)
+	Contexts.encounter_context.character.add_to_hand(_longsword)
 	
 	var actions := _longsword.get_available_actions()
 	GameServices.asm.stage_action(actions[0])
 	
 	for card_trait in _longsword.traits:
-		assert_true(GameServices.contexts.check_context.invokes([card_trait]), "Should invoke trait: " + card_trait)
+		assert_true(Contexts.check_context.invokes([card_trait]), "Should invoke trait: " + card_trait)
 
 
 func test_longsword_not_usable_during_damage():
 	valeros.add_to_hand(_longsword)
 	
 	var damage = DamageResolvable.new(valeros, 1, "Magic")
-	GameServices.contexts.new_resolvable(damage)
+	Contexts.new_resolvable(damage)
 	
 	var actions := _longsword.get_available_actions()
 	assert_eq(actions.size(), 0, "Should have no actions during damage resolvable")

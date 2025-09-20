@@ -58,7 +58,7 @@ static func prompt_for_wounded_removal(pc: PlayerCharacter) -> void:
 		[ChoiceOption.new("Yes", func(): pc.remove_scourge(Scourge.WOUNDED)),
 		ChoiceOption.new("No", func(): pass)]
 	)
-	GameServices.contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
 	var processor = NewResolvableProcessor.new(resolvable)
 	GameServices.game_flow.start_phase(processor, "Wound Removal")

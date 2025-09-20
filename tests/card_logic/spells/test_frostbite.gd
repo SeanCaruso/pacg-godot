@@ -16,10 +16,10 @@ func test_frostbite_on_own_check():
 	
 	GameServices.asm.stage_action(actions[0])
 	
-	var dice = GameServices.contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
 	assert_eq(dice.to_string(), "1d12 + 2d4 + 2")
 	
-	var traits = GameServices.contexts.check_context.traits
+	var traits = Contexts.check_context.traits
 	assert_true(traits.has("Magic"))
 	assert_true(traits.has("Arcane"))
 	assert_true(traits.has("Divine"))
@@ -33,14 +33,14 @@ func test_frostbite_unusable_on_other_check():
 	assert_eq(actions.size(), 0)
 
 func test_frostbite_reduced_damage_by_one():
-	GameServices.contexts.new_encounter(EncounterContext.new(ezren, zombie))
+	Contexts.new_encounter(EncounterContext.new(ezren, zombie))
 	
 	var frostbite_action = PlayCardAction.new(_frostbite, Action.BANISH, null)
 	frostbite_action.commit()
 	
-	assert_eq(GameServices.contexts.encounter_context.resolvable_modifiers.size(), 1)
+	assert_eq(Contexts.encounter_context.resolvable_modifiers.size(), 1)
 	
 	var resolvable = DamageResolvable.new(ezren, 2, "Magic")
-	GameServices.contexts.new_resolvable(resolvable)
+	Contexts.new_resolvable(resolvable)
 	
-	assert_eq((GameServices.contexts.current_resolvable as DamageResolvable).amount, 1)
+	assert_eq((Contexts.current_resolvable as DamageResolvable).amount, 1)

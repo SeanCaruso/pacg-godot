@@ -3,20 +3,20 @@ extends CardLogicBase
 
 
 func on_commit(_action: StagedAction) -> void:
-	if not _contexts.encounter_context or not _contexts.encounter_context.card.is_bane:
+	if not Contexts.encounter_context or not Contexts.encounter_context.card.is_bane:
 		return
 	
-	_contexts.encounter_context.resolvable_modifiers.append(_modify_damage_resolvable)
+	Contexts.encounter_context.resolvable_modifiers.append(_modify_damage_resolvable)
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Playable for Arcane/Divine +2d4 on the owner's combat check.
-	if not _contexts.check_context \
-	or not _contexts.check_context.is_combat_valid \
-	or not _contexts.current_resolvable is CheckResolvable \
-	or not _contexts.current_resolvable.has_combat \
-	or _contexts.current_resolvable.character != card.owner \
-	or not _contexts.check_context.resolvable.can_stage_type(card.card_type):
+	if not Contexts.check_context \
+	or not Contexts.check_context.is_combat_valid \
+	or not Contexts.current_resolvable is CheckResolvable \
+	or not Contexts.current_resolvable.has_combat \
+	or Contexts.current_resolvable.character != card.owner \
+	or not Contexts.check_context.resolvable.can_stage_type(card.card_type):
 		return []
 	
 	var modifier := CheckModifier.new(card)

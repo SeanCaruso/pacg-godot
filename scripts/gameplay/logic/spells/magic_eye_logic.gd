@@ -4,11 +4,11 @@ extends CardLogicBase
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Reveal for +1d4 on your non-combat check.
-	if _contexts.check_context \
-	and _contexts.current_resolvable is CheckResolvable \
-	and _contexts.check_context.character == card.owner \
-	and _contexts.check_context.is_skill_valid \
-	and _contexts.current_resolvable.can_stage_type(card.card_type):
+	if Contexts.check_context \
+	and Contexts.current_resolvable is CheckResolvable \
+	and Contexts.check_context.character == card.owner \
+	and Contexts.check_context.is_skill_valid \
+	and Contexts.current_resolvable.can_stage_type(card.card_type):
 		var modifier := CheckModifier.new(card)
 		modifier.restricted_category = CheckCategory.SKILL
 		modifier.added_dice = [4]

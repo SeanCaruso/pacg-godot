@@ -5,8 +5,8 @@ extends CardLogicBase
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Freely recharge an ally for +1d4.
 	if card.card_type != CardType.ALLY \
-	or not _contexts.check_context \
-	or _contexts.check_context.character != card.owner:
+	or not Contexts.check_context \
+	or Contexts.check_context.character != card.owner:
 		return []
 	
 	var modifier := CheckModifier.new(card)

@@ -16,11 +16,11 @@ func before_each():
 func test_cat_can_recharge_vs_spell():
 	# Set up a new encounter with a spell
 	TestUtils.setup_encounter("Valeros", "Deflect")
-	GameServices.contexts.encounter_context.character.add_to_hand(_cat_instance)
+	Contexts.encounter_context.character.add_to_hand(_cat_instance)
 	
 	# Check that the game pauses when reaching the required check resolvable.
-	assert_not_null(GameServices.contexts.current_resolvable)
-	assert_true(GameServices.contexts.current_resolvable is CheckResolvable)
+	assert_not_null(Contexts.current_resolvable)
+	assert_true(Contexts.current_resolvable is CheckResolvable)
 	
 	# Check that the Cat has one recharge action.
 	var actions := _cat_instance.get_available_actions()
@@ -35,7 +35,7 @@ func test_cat_can_recharge_vs_spell():
 func test_cat_cannot_recharge_vs_non_spell():
 	# Set up a new encounter with a non-spell
 	TestUtils.setup_encounter("Valeros", "Longsword")
-	GameServices.contexts.encounter_context.character.add_to_hand(_cat_instance)
+	Contexts.encounter_context.character.add_to_hand(_cat_instance)
 	
 	# Test that Cat doesn't have recharge actions vs non-spell
 	var actions = _cat_instance.get_available_actions()
@@ -43,7 +43,7 @@ func test_cat_cannot_recharge_vs_non_spell():
 
 
 func test_cat_explore_without_magic():
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	valeros.add_to_hand(_cat_instance)
 	
 	valeros.location.shuffle_in(zombie, true)
@@ -55,7 +55,7 @@ func test_cat_explore_without_magic():
 	GameServices.asm.stage_action(actions[0])
 	GameServices.asm.commit()
 	
-	var effects := GameServices.contexts.turn_context.explore_effects
+	var effects := Contexts.turn_context.explore_effects
 	assert_eq(effects.size(), 1, "One explore effect")
 	
 	var resolvable := CheckResolvable.new(zombie, valeros, zombie.data.check_requirement)
@@ -66,7 +66,7 @@ func test_cat_explore_without_magic():
 
 
 func test_cat_explore_with_magic():
-	GameServices.contexts.new_turn(TurnContext.new(valeros))
+	Contexts.new_turn(TurnContext.new(valeros))
 	valeros.add_to_hand(_cat_instance)
 	
 	var deflect := TestUtils.get_card("Deflect")
@@ -79,7 +79,7 @@ func test_cat_explore_with_magic():
 	GameServices.asm.stage_action(actions[0])
 	GameServices.asm.commit()
 	
-	var effects := GameServices.contexts.turn_context.explore_effects
+	var effects := Contexts.turn_context.explore_effects
 	assert_eq(effects.size(), 1, "One explore effect")
 	
 	var resolvable := CheckResolvable.new(deflect, valeros, deflect.data.check_requirement)

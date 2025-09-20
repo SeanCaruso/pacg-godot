@@ -47,6 +47,6 @@ func test_rescue_can_recharge_allies():
 	GameServices.asm.stage_action(cat_action)
 	assert_eq(GameServices.asm.staged_actions.size(), 3)
 	
-	var dice_pool = GameServices.contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice_pool = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
 	# Valeros should default to Melee (1d10 + 2) and have 3 ally dice
 	assert_eq(dice_pool.to_string(), "1d10 + 3d4 + 2")

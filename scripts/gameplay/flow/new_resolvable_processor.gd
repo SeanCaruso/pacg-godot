@@ -9,4 +9,4 @@ func _init(next_resolvable: BaseResolvable):
 	
 func on_execute() -> void:
 	print("[%s] Creating next resolvable: %s" % [self, _next_resolvable])
-	_contexts.new_resolvable(_next_resolvable)
+	Contexts.new_resolvable(_next_resolvable)

@@ -3,8 +3,8 @@ extends CardLogicBase
 
 
 func on_commit(action: StagedAction) -> void:
-	if _contexts.encounter_context:
-		_contexts.encounter_context.add_prohibited_traits(action.card.owner, ["Offhand"])
+	if Contexts.encounter_context:
+		Contexts.encounter_context.add_prohibited_traits(action.card.owner, ["Offhand"])
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
@@ -32,18 +32,18 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_reveal(card: CardInstance) -> bool:
 	# Reveal power can be used by the current owner while playing cards for a Dexterity or Ranged combat check.
-	return _contexts.check_context \
-	and _contexts.current_resolvable is CheckResolvable \
-	and _contexts.check_context.is_combat_valid \
-	and _contexts.check_context.character == card.owner \
-	and _contexts.current_resolvable.can_stage_type(card.card_type) \
-	and not _contexts.check_context.are_skills_blocked([Skill.DEXTERITY, Skill.RANGED])
+	return Contexts.check_context \
+	and Contexts.current_resolvable is CheckResolvable \
+	and Contexts.check_context.is_combat_valid \
+	and Contexts.check_context.character == card.owner \
+	and Contexts.current_resolvable.can_stage_type(card.card_type) \
+	and not Contexts.check_context.are_skills_blocked([Skill.DEXTERITY, Skill.RANGED])
 
 
 func _can_discard(card: CardInstance) -> bool:
 	# Discard power can be freely used on another character's combat check while playing cards if the owner is proficient.
-	return _contexts.check_context \
-	and _contexts.current_resolvable is CheckResolvable \
-	and _contexts.check_context.is_combat_valid \
-	and _contexts.check_context.character != card.owner \
+	return Contexts.check_context \
+	and Contexts.current_resolvable is CheckResolvable \
+	and Contexts.check_context.is_combat_valid \
+	and Contexts.check_context.character != card.owner \
 	and card.owner.is_proficient(card)

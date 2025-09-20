@@ -10,7 +10,7 @@ func on_commit(action: StagedAction) -> void:
 	examine_resolvable.override_next_processor(ShuffleDeckProcessor.new(action.card.owner.location.deck))
 	GameServices.game_flow.queue_next_processor(NewResolvableProcessor.new(examine_resolvable))
 	
-	if action.card.owner != _contexts.turn_context.character:
+	if action.card.owner != Contexts.turn_context.character:
 		return
 	
 	var explore_option_resolvable := CardUtils.create_explore_choice()

@@ -16,10 +16,10 @@ func test_lightning_touch_on_own_check():
 	
 	GameServices.asm.stage_action(actions[0])
 	
-	var dice = GameServices.contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
 	assert_eq(dice.to_string(), "1d12 + 2d4 + 2")
 	
-	var traits = GameServices.contexts.check_context.traits
+	var traits = Contexts.check_context.traits
 	assert_true(traits.has("Magic"))
 	assert_true(traits.has("Arcane"))
 	assert_true(traits.has("Attack"))
