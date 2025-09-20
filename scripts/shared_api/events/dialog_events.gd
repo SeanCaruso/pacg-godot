@@ -1,7 +1,7 @@
 extends Node
 
 # Turn phase events
-signal move_clicked_event(pc: PlayerCharacter, game_services: GameServices)
+signal move_clicked_event(pc: PlayerCharacter)
 
 # Deck examine events
 signal examine_event(context: ExamineContext)

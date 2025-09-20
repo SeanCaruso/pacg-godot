@@ -45,7 +45,7 @@ func move_card_by(card: CardInstance, action: Action):
 
 	match action:
 		Action.BANISH:
-			move_card_to(card, CardLocation.VAULT if not card.original_owner else CardLocation.RECOVERY)
+			move_card_to(card, CardLocation.VAULT if not card.owner else CardLocation.RECOVERY)
 		Action.BURY:
 			move_card_to(card, CardLocation.BURIED)
 		Action.DISCARD:

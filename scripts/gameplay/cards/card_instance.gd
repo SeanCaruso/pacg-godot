@@ -32,6 +32,7 @@ func _init(card_data: CardData, _card_owner = null):
 	current_location = CardLocation.VAULT
 	logic = card_data.logic
 	owner = _card_owner
+	original_owner = _card_owner
 
 func _to_string() -> String:
 	return name
@@ -47,5 +48,6 @@ func get_check_resolvable() -> BaseResolvable: return logic.get_check_resolvable
 func get_after_acting_resolvable() -> BaseResolvable: return logic.get_after_acting_resolvable(self) if logic else null
 func get_resolve_encounter_resolvable() -> BaseResolvable: return logic.get_resolve_encounter_resolvable(self) if logic else null
 func get_recovery_resolvable() -> BaseResolvable: return logic.get_recovery_resolvable(self) if logic else null
+func on_encounter() -> void: if logic: logic.on_encounter()
 func on_defeated() -> void: if logic: logic.on_defeated(self)
 func on_undefeated() -> void: if logic: logic.on_undefeated(self)

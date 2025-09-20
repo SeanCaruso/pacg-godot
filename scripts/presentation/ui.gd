@@ -3,6 +3,9 @@ extends CanvasLayer
 const ExamineGui := preload("res://scenes/ui_objects/examine_gui.gd")
 const EXAMINE_GUI_SCENE := preload("res://scenes/ui_objects/examine_gui.tscn")
 
+const MoveGui := preload("res://scenes/ui_objects/move_gui.gd")
+const MOVE_GUI_SCENE := preload("res://scenes/ui_objects/move_gui.tscn")
+
 const SkillDialog := preload("res://scenes/ui_objects/skill_selection_dialog/skill_selection_dialog.gd")
 const SKILL_DIALOG_SCENE := preload("res://scenes/ui_objects/skill_selection_dialog/skill_selection_dialog.tscn")
 
@@ -14,6 +17,8 @@ func _ready() -> void:
 	# Check events
 	DialogEvents.check_start_event.connect(_on_check_start)
 	DialogEvents.check_end_event.connect(_on_check_end)
+	
+	DialogEvents.move_clicked_event.connect(_on_move_clicked)
 	
 	# Deck examine events
 	DialogEvents.examine_event.connect(_on_examine_event)
@@ -34,3 +39,9 @@ func _on_examine_event(context: ExamineContext) -> void:
 	var dialog: ExamineGui = EXAMINE_GUI_SCENE.instantiate()
 	deck_examine_area.add_child(dialog)
 	dialog.start_examine(context)
+
+
+func _on_move_clicked(pc: PlayerCharacter) -> void:
+	var dialog: MoveGui = MOVE_GUI_SCENE.instantiate()
+	add_child(dialog)
+	dialog.initialize(pc)

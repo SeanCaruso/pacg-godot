@@ -8,6 +8,7 @@ var _current_location_display: LocationDisplay
 
 
 func _ready() -> void:
+	GameEvents.player_character_changed.connect(_on_pc_location_changed)
 	GameEvents.location_power_enabled.connect(_on_location_power_enabled)
 	GameEvents.pc_location_changed.connect(_on_pc_location_changed)
 
@@ -38,3 +39,4 @@ func _on_pc_location_changed(pc: PlayerCharacter) -> void:
 	var new_display: LocationDisplay = LOCATION_DISPLAY_SCENE.instantiate()
 	add_child(new_display)
 	new_display.set_location(pc.location)
+	_current_location_display = new_display
