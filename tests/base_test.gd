@@ -47,7 +47,7 @@ func after_each():
 	# Clean up all contexts in proper order
 	if GameServices.contexts.check_context:
 		GameServices.contexts.end_check()
-	if GameServices.contexts.current_resolvable:
+	while GameServices.contexts.current_resolvable:
 		GameServices.contexts.end_resolvable()
 	if GameServices.contexts.encounter_context:
 		GameServices.contexts.end_encounter()

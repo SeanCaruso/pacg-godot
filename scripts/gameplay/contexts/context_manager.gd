@@ -1,5 +1,5 @@
 class_name ContextManager
-extends RefCounted
+extends Node
 
 const CardLocation = preload("res://scripts/core/enums/card_location.gd").CardLocation
 
@@ -15,7 +15,10 @@ var game_context: GameContext
 var turn_context: TurnContext
 var encounter_context: EncounterContext
 var check_context: CheckContext
-var current_resolvable: BaseResolvable
+var _resolvable_stack: Array[BaseResolvable]
+var current_resolvable: BaseResolvable:
+	get:
+		return _resolvable_stack.back() if not _resolvable_stack.is_empty() else null
 
 ###############################################################################
 # STARTING/ENDING CONTEXTS
@@ -48,8 +51,6 @@ func end_encounter(): encounter_context = null
 ##
 ## NewResolvableProcessor is probably better.
 func new_resolvable(resolvable: BaseResolvable) -> void:
-	if current_resolvable:
-		print("[%s] Created resolvable %s is overwriting %s!", [self, resolvable, current_resolvable])
 	
 	for action: Callable in encounter_context.resolvable_modifiers if encounter_context else []:
 		action.call(resolvable)
@@ -79,7 +80,7 @@ func new_resolvable(resolvable: BaseResolvable) -> void:
 			GameServices.game_flow.start_phase(choice_processor, "Power Options")
 			return
 		
-	current_resolvable = resolvable
+	_resolvable_stack.push_back(resolvable)
 		
 	if current_resolvable is CheckResolvable:
 		check_context = CheckContext.new(current_resolvable)
@@ -103,7 +104,8 @@ func new_resolvable(resolvable: BaseResolvable) -> void:
 
 func end_resolvable() -> void:
 	current_resolvable.resolve()
-	current_resolvable = null
+	_resolvable_stack.pop_back()
+	
 	GameEvents.turn_state_changed.emit()
 
 

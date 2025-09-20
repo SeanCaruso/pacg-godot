@@ -31,8 +31,8 @@ func get_available_actions(card: CardInstance) -> Array[StagedAction]:
 		return []
 	
 	# If there's an encountered card with immunities, check the card's traits.
-	if _contexts.encounter_context:
-		for immunity in _contexts.encounter_context.card_data.immunities:
+	if Contexts.encounter_context:
+		for immunity in Contexts.encounter_context.card_data.immunities:
 			if card.traits.has(immunity): return []
 	
 	# Only cards in hand, revealed, and displayed areas are playable by default.
@@ -42,8 +42,8 @@ func get_available_actions(card: CardInstance) -> Array[StagedAction]:
 	
 	# Check for any prohibited traits.
 	var prohibited_traits: Array[String] = []
-	if _contexts.encounter_context:
-		prohibited_traits = _contexts.encounter_context.get_prohibited_traits(card.owner)
+	if Contexts.encounter_context:
+		prohibited_traits = Contexts.encounter_context.get_prohibited_traits(card.owner)
 	for pro_trait in prohibited_traits:
 		if card.traits.has(pro_trait): return []
 	
@@ -80,7 +80,7 @@ func get_check_resolvable(card: CardInstance) -> BaseResolvable:
 	if card.data.check_requirement.mode in [CheckMode.CHOICE, CheckMode.SINGLE]:
 		return CheckResolvable.new(
 			card,
-			_contexts.encounter_context.character,
+			Contexts.encounter_context.character,
 			card.data.check_requirement)
 	
 	return null
@@ -90,13 +90,13 @@ func on_defeated(card: CardInstance) -> void:
 	if card.is_bane:
 		GameServices.cards.move_card_to(card, CardLocation.VAULT)
 	else:
-		_contexts.encounter_context.character.add_to_hand(card)
+		Contexts.encounter_context.character.add_to_hand(card)
 
 
 func on_undefeated(card: CardInstance) -> void:
 	if card.is_bane:
-		if _contexts.encounter_pc_location:
-			_contexts.encounter_pc_location.shuffle_in(card, true)
+		if Contexts.encounter_pc_location:
+			Contexts.encounter_pc_location.shuffle_in(card, true)
 	else:
 		GameServices.cards.move_card_to(card, CardLocation.VAULT)
 

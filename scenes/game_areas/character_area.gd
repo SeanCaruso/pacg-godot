@@ -11,6 +11,10 @@ var _power_button_map: Dictionary # CharacterPower -> TextureButton
 
 
 func _ready() -> void:
+	GuiUtils.add_mouseover_effect_to_button(power_button_1)
+	GuiUtils.add_mouseover_effect_to_button(power_button_2)
+	GuiUtils.add_mouseover_effect_to_button(power_button_3)
+	
 	GameEvents.player_character_changed.connect(_on_player_character_changed)
 	GameEvents.player_deck_count_changed.connect(_on_player_deck_count_changed)
 	GameEvents.player_power_enabled.connect(_on_player_power_enabled)
@@ -25,7 +29,12 @@ func _on_player_character_changed(pc: PlayerCharacter) -> void:
 		buttons[i].visible = pc.data.powers[i].is_activated_power
 		buttons[i].texture_normal = pc.data.powers[i].sprite_enabled
 		buttons[i].texture_disabled = pc.data.powers[i].sprite_disabled
-		buttons[i].disabled = true
+		buttons[i].disabled = not pc.is_power_enabled(i)
+		
+		for c in buttons[i].pressed.get_connections():
+			buttons[i].pressed.disconnect(c["callable"])
+		
+		buttons[i].pressed.connect(Callable(pc.logic, pc.data.powers[i].power_id))
 		
 		_power_button_map[pc.data.powers[i]] = buttons[i]
 
@@ -37,5 +46,9 @@ func _on_player_deck_count_changed(count: int) -> void:
 func _on_player_power_enabled(power: CharacterPower, enabled: bool) -> void:
 	if not _power_button_map.has(power): return
 	var button: TextureButton = _power_button_map[power]
+	
+	for s in button.pressed.get_connections():
+		button.pressed.disconnect(s["callable"])
+	
 	button.disabled = !enabled
 	button.pressed.connect(Callable(_pc.logic, power.power_id))

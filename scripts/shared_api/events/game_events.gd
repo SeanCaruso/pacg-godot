@@ -27,6 +27,8 @@ signal location_power_enabled(power: LocationPower, is_enabled: bool)
 # Player Character events
 signal player_character_changed(pc: PlayerCharacter)
 signal player_power_enabled(power: CharacterPower, is_enabled: bool)
+func emit_player_power_enabled(power: CharacterPower, is_enabled: bool):
+	player_power_enabled.emit(power, is_enabled)
 signal player_deck_count_changed(_count: int)
 
 # Special Resolvable events

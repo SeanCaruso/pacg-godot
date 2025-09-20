@@ -9,8 +9,6 @@ var _has_explore_staged: bool = false
 
 var _cards: CardManager:
 	get: return GameServices.cards
-var _contexts: ContextManager:
-	get: return GameServices.contexts
 var _game_flow: GameFlowManager:
 	get: return GameServices.game_flow
 
@@ -44,11 +42,15 @@ func cancel() -> void:
 	_original_card_locs.clear()
 	_pcs_staged_actions.clear()
 	
+	# Reset any check context data (like used character powers).
+	if Contexts.check_context:
+		Contexts.check_context.context_data.clear()
+	
 	# Additional step for phase-level cancels
-	if _contexts.current_resolvable and _contexts.current_resolvable.cancel_aborts_phase:
+	if Contexts.current_resolvable and Contexts.current_resolvable.cancel_aborts_phase:
 		GameEvents.set_status_text.emit("")
 		_game_flow.abort_phase()
-		_contexts.end_resolvable()
+		Contexts.end_resolvable()
 	
 	update_game_state_preview()
 	update_action_buttons()
@@ -57,29 +59,31 @@ func cancel() -> void:
 func commit() -> void:
 	GameEvents.set_status_text.emit("")
 	
-	if _contexts.check_context:
-		_contexts.check_context.committed_actions = staged_actions
-	
 	for action in staged_actions:
 		action.commit()
 	
-	_has_explore_staged = false
-	_has_move_staged = false
-	_original_card_locs.clear()
-	_pcs_staged_actions.clear()
-	_cards.restore_revealed_cards_to_hand()
-	
 	# If we have a resolvable, the fact that we committed means it's been resolved.
-	if _contexts.current_resolvable:
+	if Contexts.current_resolvable:
 		# If it requires a processor, kick off a new phase immediately.
-		var processor := _contexts.current_resolvable.create_processor()
+		var processor := Contexts.current_resolvable.create_processor()
 		if processor:
-			print("[%s] %s created %s" % [self, _contexts.current_resolvable, processor])
-			_game_flow.start_phase(processor, str(_contexts.current_resolvable))
+			print("[%s] %s created %s" % [self, Contexts.current_resolvable, processor])
+			_game_flow.start_phase(processor, str(Contexts.current_resolvable))
 		else:
-			print("[%s] %s didn't queue a processor." % [self, _contexts.current_resolvable])
+			print("[%s] %s didn't queue a processor." % [self, Contexts.current_resolvable])
 		
-		_contexts.end_resolvable()
+		Contexts.end_resolvable()
+	
+	# If there are no more resolvables, clean up!
+	if not Contexts.current_resolvable:
+		if Contexts.check_context:
+			Contexts.check_context.committed_actions = staged_actions
+		
+		_has_explore_staged = false
+		_has_move_staged = false
+		_original_card_locs.clear()
+		_pcs_staged_actions.clear()
+		_cards.restore_revealed_cards_to_hand()
 	
 	update_action_buttons()
 	
@@ -95,23 +99,23 @@ func get_default_ui_state() -> StagedActionsState:
 		and not (_has_explore_staged or _has_move_staged)
 	state.is_skip_button_visible = false
 	state.is_move_enabled = \
-		(_contexts.turn_context and _contexts.turn_context.can_move) \
+		(Contexts.turn_context and Contexts.turn_context.can_move) \
 		or _has_move_staged
 	state.is_explore_enabled = \
-		(_contexts.turn_context and _contexts.turn_context.can_freely_explore) \
+		(Contexts.turn_context and Contexts.turn_context.can_freely_explore) \
 		or _has_explore_staged
 	
 	return state
 
 
 func get_staged_dice_pool() -> DicePool:
-	if not _contexts.check_context: return DicePool.new()
-	return _contexts.check_context.dice_pool(staged_actions)
+	if not Contexts.check_context: return DicePool.new()
+	return Contexts.check_context.dice_pool(staged_actions)
 
 
 func skip() -> void:
-	if _contexts.current_resolvable:
-		_contexts.current_resolvable.on_skip()
+	if Contexts.current_resolvable:
+		Contexts.current_resolvable.on_skip()
 	commit()
 
 
@@ -121,8 +125,8 @@ func stage_action(action: StagedAction) -> void:
 		print("%s staged multiple times!" % action)
 		return
 	
-	if _contexts.current_resolvable \
-	and not _contexts.current_resolvable.can_stage_action(action):
+	if Contexts.current_resolvable \
+	and not Contexts.current_resolvable.can_stage_action(action):
 		return
 	
 	_has_move_staged = action is MoveAction
@@ -153,16 +157,16 @@ func staged_actions_for(pc: PlayerCharacter) -> Array[StagedAction]:
 
 
 func update_action_buttons() -> void:
-	var pc := _contexts.game_context.active_character
+	var pc := Contexts.game_context.active_character
 	var pc_actions: Array[StagedAction] = []
 	pc_actions.append_array(_pcs_staged_actions.get(pc, []) if pc else [])
 	
-	var state := _contexts.current_resolvable.get_ui_state(pc_actions) \
-		if _contexts.current_resolvable \
+	var state := Contexts.current_resolvable.get_ui_state(pc_actions) \
+		if Contexts.current_resolvable \
 		else get_default_ui_state()
 	
-	if not _contexts.turn_context \
-	or pc != _contexts.turn_context.character:
+	if not Contexts.turn_context \
+	or pc != Contexts.turn_context.character:
 		state.is_move_enabled = false
 		state.is_explore_enabled = false
 	
@@ -170,5 +174,5 @@ func update_action_buttons() -> void:
 
 
 func update_game_state_preview() -> void:
-	if not _contexts.check_context: return
-	_contexts.check_context.update_preview_state(staged_actions)
+	if not Contexts.check_context: return
+	Contexts.check_context.update_preview_state(staged_actions)

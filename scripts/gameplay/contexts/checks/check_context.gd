@@ -4,13 +4,13 @@ extends RefCounted
 const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
+var context_data: Dictionary = {} # String -> Object
+var explore_effects: Array[BaseExploreEffect] = []
+var resolvable: CheckResolvable
 var _skills: CheckSkillAccumulator
 var _type_determinator: CheckTypeDeterminator
 var _traits: TraitAccumulator
 
-var explore_effects: Array[BaseExploreEffect] = []
-
-var resolvable: CheckResolvable
 
 var character: PlayerCharacter:
 	get: return resolvable.character
@@ -145,12 +145,10 @@ var committed_actions: Array[StagedAction] = []
 var used_skill: Skill
 var check_result: CheckResult
 
+
 func dice_pool(actions: Array[StagedAction]) -> DicePool:
 	return DicePoolBuilder.build(self, actions)
-	
-	
-# Custom data
-var context_data: Dictionary = {} # String -> Variant
+
 
 # =====================================================================================
 # CONVENIENCE FUNCTIONS

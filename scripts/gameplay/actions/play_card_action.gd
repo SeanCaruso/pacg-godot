@@ -1,8 +1,8 @@
 class_name PlayCardAction
 extends StagedAction
 
-var is_combat: bool:
-	get: return action_data.get("IsCombat", false)
+#var is_combat: bool:
+#	get: return action_data.get("IsCombat", false)
 
 const Action := preload("res://scripts/core/enums/action_type.gd").Action
 

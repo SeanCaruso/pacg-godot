@@ -11,9 +11,9 @@ func _to_string() -> String:
 	return name
 
 var data: CharacterData
-var logic: CharacterLogicBase
 var deck: Deck
 var location: Location
+var logic: CharacterLogicBase
 var _skills: Dictionary = {} # Skill -> Dictionary["die": int, "bonus": int]
 
 
@@ -39,8 +39,8 @@ var active_scourges: Array[Scourge]:
 
 
 func add_scourge(scourge: Scourge) -> void:
-	if _contexts.turn_context and _contexts.turn_context.character == self:
-		for effect in _contexts.turn_context.explore_effects:
+	if Contexts.turn_context and Contexts.turn_context.character == self:
+		for effect in Contexts.turn_context.explore_effects:
 			if effect is ScourgeImmunityExploreEffect and effect.num_to_ignore > 0:
 				effect.num_to_ignore -= 1
 				return
@@ -52,12 +52,12 @@ func remove_scourge(scourge: Scourge) -> void:
 
 # Dependency injection
 var _card_manager := GameServices.cards
-var _contexts := GameServices.contexts
 
 
 func _init(character_data: CharacterData):
 	data = character_data
 	logic = character_data.logic
+	logic.initialize()
 
 	# Populate ICard members
 	name = character_data.character_name
@@ -78,7 +78,7 @@ func _init(character_data: CharacterData):
 
 
 func set_active() -> void:
-	_contexts.game_context.set_active_character(self)
+	Contexts.game_context.set_active_character(self)
 
 
 # ==============================================================================
@@ -234,12 +234,16 @@ var deck_cards: Array[CardInstance]:
 
 # Pass-throughs to ContextManager
 var local_characters: Array[PlayerCharacter]:
-	get: return _contexts.game_context.get_characters_at(location) if location else []
+	get: return Contexts.game_context.get_characters_at(location) if location else []
 var distant_characters: Array[PlayerCharacter]:
-	get: return _contexts.game_context.characters.filter(func(pc: PlayerCharacter): return pc.location != location)
+	get: return Contexts.game_context.characters.filter(func(pc: PlayerCharacter): return pc.location != location)
 
 # Facade pattern for CharacterLogic
 var start_of_turn_power: CharacterPower:
 	get: return logic.get_start_of_turn_power(self) if logic else null
 var end_of_turn_power: CharacterPower:
 	get: return logic.get_end_of_turn_power(self) if logic else null
+
+
+func is_power_enabled(idx: int) -> bool:
+	return logic.is_power_enabled(self, idx) if logic else false

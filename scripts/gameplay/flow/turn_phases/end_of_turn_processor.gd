@@ -2,6 +2,8 @@ class_name EndOfTurnProcessor
 extends BaseProcessor
 
 func on_execute() -> void:
+	Contexts.turn_context.current_phase = TurnContext.TurnPhase.END_OF_TURN_EFFECTS
+	
 	var location_power: LocationPower = _contexts.turn_pc_location.end_of_turn_power
 	var character_power: CharacterPower = null
 	

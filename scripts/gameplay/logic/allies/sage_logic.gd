@@ -19,14 +19,14 @@ func on_commit(action: StagedAction) -> void:
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
-	if not _contexts.check_context: return []
+	if not Contexts.check_context: return []
 	
 	# Can recharge for +1d6 on a local Arcane or Knowledge non-combat check.
-	if _contexts.check_context \
-	and _contexts.check_context.character.local_characters.has(card.owner) \
-	and _contexts.current_resolvable.can_stage_type(card.card_type) \
-	and _contexts.check_context.is_skill_valid \
-	and _contexts.check_context.has_valid_skill([Skill.ARCANE, Skill.KNOWLEDGE]):
+	if Contexts.check_context \
+	and Contexts.check_context.character.local_characters.has(card.owner) \
+	and Contexts.current_resolvable.can_stage_type(card.card_type) \
+	and Contexts.check_context.is_skill_valid \
+	and Contexts.check_context.has_valid_skill([Skill.ARCANE, Skill.KNOWLEDGE]):
 		var modifier := CheckModifier.new(card)
 		modifier.restricted_category = CheckCategory.SKILL
 		modifier.restricted_skills = [Skill.ARCANE, Skill.KNOWLEDGE]
@@ -34,7 +34,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]
 	
 	# Can discard to examine and shuffle.
-	if _contexts.are_cards_playable and card.owner.location.count > 0:
+	if Contexts.are_cards_playable and card.owner.location.count > 0:
 		return [PlayCardAction.new(card, Action.DISCARD, null)]
 	
 	return []

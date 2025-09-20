@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=28 format=3 uid="uid://bwwns71g3fjrj"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=32 format=3 uid="uid://bwwns71g3fjrj"]
 
 [ext_resource type="Script" uid="uid://cshfrnvcq5w30" path="res://scripts/data/character_data/attribute_skill.gd" id="1_j2jp1"]
 [ext_resource type="Script" path="res://scripts/data/character_data/proficiency.gd" id="2_jck14"]
@@ -8,6 +8,10 @@
 [ext_resource type="Script" uid="uid://tkyvpqc38xo" path="res://scripts/gameplay/logic/characters/valeros/valeros_logic.gd" id="5_v3r0h"]
 [ext_resource type="Texture2D" uid="uid://dxoadlseb0wht" path="res://assets/textures/CharacterPowers/valeros_recharge_weapon_armor_disabled.png" id="6_82j1b"]
 [ext_resource type="Texture2D" uid="uid://cmvetblfdojys" path="res://assets/textures/CharacterPowers/valeros_recharge_weapon_armor.png" id="7_5mkt4"]
+[ext_resource type="Texture2D" uid="uid://b7yoddiebibu4" path="res://assets/textures/CharacterPowers/valeros_combat_disabled.png" id="7_jck14"]
+[ext_resource type="Texture2D" uid="uid://d0hcs75xpj6ho" path="res://assets/textures/CharacterPowers/valeros_combat.png" id="8_k1cko"]
+[ext_resource type="Texture2D" uid="uid://cbtb3qw4dl4o8" path="res://assets/textures/CharacterPowers/valeros_avenge_disabled.png" id="11_u16od"]
+[ext_resource type="Texture2D" uid="uid://dh6msne868xnv" path="res://assets/textures/CharacterPowers/valeros_avenge.png" id="12_mgut7"]
 [ext_resource type="Script" uid="uid://suhg2vcu53n7" path="res://scripts/data/character_data/character_data.gd" id="12_rvdaq"]
 [ext_resource type="Script" uid="uid://daqd2b7gsg5hq" path="res://scripts/data/character_data/pc_skill.gd" id="13_xdw8p"]
 
@@ -60,6 +64,8 @@ metadata/_custom_type_script = "uid://tkyvpqc38xo"
 script = ExtResource("5_mgut7")
 power_id = "valeros_combat"
 is_activated_power = true
+sprite_enabled = ExtResource("8_k1cko")
+sprite_disabled = ExtResource("7_jck14")
 text = "On a local combat check, you may reload or recharge a weapon or an armor to add 1d4."
 metadata/_custom_type_script = "uid://cx3rpx0npkrad"
 
@@ -76,6 +82,8 @@ metadata/_custom_type_script = "uid://cx3rpx0npkrad"
 script = ExtResource("5_mgut7")
 power_id = "valeros_avenge"
 is_activated_power = true
+sprite_enabled = ExtResource("12_mgut7")
+sprite_disabled = ExtResource("11_u16od")
 text = "You may avenge by discarding a card."
 metadata/_custom_type_script = "uid://cx3rpx0npkrad"
 
