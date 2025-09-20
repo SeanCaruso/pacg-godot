@@ -9,6 +9,8 @@ func on_execute() -> void:
 	
 	Contexts.encounter_context.current_phase = EncounterPhase.ON_ENCOUNTER
 	
+	Contexts.encounter_context.card.logic.on_encounter()
+	
 	var resolvable := Contexts.encounter_context.card.get_on_encounter_resolvable()
 	if resolvable:
 		Contexts.new_resolvable(resolvable)

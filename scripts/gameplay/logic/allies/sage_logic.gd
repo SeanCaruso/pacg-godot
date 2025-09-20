@@ -23,6 +23,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	
 	# Can recharge for +1d6 on a local Arcane or Knowledge non-combat check.
 	if Contexts.check_context \
+	and Contexts.current_resolvable \
 	and Contexts.check_context.character.local_characters.has(card.owner) \
 	and Contexts.current_resolvable.can_stage_type(card.card_type) \
 	and Contexts.check_context.is_skill_valid \
