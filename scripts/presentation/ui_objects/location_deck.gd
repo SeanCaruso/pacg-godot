@@ -1,10 +1,6 @@
 # location_deck.gd
 extends TextureButton
 
-var Contexts: ContextManager:
-	get:
-		return Contexts
-
 
 func _ready() -> void:
 	GameEvents.player_character_changed.connect(_on_player_character_changed)

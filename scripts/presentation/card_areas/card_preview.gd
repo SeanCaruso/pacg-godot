@@ -12,9 +12,6 @@ var _current_card: Control = null
 var _original_parent: Control = null
 var _placeholder: Control = null
 
-var Contexts: ContextManager:
-	get: return Contexts
-
 
 func _ready() -> void:
 	hide()
