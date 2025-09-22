@@ -4,11 +4,9 @@ extends BaseProcessor
 func on_execute() -> void:
 	Contexts.turn_context.current_phase = TurnContext.TurnPhase.END_OF_TURN_EFFECTS
 	
-	var location_power: LocationPower = Contexts.turn_pc_location.end_of_turn_power
-	var character_power: CharacterPower = null
-	
-	if !Contexts.turn_context.force_end_turn:
-		character_power = Contexts.turn_context.character.end_of_turn_power
+	var location_power: LocationPower = Contexts.turn_context.character.location.end_of_turn_power
+	var character_power: CharacterPower = null if Contexts.turn_context.force_end_turn \
+		else Contexts.turn_context.character.end_of_turn_power
 		
 	if character_power and Contexts.turn_context.performed_character_power_ids.has(character_power.power_id):
 		character_power = null

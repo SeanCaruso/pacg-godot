@@ -2,12 +2,16 @@ extends Node
 
 var _pc: PlayerCharacter
 
+@onready var debug_console: VBoxContainer = %DebugConsole
+
 
 func _ready() -> void:
 	GameEvents.player_character_changed.connect(_set_pc)
 
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_console"):
+		debug_console.visible = !debug_console.visible
 	if event.is_action_pressed("debug_discard"):
 		_discard_card()
 	if event.is_action_pressed("debug_draw"):

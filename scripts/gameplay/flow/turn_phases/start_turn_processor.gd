@@ -47,7 +47,10 @@ func on_execute() -> void:
 ##
 ## Returns true if a power was found (and another processor was started), false otherwise.
 func handled_start_of_turn_powers() -> bool:
-	var location_power := Contexts.turn_pc_location.start_of_turn_power
+	if not Contexts.turn_context:
+		return false
+	
+	var location_power := Contexts.turn_context.character.location.start_of_turn_power
 	var character_power := Contexts.turn_context.character.start_of_turn_power
 	
 	if location_power and Contexts.turn_context.performed_location_power_ids.has(location_power.power_id):

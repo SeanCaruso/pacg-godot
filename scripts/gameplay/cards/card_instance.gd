@@ -20,6 +20,10 @@ var is_boon: bool:
 var is_story_bane: bool:
 	get: return data.card_type == CardTypes.CardType.STORY_BANE
 
+var is_villain: bool:
+	get:
+		return Contexts.game_context.is_villain(self)
+
 func _init(card_data: CardData, _card_owner = null):
 	data = card_data
 	

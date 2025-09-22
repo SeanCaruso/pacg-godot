@@ -1,7 +1,7 @@
 class_name ContextManager
 extends Node
 
-const CardLocation = preload("res://scripts/core/enums/card_location.gd").CardLocation
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
 var _asm: ActionStagingManager:
 	get: return GameServices.asm
@@ -118,8 +118,6 @@ func end_check() -> void:
 ###############################################################################
 # CONVENIENCE PROPERTIES/FUNCTIONS
 ###############################################################################\
-var turn_pc_location: Location:
-	get: return turn_context.character.location if turn_context else null
 
 var encounter_pc_location: Location:
 	get: return encounter_context.character.location if encounter_context else null
@@ -132,5 +130,4 @@ var are_cards_playable: bool:
 
 var is_explore_possible: bool:
 	get:
-		if not turn_pc_location: return false
-		return are_cards_playable and turn_pc_location.count > 0
+		return turn_context.is_explore_possible if turn_context else false

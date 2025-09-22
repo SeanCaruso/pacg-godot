@@ -1,7 +1,89 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dofpxe3roxdeb"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dofpxe3roxdeb"]
 
 [ext_resource type="FontFile" uid="uid://b5b4h4wmxrrqb" path="res://assets/fonts/Oswald-VariableFont_wght.ttf" id="1_ujnqx"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujnqx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.78431374)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmxjo"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.88235295)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ioovb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.7490196, 0.7490196, 0.7490196, 0.88235295)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fah2i"]
+content_margin_left = 0.0
+content_margin_top = 4.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.78431374)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46sbk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [resource]
 default_font = ExtResource("1_ujnqx")
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_ujnqx")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_jmxjo")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_ioovb")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_fah2i")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_46sbk")
 Label/fonts/font = ExtResource("1_ujnqx")

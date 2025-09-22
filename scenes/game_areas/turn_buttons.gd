@@ -52,6 +52,6 @@ func _update_turn_buttons() -> void:
 		return
 	
 	give_button.disabled = not Contexts.turn_context.can_give
-	move_button.disabled = not Contexts.turn_context.can_move
+	move_button.disabled = not Contexts.turn_context.can_move or Contexts.game_context.locations.size() < 2
 	optional_discards_button.disabled = Contexts.turn_context.character.hand.is_empty()
 	end_turn_button.disabled = false

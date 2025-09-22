@@ -8,26 +8,23 @@ const CARD_DISPLAY_SCENE := preload("res://scenes/cards/card_display.tscn")
 var _context: ExamineContext
 var _child_idx_to_array_idx: Dictionary = {} # int -> int
 
+@onready var default_deck_container: HBoxContainer = %DefaultDeckContainer
 @onready var card_backs_container: HBoxContainer = %CardBacksContainer
 @onready var cards_container: HBoxContainer = %CardsContainer
 @onready var continue_button: TextureButton = %ContinueButton
+@onready var scrollable_deck_container: ScrollContainer = %ScrollableDeckContainer
+@onready var scroll_cards_container: HBoxContainer = %ScrollCardsContainer
 
 
 func start_examine(context: ExamineContext) -> void:
 	_context = context
-	
-	# Clear out old states.
-	for c in card_backs_container.get_children():
-		c.queue_free()
-	
-	for c in cards_container.get_children():
-		c.queue_free()
+	GuiUtils.add_mouseover_effect_to_button(continue_button)
 	
 	match context.examine_mode:
 		ExamineContext.Mode.DECK:
 			_examine_deck(context)
-		ExamineContext.Mode.DISCARD:
-			_examine_discards(context)
+		ExamineContext.Mode.SCROLL:
+			_examine_scroll(context)
 
 
 func _end_examine() -> void:
@@ -41,7 +38,8 @@ func _end_examine() -> void:
 
 
 func _examine_deck(context: ExamineContext) -> void:
-	card_backs_container.visible = true
+	default_deck_container.visible = true
+	scrollable_deck_container.visible = false
 	
 	for i in range(context.unknown_count + 10):
 		var img = TextureRect.new()
@@ -51,7 +49,6 @@ func _examine_deck(context: ExamineContext) -> void:
 		img.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		img.size = Vector2(250.0, 350.0)
 	
-	cards_container.alignment = BoxContainer.ALIGNMENT_BEGIN
 	# Iterate in reverse order so that the top card is on the right.
 	for i in range(context.cards.size() - 1, -1, -1):
 		var card: CardInstance = context.cards[i]
@@ -64,14 +61,16 @@ func _examine_deck(context: ExamineContext) -> void:
 		_child_idx_to_array_idx[display.get_index()] = i
 
 
-func _examine_discards(context: ExamineContext) -> void:
-	card_backs_container.visible = false
+func _examine_scroll(context: ExamineContext) -> void:
+	scrollable_deck_container.visible = true
+	default_deck_container.visible = false
 	
-	cards_container.alignment = BoxContainer.ALIGNMENT_CENTER
 	for card in context.cards:
 		var display: CardDisplay = CARD_DISPLAY_SCENE.instantiate()
-		cards_container.add_child(display)
+		scroll_cards_container.add_child(display)
 		display.set_card_instance(card)
+		if card.is_villain:
+			display.scale = Vector2(1.2, 1.2)
 
 
 func _on_drag_ended(card: CardDisplay) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b52ovewyc8lqe"]
+[gd_scene load_steps=53 format=3 uid="uid://b52ovewyc8lqe"]
 
 [ext_resource type="Script" uid="uid://b68jehu7wk407" path="res://scripts/gameplay/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://bhrx8138emhec" path="res://scenes/card_areas/player_hand.tscn" id="1_s3esy"]
@@ -50,6 +50,7 @@
 [ext_resource type="Script" uid="uid://htp6dbeuwvx8" path="res://scripts/shared_api/debug_input.gd" id="42_oojmo"]
 [ext_resource type="Resource" uid="uid://bnkg2ukquj3n5" path="res://_game_data/locations/caravan.tres" id="48_cp8wt"]
 [ext_resource type="Resource" uid="uid://xyhegnhxpjjm" path="res://_game_data/monsters/zombie.tres" id="49_1w5q7"]
+[ext_resource type="PackedScene" uid="uid://bur12sbi8w528" path="res://scenes/debug/debug_console.tscn" id="51_1w5q7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cp8wt"]
 
@@ -235,5 +236,13 @@ ExtResource("48_cp8wt"): [ExtResource("49_1w5q7")]
 
 [node name="DebugInput" type="Node" parent="."]
 script = ExtResource("42_oojmo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="DebugInput"]
+
+[node name="DebugConsole" parent="DebugInput/CanvasLayer" instance=ExtResource("51_1w5q7")]
+unique_name_in_owner = true
+visible = false
+offset_right = 640.0
+offset_bottom = 297.0
 
 [connection signal="pressed" from="UI/Discards" to="UI/Discards" method="_examine_discards"]

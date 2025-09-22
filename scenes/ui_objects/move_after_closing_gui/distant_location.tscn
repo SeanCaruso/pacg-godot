@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt5pgyebqln2w"]
+
+[ext_resource type="Script" uid="uid://b306ovgy1fn34" path="res://scenes/ui_objects/move_after_closing_gui/distant_location.gd" id="1_i7qad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_073vu"]
+bg_color = Color(0.92149335, 0.790041, 0.6252439, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="DistantLocation" type="PanelContainer"]
+custom_minimum_size = Vector2(220, 220)
+theme_override_styles/panel = SubResource("StyleBoxFlat_073vu")
+script = ExtResource("1_i7qad")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "LOCATION NAME"
+horizontal_alignment = 1
+
+[node name="CharacterIcons" type="HFlowContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 308)
+layout_mode = 2

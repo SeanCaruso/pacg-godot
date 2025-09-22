@@ -1,0 +1,149 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp0qmu5xq5sg5"]
+
+[ext_resource type="Script" uid="uid://ddl7thxydojwn" path="res://scenes/ui_objects/move_after_closing_gui/move_after_closing_gui.gd" id="1_4ydxc"]
+[ext_resource type="Texture2D" uid="uid://duidw6qdapyiq" path="res://assets/textures/blue_button_bg.png" id="1_vmw6u"]
+[ext_resource type="Texture2D" uid="uid://rf4kllltwwfw" path="res://assets/textures/blue_button_bg_disabled.png" id="2_nluo8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2vqt"]
+bg_color = Color(0.8, 0.62352943, 0.39215687, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.427451, 0.0313726, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="MoveAfterClosingGui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ydxc")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoveAfterClosingGui" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -96.5
+offset_right = 230.0
+offset_bottom = 96.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d2vqt")
+
+[node name="MarginContainer" type="MarginContainer" parent="MoveAfterClosingGui"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MoveAfterClosingGui/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitleLabel" type="Label" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "LOCATION CLOSED"
+horizontal_alignment = 1
+
+[node name="TitleLabel2" type="Label" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Drag each character to a new location."
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+
+[node name="LocalIcons" type="HBoxContainer" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="LocationsContainer" type="HBoxContainer" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="ContinueButton" type="TextureButton" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+disabled = true
+texture_normal = ExtResource("1_vmw6u")
+texture_disabled = ExtResource("2_nluo8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MoveAfterClosingGui/MarginContainer/VBoxContainer2/ContinueButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftPreview" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 700)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -750.0
+offset_right = 550.0
+offset_bottom = -50.0
+grow_vertical = 0
+
+[node name="RightPreview" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 700)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -550.0
+offset_top = -750.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[connection signal="pressed" from="MoveAfterClosingGui/MarginContainer/VBoxContainer2/ContinueButton" to="." method="_on_continue_pressed"]

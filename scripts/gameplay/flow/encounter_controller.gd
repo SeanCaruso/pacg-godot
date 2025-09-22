@@ -20,4 +20,5 @@ func on_execute() -> void:
 	_game_flow.queue_next_processor(AttemptChecksEncounterProcessor.new())
 	_game_flow.queue_next_processor(AfterActingEncounterProcessor.new())
 	_game_flow.queue_next_processor(ResolveEncounterProcessor.new())
+	_game_flow.queue_next_processor(AvengeEncounterProcessor.new())
 	_game_flow.queue_next_processor(EndEncounterProcessor.new())

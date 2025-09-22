@@ -7,6 +7,7 @@ var current_phase: EncounterPhase = EncounterPhase.ON_ENCOUNTER
 
 var character: PlayerCharacter
 var card: CardInstance
+var is_avenged: bool = false
 
 var _prohibited_traits: Dictionary = {} # PlayerCharacter -> Array[String]
 var explore_effects: Array[BaseExploreEffect] = []

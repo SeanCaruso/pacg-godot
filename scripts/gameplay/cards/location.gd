@@ -9,6 +9,9 @@ var data: LocationData
 var logic: LocationLogicBase
 
 var _deck: Deck
+var cards: Array[CardInstance]:
+	get:
+		return _deck._cards
 var count: int:
 	get:
 		return _deck.count
@@ -65,6 +68,18 @@ func close():
 	for pc in characters:
 		pc.remove_scourge(Scourge.ENTANGLED)
 		pc.remove_scourge(Scourge.FRIGHTENED)
+	
+	for i in range(_deck.count - 1, -1, -1):
+		_deck._cards[i].current_location = CardLocation.VAULT
+		_deck._cards.remove_at(i)
+	
+	if Contexts.game_context:
+		Contexts.game_context.locations.erase(self)
+	if Contexts.turn_context:
+		Contexts.turn_context.can_freely_explore = false
+		Contexts.turn_context.was_location_closed = true
+	
+	GameEvents.turn_state_changed.emit()
 
 ################################################################################
 # Facade Pattern for LocationLogic
@@ -73,7 +88,7 @@ var start_of_turn_power: LocationPower:
 	get: return logic.get_start_of_turn_power(self) if logic else null
 var end_of_turn_power: LocationPower:
 	get: return logic.get_end_of_turn_power(self) if logic else null
-var to_close_resolvable: BaseResolvable:
-	get: return logic.get_to_close_resolvable() if logic else null
+func get_to_close_resolvable(pc: PlayerCharacter) -> BaseResolvable:
+	return logic.get_to_close_resolvable(self, pc) if logic else null
 var when_closed_resolvable: BaseResolvable:
 	get: return logic.get_when_closed_resolvable() if logic else null

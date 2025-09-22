@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bur12sbi8w528"]
+
+[ext_resource type="Script" uid="uid://csgjqcxfy2vl6" path="res://scenes/debug/debug_console.gd" id="1_8rfmb"]
+[ext_resource type="FontFile" uid="uid://cx4kdg8kq6kri" path="res://assets/fonts/cour.ttf" id="1_klfic"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8rfmb"]
+bg_color = Color(0, 0, 0, 0.7490196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klfic"]
+bg_color = Color(0, 0, 0, 0.7490196)
+
+[node name="DebugConsole" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+script = ExtResource("1_8rfmb")
+
+[node name="History" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(640, 270)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_klfic")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8rfmb")
+scroll_following = true
+vertical_alignment = 2
+
+[node name="Input" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_klfic")
+theme_override_styles/normal = SubResource("StyleBoxFlat_klfic")
+editable = false

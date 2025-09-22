@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://dv8bkfdth0me3"]
+[gd_scene load_steps=8 format=3 uid="uid://dv8bkfdth0me3"]
 
 [ext_resource type="Script" uid="uid://c380qfxdq4piv" path="res://scripts/presentation/card_areas/card_preview.gd" id="1_woqmm"]
+[ext_resource type="Script" uid="uid://fvfbjj06unaa" path="res://scenes/card_areas/action_buttons_container.gd" id="2_rqnwk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqnwk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tjas1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pjq1y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlcmh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_76dxe"]
 
 [node name="CardPreview" type="Control"]
 custom_minimum_size = Vector2(500, 700)
@@ -12,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_woqmm")
 
-[node name="BackgroundButton" type="Control" parent="."]
+[node name="BackgroundButton" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -20,6 +31,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rqnwk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tjas1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pjq1y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_tlcmh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_76dxe")
+flat = true
 
 [node name="CardContainer" type="Control" parent="."]
 unique_name_in_owner = true
@@ -36,6 +53,7 @@ offset_right = 250.0
 offset_bottom = 235.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ActionButtonsContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -48,5 +66,9 @@ offset_left = 365.0
 offset_right = 365.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 25
 alignment = 1
+script = ExtResource("2_rqnwk")
+
+[connection signal="pressed" from="BackgroundButton" to="." method="_on_background_clicked"]

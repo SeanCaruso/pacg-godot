@@ -20,7 +20,7 @@ func _examine_discards() -> void:
 		return
 	
 	var context := ExamineContext.new()
-	context.examine_mode = ExamineContext.Mode.DISCARD
+	context.examine_mode = ExamineContext.Mode.SCROLL
 	context.cards = active_character.discards
 	context.unknown_count = 0
 	context.can_reorder = false

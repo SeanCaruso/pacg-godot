@@ -11,7 +11,7 @@ func on_execute() -> void:
 	
 	GameEvents.turn_state_changed.emit()
 	
-	var explored_card := Contexts.turn_pc_location.draw_card()
+	var explored_card := Contexts.turn_context.character.location.draw_card()
 	if !explored_card:
 		printerr("[%s] Explored card was null!" % self)
 		return

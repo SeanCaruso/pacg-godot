@@ -3,6 +3,10 @@ extends Node
 # Turn phase events
 signal move_clicked_event(pc: PlayerCharacter)
 
+signal location_closed(loc: Location)
+func emit_location_closed(loc: Location) -> void:
+	location_closed.emit(loc)
+
 # Deck examine events
 signal examine_event(context: ExamineContext)
 

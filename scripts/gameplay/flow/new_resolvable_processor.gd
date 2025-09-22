@@ -8,5 +8,9 @@ func _init(next_resolvable: BaseResolvable):
 	
 	
 func on_execute() -> void:
+	if not _next_resolvable:
+		printerr("[%s] Created with a null resolvable!")
+		return
+	
 	print("[%s] Creating next resolvable: %s" % [self, _next_resolvable])
 	Contexts.new_resolvable(_next_resolvable)

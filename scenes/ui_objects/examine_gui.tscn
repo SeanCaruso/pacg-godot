@@ -16,6 +16,10 @@ corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nfua"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 bg_color = Color(0.8, 0.62352943, 0.39215687, 1)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
@@ -54,36 +58,52 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwwuv")
 
-[node name="PanelContainer" type="PanelContainer" parent="Border"]
+[node name="SceneContainer" type="PanelContainer" parent="Border"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4nfua")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Border/PanelContainer"]
+[node name="DefaultDeckContainer" type="HBoxContainer" parent="Border/SceneContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="LeftPadding" type="Control" parent="Border/PanelContainer/HBoxContainer"]
+[node name="LeftPadding" type="Control" parent="Border/SceneContainer/DefaultDeckContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CardBacksContainer" type="HBoxContainer" parent="Border/PanelContainer/HBoxContainer"]
+[node name="CardBacksContainer" type="HBoxContainer" parent="Border/SceneContainer/DefaultDeckContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = -225
 alignment = 2
 
-[node name="CardsContainer" type="HBoxContainer" parent="Border/PanelContainer/HBoxContainer"]
+[node name="CardsContainer" type="HBoxContainer" parent="Border/SceneContainer/DefaultDeckContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 25
 
-[node name="RightPadding" type="Control" parent="Border/PanelContainer/HBoxContainer"]
+[node name="RightPadding" type="Control" parent="Border/SceneContainer/DefaultDeckContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="ScrollableDeckContainer" type="ScrollContainer" parent="Border/SceneContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="ScrollCardsContainer" type="HBoxContainer" parent="Border/SceneContainer/ScrollableDeckContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+alignment = 1
 
 [node name="ContinueButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
@@ -95,9 +115,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -100.0
-offset_top = -35.0
+offset_top = -10.0
 offset_right = 100.0
-offset_bottom = 35.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("1_4nfua")

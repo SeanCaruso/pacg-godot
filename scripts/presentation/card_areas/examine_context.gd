@@ -1,7 +1,7 @@
 class_name ExamineContext
 extends RefCounted
 
-enum Mode { DECK, DISCARD }
+enum Mode { DECK, SCROLL }
 
 var examine_mode: Mode = Mode.DECK
 var cards: Array[CardInstance] = []

@@ -4,7 +4,7 @@ extends Control
 const ActionButton := preload("res://scenes/ui_objects/action_button.tscn")
 const CardDisplay := preload("res://scripts/presentation/cards/card_display.gd")
 
-@onready var background_button: Control = %BackgroundButton
+@onready var background_button: Button = %BackgroundButton
 @onready var card_container: Control = %CardContainer
 @onready var action_buttons_container: VBoxContainer = %ActionButtonsContainer
 
@@ -14,9 +14,8 @@ var _placeholder: Control = null
 
 
 func _ready() -> void:
-	hide()
-	background_button.gui_input.connect(_on_background_clicked)
-	
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	background_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for card in get_tree().get_nodes_in_group("cards"):
 		if card.has_signal("card_clicked") and not card.card_clicked.is_connected(_on_card_clicked):
 			card.card_clicked.connect(_on_card_clicked)
@@ -26,7 +25,8 @@ func _ready() -> void:
 
 
 func end_preview() -> void:
-	hide()
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	background_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Clean up placeholder.
 	if _placeholder:
@@ -35,8 +35,9 @@ func end_preview() -> void:
 		
 	_original_parent = null
 	
-	for button in action_buttons_container.get_children():
-		button.queue_free()
+	if Contexts.current_resolvable is not PlayerChoiceResolvable:
+		for button in action_buttons_container.get_children():
+			button.queue_free()
 	
 	if not _current_card:
 		return
@@ -77,6 +78,8 @@ func start_preview(card_display: Control) -> void:
 	if _current_card:
 		return
 	
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	background_button.mouse_filter = Control.MOUSE_FILTER_STOP
 	_current_card = card_display
 	
 	# Create invisible placeholder.
@@ -98,8 +101,6 @@ func start_preview(card_display: Control) -> void:
 	var target_pos := Vector2.ZERO
 	var target_scale := Vector2(2.0, 2.0)
 	
-	show()
-	
 	# Animate to preview position.
 	var tween := create_tween()
 	tween.parallel().tween_property(card_display, "position", target_pos, 0.1)
@@ -108,10 +109,8 @@ func start_preview(card_display: Control) -> void:
 	generate_action_buttons()
 
 
-func _on_background_clicked(event: InputEvent):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			_return_card_to_origin()
+func _on_background_clicked():
+	_return_card_to_origin()
 
 
 func _on_card_clicked(card_display: Control):

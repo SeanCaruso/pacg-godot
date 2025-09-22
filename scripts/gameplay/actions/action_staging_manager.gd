@@ -48,10 +48,10 @@ func cancel() -> void:
 	
 	# Additional step for phase-level cancels
 	if Contexts.current_resolvable and Contexts.current_resolvable.cancel_aborts_phase:
-		GameEvents.set_status_text.emit("")
 		_game_flow.abort_phase()
 		Contexts.end_resolvable()
 	
+	GameEvents.set_status_text.emit("")
 	update_game_state_preview()
 	update_action_buttons()
 
