@@ -19,7 +19,6 @@ func _init(resolvable: CheckResolvable):
 
 func add_valid_skills(card: CardInstance, skills: Array[Skill]) -> void:
 	_staged_skill_additions.get_or_add(card, []).append_array(skills)
-	DialogEvents.valid_skills_changed.emit(get_current_valid_skills())
 
 
 func are_skills_blocked(skills: Array[Skill]) -> bool:
@@ -34,7 +33,6 @@ func are_skills_blocked(skills: Array[Skill]) -> bool:
 func restrict_valid_skills(card: CardInstance, skills: Array[Skill]) -> void:
 	if (skills.is_empty()): return
 	_staged_skill_restrictions.get_or_add(card, []).append_array(skills)
-	DialogEvents.valid_skills_changed.emit(get_current_valid_skills())
 
 
 ## Returns true if at least one of the given skills is a valid skill.

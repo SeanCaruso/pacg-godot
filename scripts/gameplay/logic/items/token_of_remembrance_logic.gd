@@ -3,6 +3,9 @@ extends CardLogicBase
 
 
 func on_commit(action: StagedAction) -> void:
+	if action.action_type != Action.BURY:
+		return
+	
 	var valid_cards := action.card.owner.discards.filter(func(c: CardInstance): return c.card_type == CardType.SPELL)
 	
 	if valid_cards.is_empty():

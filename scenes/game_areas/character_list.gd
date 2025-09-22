@@ -35,6 +35,10 @@ func _on_pc_location_changed(pc: PlayerCharacter):
 
 
 func _on_player_character_changed(pc: PlayerCharacter) -> void:
+	if Contexts.game_context.characters.size() < 2:
+		visible = false
+		return
+	
 	var locals := pc.local_characters.filter(func(p): return p != pc)
 	var distant := pc.distant_characters
 	
