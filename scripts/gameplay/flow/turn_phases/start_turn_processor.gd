@@ -62,13 +62,13 @@ func handled_start_of_turn_powers() -> bool:
 		return false
 	
 	# We'll need to process this again in case there are more valid powers.
-	_game_flow.interrupt(self)
+	GameServices.game_flow.interrupt(self)
 	
 	GameEvents.set_status_text.emit("Use Start-of-Turn power?")
 	
 	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
 	resolvable.hide_cancel_button = true
 	var processor := NewResolvableProcessor.new(resolvable)
-	_game_flow.start_phase(processor, "Start-of-Turn")
+	GameServices.game_flow.start_phase(processor, "Start-of-Turn")
 	
 	return true

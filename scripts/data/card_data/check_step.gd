@@ -7,6 +7,7 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 enum CheckCategory {
 	COMBAT,
 	SKILL,
+	CUSTOM,
 	NONE # Used by CheckModifier to indicate no restricted categories
 }
 
@@ -17,3 +18,4 @@ enum CheckCategory {
 #Check Type
 @export var category: CheckCategory
 @export var allowed_skills: Array[Skill] = []
+@export var custom_text: String

@@ -19,7 +19,7 @@ const SKILL_DIALOG_SCENE := preload("res://scenes/ui_objects/skill_selection_dia
 func _ready() -> void:
 	# Check events
 	DialogEvents.check_start_event.connect(_on_check_start)
-	DialogEvents.check_end_event.connect(_on_check_end)
+	DialogEvents.skill_selection_ended.connect(_on_skill_selection_ended)
 	
 	# Turn phase events
 	DialogEvents.location_closed.connect(_on_location_closed)
@@ -29,7 +29,7 @@ func _ready() -> void:
 	DialogEvents.examine_event.connect(_on_examine_event)
 
 
-func _on_check_end() -> void:
+func _on_skill_selection_ended() -> void:
 	for c in skill_dialog_area.get_children():
 		c.queue_free()
 

@@ -32,7 +32,7 @@ func _handle_key_event(event: InputEventKey) -> void:
 				card_count,
 				Input.is_key_pressed(KEY_ALT)
 			)
-			print("Examining %d" % card_count)
+			print("Examining %d in %s" % [card_count, Contexts.game_context.active_character.location])
 			Contexts.new_resolvable(resolvable)
 
 

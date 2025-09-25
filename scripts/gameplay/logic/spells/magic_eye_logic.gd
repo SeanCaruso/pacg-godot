@@ -2,19 +2,20 @@ class_name MagicEyeLogic
 extends CardLogicBase
 
 
-func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
-	# Reveal for +1d4 on your non-combat check.
-	if Contexts.check_context \
-	and Contexts.current_resolvable is CheckResolvable \
-	and Contexts.check_context.character == card.owner \
-	and Contexts.check_context.is_skill_valid \
-	and Contexts.current_resolvable.can_stage_type(card.card_type):
-		var modifier := CheckModifier.new(card)
-		modifier.restricted_category = CheckCategory.SKILL
-		modifier.added_dice = [4]
-		return [PlayCardAction.new(card, Action.REVEAL, modifier)]
+func on_commit(action: StagedAction) -> void:
+	# Examine the top 3 cards of your location.
+	var examine_resolvable := ExamineResolvable.new(action.card.owner.location._deck, 3)
 	
-	return []
+	GameServices.game_flow.queue_next_processor(NewResolvableProcessor.new(examine_resolvable))
+
+
+func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
+	var actions: Array[StagedAction] = []
+	
+	if Contexts.are_cards_playable and card.owner.location.count > 0:
+		actions.append(PlayCardAction.new(card, Action.BANISH, null))
+	
+	return actions
 
 
 func get_recovery_resolvable(card: CardInstance) -> BaseResolvable:
@@ -24,7 +25,7 @@ func get_recovery_resolvable(card: CardInstance) -> BaseResolvable:
 	var resolvable := CheckResolvable.new(
 		card,
 		card.owner,
-		CardUtils.skill_check(5, [Skill.ARCANE, Skill.DIVINE])
+		CardUtils.skill_check(9, [Skill.ARCANE, Skill.DIVINE])
 	)
 	resolvable.on_success = func(): card.owner.recharge(card)
 	resolvable.on_failure = func(): card.owner.discard(card)

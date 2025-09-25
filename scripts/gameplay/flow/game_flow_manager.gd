@@ -51,6 +51,7 @@ func process() -> void:
 	# Pause if we have a pending resolvable.
 	if Contexts.current_resolvable:
 		print("[%s] Process paused - found %s" % [self, Contexts.current_resolvable])
+		Contexts.current_resolvable.on_game_flow_processed()
 		return
 		
 	# Clean up empty queues (pop back to parent phase)

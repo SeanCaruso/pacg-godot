@@ -29,7 +29,15 @@ func on_execute() -> void:
 	# Finally, check characters' cards to see if any have available actions during the evasion phase.
 	if !_cards._all_cards.any(func(c: CardInstance): return !c.get_available_actions().is_empty()):
 		return
-		
+	
+	var evade_cards = []
+	for c in _cards._all_cards:
+		if not c.get_available_actions().is_empty():
+			evade_cards.append(c.name)
+	
+	print("Found evasion cards:")
+	prints(evade_cards)
+	
 	GameEvents.set_status_text.emit("Evade?")
 	
 	Contexts.new_resolvable(EvadeResolvable.new(evade_encounter))
@@ -47,10 +55,8 @@ static func evade_encounter() -> void:
 	if not Contexts.encounter_context: return
 	
 	print("Evading %s" % [Contexts.encounter_context.card])
+	Contexts.encounter_context.card.on_evaded()
 	
-	if Contexts.encounter_context.card.current_location == CardLocation.DECK:
-		Contexts.encounter_pc_location.shuffle_in(Contexts.encounter_context.card, true)
-		
 	# Null out the encounter for the subsequent Encounter sub-processors
 	GameEvents.encounter_ended.emit()
 	Contexts.end_encounter()

@@ -16,5 +16,5 @@ func on_execute() -> void:
 	Contexts.game_context.set_active_character(_pc)
 	GameEvents.pc_location_changed.emit(_pc)
 	
-	_game_flow.queue_next_processor(AdvanceHourTurnProcessor.new())
-	_game_flow.queue_next_processor(StartTurnProcessor.new())
+	GameServices.game_flow.queue_next_processor(AdvanceHourTurnProcessor.new())
+	GameServices.game_flow.queue_next_processor(StartTurnProcessor.new())

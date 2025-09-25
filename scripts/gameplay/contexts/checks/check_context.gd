@@ -6,6 +6,7 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 var context_data: Dictionary = {} # String -> Object
 var explore_effects: Array[BaseExploreEffect] = []
+var force_success := false
 var resolvable: CheckResolvable
 var _skills: CheckSkillAccumulator
 var _type_determinator: CheckTypeDeterminator

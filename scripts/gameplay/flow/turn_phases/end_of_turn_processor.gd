@@ -18,10 +18,10 @@ func on_execute() -> void:
 		return
 	
 	# We'll need to process this again in case there are multiple valid powers.
-	_game_flow.interrupt(self)
+	GameServices.game_flow.interrupt(self)
 	
 	GameEvents.set_status_text.emit("Use End-of-Turn Power?")
 	
 	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
 	var processor := NewResolvableProcessor.new(resolvable)
-	_game_flow.start_phase(processor, "End-of-Turn")
+	GameServices.game_flow.start_phase(processor, "End-of-Turn")

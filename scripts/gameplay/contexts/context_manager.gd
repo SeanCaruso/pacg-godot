@@ -54,31 +54,6 @@ func new_resolvable(resolvable: BaseResolvable) -> void:
 	
 	for action: Callable in encounter_context.resolvable_modifiers if encounter_context else []:
 		action.call(resolvable)
-	
-	# If this is a damage resolvable, check to see if we have any responses for it.
-	# If so, we'll need to handle those responses first.
-	if resolvable is DamageResolvable:
-		var args := DiscardEventArgs.new(
-			resolvable.character,
-			[],
-			CardLocation.HAND,
-			resolvable
-		)
-		_card_manager.trigger_before_discard(args)
-		
-		if args.has_responses:
-			var options: Array[ChoiceOption] = []
-			for response: CardResponse in args.card_responses:
-				options.append(ChoiceOption.new(response.description, response.on_accept))
-			options.append(ChoiceOption.new("Skip", func(): pass))
-			
-			var choice_resolvable = PlayerChoiceResolvable.new("Use Power?", options)
-			var damage_processor = NewResolvableProcessor.new(resolvable)
-			choice_resolvable.override_next_processor(damage_processor)
-			
-			var choice_processor = NewResolvableProcessor.new(choice_resolvable)
-			GameServices.game_flow.start_phase(choice_processor, "Power Options")
-			return
 		
 	_resolvable_stack.push_back(resolvable)
 		
@@ -104,13 +79,18 @@ func new_resolvable(resolvable: BaseResolvable) -> void:
 
 func end_resolvable() -> void:
 	current_resolvable.resolve()
+	
+	# If it requires a processor, kick off a new phase immediately.
+	var processor := current_resolvable.create_processor()
 	_resolvable_stack.pop_back()
+	
+	if processor:
+		GameServices.game_flow.start_phase(processor, str(processor))
 	
 	GameEvents.turn_state_changed.emit()
 
 
 func end_check() -> void:
-	DialogEvents.check_end_event.emit()
 	check_context = null
 	GameEvents.turn_state_changed.emit()
 

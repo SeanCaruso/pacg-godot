@@ -2,13 +2,24 @@
 class_name RollCheckDiceProcessor
 extends BaseProcessor
 
-	
-func on_execute() -> void:
-	if !Contexts.check_context or !Contexts.check_context.resolvable: return
+const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
+
+func on_execute() -> void:
+	if not Contexts.check_context:
+		return
+	
 	var check := Contexts.check_context
+	if check.force_success:
+		check.check_result = CheckResult.new(0, 0, check.character, false, Skill.NONE, check.traits)
+		return
+	
+	if not check.resolvable:
+		return
 	var resolvable := check.resolvable
 	var pc := resolvable.character
+	
+	
 	var dc := check.get_dc()
 	var dice_pool := check.dice_pool(check.committed_actions)
 	var roll_total := dice_pool.roll()

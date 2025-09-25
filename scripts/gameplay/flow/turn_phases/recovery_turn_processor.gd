@@ -14,7 +14,7 @@ func on_execute() -> void:
 	if recovery_cards.is_empty(): return
 	
 	# Continue to run this processor until all recovery cards are gone.
-	_game_flow.interrupt(self)
+	GameServices.game_flow.interrupt(self)
 	
 	var card: CardInstance = recovery_cards.pop_front()
 	var resolvable := card.get_recovery_resolvable()

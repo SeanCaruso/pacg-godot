@@ -2,12 +2,14 @@ class_name DamageResolvable
 extends BaseResolvable
 
 const ActionType := preload("res://scripts/core/enums/action_type.gd").Action
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
 var character: PlayerCharacter
 var damage_type: String
 var amount: int
 var _current_resolved: int = 0
 var _default_action_type: ActionType = ActionType.DISCARD
+var _queried_for_responses := false
 
 func override_action_type(action: ActionType) -> void:
 	_default_action_type = action
@@ -30,6 +32,31 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 		actions.append(DefaultAction.new(card, _default_action_type))
 	
 	return actions
+
+
+func initialize() -> void:
+	if _queried_for_responses: return
+	_queried_for_responses = true
+	
+	var args := DiscardEventArgs.new(
+		character,
+		[],
+		CardLocation.HAND,
+		self
+	)
+	GameServices.cards.trigger_before_discard(args)
+	
+	if args.has_responses:
+		var options: Array[ChoiceOption] = []
+		for response: CardResponse in args.card_responses:
+			options.append(ChoiceOption.new(response.description, response.on_accept))
+		options.append(ChoiceOption.new("Skip", func(): pass))
+		
+		var choice_resolvable = PlayerChoiceResolvable.new("Use Power?", options)
+		var damage_processor = NewResolvableProcessor.new(self)
+		choice_resolvable.override_next_processor(damage_processor)
+		
+		Contexts.new_resolvable(choice_resolvable)
 	
 	
 func can_commit(_actions: Array[StagedAction]) -> bool:

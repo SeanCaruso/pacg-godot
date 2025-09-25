@@ -16,7 +16,7 @@ static func create_default_recovery_resolvable(check_resolvable: CheckResolvable
 	check_resolvable.verb = CheckResolvable.CheckVerb.RECOVER
 	
 	var choice_resolvable := PlayerChoiceResolvable.new(
-		"Recover?",
+		"Recover %s?" % check_resolvable.card,
 		[
 			ChoiceOption.new("Yes", func():
 				var processor := NewResolvableProcessor.new(check_resolvable)

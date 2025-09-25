@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxb52yyk2h88d"]
+[gd_scene load_steps=13 format=3 uid="uid://bxb52yyk2h88d"]
 
 [ext_resource type="Script" uid="uid://cyujxn7t106x4" path="res://scenes/card_areas/location_card_container.gd" id="1_23cbi"]
 [ext_resource type="Texture2D" uid="uid://dvm2alqwilo71" path="res://assets/textures/card_back.png" id="1_k8lxm"]
@@ -6,17 +6,32 @@
 [ext_resource type="PackedScene" uid="uid://smvna3svyub0" path="res://scenes/game_areas/character_list.tscn" id="2_6b3ie"]
 [ext_resource type="Script" uid="uid://c07x8e5egaxjr" path="res://scripts/presentation/ui_objects/location_deck.gd" id="3_hwo5g"]
 [ext_resource type="Script" uid="uid://ct6i60tc1jpoe" path="res://scenes/game_areas/encountered_card_container.gd" id="4_hks1j"]
+[ext_resource type="Texture2D" uid="uid://coydcxk8c1sqm" path="res://assets/textures/blue_button_s.png" id="7_qpevd"]
+[ext_resource type="Script" uid="uid://c1ubia4fv7bbj" path="res://scenes/game_areas/location_area/custom_check_button.gd" id="7_xdxvw"]
+[ext_resource type="Texture2D" uid="uid://diqimbomlbfau" path="res://assets/textures/blue_button_s_disabled.png" id="8_15i2v"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_15i2v"]
+texture = ExtResource("7_qpevd")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cxxxb"]
+texture = ExtResource("8_15i2v")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xdxvw"]
 
 [node name="LocationArea" type="Control"]
 custom_minimum_size = Vector2(510, 735)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1410.0
-offset_bottom = -345.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 510.0
+offset_bottom = 735.0
 
 [node name="LocationCardContainer" type="Control" parent="."]
 unique_name_in_owner = true
@@ -53,8 +68,30 @@ script = ExtResource("4_hks1j")
 
 [node name="CharacterList" parent="." instance=ExtResource("2_6b3ie")]
 unique_name_in_owner = true
-layout_mode = 0
+layout_mode = 1
 offset_top = 360.0
 offset_bottom = 744.0
 
+[node name="CustomCheckButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 1
+offset_left = 260.0
+offset_top = 550.0
+offset_right = 510.0
+offset_bottom = 558.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxTexture_15i2v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_15i2v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_15i2v")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_cxxxb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xdxvw")
+text = "Banish a random boon.
+"
+autowrap_mode = 3
+script = ExtResource("7_xdxvw")
+
 [connection signal="pressed" from="LocationDeck" to="LocationDeck" method="_on_explore_pressed"]
+[connection signal="pressed" from="CustomCheckButton" to="CustomCheckButton" method="_on_pressed"]

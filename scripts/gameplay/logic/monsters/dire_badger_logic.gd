@@ -2,7 +2,10 @@ class_name DireBadgerLogic
 extends CardLogicBase
 
 
-func get_resolve_encounter_resolvable(card: CardInstance) -> BaseResolvable:
+func get_resolve_encounter_resolvable(_card: CardInstance) -> BaseResolvable:
+	if not Contexts.encounter_context.check_result:
+		return null
+	
 	var result := Contexts.encounter_context.check_result
 	
 	if result.was_success and result.is_combat:

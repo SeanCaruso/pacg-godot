@@ -28,7 +28,5 @@ func _on_player_choice_event(resolvable: PlayerChoiceResolvable) -> void:
 			func():
 				_end_choice()
 				Contexts.end_resolvable()
-				GameEvents.turn_state_changed.emit()
 				option.action.call()
-				GameServices.game_flow.process()
 		)

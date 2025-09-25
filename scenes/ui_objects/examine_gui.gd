@@ -41,7 +41,7 @@ func _examine_deck(context: ExamineContext) -> void:
 	default_deck_container.visible = true
 	scrollable_deck_container.visible = false
 	
-	for i in range(context.unknown_count + 10):
+	for i in range(context.unknown_count):
 		var img = TextureRect.new()
 		card_backs_container.add_child(img)
 		img.texture = CARD_BACK

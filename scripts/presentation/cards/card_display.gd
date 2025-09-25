@@ -6,6 +6,7 @@ signal drag_started(card_display: Control)
 signal drag_ended(card_display: Control)
 
 const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
+const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 #region ========== NODE REFERENCES ==========
@@ -29,6 +30,7 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 @onready var check_label: Label = %CheckLabel
 @onready var skills_1_panel: PanelContainer = %Skills1_Panel
 @onready var skills_1_container: VBoxContainer = %Skills1_Container
+@onready var dc_1_panel: PanelContainer = %DC1_Panel
 @onready var dc_1_label: Label = %DC1_Label
 
 # --- Additional checks ---
@@ -37,6 +39,7 @@ const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 @onready var check_2_area: HBoxContainer = %Check2_Area
 @onready var skills_2_panel: PanelContainer = %Skills2_Panel
 @onready var skills_2_container: VBoxContainer = %Skills2_Container
+@onready var dc_2_panel: PanelContainer = %DC2_Panel
 @onready var dc_2_label: Label = %DC2_Label
 
 # --- Powers ---
@@ -137,6 +140,7 @@ func _update_checks_section() -> void:
 	GuiUtils.set_panel_color(skills_1_panel, _panel_color)
 	_populate_skills(skills_1_container, check_1)
 	dc_1_label.text = str(CardUtils.get_dc(check_1.base_dc, check_1.adventure_level_mult))
+	dc_1_panel.visible = check_1.category in [CheckCategory.COMBAT, CheckCategory.SKILL]
 	
 	# --- Handle Check 2 if needed ---
 	var show_check_2 := req.mode in \
@@ -154,6 +158,7 @@ func _update_checks_section() -> void:
 	GuiUtils.set_panel_color(skills_2_panel, _panel_color)
 	_populate_skills(skills_2_container, check_2)
 	dc_2_label.text = str(CardUtils.get_dc(check_2.base_dc, check_2.adventure_level_mult))
+	dc_2_panel.visible = check_2.category in [CheckCategory.COMBAT, CheckCategory.SKILL]
 
 
 func _populate_skills(container: VBoxContainer, check_step: CheckStep) -> void:
@@ -161,11 +166,16 @@ func _populate_skills(container: VBoxContainer, check_step: CheckStep) -> void:
 	for child in container.get_children():
 		child.queue_free()
 	
-	if check_step.category == CheckStep.CheckCategory.COMBAT:
+	if check_step.category in [CheckCategory.COMBAT, CheckCategory.NONE, CheckCategory.CUSTOM]:
 		var label = Label.new()
 		label.add_theme_font_size_override("font_size", 8)
-		label.text = "COMBAT"
 		container.add_child(label)
+		if check_step.category == CheckCategory.COMBAT:
+			label.text = "COMBAT"
+		elif check_step.category == CheckCategory.NONE:
+			label.text = "NONE"
+		elif check_step.category == CheckCategory.CUSTOM:
+			label.text = check_step.custom_text
 		return
 	
 	for skill_enum in check_step.allowed_skills:

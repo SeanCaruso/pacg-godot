@@ -4,7 +4,7 @@ extends Node
 const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
 
 
-static func add_mouseover_effect_to_button(button: TextureButton) -> void:
+static func add_mouseover_effect_to_button(button: BaseButton) -> void:
 	if not button.mouse_entered.has_connections():
 		button.mouse_entered.connect(
 			func(): 

@@ -12,6 +12,6 @@ func on_execute() -> void:
 	var next_pc := Contexts.game_context.characters[idx]
 	
 	Contexts.end_turn()
-	_game_flow.queue_next_processor(StartTurnController.new(next_pc))
+	GameServices.game_flow.queue_next_processor(StartTurnController.new(next_pc))
 	
 	GameEvents.turn_state_changed.emit()

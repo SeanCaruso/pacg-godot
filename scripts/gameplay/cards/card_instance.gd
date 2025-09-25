@@ -24,6 +24,12 @@ var is_villain: bool:
 	get:
 		return Contexts.game_context.is_villain(self)
 
+var has_custom_check: bool:
+	get:
+		var steps := data.check_requirement.check_steps
+		return steps[0].category == CheckStep.CheckCategory.CUSTOM \
+		or (steps.size() > 1 and steps[1].category == CheckStep.CheckCategory.CUSTOM)
+
 func _init(card_data: CardData, _card_owner = null):
 	data = card_data
 	
@@ -49,9 +55,11 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 func get_on_encounter_resolvable() -> BaseResolvable: return logic.get_on_encounter_resolvable(self) if logic else null
 func get_before_acting_resolvable() -> BaseResolvable: return logic.get_before_acting_resolvable(self) if logic else null
 func get_check_resolvable() -> BaseResolvable: return logic.get_check_resolvable(self) if logic else null
+func get_custom_check_resolvable() -> BaseResolvable: return logic.get_custom_check_resolvable(self) if logic else null
 func get_after_acting_resolvable() -> BaseResolvable: return logic.get_after_acting_resolvable(self) if logic else null
 func get_resolve_encounter_resolvable() -> BaseResolvable: return logic.get_resolve_encounter_resolvable(self) if logic else null
 func get_recovery_resolvable() -> BaseResolvable: return logic.get_recovery_resolvable(self) if logic else null
 func on_encounter() -> void: if logic: logic.on_encounter()
 func on_defeated() -> void: if logic: logic.on_defeated(self)
+func on_evaded() -> void: if logic: logic.on_evaded(self)
 func on_undefeated() -> void: if logic: logic.on_undefeated(self)

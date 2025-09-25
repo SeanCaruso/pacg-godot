@@ -37,6 +37,14 @@ func resolve():
 	pass
 
 
+## Called by GameFlowManager.process()
+##
+## Use this for any logic that should happen every time the resolvable is encountered
+## by GameFlowManager (setting status text, updating previews, etc.)
+func on_game_flow_processed() -> void:
+	pass
+
+
 func on_skip():
 	pass
 

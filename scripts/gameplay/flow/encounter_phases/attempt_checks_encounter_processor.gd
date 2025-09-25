@@ -9,6 +9,11 @@ func on_execute() -> void:
 	
 	Contexts.encounter_context.current_phase = EncounterPhase.ATTEMPT_CHECK
 	
-	var resolvable := Contexts.encounter_context.card.get_check_resolvable()
+	var card := Contexts.encounter_context.card
+	
+	if card.has_custom_check:
+		DialogEvents.emit_custom_check_encountered()
+	
+	var resolvable := card.get_check_resolvable()
 	if resolvable:
 		Contexts.new_resolvable(resolvable)

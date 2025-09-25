@@ -16,8 +16,6 @@ var has_skill: bool:
 
 var on_success: Callable = func(): pass
 var on_failure: Callable = func(): pass
-# Dependency injection
-var _asm := GameServices.asm
 
 
 func _init(_card: ICard, _character: PlayerCharacter, check_requirement: CheckRequirement):
@@ -49,5 +47,19 @@ func can_stage_action(_action: StagedAction) -> bool:
 
 
 func can_stage_type(card_type: CardType) -> bool:
-	var staged_actions := _asm.staged_actions
+	var staged_actions := GameServices.asm.staged_actions
 	return not staged_actions.any(func(a: StagedAction): return a.card.card_type == card_type and !a.is_freely)
+
+
+func on_game_flow_processed() -> void:
+	GameServices.asm.update_action_buttons()
+	GameServices.asm.update_game_state_preview()
+	
+	if not Contexts.check_context:
+		return
+		
+	DialogEvents.emit_check_start_event(Contexts.check_context)
+
+
+func resolve():
+	DialogEvents.emit_skill_selection_ended()

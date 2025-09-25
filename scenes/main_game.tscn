@@ -238,6 +238,7 @@ ExtResource("48_cp8wt"): [ExtResource("49_1w5q7")]
 script = ExtResource("42_oojmo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="DebugInput"]
+layer = 100
 
 [node name="DebugConsole" parent="DebugInput/CanvasLayer" instance=ExtResource("51_1w5q7")]
 unique_name_in_owner = true

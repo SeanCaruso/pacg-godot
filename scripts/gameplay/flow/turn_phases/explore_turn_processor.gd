@@ -17,4 +17,4 @@ func on_execute() -> void:
 		return
 	
 	var encounter_processor := EncounterController.new(Contexts.turn_context.character, explored_card)
-	_game_flow.start_phase(encounter_processor, "Explore: %s" % explored_card)
+	GameServices.game_flow.start_phase(encounter_processor, "Explore: %s" % explored_card)

@@ -130,6 +130,7 @@ func add_to_hand(card: CardInstance) -> void:
 	if !card: return
 	card.owner = self
 	_card_manager.move_card_to(card, CardLocation.HAND)
+	deck.erase(card)
 
 
 func banish(card: CardInstance, force_to_vault: bool = false) -> void:
@@ -139,12 +140,21 @@ func banish(card: CardInstance, force_to_vault: bool = false) -> void:
 		card.original_owner = null
 
 	_card_manager.move_card_by(card, Action.BANISH)
+	deck.erase(card)
+
+
+func bury(card: CardInstance) -> void:
+	if !card: return
+	card.owner = self
+	_card_manager.move_card_by(card, Action.BURY)
+	deck.erase(card)
 
 
 func discard(card: CardInstance) -> void:
 	if !card: return
 	card.owner = self
 	_card_manager.move_card_by(card, Action.DISCARD)
+	deck.erase(card)
 
 
 func draw_from_deck() -> CardInstance:
@@ -193,13 +203,15 @@ func heal(amount: int, source: CardInstance = null) -> void:
 		
 		
 func recharge(card: CardInstance) -> void:
-	if !card or card.owner != self: return
+	if !card: return
+	card.owner = self
 	_card_manager.move_card_to(card, CardLocation.DECK)
 	deck.recharge(card)
 	
 	
 func reload(card: CardInstance) -> void:
-	if !card or card.owner != self: return
+	if !card: return
+	card.owner = self
 	_card_manager.move_card_to(card, CardLocation.DECK)
 	deck.reload(card)
 	
@@ -229,8 +241,11 @@ var recovery_cards: Array[CardInstance]:
 	get: return _card_manager.get_cards_owned_by(self, CardLocation.RECOVERY)
 var revealed_cards: Array[CardInstance]:
 	get: return _card_manager.get_cards_owned_by(self, CardLocation.REVEALED)
+## WARNING: These might be in a different order than the character's deck!
 var deck_cards: Array[CardInstance]:
 	get: return _card_manager.get_cards_owned_by(self, CardLocation.DECK)
+var hand_and_revealed: Array[CardInstance]:
+	get: return hand + revealed_cards
 
 # Pass-throughs to ContextManager
 var local_characters: Array[PlayerCharacter]:

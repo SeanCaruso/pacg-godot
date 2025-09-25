@@ -17,13 +17,14 @@ func _ready() -> void:
 	GameEvents.set_status_text.connect(_on_set_status_text)
 
 
-func _clear_dice() -> void:
+func _hide_dice() -> void:
 	for c in get_children():
-		c.queue_free()
+		c.visible = false
 
 
 func _on_dice_pool_changed(pool: DicePool) -> void:
-	_clear_dice()
+	for c in get_children():
+		c.queue_free()
 	
 	for sides in DICE_DICT:
 		for i in range(pool.num_dice(sides)):
@@ -34,4 +35,4 @@ func _on_dice_pool_changed(pool: DicePool) -> void:
 
 
 func _on_set_status_text(_text: String) -> void:
-	_clear_dice()
+	_hide_dice()

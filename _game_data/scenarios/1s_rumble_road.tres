@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ScenarioData" load_steps=16 format=3 uid="uid://b4l7y8pxnda3a"]
+[gd_resource type="Resource" script_class="ScenarioData" load_steps=18 format=3 uid="uid://b4l7y8pxnda3a"]
 
 [ext_resource type="Script" uid="uid://da4cui72j4cfr" path="res://scripts/data/scenario_data/story_bane.gd" id="1_vna47"]
 [ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="2_agfxn"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bnkg2ukquj3n5" path="res://_game_data/locations/caravan.tres" id="4_p0208"]
 [ext_resource type="Resource" uid="uid://brpghxda38gyh" path="res://_game_data/story_banes/dire_wolf.tres" id="5_ji1jf"]
 [ext_resource type="Script" uid="uid://dsdxb46r1d6ni" path="res://scripts/gameplay/logic/scenarios/rumble_road_logic.gd" id="9_43lks"]
+[ext_resource type="Resource" uid="uid://bh2mxi3byj55p" path="res://_game_data/story_banes/bandit.tres" id="11_6ym3k"]
 
 [sub_resource type="Resource" id="Resource_agfxn"]
 script = ExtResource("1_vna47")
@@ -38,6 +39,12 @@ metadata/_custom_type_script = "uid://by1g5dmut7cpo"
 script = ExtResource("9_43lks")
 metadata/_custom_type_script = "uid://dsdxb46r1d6ni"
 
+[sub_resource type="Resource" id="Resource_ch443"]
+script = ExtResource("1_vna47")
+card_data = ExtResource("11_6ym3k")
+custom_name = "Silas Gribb"
+metadata/_custom_type_script = "uid://da4cui72j4cfr"
+
 [resource]
 script = ExtResource("3_p0208")
 name = "1S: Rumble Road"
@@ -51,6 +58,7 @@ is_during_power_activated = true
 during_scenario_power_enabled = ExtResource("3_ljuc7")
 during_scenario_power_disabled = ExtResource("2_agfxn")
 dangers = Array[ExtResource("1_vna47")]([SubResource("Resource_agfxn")])
+villain = SubResource("Resource_ch443")
 henchmen = Array[ExtResource("1_vna47")]([SubResource("Resource_43lks")])
 reward = "Each character gets a new level 1 boon of any type."
 logic = SubResource("Resource_6ym3k")

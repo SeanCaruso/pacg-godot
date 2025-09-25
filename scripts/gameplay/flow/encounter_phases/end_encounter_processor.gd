@@ -23,12 +23,12 @@ func on_execute() -> void:
 			ChoiceOption.new("Close", func():
 				var close_resolvable: BaseResolvable = pc.location.to_close_resolvable
 				var close_processor := NewResolvableProcessor.new(close_resolvable)
-				_game_flow.interrupt(close_processor)),
+				GameServices.game_flow.interrupt(close_processor)),
 			ChoiceOption.new("Skip", func(): pass)
 		])
 
 		var next_processor := NewResolvableProcessor.new(close_choice_resolvable)
-		_game_flow.interrupt(next_processor)
+		GameServices.game_flow.interrupt(next_processor)
 
 	Contexts.end_encounter()
 	

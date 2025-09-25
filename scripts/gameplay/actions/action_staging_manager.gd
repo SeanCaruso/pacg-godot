@@ -64,14 +64,6 @@ func commit() -> void:
 	
 	# If we have a resolvable, the fact that we committed means it's been resolved.
 	if Contexts.current_resolvable:
-		# If it requires a processor, kick off a new phase immediately.
-		var processor := Contexts.current_resolvable.create_processor()
-		if processor:
-			print("[%s] %s created %s" % [self, Contexts.current_resolvable, processor])
-			_game_flow.start_phase(processor, str(Contexts.current_resolvable))
-		else:
-			print("[%s] %s didn't queue a processor." % [self, Contexts.current_resolvable])
-		
 		Contexts.end_resolvable()
 	
 	# If there are no more resolvables, clean up!
@@ -174,5 +166,6 @@ func update_action_buttons() -> void:
 
 
 func update_game_state_preview() -> void:
-	if not Contexts.check_context: return
+	if not Contexts.check_context or Contexts.current_resolvable is not CheckResolvable:
+		return
 	Contexts.check_context.update_preview_state(staged_actions)

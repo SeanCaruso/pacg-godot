@@ -10,9 +10,9 @@ func _init(resolvable: CheckResolvable):
 
 
 func on_execute() -> void:
-	_game_flow.queue_next_processor(RollCheckDiceProcessor.new())
+	GameServices.game_flow.queue_next_processor(RollCheckDiceProcessor.new())
 	
 	if _resolvable.card.card_type == CardType.MONSTER:
-		_game_flow.queue_next_processor(CheckDamageProcessor.new())
+		GameServices.game_flow.queue_next_processor(CheckDamageProcessor.new())
 	
-	_game_flow.queue_next_processor(EndOfCheckProcessor.new())
+	GameServices.game_flow.queue_next_processor(EndOfCheckProcessor.new())

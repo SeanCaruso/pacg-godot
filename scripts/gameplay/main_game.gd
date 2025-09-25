@@ -24,10 +24,21 @@ func _ready() -> void:
 		
 		for loc_card in test_data.test_locations.get(location.data, []):
 			location.shuffle_in(GameServices.cards.new_card(loc_card), true)
+	
+	var henchman_idx := 0
+	var villain_loc := randi_range(0, game_context.locations.size() - 1)
+	if not test_data.scenario_data.villain:
+		villain_loc = -1
+	for i in range(game_context.locations.size()):
+		var story_bane_data: CardData
+		if i == villain_loc:
+			story_bane_data = test_data.scenario_data.villain.card_data
+		else:
+			story_bane_data = test_data.scenario_data.henchmen[henchman_idx].card_data
+			henchman_idx = min(henchman_idx + 1, test_data.scenario_data.henchmen.size() - 1)
 		
-		if not test_data.scenario_data.henchmen.is_empty():
-			var henchman_data = test_data.scenario_data.henchmen[0].card_data
-			location.shuffle_in(GameServices.cards.new_card(henchman_data), false)
+		var story_bane_instance := GameServices.cards.new_card(story_bane_data)
+		game_context.locations[i].shuffle_in(story_bane_instance, false)
 	
 	for pc: CharacterData in test_data.test_characters:
 		if not test_data.characters_to_use.has(pc.character_name): continue
