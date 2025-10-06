@@ -6,11 +6,11 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Reveal for Strength/Melee +1d8 on your combat check.
 	if Contexts.check_context \
 	and Contexts.check_context.is_combat_valid \
-	and Contexts.current_resolvable is CheckResolvable \
-	and Contexts.current_resolvable.has_combat \
+	and TaskManager.current_resolvable is CheckResolvable \
+	and TaskManager.current_resolvable.has_combat \
 	and Contexts.check_context.character == card.owner \
 	and not Contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE]) \
-	and Contexts.current_resolvable.can_stage_type(card.card_type):	
+	and TaskManager.current_resolvable.can_stage_type(card.card_type):	
 		var modifier := CheckModifier.new(card)
 		modifier.restricted_category = CheckCategory.COMBAT
 		modifier.added_valid_skills = [Skill.STRENGTH, Skill.MELEE]
@@ -22,7 +22,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		return [PlayCardAction.new(card, Action.REVEAL, modifier, {"IsCombat": true})]
 	
 	# Discard to reroll if we have a RerollResolvable and this card is one of the options.
-	if Contexts.current_resolvable is RerollResolvable \
+	if TaskManager.current_resolvable is RerollResolvable \
 	and Contexts.check_context.context_data.get("rerollCards", []).has(self):
 		return [PlayCardAction.new(card, Action.DISCARD, null, {"IsFreely": true})]
 	

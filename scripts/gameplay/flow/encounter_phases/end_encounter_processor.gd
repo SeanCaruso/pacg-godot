@@ -2,7 +2,7 @@ class_name EndEncounterProcessor
 extends BaseProcessor
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	if not Contexts.encounter_context \
 	or not Contexts.encounter_context.check_result: return
 	
@@ -21,14 +21,13 @@ func on_execute() -> void:
 		
 		var close_choice_resolvable = PlayerChoiceResolvable.new("Close location?", [
 			ChoiceOption.new("Close", func():
-				var close_resolvable: BaseResolvable = pc.location.to_close_resolvable
-				var close_processor := NewResolvableProcessor.new(close_resolvable)
-				GameServices.game_flow.interrupt(close_processor)),
+				var close_resolvable: BaseResolvable = pc.location.get_to_close_resolvable(pc)
+				TaskManager.push(close_resolvable)
+				),
 			ChoiceOption.new("Skip", func(): pass)
 		])
 
-		var next_processor := NewResolvableProcessor.new(close_choice_resolvable)
-		GameServices.game_flow.interrupt(next_processor)
+		TaskManager.push(close_choice_resolvable)
 
 	Contexts.end_encounter()
 	

@@ -27,17 +27,17 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_reveal(card: CardInstance) -> bool:
 	# Can freely reveal once if the owner has a Combat DamageResolvable.
-	return not _asm.staged_cards.has(card) \
-		and Contexts.current_resolvable is DamageResolvable \
-		and (Contexts.current_resolvable as DamageResolvable).damage_type == "Combat" \
-		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
+	return TaskManager.current_resolvable is DamageResolvable \
+		and not TaskManager.current_resolvable.staged_cards.has(card) \
+		and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
+		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_recharge(card: CardInstance) -> bool:
 	# We can freely recharge to reroll if we're processing a RerollResolvable 
 	# and the dice pool has a d4, d6, or d8.
 	return Contexts.check_context != null \
-		and Contexts.current_resolvable is RerollResolvable \
-		and card.owner == (Contexts.current_resolvable as RerollResolvable).character \
+		and TaskManager.current_resolvable is RerollResolvable \
+		and card.owner == (TaskManager.current_resolvable as RerollResolvable).character \
 		and Contexts.check_context.used_skill == Skill.MELEE \
-		and (Contexts.current_resolvable as RerollResolvable).dice_pool.num_dice_in_sizes([4, 6, 8]) > 0
+		and (TaskManager.current_resolvable as RerollResolvable).dice_pool.num_dice_in_sizes([4, 6, 8]) > 0

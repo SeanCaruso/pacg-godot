@@ -1,7 +1,7 @@
 class_name ExploreTurnProcessor
 extends BaseProcessor
 
-func on_execute() -> void:
+func execute() -> void:
 	if !Contexts.turn_context: return
 	
 	Contexts.turn_context.can_give = false
@@ -17,4 +17,4 @@ func on_execute() -> void:
 		return
 	
 	var encounter_processor := EncounterController.new(Contexts.turn_context.character, explored_card)
-	GameServices.game_flow.start_phase(encounter_processor, "Explore: %s" % explored_card)
+	TaskManager.start_task(encounter_processor)

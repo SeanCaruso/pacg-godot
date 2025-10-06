@@ -9,8 +9,8 @@ func test_skill_restrictions_longbow_blocks_soldier() -> void:
 	
 	TestUtils.setup_encounter_with_instances(valeros, zombie)
 	
-	assert_not_null(Contexts.current_resolvable)
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_not_null(TaskManager.current_resolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	
 	# Longbow should be usable - no skill restrictions yet.
 	var longbow_actions := longbow.get_available_actions()
@@ -19,7 +19,7 @@ func test_skill_restrictions_longbow_blocks_soldier() -> void:
 	var soldier_actions := soldier.get_available_actions()
 	assert_eq(soldier_actions.size(), 1, "Soldier has one action.")
 	
-	GameServices.asm.stage_action(longbow_actions[0])
+	TaskManager.current_resolvable.stage_action(longbow_actions[0])
 	
 	soldier_actions = soldier.get_available_actions()
 	assert_eq(soldier_actions.size(), 0, "Soldier has no actions.")
@@ -33,8 +33,8 @@ func test_skill_restrictions_soldier_blocks_longbow() -> void:
 	
 	TestUtils.setup_encounter_with_instances(valeros, zombie)
 	
-	assert_not_null(Contexts.current_resolvable)
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_not_null(TaskManager.current_resolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	
 	# Longbow should be usable - no skill restrictions yet.
 	var longbow_actions := longbow.get_available_actions()
@@ -43,7 +43,7 @@ func test_skill_restrictions_soldier_blocks_longbow() -> void:
 	var soldier_actions := soldier.get_available_actions()
 	assert_eq(soldier_actions.size(), 1, "Soldier has one action.")
 	
-	GameServices.asm.stage_action(soldier_actions[0])
+	TaskManager.current_resolvable.stage_action(soldier_actions[0])
 	
 	longbow_actions = longbow.get_available_actions()
 	assert_eq(longbow_actions.size(), 0, "Longbow has no actions.")

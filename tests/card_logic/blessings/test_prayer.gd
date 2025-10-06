@@ -31,7 +31,7 @@ func test_prayer_not_freely():
 	# Stage first Prayer
 	var actions := prayer.get_available_actions()
 	assert_eq(actions.size(), 1, "First Prayer should have one action")
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
 	# Try to use second Prayer
 	var prayer2 = TestUtils.get_card("Prayer")
@@ -48,7 +48,8 @@ func test_prayer_bless_valeros_combat():
 	
 	var actions := prayer.get_available_actions()
 	assert_eq(actions.size(), 1, "Prayer should have one action")
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
-	var dice_pool := GameServices.asm.get_staged_dice_pool()
+	assert_true(TaskManager.current_resolvable is CheckResolvable, "We have a check resolvable.")
+	var dice_pool := (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(dice_pool.to_string(), "2d10 + 2", "Prayer should add an extra d10 to Valeros combat")

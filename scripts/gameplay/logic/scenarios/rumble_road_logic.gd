@@ -4,9 +4,9 @@ extends ScenarioLogicBase
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 
 ## We have an available turn action if the player has discarded cards or an applicable scourge and can freely explore.
-func has_available_actions() -> bool:	
+func has_available_actions() -> bool:
 	if Contexts.check_context \
-	or Contexts.current_resolvable \
+	or not TaskManager.current_resolvable is FreePlayResolvable \
 	or not Contexts.turn_context:
 		return false
 	

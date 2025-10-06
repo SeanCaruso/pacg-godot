@@ -35,10 +35,10 @@ func test_gem_mental_acuity_valeros_d6():
 	Contexts.turn_context.character.add_to_hand(_gem_instance)
 	
 	# Default should be Melee
-	var dice_pool := GameServices.asm.get_staged_dice_pool()
+	var dice_pool := (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(dice_pool.to_string(), "1d10 + 2", "Default should be Melee dice pool")
 	
 	var actions := _gem_instance.get_available_actions()
-	GameServices.asm.stage_action(actions[0])
-	dice_pool = GameServices.asm.get_staged_dice_pool()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	dice_pool = (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(dice_pool.to_string(), "1d6 + 2", "Gem should change to Intelligence dice (d6)")

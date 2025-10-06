@@ -18,9 +18,7 @@ static func create_default_recovery_resolvable(check_resolvable: CheckResolvable
 	var choice_resolvable := PlayerChoiceResolvable.new(
 		"Recover %s?" % check_resolvable.card,
 		[
-			ChoiceOption.new("Yes", func():
-				var processor := NewResolvableProcessor.new(check_resolvable)
-				GameServices.game_flow.interrupt(processor)),
+			ChoiceOption.new("Yes", func(): TaskManager.push(check_resolvable)),
 			ChoiceOption.new("No", func(): pass)
 		]
 	)
@@ -34,7 +32,7 @@ static func create_explore_choice() -> PlayerChoiceResolvable:
 		"Explore?", [
 			ChoiceOption.new(
 				"Explore",
-				func(): GameServices.game_flow.queue_next_processor(ExploreTurnProcessor.new())
+				func(): TaskManager.push(ExploreTurnProcessor.new())
 			),
 			ChoiceOption.new("Forfeit\nExploration", func(): pass)
 		]

@@ -31,8 +31,8 @@ func test_rumble_road_dire_wolf_allows_close():
 	var processor = EndEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable)
-	var resolvable = Contexts.current_resolvable as PlayerChoiceResolvable
+	assert_true(TaskManager.current_resolvable is PlayerChoiceResolvable)
+	var resolvable = TaskManager.current_resolvable as PlayerChoiceResolvable
 	assert_eq(resolvable.prompt, "Close location?")
 	assert_eq(resolvable.options.size(), 2)
 	assert_eq(resolvable.options[0].label, "Close")

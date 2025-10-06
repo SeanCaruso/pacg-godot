@@ -37,10 +37,10 @@ func _is_card_playable(card: CardInstance) -> bool:
 	if Contexts.check_context == null:
 		return false  # Must be in a check...
 	
-	if not Contexts.current_resolvable is CheckResolvable:
+	if not TaskManager.current_resolvable is CheckResolvable:
 		return false  # ... for a CheckResolvable...
 	
-	var resolvable := Contexts.current_resolvable as CheckResolvable
+	var resolvable := TaskManager.current_resolvable as CheckResolvable
 	if resolvable.character != card.owner:
 		return false  # ... for the card's owner...
 	
@@ -60,8 +60,8 @@ func _is_lock_obstacle_barrier() -> bool:
 	if not Contexts.encounter_context:
 		return false
 	
-	if Contexts.encounter_context.card_data.card_type != CardType.BARRIER:
+	if Contexts.encounter_context.card.data.card_type != CardType.BARRIER:
 		return false
 	
-	var traits := Contexts.encounter_context.card_data.traits
+	var traits := Contexts.encounter_context.card.data.traits
 	return traits.has("Lock") or traits.has("Obstacle")

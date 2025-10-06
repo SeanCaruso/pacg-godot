@@ -12,10 +12,10 @@ func test_exhausted_limits_to_one_boon():
 	valeros.add_to_hand(soldier)
 	
 	var resolvable = CheckResolvable.new(zombie, valeros, zombie.data.check_requirement)
-	Contexts.new_resolvable(resolvable)
+	TaskManager.push(resolvable)
 	
 	assert_eq(longsword.get_available_actions().size(), 2)
-	GameServices.asm.stage_action(longsword.get_available_actions()[0])
+	TaskManager.current_resolvable.stage_action(longsword.get_available_actions()[0])
 	
 	assert_eq(soldier.get_available_actions().size(), 0)
 
@@ -24,10 +24,10 @@ func test_exhausted_doesnt_limit_same_boon():
 	valeros.add_to_hand(longsword)
 	
 	var resolvable = CheckResolvable.new(zombie, valeros, zombie.data.check_requirement)
-	Contexts.new_resolvable(resolvable)
+	TaskManager.push(resolvable)
 	
 	assert_eq(longsword.get_available_actions().size(), 2)
-	GameServices.asm.stage_action(longsword.get_available_actions()[0])
+	TaskManager.current_resolvable.stage_action(longsword.get_available_actions()[0])
 	
 	assert_eq(longsword.get_available_actions().size(), 1)
 
@@ -35,16 +35,18 @@ func test_exhausted_removal_prompt_on_turn_start():
 	valeros.add_scourge(Scourge.EXHAUSTED)
 	Contexts.new_turn(TurnContext.new(valeros))
 	
-	GameServices.game_flow.start_phase(StartTurnProcessor.new(), "Turn")
-	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable)
+	TaskManager.start_task(StartTurnProcessor.new())
+	assert_true(TaskManager.current_resolvable is PlayerChoiceResolvable)
 
 func test_exhausted_removed():
+	Contexts.new_turn(TurnContext.new(valeros))
+	
 	valeros.add_scourge(Scourge.EXHAUSTED)
 	ScourgeRules.prompt_for_exhausted_removal(valeros)
 	
-	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable)
+	assert_true(TaskManager.current_resolvable is PlayerChoiceResolvable)
 	
-	var resolvable = Contexts.current_resolvable as PlayerChoiceResolvable
+	var resolvable = TaskManager.current_resolvable as PlayerChoiceResolvable
 	resolvable.options[1].action.call()
 	assert_true(valeros.active_scourges.size() == 1)
 	assert_true(valeros.active_scourges.has(Scourge.EXHAUSTED))

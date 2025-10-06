@@ -207,7 +207,7 @@ script = ExtResource("10_wpxwh")
 
 [node name="ActionButtons" parent="UI" instance=ExtResource("6_wi4c7")]
 
-[node name="DeckExamineArea" type="Control" parent="UI"]
+[node name="DialogArea" type="Control" parent="UI"]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15

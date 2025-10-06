@@ -17,7 +17,7 @@ func _init(_deck: Deck, _count: int, _can_reorder: bool = false) -> void:
 	current_order = _examined_cards.duplicate()
 
 
-func initialize():
+func on_active():
 	var examine_context = ExamineContext.new()
 	examine_context.cards = current_order
 	examine_context.unknown_count = deck.count - count
@@ -32,10 +32,11 @@ func can_commit(_actions: Array[StagedAction]) -> bool:
 	return false
 
 
-func resolve():
-	if can_reorder: deck.reorder_examined(current_order)
+func execute():
+	if can_reorder:
+		deck.reorder_examined(current_order)
 
 
 ## The Examine GUI handles its own button.
-func get_ui_state(_actions: Array[StagedAction]) -> StagedActionsState:	
+func get_ui_state(_actions: Array[StagedAction]) -> StagedActionsState:
 	return StagedActionsState.new()

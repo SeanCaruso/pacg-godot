@@ -39,7 +39,7 @@ func _on_pressed() -> void:
 	DialogEvents.emit_skill_selection_ended()
 	visible = false
 	
-	Contexts.new_resolvable(resolvable)
+	TaskManager.push(resolvable)
 
 
 func _on_skill_selection_ended() -> void:

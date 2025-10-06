@@ -1,6 +1,6 @@
 class_name DiscardDuringResetTurnProcessor
 extends BaseProcessor
 
-func on_execute() -> void:
+func execute() -> void:
 	# TODO: Implement optional discards
 	pass

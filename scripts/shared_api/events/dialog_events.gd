@@ -11,6 +11,10 @@ func emit_location_closed(loc: Location) -> void:
 signal examine_event(context: ExamineContext)
 
 # Encounter/Skill selection events
+signal guard_locations_started(resolvable: GuardLocationsResolvable)
+func emit_guard_locations_started(resolvable: GuardLocationsResolvable) -> void:
+	guard_locations_started.emit(resolvable)
+
 signal custom_check_encountered()
 func emit_custom_check_encountered() -> void:
 	custom_check_encountered.emit()

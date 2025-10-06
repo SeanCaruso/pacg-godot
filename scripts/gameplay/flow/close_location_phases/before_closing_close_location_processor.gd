@@ -8,7 +8,7 @@ func _init(loc: Location) -> void:
 	_loc = loc
 
 
-func on_execute() -> void:
+func execute() -> void:
 	# There is one location with a before closing power.
 	# TODO: Worry about this when I implement Shop.
 	return

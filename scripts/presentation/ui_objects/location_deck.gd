@@ -9,8 +9,8 @@ func _ready() -> void:
 
 
 func _on_explore_pressed() -> void:
-	GameServices.asm.commit()
-	GameServices.game_flow.start_phase(ExploreTurnProcessor.new(), "Explore")
+	TaskManager.commit()
+	TaskManager.start_task(ExploreTurnProcessor.new())
 
 
 func _on_player_character_changed(_pc: PlayerCharacter) -> void:
@@ -22,7 +22,7 @@ func _on_staged_actions_changed(state: StagedActionsState) -> void:
 
 
 func _update_explore_button() -> void:
-	if Contexts.current_resolvable \
+	if TaskManager.current_resolvable is not FreePlayResolvable \
 	or not Contexts.turn_context \
 	or Contexts.game_context.active_character != Contexts.turn_context.character:
 		disabled = true

@@ -2,9 +2,7 @@
 extends Node
 
 # The main service references
-var asm: ActionStagingManager
 var cards: CardManager
-var game_flow: GameFlowManager
 
 var adventure_number := 1
 
@@ -17,6 +15,4 @@ func _initialize_game_systems():
 	CardUtils.initialize(adventure_number)
 	
 	# Construct all services
-	asm = ActionStagingManager.new()
 	cards = CardManager.new()
-	game_flow = GameFlowManager.new()

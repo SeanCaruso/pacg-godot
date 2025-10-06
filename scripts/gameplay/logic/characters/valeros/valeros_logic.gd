@@ -32,15 +32,12 @@ func valeros_combat() -> void:
 	powers.append("valeros_combat")
 	
 	var resolvable := ValerosCombatResolvable.new(_valid_cards)
-	Contexts.new_resolvable(resolvable)
-	GameServices.game_flow.process()
+	TaskManager.start_task(resolvable)
 
 
 func valeros_end() -> void:
 	var resolvable := ValerosEndOfTurnResolvable.new(_valid_cards)
-	var processor := NewResolvableProcessor.new(resolvable)
-	GameServices.game_flow.interrupt(processor)
-	GameServices.asm.commit()
+	TaskManager.start_task(resolvable)
 
 
 func _is_valeros_avenge_enabled(pc: PlayerCharacter) -> bool:
@@ -54,7 +51,7 @@ func _is_valeros_avenge_enabled(pc: PlayerCharacter) -> bool:
 
 
 func _is_valeros_combat_enabled(pc: PlayerCharacter) -> bool:
-	if Contexts.current_resolvable is not CheckResolvable \
+	if TaskManager.current_resolvable is not CheckResolvable \
 	or not Contexts.check_context.is_local(pc) \
 	or not Contexts.check_context.is_combat_valid:
 		return false

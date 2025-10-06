@@ -10,15 +10,23 @@ func _init(pc: PlayerCharacter, card: CardInstance):
 	_card = card
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	Contexts.new_encounter(EncounterContext.new(_pc, _card))
 	GameEvents.encounter_started.emit(_card)
 	
-	GameServices.game_flow.queue_next_processor(OnEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(EvasionEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(BeforeActingEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(AttemptChecksEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(AfterActingEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(ResolveEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(AvengeEncounterProcessor.new())
-	GameServices.game_flow.queue_next_processor(EndEncounterProcessor.new())
+	if _card.is_villain:
+		TaskManager.push(VillainEndEncounterProcessor.new())
+	else:
+		TaskManager.push(EndEncounterProcessor.new())
+	
+	TaskManager.push(AvengeEncounterProcessor.new())
+	TaskManager.push(ResolveEncounterProcessor.new())
+	TaskManager.push(AfterActingEncounterProcessor.new())
+	TaskManager.push(AttemptChecksEncounterProcessor.new())
+	TaskManager.push(BeforeActingEncounterProcessor.new())
+	
+	if _card.is_villain and _pc.local_characters.size() != Contexts.game_context.characters.size():
+		TaskManager.push(GuardLocationsEncounterProcessor.new())
+	
+	TaskManager.push(OnEncounterProcessor.new())
+	TaskManager.push(EvasionEncounterProcessor.new())

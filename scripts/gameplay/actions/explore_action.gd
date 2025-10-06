@@ -12,3 +12,7 @@ func _init(_card: CardInstance, _action_type: Action):
 func commit() -> void:
 	if card.logic:
 		card.logic.on_commit(self)
+
+
+func on_stage() -> void:
+	GameEvents.set_status_text.emit("Explore?")

@@ -7,10 +7,10 @@ func _init(next_resolvable: BaseResolvable):
 	_next_resolvable = next_resolvable
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	if not _next_resolvable:
 		printerr("[%s] Created with a null resolvable!")
 		return
 	
 	print("[%s] Creating next resolvable: %s" % [self, _next_resolvable])
-	Contexts.new_resolvable(_next_resolvable)
+	TaskManager.push(_next_resolvable)

@@ -13,8 +13,8 @@ func test_dire_wolf_prevents_evasion():
 	encounter.explore_effects.append(EvadeExploreEffect.new())
 	Contexts.new_encounter(encounter)
 	
-	GameServices.game_flow.start_phase(EvasionEncounterProcessor.new(), "Evasion")
-	assert_null(Contexts.current_resolvable)
+	TaskManager.start_task(EvasionEncounterProcessor.new())
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 
 func test_dire_wolf_adds_damage():
 	var dire_wolf = TestUtils.get_card("Dire Wolf")
@@ -24,7 +24,7 @@ func test_dire_wolf_adds_damage():
 		
 		const base_damage = 1
 		var resolvable = DamageResolvable.new(valeros, base_damage)
-		Contexts.new_resolvable(resolvable)
+		TaskManager.push(resolvable)
 		
 		assert_true(resolvable.amount >= base_damage + 1)
 		assert_true(resolvable.amount <= base_damage + 4)

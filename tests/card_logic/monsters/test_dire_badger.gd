@@ -26,12 +26,12 @@ func test_dire_badger_damage_on_combat_defeat():
 	var check = Contexts.check_context
 	check.resolvable.check_steps[0].base_dc = 1  # Make it easy to succeed
 	
-	GameServices.asm.commit()
+	TaskManager.commit()
 	
 	assert_true(check.check_result.was_success, "Check should succeed")
-	assert_true(Contexts.current_resolvable is DamageResolvable, "Should have damage resolvable")
+	assert_true(TaskManager.current_resolvable is DamageResolvable, "Should have damage resolvable")
 	
-	var resolvable = Contexts.current_resolvable as DamageResolvable
+	var resolvable = TaskManager.current_resolvable as DamageResolvable
 	assert_true(resolvable.amount > 0 and resolvable.amount < 5, "Damage should be between 1-4")
 
 
@@ -43,9 +43,9 @@ func test_dire_badger_no_damage_on_skill_defeat():
 	check.resolvable.check_steps[1].base_dc = 1  # Make skill check easy to succeed
 	check.used_skill = Skill.PERCEPTION
 	
-	GameServices.asm.commit()
+	TaskManager.commit()
 	
 	assert_true(check.check_result.was_success, "Check should succeed")
-	assert_null(Contexts.current_resolvable, "Should have no current resolvable")
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 	assert_null(Contexts.check_context, "Check context should be cleared")
 	assert_null(Contexts.encounter_context, "Encounter context should be cleared")

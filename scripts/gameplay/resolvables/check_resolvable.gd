@@ -2,11 +2,12 @@ class_name CheckResolvable
 extends BaseResolvable
 
 const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").CheckCategory
-enum CheckVerb { DEFEAT, ACQUIRE, CLOSE, RECOVER }
+enum CheckVerb { DEFEAT, ACQUIRE, CLOSE, RECOVER, GUARD }
 var card: ICard
 var verb: CheckVerb
 var character: PlayerCharacter
 var check_steps: Array[CheckStep]
+var _context: CheckContext
 
 var has_combat: bool:
 	get: return check_steps.any(func(step: CheckStep): return step.category == CheckCategory.COMBAT)
@@ -25,14 +26,12 @@ func _init(_card: ICard, _character: PlayerCharacter, check_requirement: CheckRe
 
 	# Default to defeat for banes, acquire for boons
 	verb = CheckVerb.ACQUIRE if CardTypes.is_boon(card.card_type) else CheckVerb.DEFEAT
+	
+	_context = CheckContext.new(self)
 
 
 func can_commit(_actions: Array[StagedAction]) -> bool:
 	return true
-
-
-func create_processor() -> BaseProcessor:
-	return CheckController.new(self)
 
 
 func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:
@@ -47,19 +46,39 @@ func can_stage_action(_action: StagedAction) -> bool:
 
 
 func can_stage_type(card_type: CardType) -> bool:
-	var staged_actions := GameServices.asm.staged_actions
-	return not staged_actions.any(func(a: StagedAction): return a.card.card_type == card_type and !a.is_freely)
+	return not staged_actions.any(
+		func(a: StagedAction):
+			return a.card.card_type == card_type and not a.is_freely
+	)
 
 
-func on_game_flow_processed() -> void:
-	GameServices.asm.update_action_buttons()
-	GameServices.asm.update_game_state_preview()
-	
-	if not Contexts.check_context:
-		return
-		
-	DialogEvents.emit_check_start_event(Contexts.check_context)
+func on_active() -> void:
+	super()
+	resume()
 
 
-func resolve():
+func resume() -> void:
+	Contexts.check_context = _context
+	_update_ui()
+	DialogEvents.emit_check_start_event(_context)
+
+
+func execute():
 	DialogEvents.emit_skill_selection_ended()
+	
+	Contexts.check_context.committed_actions = staged_actions
+	
+	TaskManager.push(CheckController.new(self))
+
+
+func _update_ui() -> void:
+	super()
+	if Contexts.check_context:
+		Contexts.check_context.update_preview_state(staged_actions)
+
+
+func get_staged_dice_pool() -> DicePool:
+	if not Contexts.check_context:
+		return DicePool.new()
+	
+	return Contexts.check_context.dice_pool(staged_actions)

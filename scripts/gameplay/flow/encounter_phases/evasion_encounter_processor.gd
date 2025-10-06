@@ -8,7 +8,7 @@ const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scou
 var _cards := GameServices.cards
 
 
-func on_execute() -> void:
+func execute() -> void:
 	if Contexts.encounter_context \
 	and Contexts.encounter_context.card.logic \
 	and not Contexts.encounter_context.card.logic.can_evade() : return
@@ -40,7 +40,7 @@ func on_execute() -> void:
 	
 	GameEvents.set_status_text.emit("Evade?")
 	
-	Contexts.new_resolvable(EvadeResolvable.new(evade_encounter))
+	TaskManager.push(EvadeResolvable.new(evade_encounter))
 	
 	
 func prompt_for_evasion(on_evade: Callable) -> void:
@@ -48,7 +48,7 @@ func prompt_for_evasion(on_evade: Callable) -> void:
 		ChoiceOption.new("Evade", on_evade),
 		ChoiceOption.new("Encounter", func(): pass)
 	])
-	Contexts.new_resolvable(resolvable)
+	TaskManager.push(resolvable)
 	
 	
 static func evade_encounter() -> void:

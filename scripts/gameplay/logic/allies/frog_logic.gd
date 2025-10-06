@@ -6,8 +6,7 @@ func on_commit(action: StagedAction) -> void:
 	match action.action_type:
 		Action.BURY:
 			var resolvable := CardUtils.create_explore_choice()
-			var processor := NewResolvableProcessor.new(resolvable)
-			_game_flow.queue_next_processor(processor)
+			TaskManager.push_deferred(resolvable)
 		Action.DISCARD:
 			Contexts.turn_context.explore_effects.append(ScourgeImmunityExploreEffect.new())
 

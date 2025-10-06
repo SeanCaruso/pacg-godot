@@ -26,6 +26,8 @@ var is_villain: bool:
 
 var has_custom_check: bool:
 	get:
+		if not data.check_requirement:
+			return false
 		var steps := data.check_requirement.check_steps
 		return steps[0].category == CheckStep.CheckCategory.CUSTOM \
 		or (steps.size() > 1 and steps[1].category == CheckStep.CheckCategory.CUSTOM)

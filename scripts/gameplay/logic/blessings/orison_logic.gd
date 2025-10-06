@@ -21,6 +21,6 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 func _can_bless(card: CardInstance) -> bool:
 	# We can bless on a local check.
 	return Contexts.check_context != null \
-		and Contexts.current_resolvable is CheckResolvable \
-		and Contexts.current_resolvable.can_stage_type(card.card_type) \
+		and TaskManager.current_resolvable is CheckResolvable \
+		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
 		and Contexts.check_context.character.location.characters.has(card.owner)

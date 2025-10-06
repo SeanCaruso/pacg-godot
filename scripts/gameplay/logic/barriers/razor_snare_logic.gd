@@ -11,4 +11,4 @@ func on_undefeated(card: CardInstance) -> void:
 		character.add_scourge(Scourge.WOUNDED)
 	
 	Contexts.turn_context.force_end_turn = true
-	_game_flow.queue_next_processor(EndTurnController.new(false))
+	TaskManager.push(EndTurnController.new(false))

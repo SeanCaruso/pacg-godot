@@ -16,14 +16,14 @@ func _init(location_power: LocationPower, character_power: CharacterPower):
 		GameEvents.player_power_enabled.emit(_character_power, true)
 	
 	
-func resolve():
+func execute():
 	if _location_power:
 		GameEvents.location_power_enabled.emit(_location_power, false)
 	if _character_power:
 		GameEvents.player_power_enabled.emit(_character_power, false)
 		
 		
-func on_skip():
+func skip():
 	if _location_power:
 		Contexts.turn_context.performed_location_power_ids.append(_location_power.power_id)
 	if _character_power:

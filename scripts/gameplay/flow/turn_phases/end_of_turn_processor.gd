@@ -1,7 +1,7 @@
 class_name EndOfTurnProcessor
 extends BaseProcessor
 
-func on_execute() -> void:
+func execute() -> void:
 	Contexts.turn_context.current_phase = TurnContext.TurnPhase.END_OF_TURN_EFFECTS
 	
 	var location_power: LocationPower = Contexts.turn_context.character.location.end_of_turn_power
@@ -18,10 +18,9 @@ func on_execute() -> void:
 		return
 	
 	# We'll need to process this again in case there are multiple valid powers.
-	GameServices.game_flow.interrupt(self)
+	TaskManager.push(self)
 	
 	GameEvents.set_status_text.emit("Use End-of-Turn Power?")
 	
 	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
-	var processor := NewResolvableProcessor.new(resolvable)
-	GameServices.game_flow.start_phase(processor, "End-of-Turn")
+	TaskManager.push(resolvable)

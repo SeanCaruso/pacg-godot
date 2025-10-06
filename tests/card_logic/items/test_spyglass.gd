@@ -19,8 +19,8 @@ func test_spyglass_usable_with_perception():
 	var actions := _spyglass_instance.get_available_actions()
 	assert_eq(actions.size(), 1, "Spyglass should have one action with perception check")
 	
-	GameServices.asm.stage_action(actions[0])
-	var dice_pool := GameServices.asm.get_staged_dice_pool()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	var dice_pool := (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(dice_pool.to_string(), "1d6 + 1d4", "Spyglass should add 1d4 to perception check")
 
 

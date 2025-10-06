@@ -4,9 +4,14 @@ extends CardLogicBase
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Can freely banish for +1d4 if a weapon has been played on a combat check.
-	if not Contexts.current_resolvable is CheckResolvable \
-	or not Contexts.current_resolvable.has_combat \
-	or not _asm.staged_actions.any(func(a: StagedAction): return a.card.card_type == CardType.WEAPON):
+	if not TaskManager.current_resolvable is CheckResolvable \
+	or not TaskManager.current_resolvable.has_combat:
+		return []
+	
+	if not TaskManager.current_resolvable.staged_actions.any(
+		func(a: StagedAction):
+			return a.card.card_type == CardType.WEAPON
+	):
 		return []
 	
 	var modifier := CheckModifier.new(card)

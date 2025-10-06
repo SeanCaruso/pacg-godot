@@ -9,28 +9,28 @@ const CheckMode := preload("res://scripts/data/card_data/check_requirement.gd").
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
-var _asm: ActionStagingManager:
-	get: return GameServices.asm
-var _game_flow: GameFlowManager:
-	get: return GameServices.game_flow
-
 
 func can_evade() -> bool:
 	return true
 
 
 func get_available_actions(card: CardInstance) -> Array[StagedAction]:
-	if not card.owner: return []
+	if not card.owner:
+		return []
 	
 	# If the owner is exhausted and already played a boon,
 	# no actions are available on another boon.
 	if card.owner.active_scourges.has(Scourge.EXHAUSTED) \
-	and _asm.staged_actions_for(card.owner).any(func(a: StagedAction): return a.card != card):
+	and TaskManager.current_resolvable \
+	and TaskManager.current_resolvable.staged_cards.any(
+		func(c: CardInstance):
+			return c.owner == card.owner and c != card
+	):
 		return []
 	
 	# If there's an encountered card with immunities, check the card's traits.
 	if Contexts.encounter_context:
-		for immunity in Contexts.encounter_context.card_data.immunities:
+		for immunity in Contexts.encounter_context.card.data.immunities:
 			if card.traits.has(immunity): return []
 	
 	# Only cards in hand, revealed, and displayed areas are playable by default.

@@ -9,10 +9,10 @@ func _init(resolvable: CheckResolvable):
 	_resolvable = resolvable
 
 
-func on_execute() -> void:
-	GameServices.game_flow.queue_next_processor(RollCheckDiceProcessor.new())
+func execute() -> void:
+	TaskManager.push(EndOfCheckProcessor.new())
 	
 	if _resolvable.card.card_type == CardType.MONSTER:
-		GameServices.game_flow.queue_next_processor(CheckDamageProcessor.new())
+		TaskManager.push(CheckDamageProcessor.new())
 	
-	GameServices.game_flow.queue_next_processor(EndOfCheckProcessor.new())
+	TaskManager.push(RollCheckDiceProcessor.new())

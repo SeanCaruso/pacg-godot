@@ -14,9 +14,9 @@ func test_frostbite_on_own_check():
 	var actions := _frostbite.get_available_actions()
 	assert_eq(actions.size(), 1)
 	
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
-	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(TaskManager.current_resolvable.staged_actions)
 	assert_eq(dice.to_string(), "1d12 + 2d4 + 2")
 	
 	var traits = Contexts.check_context.traits
@@ -41,6 +41,6 @@ func test_frostbite_reduced_damage_by_one():
 	assert_eq(Contexts.encounter_context.resolvable_modifiers.size(), 1)
 	
 	var resolvable = DamageResolvable.new(ezren, 2, "Magic")
-	Contexts.new_resolvable(resolvable)
+	TaskManager.push(resolvable)
 	
-	assert_eq((Contexts.current_resolvable as DamageResolvable).amount, 1)
+	assert_eq((TaskManager.current_resolvable as DamageResolvable).amount, 1)

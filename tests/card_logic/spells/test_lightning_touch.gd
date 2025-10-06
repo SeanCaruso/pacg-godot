@@ -14,9 +14,9 @@ func test_lightning_touch_on_own_check():
 	var actions := _lightning_touch.get_available_actions()
 	assert_eq(actions.size(), 1)
 	
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
-	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(TaskManager.current_resolvable.staged_actions)
 	assert_eq(dice.to_string(), "1d12 + 2d4 + 2")
 	
 	var traits = Contexts.check_context.traits

@@ -21,11 +21,11 @@ static func prompt_for_exhausted_removal(pc: PlayerCharacter) -> void:
 		[ChoiceOption.new("Yes", func():
 			pc.remove_scourge(Scourge.EXHAUSTED)
 			var end_turn_controller := EndTurnController.new(false)
-			GameServices.game_flow.start_phase(end_turn_controller, "Force End Turn")),
+			TaskManager.start_task(end_turn_controller)
+			),
 		ChoiceOption.new("No", func(): pass)])
-
-	var processor = NewResolvableProcessor.new(resolvable)
-	GameServices.game_flow.start_phase(processor, "Exhaustion Removal")
+	
+	TaskManager.push(resolvable)
 
 # =============================================================================================================
 # WOUNDED
@@ -49,8 +49,7 @@ static func handle_wounded_deck_discard(pc: PlayerCharacter) -> void:
 	options.append(ChoiceOption.new("Skip", default_discard))
 	
 	var choice_resolvable := PlayerChoiceResolvable.new("Use Power?", options)
-	var processor := NewResolvableProcessor.new(choice_resolvable)
-	GameServices.game_flow.start_phase(processor, "Wound Discard Options")
+	TaskManager.push(choice_resolvable)
 
 
 static func prompt_for_wounded_removal(pc: PlayerCharacter) -> void:
@@ -58,7 +57,4 @@ static func prompt_for_wounded_removal(pc: PlayerCharacter) -> void:
 		[ChoiceOption.new("Yes", func(): pc.remove_scourge(Scourge.WOUNDED)),
 		ChoiceOption.new("No", func(): pass)]
 	)
-	Contexts.new_resolvable(resolvable)
-	
-	var processor = NewResolvableProcessor.new(resolvable)
-	GameServices.game_flow.start_phase(processor, "Wound Removal")
+	TaskManager.push(resolvable)

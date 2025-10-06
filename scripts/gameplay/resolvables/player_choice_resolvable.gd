@@ -10,7 +10,7 @@ func _init(_prompt: String, _options: Array[ChoiceOption]):
 	options.append_array(_options)
 	
 	
-func initialize():
+func on_active():
 	GameEvents.player_choice_event.emit(self)
 	
 	

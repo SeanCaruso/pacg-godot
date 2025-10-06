@@ -25,16 +25,16 @@ func _can_display(card: CardInstance) -> bool:
 		return false
 	
 	# Can't display if another armor was played for the damage resolvable.
-	if Contexts.current_resolvable and not Contexts.current_resolvable.can_stage_type(card.card_type):
+	if TaskManager.current_resolvable and not TaskManager.current_resolvable.can_stage_type(card.card_type):
 		return false
 	
 	# If there's no encounter or resolvable...
-	if Contexts.encounter_context == null and Contexts.current_resolvable == null:
+	if Contexts.are_cards_playable:
 		return true  # ... we can display.
 	
 	# Otherwise, we can only display if there's a DamageResolvable for this card's owner.
-	if Contexts.current_resolvable is DamageResolvable:
-		var damage_resolvable := Contexts.current_resolvable as DamageResolvable
+	if TaskManager.current_resolvable is DamageResolvable:
+		var damage_resolvable := TaskManager.current_resolvable as DamageResolvable
 		return damage_resolvable.character == card.owner
 	
 	return false
@@ -42,31 +42,31 @@ func _can_display(card: CardInstance) -> bool:
 
 func _can_draw(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
-		and Contexts.current_resolvable is DamageResolvable \
-		and (Contexts.current_resolvable as DamageResolvable).damage_type == "Combat" \
-		and Contexts.current_resolvable.can_stage_type(card.card_type) \
-		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable is DamageResolvable \
+		and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
+		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
+		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_freely_draw(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
-		and _asm.staged_cards.has(card) \
-		and Contexts.current_resolvable is DamageResolvable \
-		and (Contexts.current_resolvable as DamageResolvable).damage_type == "Combat" \
-		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable is DamageResolvable \
+		and TaskManager.current_resolvable.staged_cards.has(card) \
+		and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
+		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_bury(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
 		and card.owner.is_proficient(card) \
-		and Contexts.current_resolvable is DamageResolvable \
-		and Contexts.current_resolvable.can_stage_type(card.card_type) \
-		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable is DamageResolvable \
+		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
+		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
 
 
 func _can_freely_bury(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
-		and _asm.staged_cards.has(card) \
 		and card.owner.is_proficient(card) \
-		and Contexts.current_resolvable is DamageResolvable \
-		and (Contexts.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable is DamageResolvable \
+		and TaskManager.current_resolvable.staged_cards.has(card) \
+		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner

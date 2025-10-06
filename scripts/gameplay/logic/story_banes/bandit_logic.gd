@@ -37,7 +37,7 @@ func get_custom_check_resolvable(_card: CardInstance) -> BaseResolvable:
 			func():
 				GameServices.cards.move_card_to(random_boon, CardLocation.VAULT)
 				Contexts.check_context.force_success = true
-				Contexts.end_resolvable()
+				TaskManager.resolve_current()
 				),
 		ChoiceOption.new("Cancel", func(): DialogEvents.emit_custom_check_encountered())
 	])

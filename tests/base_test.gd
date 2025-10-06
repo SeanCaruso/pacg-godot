@@ -41,14 +41,16 @@ func before_each():
 	# Put the characters at the location
 	ezren.location = caravan
 	valeros.location = caravan
+	
+	# Put the game in free play mode.
+	TaskManager.push(FreePlayResolvable.new())
 
 
 func after_each():
 	# Clean up all contexts in proper order
 	if Contexts.check_context:
 		Contexts.end_check()
-	while Contexts.current_resolvable:
-		Contexts.end_resolvable()
+	TaskManager._task_stack.clear()
 	if Contexts.encounter_context:
 		Contexts.end_encounter()
 	if Contexts.turn_context:

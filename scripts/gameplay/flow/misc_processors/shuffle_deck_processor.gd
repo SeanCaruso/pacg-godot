@@ -8,5 +8,5 @@ func _init(deck: Deck) -> void:
 	_deck = deck
 
 
-func on_execute() -> void:
+func execute() -> void:
 	_deck.shuffle()

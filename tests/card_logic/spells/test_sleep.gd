@@ -18,10 +18,10 @@ func test_sleep_to_evade_own_monster_encounter():
 	var processor = EvasionEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is EvadeResolvable)
+	assert_true(TaskManager.current_resolvable is EvadeResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 1)
 	
-	Contexts.current_resolvable.resolve()
+	TaskManager.current_resolvable.execute()
 	assert_eq(caravan.count, 1)
 	assert_eq(caravan.examine_top(1)[0], _dire_badger)
 
@@ -32,10 +32,10 @@ func test_sleep_to_evade_local_monster_encounter():
 	var processor = EvasionEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is EvadeResolvable)
+	assert_true(TaskManager.current_resolvable is EvadeResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 1)
 	
-	Contexts.current_resolvable.resolve()
+	TaskManager.current_resolvable.execute()
 	assert_eq(caravan.count, 1)
 	assert_eq(caravan.examine_top(1)[0], _dire_badger)
 
@@ -47,7 +47,7 @@ func test_sleep_cannot_evade_distant_monster_encounter():
 	var processor = EvasionEncounterProcessor.new()
 	processor.execute()
 	
-	assert_null(Contexts.current_resolvable)
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 	assert_eq(_sleep.get_available_actions().size(), 0)
 
 func test_sleep_cannot_evade_immune_monster_encounter():
@@ -56,7 +56,7 @@ func test_sleep_cannot_evade_immune_monster_encounter():
 	var processor = EvasionEncounterProcessor.new()
 	processor.execute()
 	
-	assert_null(Contexts.current_resolvable)
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 	assert_eq(_sleep.get_available_actions().size(), 0)
 
 func test_sleep_cannot_evade_unevadable_monster_encounter():
@@ -66,7 +66,7 @@ func test_sleep_cannot_evade_unevadable_monster_encounter():
 	var processor = EvasionEncounterProcessor.new()
 	processor.execute()
 	
-	assert_null(Contexts.current_resolvable)
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 	assert_eq(_sleep.get_available_actions().size(), 0)
 
 func test_sleep_adds_bonus_to_own_monster_check():
@@ -75,7 +75,7 @@ func test_sleep_adds_bonus_to_own_monster_check():
 	var processor = AttemptChecksEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 1)
 	
 	var modifier = (_sleep.get_available_actions()[0] as PlayCardAction).check_modifier
@@ -90,7 +90,7 @@ func test_sleep_adds_bonus_to_own_ally_check():
 	var processor = AttemptChecksEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 1)
 	
 	var modifier = (_sleep.get_available_actions()[0] as PlayCardAction).check_modifier
@@ -105,7 +105,7 @@ func test_sleep_adds_bonus_to_local_monster_check():
 	var processor = AttemptChecksEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 1)
 	
 	var modifier = (_sleep.get_available_actions()[0] as PlayCardAction).check_modifier
@@ -121,7 +121,7 @@ func test_sleep_adds_bonus_to_local_ally_check():
 	var processor = AttemptChecksEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 1)
 	
 	var modifier = (_sleep.get_available_actions()[0] as PlayCardAction).check_modifier
@@ -134,5 +134,5 @@ func test_sleep_does_not_add_bonus_to_own_immune_monster_check():
 	var processor = AttemptChecksEncounterProcessor.new()
 	processor.execute()
 	
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	assert_eq(_sleep.get_available_actions().size(), 0)

@@ -11,7 +11,10 @@ func _init(cards: Array[CardInstance]):
 
 func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	# Only one card allowed.
-	if GameServices.asm.staged_actions.size() > 0:
+	if staged_actions.any(
+		func(a: StagedAction):
+			return a.action_type == Action.RELOAD
+	):
 		return []
 	
 	if _valid_cards.has(card):
@@ -20,7 +23,7 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	return []
 
 func can_commit(actions: Array[StagedAction]) -> bool:
-	if actions.size() == 1:
+	if actions.any(func(a: StagedAction): return a.action_type == Action.RELOAD):
 		GameEvents.set_status_text.emit("")
 		return true
 	

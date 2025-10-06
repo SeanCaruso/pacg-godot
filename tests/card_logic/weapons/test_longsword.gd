@@ -34,7 +34,7 @@ func test_longsword_combat_proficient_actions():
 	assert_eq(actions[1].action_type, Action.RELOAD, "Second action should be reload")
 	
 	# After staging, a proficient PC has one action
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	actions = longsword.get_available_actions()
 	assert_eq(actions.size(), 1, "Should have one action after staging")
 	assert_eq(actions[0].action_type, Action.RELOAD, "Remaining action should be reload")
@@ -46,9 +46,9 @@ func test_longsword_reveal_then_reload():
 	Contexts.encounter_context.character.add_to_hand(_longsword)
 	
 	var actions := _longsword.get_available_actions()
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
-	var staged_pool := GameServices.asm.get_staged_dice_pool()
+	var staged_pool := (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(staged_pool.num_dice(12), 0, "Should have no d12s")
 	assert_eq(staged_pool.num_dice(10), 1, "Should have 1 d10")
 	assert_eq(staged_pool.num_dice(8), 1, "Should have 1 d8")
@@ -56,8 +56,8 @@ func test_longsword_reveal_then_reload():
 	assert_eq(staged_pool.num_dice(4), 0, "Should have no d4s")
 	
 	actions = _longsword.get_available_actions()
-	GameServices.asm.stage_action(actions[0])
-	staged_pool = GameServices.asm.get_staged_dice_pool()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	staged_pool = (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(staged_pool.num_dice(12), 0, "Should have no d12s")
 	assert_eq(staged_pool.num_dice(10), 1, "Should have 1 d10")
 	assert_eq(staged_pool.num_dice(8), 1, "Should have 1 d8")
@@ -71,9 +71,9 @@ func test_longsword_reload():
 	Contexts.encounter_context.character.add_to_hand(_longsword)
 	
 	var actions := _longsword.get_available_actions()
-	GameServices.asm.stage_action(actions[1])  # Stage reload action
+	TaskManager.current_resolvable.stage_action(actions[1])  # Stage reload action
 	
-	var staged_pool := GameServices.asm.get_staged_dice_pool()
+	var staged_pool := (TaskManager.current_resolvable as CheckResolvable).get_staged_dice_pool()
 	assert_eq(staged_pool.num_dice(12), 0, "Should have no d12s")
 	assert_eq(staged_pool.num_dice(10), 1, "Should have 1 d10")
 	assert_eq(staged_pool.num_dice(8), 1, "Should have 1 d8")
@@ -87,7 +87,7 @@ func test_longsword_adds_traits():
 	Contexts.encounter_context.character.add_to_hand(_longsword)
 	
 	var actions := _longsword.get_available_actions()
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
 	for card_trait in _longsword.traits:
 		assert_true(Contexts.check_context.invokes([card_trait]), "Should invoke trait: " + card_trait)
@@ -97,7 +97,7 @@ func test_longsword_not_usable_during_damage():
 	valeros.add_to_hand(_longsword)
 	
 	var damage = DamageResolvable.new(valeros, 1, "Magic")
-	Contexts.new_resolvable(damage)
+	TaskManager.push(damage)
 	
 	var actions := _longsword.get_available_actions()
 	assert_eq(actions.size(), 0, "Should have no actions during damage resolvable")

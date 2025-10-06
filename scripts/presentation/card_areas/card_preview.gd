@@ -35,7 +35,7 @@ func end_preview() -> void:
 		
 	_original_parent = null
 	
-	if Contexts.current_resolvable is not PlayerChoiceResolvable:
+	if TaskManager.current_resolvable is not PlayerChoiceResolvable:
 		for button in action_buttons_container.get_children():
 			button.queue_free()
 	
@@ -57,8 +57,8 @@ func generate_action_buttons() -> void:
 		actions.append_array(Contexts.encounter_context.card.get_additional_actions_for_card(card))
 	
 	# If there's a resolvable, grab any additional actions from that.
-	if Contexts.current_resolvable:
-		actions.append_array(Contexts.current_resolvable.get_additional_actions_for_card(card))
+	if TaskManager.current_resolvable:
+		actions.append_array(TaskManager.current_resolvable.get_additional_actions_for_card(card))
 	
 	actions.append_array(card.get_available_actions())
 	
@@ -68,7 +68,7 @@ func generate_action_buttons() -> void:
 		button.text = action.label.to_pascal_case()
 		button.pressed.connect(
 			func():
-				GameServices.asm.stage_action(action)
+				TaskManager.current_resolvable.stage_action(action)
 				_current_card.queue_free()
 				end_preview()
 		)

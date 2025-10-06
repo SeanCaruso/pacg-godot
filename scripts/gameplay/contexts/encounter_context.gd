@@ -13,15 +13,12 @@ var _prohibited_traits: Dictionary = {} # PlayerCharacter -> Array[String]
 var explore_effects: Array[BaseExploreEffect] = []
 
 var check_result: CheckResult
+var guard_locations_resolvable: GuardLocationsResolvable
 
 # Flags/properties set by cards/powers
 var ignore_before_acting_powers: bool = false
 var ignore_after_acting_powers: bool = false
 var resolvable_modifiers: Array[Callable] = []
-
-# Convenience properties
-var card_data: CardData:
-	get: return card.data
 
 
 func _init(pc: PlayerCharacter, encountered_card: CardInstance):
@@ -31,7 +28,7 @@ func _init(pc: PlayerCharacter, encountered_card: CardInstance):
 
 func has_trait(traits: Array[String]) -> bool:
 	var result = traits.any(func(card_trait: String):
-		var has_it = card_data.traits.has(card_trait)
+		var has_it = card.data.traits.has(card_trait)
 		return has_it
 	)
 	return result

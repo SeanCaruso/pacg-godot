@@ -85,10 +85,21 @@ func close():
 # Facade Pattern for LocationLogic
 ################################################################################
 var start_of_turn_power: LocationPower:
-	get: return logic.get_start_of_turn_power(self) if logic else null
+	get:
+		return logic.get_start_of_turn_power(self) if logic else null
+
 var end_of_turn_power: LocationPower:
-	get: return logic.get_end_of_turn_power(self) if logic else null
+	get:
+		return logic.get_end_of_turn_power(self) if logic else null
+
+
 func get_to_close_resolvable(pc: PlayerCharacter) -> BaseResolvable:
 	return logic.get_to_close_resolvable(self, pc) if logic else null
+
+
+func get_to_guard_resolvable(pc: PlayerCharacter) -> BaseResolvable:
+	return logic.get_to_guard_resolvable(self, pc) if logic else null
+
 var when_closed_resolvable: BaseResolvable:
-	get: return logic.get_when_closed_resolvable() if logic else null
+	get:
+		return logic.get_when_closed_resolvable() if logic else null

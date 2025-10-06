@@ -9,7 +9,7 @@ func test_razor_snare_undefeated_entangles():
 	var check = Contexts.check_context
 	check.resolvable.check_steps[0].base_dc = 99  # Make it impossible to succeed
 	
-	GameServices.asm.commit()
+	TaskManager.commit()
 	
 	assert_false(check.check_result.was_success, "Check should fail")
 	assert_true(check.character.active_scourges.has(Scourge.ENTANGLED), "Should have Entangled scourge")
@@ -22,7 +22,7 @@ func test_razor_snare_undefeated_wounds():
 	var check = Contexts.check_context
 	check.resolvable.check_steps[0].base_dc = 99  # Make it impossible to succeed
 	
-	GameServices.asm.commit()
+	TaskManager.commit()
 	
 	assert_false(check.check_result.was_success, "Check should fail")
 	assert_true(check.character.active_scourges.has(Scourge.WOUNDED), "Should have Wounded scourge")

@@ -24,8 +24,8 @@ func test_rescue_can_recharge_allies():
 	assert_eq(soldier_action.check_modifier.added_dice.size(), 1)
 	assert_eq(soldier_action.check_modifier.added_dice[0], 4)
 	assert_true(soldier_action.action_data.get("IsFreely", false))
-	GameServices.asm.stage_action(soldier_action)
-	assert_eq(GameServices.asm.staged_actions.size(), 1)
+	TaskManager.current_resolvable.stage_action(soldier_action)
+	assert_eq(TaskManager.current_resolvable.staged_actions.size(), 1)
 	
 	var sage_actions := _rescue.get_additional_actions_for_card(sage)
 	assert_eq(sage_actions.size(), 1)
@@ -34,8 +34,8 @@ func test_rescue_can_recharge_allies():
 	assert_eq(sage_action.check_modifier.added_dice.size(), 1)
 	assert_eq(sage_action.check_modifier.added_dice[0], 4)
 	assert_true(sage_action.action_data.get("IsFreely", false))
-	GameServices.asm.stage_action(sage_action)
-	assert_eq(GameServices.asm.staged_actions.size(), 2)
+	TaskManager.current_resolvable.stage_action(sage_action)
+	assert_eq(TaskManager.current_resolvable.staged_actions.size(), 2)
 	
 	var cat_actions := _rescue.get_additional_actions_for_card(cat)
 	assert_eq(cat_actions.size(), 1)
@@ -44,9 +44,9 @@ func test_rescue_can_recharge_allies():
 	assert_eq(cat_action.check_modifier.added_dice.size(), 1)
 	assert_eq(cat_action.check_modifier.added_dice[0], 4)
 	assert_true(cat_action.action_data.get("IsFreely", false))
-	GameServices.asm.stage_action(cat_action)
-	assert_eq(GameServices.asm.staged_actions.size(), 3)
+	TaskManager.current_resolvable.stage_action(cat_action)
+	assert_eq(TaskManager.current_resolvable.staged_actions.size(), 3)
 	
-	var dice_pool = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice_pool = Contexts.check_context.dice_pool(TaskManager.current_resolvable.staged_actions)
 	# Valeros should default to Melee (1d10 + 2) and have 3 ally dice
 	assert_eq(dice_pool.to_string(), "1d10 + 3d4 + 2")

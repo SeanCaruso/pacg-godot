@@ -19,9 +19,9 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 func _can_reveal(card: CardInstance) -> bool:
 	# We can freely reveal for damage if we have a DamageResolvable for the card's owner
 	# with Combat damage, or any type of damage if proficient.
-	if not Contexts.current_resolvable is DamageResolvable:
+	if not TaskManager.current_resolvable is DamageResolvable:
 		return false
 	
-	var resolvable := Contexts.current_resolvable as DamageResolvable
+	var resolvable := TaskManager.current_resolvable as DamageResolvable
 	return (resolvable.damage_type == "Combat" or card.owner.is_proficient(card)) \
 		and resolvable.character == card.owner

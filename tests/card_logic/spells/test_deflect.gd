@@ -11,17 +11,17 @@ func before_each():
 func test_deflect_reduces_four_combat_damage_to_owner():
 	Contexts.new_encounter(EncounterContext.new(ezren, zombie))
 	const base_damage = 4
-	Contexts.new_resolvable(DamageResolvable.new(ezren, base_damage))
+	TaskManager.push(DamageResolvable.new(ezren, base_damage))
 	
 	var actions := _deflect.get_available_actions()
 	assert_eq(actions.size(), 1)
 	
-	assert_true(Contexts.current_resolvable.can_commit(actions))
+	assert_true(TaskManager.current_resolvable.can_commit(actions))
 
 func test_deflect_not_usable_non_combat_damage_to_owner():
 	Contexts.new_encounter(EncounterContext.new(ezren, zombie))
 	const base_damage = 5
-	Contexts.new_resolvable(DamageResolvable.new(ezren, base_damage, "Magic"))
+	TaskManager.push(DamageResolvable.new(ezren, base_damage, "Magic"))
 	
 	var actions := _deflect.get_available_actions()
 	assert_eq(actions.size(), 0)
@@ -31,19 +31,19 @@ func test_deflect_reduces_four_combat_damage_to_other_local_character():
 	
 	Contexts.new_encounter(EncounterContext.new(valeros, zombie))
 	const base_damage = 4
-	Contexts.new_resolvable(DamageResolvable.new(valeros, base_damage))
+	TaskManager.push(DamageResolvable.new(valeros, base_damage))
 	
 	var actions := _deflect.get_available_actions()
 	assert_eq(actions.size(), 1)
 	
-	assert_true(Contexts.current_resolvable.can_commit(actions))
+	assert_true(TaskManager.current_resolvable.can_commit(actions))
 
 func test_deflect_not_usable_non_combat_damage_to_other_local_character():
 	valeros.location = caravan
 	
 	Contexts.new_encounter(EncounterContext.new(valeros, zombie))
 	const base_damage = 5
-	Contexts.new_resolvable(DamageResolvable.new(valeros, base_damage, "Magic"))
+	TaskManager.push(DamageResolvable.new(valeros, base_damage, "Magic"))
 	
 	var actions := _deflect.get_available_actions()
 	assert_eq(actions.size(), 0)
@@ -54,7 +54,7 @@ func test_deflect_not_usable_combat_damage_to_distant_character():
 	
 	Contexts.new_encounter(EncounterContext.new(valeros, zombie))
 	const base_damage = 5
-	Contexts.new_resolvable(DamageResolvable.new(valeros, base_damage, "Magic"))
+	TaskManager.push(DamageResolvable.new(valeros, base_damage, "Magic"))
 	
 	var actions := _deflect.get_available_actions()
 	assert_eq(actions.size(), 0)

@@ -13,11 +13,7 @@ func on_commit(action: StagedAction) -> void:
 	# Then you may explore.
 	var explore_option_resolvable := CardUtils.create_explore_choice()
 	
-	examine_resolvable.override_next_processor(
-		NewResolvableProcessor.new(explore_option_resolvable)
-	)
-	
-	_game_flow.queue_next_processor(NewResolvableProcessor.new(examine_resolvable))
+	TaskManager.push_deferred_queue([examine_resolvable, explore_option_resolvable])
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
@@ -33,5 +29,5 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_bless(card: CardInstance) -> bool:
 	# We can bless on any check.
-	return Contexts.current_resolvable is CheckResolvable \
-		and Contexts.current_resolvable.can_stage_type(card.card_type)
+	return TaskManager.current_resolvable is CheckResolvable \
+		and TaskManager.current_resolvable.can_stage_type(card.card_type)

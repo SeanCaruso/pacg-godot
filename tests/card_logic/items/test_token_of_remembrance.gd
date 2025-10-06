@@ -27,11 +27,11 @@ func test_token_of_remembrance_recharge_for_spell():
 	processor.execute()
 	
 	# Should have a choice to recharge or not
-	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable, "Should have choice resolvable")
-	var resolvable = Contexts.current_resolvable as PlayerChoiceResolvable
-	Contexts.end_resolvable()
+	assert_true(TaskManager.current_resolvable is PlayerChoiceResolvable, "Should have choice resolvable")
+	var resolvable = TaskManager.current_resolvable as PlayerChoiceResolvable
+	TaskManager.resolve_current()
 	resolvable.options[0].action.call()
-	GameServices.game_flow.process()
+	TaskManager.process()
 	
 	# Token should now have recharge action
 	var actions := _token_instance.get_available_actions()
@@ -78,9 +78,9 @@ func test_token_of_remembrance_reloads_discarded_spell():
 	
 	# Commit the bury action
 	_token_instance.logic.on_commit(actions[0])
-	assert_true(Contexts.current_resolvable is TokenOfRemembranceResolvable, "Should have token resolvable")
+	assert_true(TaskManager.current_resolvable is TokenOfRemembranceResolvable, "Should have token resolvable")
 	
 	# Check that we can reload the spell
-	var reload_actions := Contexts.current_resolvable.get_additional_actions_for_card(_frostbite)
+	var reload_actions := TaskManager.current_resolvable.get_additional_actions_for_card(_frostbite)
 	assert_eq(reload_actions.size(), 1, "Should have reload action for spell")
 	assert_eq(reload_actions[0].action_type, Action.RELOAD, "Should be reload action")

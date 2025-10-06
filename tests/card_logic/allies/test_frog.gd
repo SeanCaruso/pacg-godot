@@ -28,7 +28,7 @@ func test_frog_evade_obstacle():
 	TestUtils.setup_encounter_with_instances(ezren, encounter_instance)
 	
 	# Check that the game pauses when reaching an Evade Resolvable
-	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_true(TaskManager.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the frog has one evade action
 	var actions := _frog.get_available_actions()
@@ -36,12 +36,12 @@ func test_frog_evade_obstacle():
 	assert_eq(actions[0].action_type, Action.BURY, "Should be bury action")
 	
 	# Stage and commit the evade action
-	GameServices.asm.stage_action(actions[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	TaskManager.commit()
 	
 	# Check that the encounter ends
 	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
-	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
+	assert_true(TaskManager.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
 
 
 func test_frog_evade_trap():
@@ -55,7 +55,7 @@ func test_frog_evade_trap():
 	TestUtils.setup_encounter_with_instances(ezren, encounter_instance)
 	
 	# Check that the game pauses when reaching an Evade Resolvable
-	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_true(TaskManager.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the frog has one evade action
 	var actions := _frog.get_available_actions()
@@ -63,12 +63,12 @@ func test_frog_evade_trap():
 	assert_eq(actions[0].action_type, Action.BURY, "Should be bury action")
 	
 	# Stage and commit the evade action
-	GameServices.asm.stage_action(actions[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	TaskManager.commit()
 	
 	# Check that the encounter ends
 	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
-	assert_true(Contexts.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
+	assert_true(TaskManager.current_resolvable is PlayerChoiceResolvable, "Should have player choice resolvable")
 
 
 func test_frog_explore_ignores_first_scourge():

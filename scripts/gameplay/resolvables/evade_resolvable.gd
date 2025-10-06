@@ -7,11 +7,11 @@ func _init(callback: Callable):
 	_on_evade_callback = callback
 
 
-func on_skip() -> void:
+func skip() -> void:
 	_on_evade_callback = func(): pass
 
 
-func resolve() -> void:
+func execute() -> void:
 	_on_evade_callback.call()
 
 

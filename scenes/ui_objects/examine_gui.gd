@@ -34,7 +34,7 @@ func _end_examine() -> void:
 	queue_free()
 	
 	if _context.examine_mode == ExamineContext.Mode.DECK:
-		GameServices.asm.commit()
+		TaskManager.resolve_current()
 
 
 func _examine_deck(context: ExamineContext) -> void:

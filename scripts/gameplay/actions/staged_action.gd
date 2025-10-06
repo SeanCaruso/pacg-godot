@@ -19,3 +19,7 @@ func _to_string() -> String:
 
 func commit() -> void:
 	pass
+
+
+func on_stage() -> void:
+	pass

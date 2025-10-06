@@ -32,10 +32,10 @@ func _can_reveal(card: CardInstance) -> bool:
 	# Reveal power can be used by the current owner while playing cards for a Strength, Dexterity, Melee, or Ranged combat check.
 	return Contexts.check_context \
 		and Contexts.check_context.is_combat_valid \
-		and Contexts.current_resolvable is CheckResolvable \
-		and Contexts.current_resolvable.has_combat \
+		and TaskManager.current_resolvable is CheckResolvable \
+		and TaskManager.current_resolvable.has_combat \
 		and Contexts.check_context.character == card.owner \
-		and Contexts.current_resolvable.can_stage_type(card.card_type) \
+		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
 		and not Contexts.check_context.are_skills_blocked(_valid_skills)
 
 
@@ -43,7 +43,7 @@ func _can_discard(card: CardInstance) -> bool:
 	# Discard power can be freely used on a local combat check while playing cards if the owner is proficient.
 	return Contexts.check_context \
 		and Contexts.check_context.is_combat_valid \
-		and Contexts.current_resolvable is CheckResolvable \
-		and Contexts.current_resolvable.has_combat \
+		and TaskManager.current_resolvable is CheckResolvable \
+		and TaskManager.current_resolvable.has_combat \
 		and card.owner.is_proficient(card) \
 		and Contexts.check_context.is_local(card.owner)

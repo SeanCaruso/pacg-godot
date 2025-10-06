@@ -2,7 +2,7 @@
 class_name NextTurnTurnProcessor
 extends BaseProcessor
 
-func on_execute() -> void:
+func execute() -> void:
 	if !Contexts.turn_context or !Contexts.turn_context.character: return
 	
 	Contexts.turn_context.character.draw_to_hand_size()
@@ -12,6 +12,6 @@ func on_execute() -> void:
 	var next_pc := Contexts.game_context.characters[idx]
 	
 	Contexts.end_turn()
-	GameServices.game_flow.queue_next_processor(StartTurnController.new(next_pc))
+	TaskManager.push(StartTurnController.new(next_pc))
 	
 	GameEvents.turn_state_changed.emit()

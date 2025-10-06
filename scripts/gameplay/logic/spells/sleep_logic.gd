@@ -9,7 +9,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and Contexts.encounter_context.card.card_type == CardType.MONSTER \
 	and card.owner.local_characters.has(Contexts.encounter_context.character)
 	
-	var resolvable := Contexts.current_resolvable as CheckResolvable
+	var resolvable := TaskManager.current_resolvable as CheckResolvable
 	var can_banish_on_check := \
 	resolvable \
 	and resolvable.card.card_type in [CardType.ALLY, CardType.MONSTER] \

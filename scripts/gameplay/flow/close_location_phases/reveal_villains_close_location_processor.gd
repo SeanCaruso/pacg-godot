@@ -10,7 +10,7 @@ func _init(loc: Location) -> void:
 	_loc = loc
 
 
-func on_execute() -> void:
+func execute() -> void:
 	var context := ExamineContext.new()
 	context.examine_mode = ExamineContext.Mode.SCROLL
 	context.cards = _loc.cards

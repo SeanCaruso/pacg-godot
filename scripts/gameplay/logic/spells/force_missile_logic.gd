@@ -6,9 +6,9 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Playable for +2d4 on any combat check.
 	if not Contexts.check_context \
 	or not Contexts.check_context.is_combat_valid \
-	or not Contexts.current_resolvable is CheckResolvable \
-	or not Contexts.current_resolvable.has_combat \
-	or not Contexts.current_resolvable.can_stage_type(card.card_type):
+	or not TaskManager.current_resolvable is CheckResolvable \
+	or not TaskManager.current_resolvable.has_combat \
+	or not TaskManager.current_resolvable.can_stage_type(card.card_type):
 		return []
 	
 	var modifier := CheckModifier.new(card)

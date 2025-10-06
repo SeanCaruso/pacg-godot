@@ -23,13 +23,13 @@ func _ready() -> void:
 	GuiUtils.add_mouseover_effect_to_button(optional_discards_button)
 	optional_discards_button.pressed.connect(
 		func():
-			GameServices.game_flow.start_phase(EndTurnController.new(false), "End Turn")
+			TaskManager.start_task(EndTurnController.new(false))
 	)
 	
 	GuiUtils.add_mouseover_effect_to_button(end_turn_button)
 	end_turn_button.pressed.connect(
 		func():
-			GameServices.game_flow.start_phase(EndTurnController.new(true), "End Turn")
+			TaskManager.start_task(EndTurnController.new(true))
 	)
 
 
@@ -42,7 +42,7 @@ func _on_staged_actions_chaged(state: StagedActionsState) -> void:
 
 
 func _update_turn_buttons() -> void:
-	if Contexts.current_resolvable \
+	if not TaskManager.current_resolvable is FreePlayResolvable \
 	or not Contexts.turn_context \
 	or Contexts.game_context.active_character != Contexts.turn_context.character:
 		give_button.disabled = true
@@ -51,7 +51,9 @@ func _update_turn_buttons() -> void:
 		end_turn_button.disabled = true
 		return
 	
-	give_button.disabled = not Contexts.turn_context.can_give
+	give_button.disabled = \
+		not Contexts.turn_context.can_give \
+		or Contexts.game_context.active_character.local_characters.size() < 2
 	move_button.disabled = not Contexts.turn_context.can_move or Contexts.game_context.locations.size() < 2
 	optional_discards_button.disabled = Contexts.turn_context.character.hand.is_empty()
 	end_turn_button.disabled = false

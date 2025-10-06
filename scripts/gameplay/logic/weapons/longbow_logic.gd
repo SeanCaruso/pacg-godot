@@ -33,17 +33,17 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 func _can_reveal(card: CardInstance) -> bool:
 	# Reveal power can be used by the current owner while playing cards for a Dexterity or Ranged combat check.
 	return Contexts.check_context \
-	and Contexts.current_resolvable is CheckResolvable \
+	and TaskManager.current_resolvable is CheckResolvable \
 	and Contexts.check_context.is_combat_valid \
 	and Contexts.check_context.character == card.owner \
-	and Contexts.current_resolvable.can_stage_type(card.card_type) \
+	and TaskManager.current_resolvable.can_stage_type(card.card_type) \
 	and not Contexts.check_context.are_skills_blocked([Skill.DEXTERITY, Skill.RANGED])
 
 
 func _can_discard(card: CardInstance) -> bool:
 	# Discard power can be freely used on another character's combat check while playing cards if the owner is proficient.
 	return Contexts.check_context \
-	and Contexts.current_resolvable is CheckResolvable \
+	and TaskManager.current_resolvable is CheckResolvable \
 	and Contexts.check_context.is_combat_valid \
 	and Contexts.check_context.character != card.owner \
 	and card.owner.is_proficient(card)

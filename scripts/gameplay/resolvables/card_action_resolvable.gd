@@ -21,7 +21,7 @@ func can_commit(actions: Array[StagedAction]) -> bool:
 
 
 func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
-	if GameServices.asm.staged_actions.size() >= num_required:
+	if staged_actions.size() >= num_required:
 		return []
 		
 	if not card.current_location in [CardLocation.HAND, CardLocation.REVEALED]:

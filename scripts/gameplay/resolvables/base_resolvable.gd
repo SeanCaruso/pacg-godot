@@ -1,24 +1,33 @@
 class_name BaseResolvable
-extends RefCounted
+extends Task
 
 const CardTypes = preload("res://scripts/core/enums/card_type.gd")
 const CardType := CardTypes.CardType
 
 var _next_processor: BaseProcessor
+var _original_card_locs: Dictionary = {} # CardInstance -> CardLocation
 
 var cancel_aborts_phase: bool = false
+var staged_actions: Array[StagedAction] = []
+
+var staged_cards: Array[CardInstance]:
+	get:
+		var cards: Array[CardInstance] = []
+		for action in staged_actions:
+			cards.append(action.card)
+		return cards
 
 
 func _to_string() -> String:
 	return get_script().get_global_name()
 
 
-func initialize():
-	pass
-
-
-func override_next_processor(next_processor: BaseProcessor):
-	_next_processor = next_processor
+func on_active():
+	if not Contexts.encounter_context:
+		return
+	
+	for action: Callable in Contexts.encounter_context.resolvable_modifiers:
+		action.call(self)
 
 
 func create_processor() -> BaseProcessor:
@@ -33,41 +42,128 @@ func can_commit(_actions: Array[StagedAction]) -> bool:
 	return true
 
 
-func resolve():
-	pass
-
-
-## Called by GameFlowManager.process()
-##
-## Use this for any logic that should happen every time the resolvable is encountered
-## by GameFlowManager (setting status text, updating previews, etc.)
-func on_game_flow_processed() -> void:
-	pass
-
-
 func on_skip():
 	pass
 
 
 ## The default action button state - Commit/Skip if valid, Cancel if actions are staged
 func get_ui_state(actions: Array[StagedAction]) -> StagedActionsState:
-	var _can_commit := actions.size() > 0 && can_commit(actions)
-	var _can_skip := actions.is_empty() && can_commit(actions)
+	var move_action_staged := actions.any(
+		func(a: StagedAction):
+			return a is MoveAction
+	)
+	var explore_action_staged := actions.any(
+		func(a: StagedAction):
+			return a is ExploreAction
+	)
 	
-	var action_state = StagedActionsState.new()
-	action_state.is_commit_button_visible = _can_commit
-	action_state.is_skip_button_visible = _can_skip
-	action_state.is_cancel_button_visible = !actions.is_empty() || cancel_aborts_phase
+	var state = StagedActionsState.new()
+	state.is_commit_button_visible = \
+		actions.size() > 0 \
+		and can_commit(actions) \
+		and not (move_action_staged or explore_action_staged)
+	state.is_skip_button_visible = actions.is_empty() and can_commit(actions)
+	state.is_cancel_button_visible = not actions.is_empty() || cancel_aborts_phase
+	state.is_move_enabled = \
+		(Contexts.turn_context and Contexts.turn_context.can_move) \
+		or move_action_staged
+	state.is_explore_enabled = \
+		(Contexts.turn_context and Contexts.turn_context.can_freely_explore) \
+		or explore_action_staged
 	
-	return action_state
+	return state
+
+
+func stage_action(action: StagedAction) -> void:
+	if staged_actions.has(action):
+		print("%s staged multiple times!" % action)
+		return
+	
+	if not can_stage_action(action):
+		return
+	
+	# If this is the first staged action for this card, store where it originally came from.
+	_original_card_locs.get_or_add(action.card, action.card.current_location)
+	
+	# We need to handle this here so that damage resolvables behave with hand size.
+	GameServices.cards.move_card_by(action.card, action.action_type)
+	
+	action.on_stage()
+	staged_actions.append(action)
+	
+	_update_ui()
+
+
+func cancel():
+	for card in _original_card_locs:
+		GameServices.cards.move_card_to(card, _original_card_locs[card])
+	
+	GameEvents.card_locations_changed.emit(_original_card_locs.keys())
+	
+	_original_card_locs.clear()
+	staged_actions.clear()
+	
+	# Reset any check context data (like used character powers).
+	if Contexts.check_context:
+		Contexts.check_context.context_data.clear()
+	
+	# Additional step for phase-level cancels
+	if cancel_aborts_phase:
+		TaskManager.resolve_current()
+	
+	GameEvents.set_status_text.emit("")
+	_update_ui()
+
+
+func commit():
+	GameEvents.set_status_text.emit("")
+	
+	for action in staged_actions:
+		action.commit()
+	
+	# If a new resolvable was pushed, stop and wait.
+	if TaskManager.current_resolvable != self:
+		_update_ui()
+		return
+	
+	# If we have a resolvable, the fact that we committed means it's been resolved.
+	TaskManager.resolve_current()
+	
+	# If there are no more resolvables, clean up!
+	if not TaskManager.current_resolvable:
+		_original_card_locs.clear()
+		staged_actions.clear()
+		GameServices.cards.restore_revealed_cards_to_hand()
+	
+	_update_ui()
+	
+	# We're done committing actions. Tell the TaskManager to continue.
+	TaskManager.process()
+
+
+func skip():
+	on_skip()
+	commit()
+
+
+func _update_ui() -> void:
+	var pc := Contexts.game_context.active_character
+	var pc_actions := staged_actions.filter(
+		func(a: StagedAction):
+			return a.card.owner == pc
+	)
+	
+	var state := get_ui_state(pc_actions)
+	
+	if not Contexts.turn_context or pc != Contexts.turn_context.character:
+		state.is_move_enabled = false
+		state.is_explore_enabled = false
+	
+	GameEvents.staged_actions_state_changed.emit(state)
 
 
 # =====================================================================================
 # RESOLVABLE-SPECIFIC ACTION STAGING
-#
-# Note: ActionStagingManager is responsible for the actual actions and cards that have
-#       been staged, but is rule-agnostic. Derived resolvables contain the rule-specific
-#       logic about which actions *can* be staged during that resolvable.
 # =====================================================================================
 func can_stage_action(_action: StagedAction) -> bool:
 	return true

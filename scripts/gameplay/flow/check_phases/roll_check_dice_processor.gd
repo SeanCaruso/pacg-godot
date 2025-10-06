@@ -5,7 +5,7 @@ extends BaseProcessor
 const Skill := preload("res://scripts/core/enums/skill.gd").Skill
 
 
-func on_execute() -> void:
+func execute() -> void:
 	if not Contexts.check_context:
 		return
 	
@@ -48,4 +48,4 @@ func on_execute() -> void:
 		
 	GameEvents.set_status_text.emit("Rolled %s: %d... Reroll?" % [dice_pool, roll_total])
 	var reroll_resolvable = RerollResolvable.new(pc, dice_pool, check)
-	Contexts.new_resolvable(reroll_resolvable)
+	TaskManager.push(reroll_resolvable)

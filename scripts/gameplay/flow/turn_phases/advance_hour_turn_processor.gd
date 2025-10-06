@@ -4,7 +4,7 @@ extends BaseProcessor
 const TurnPhase := preload("res://scripts/core/enums/turn_phase.gd").TurnPhase
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	if !Contexts.turn_context: return
 	
 	Contexts.turn_context.current_phase = TurnPhase.TURN_START

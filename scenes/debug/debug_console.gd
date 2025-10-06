@@ -25,7 +25,15 @@ func close() -> void:
 	visible = false
 	
 	var processor := CloseLocationController.new(loc)
-	GameServices.game_flow.start_phase(processor, "Close %s" % loc.name)
+	TaskManager.start_task(processor)
+
+
+func draw(card_name: String) -> void:
+	var card := TestUtils.get_card(card_name)
+	if not card:
+		out("Unable to find card: %s" % card_name)
+	
+	Contexts.game_context.active_character.add_to_hand(card)
 
 
 func examine(loc_name: String) -> void:
@@ -62,6 +70,11 @@ func find(card_name: String) -> void:
 	out("Couldn't find %s!" % card_name)
 
 
+func help() -> void:
+	for method in get_method_list():
+		out(method["name"])
+
+
 func move(pc_name: String, loc_name: String) -> void:
 	var pc: PlayerCharacter
 	for _pc in Contexts.game_context.characters:
@@ -87,8 +100,32 @@ func move(pc_name: String, loc_name: String) -> void:
 	GameEvents.pc_location_changed.emit(pc)
 
 
+func movecard(card_name: String) -> void:
+	for loc in Contexts.game_context.locations:
+		loc.cards = loc.cards.filter(func(c: CardInstance): return c.name.to_lower() != card_name.to_lower())
+	
+	var card := TestUtils.get_card(card_name)
+	if not card:
+		out("Unable to find card: %s" % card_name)
+	
+	Contexts.game_context.active_character.location._deck._cards.push_front(card)
+
+
 func out(text: String) -> void:
 	history.add_text(text + "\n")
+
+
+func set_dc(dc_text: String) -> void:
+	if not Contexts.check_context:
+		out("check_context is null")
+		return
+	
+	if not dc_text.is_valid_int():
+		out("Invalid DC: %s" % dc_text)
+		return
+	
+	var dc := dc_text.to_int()
+	Contexts.check_context.get_active_check_step().base_dc = dc
 
 
 func _on_text_submitted(command: String) -> void:

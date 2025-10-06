@@ -10,12 +10,13 @@ func _init(loc: Location) -> void:
 	_loc = loc
 
 
-func on_execute() -> void:	
+func execute() -> void:
+	# If this location has the villain, push the special processor that reveals it.
 	if _loc.cards.any(func(c: CardInstance): return c.is_villain):
-		GameServices.game_flow.queue_next_processor(RevealVillainsCloseLocationProcessor.new(_loc))
+		TaskManager.push(RevealVillainsCloseLocationProcessor.new(_loc))
 		return
 	
-	GameServices.game_flow.queue_next_processor(BeforeClosingCloseLocationProcessor.new(_loc))
-	GameServices.game_flow.queue_next_processor(OnClosingCloseLocationProcessor.new(_loc))
-	GameServices.game_flow.queue_next_processor(MoveCharactersCloseLocationProcessor.new(_loc))
-	GameServices.game_flow.queue_next_processor(AfterClosingCloseLocationProcessor.new(_loc))
+	TaskManager.push(AfterClosingCloseLocationProcessor.new(_loc))
+	TaskManager.push(MoveCharactersCloseLocationProcessor.new(_loc))
+	TaskManager.push(OnClosingCloseLocationProcessor.new(_loc))
+	TaskManager.push(BeforeClosingCloseLocationProcessor.new(_loc))

@@ -75,4 +75,4 @@ static func setup_encounter_with_instances(pc: PlayerCharacter, card: CardInstan
 	
 	var turn_context = TurnContext.new(pc)
 	Contexts.new_turn(turn_context)
-	GameServices.game_flow.start_phase(EncounterController.new(pc, card), "Encounter")
+	TaskManager.start_task(EncounterController.new(pc, card))

@@ -6,7 +6,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Usable on any non-combat check by the owner.
 	if not Contexts.check_context \
 	or not Contexts.check_context.is_skill_valid \
-	or not Contexts.current_resolvable.can_stage_type(card.card_type) \
+	or not TaskManager.current_resolvable.can_stage_type(card.card_type) \
 	or Contexts.check_context.character != card.owner:
 		return []
 	

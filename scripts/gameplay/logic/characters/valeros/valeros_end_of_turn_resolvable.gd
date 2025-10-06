@@ -12,7 +12,7 @@ func _init(cards: Array[CardInstance]) -> void:
 
 func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	# Only one card allowed.
-	if not GameServices.asm.staged_cards.is_empty():
+	if not staged_actions.is_empty():
 		return []
 	
 	var actions: Array[StagedAction] = []
@@ -32,5 +32,5 @@ func can_commit(actions: Array[StagedAction]) -> bool:
 	return false
 
 
-func resolve() -> void:
+func execute() -> void:
 	Contexts.turn_context.performed_character_power_ids.append("valeros_end")

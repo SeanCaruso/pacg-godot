@@ -14,7 +14,7 @@ func test_sage_no_actions_combat():
 	TestUtils.setup_encounter_with_instances(ezren, zombie)
 	var frostbite = TestUtils.get_card("Frostbite")
 	ezren.add_to_hand(frostbite)
-	GameServices.asm.stage_action(frostbite.get_available_actions()[0])
+	TaskManager.current_resolvable.stage_action(frostbite.get_available_actions()[0])
 	
 	assert_eq(Contexts.check_context.used_skill, Skill.ARCANE)
 	

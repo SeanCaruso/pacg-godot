@@ -2,7 +2,7 @@ class_name EndOfCheckProcessor
 extends BaseProcessor
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	if !Contexts.check_context or !Contexts.check_context.check_result: return
 	
 	var resolvable := Contexts.check_context.resolvable

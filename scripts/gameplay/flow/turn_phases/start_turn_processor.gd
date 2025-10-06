@@ -4,7 +4,7 @@ extends BaseProcessor
 const Scourge := preload("res://scripts/gameplay/effects/scourge_rules.gd").Scourge
 const TurnPhase := preload("res://scripts/core/enums/turn_phase.gd").TurnPhase
 
-func on_execute() -> void:
+func execute() -> void:
 	if !Contexts.turn_context: return
 	
 	Contexts.turn_context.current_phase = TurnPhase.TURN_START
@@ -62,13 +62,12 @@ func handled_start_of_turn_powers() -> bool:
 		return false
 	
 	# We'll need to process this again in case there are more valid powers.
-	GameServices.game_flow.interrupt(self)
+	TaskManager.push(self)
 	
 	GameEvents.set_status_text.emit("Use Start-of-Turn power?")
 	
 	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
 	resolvable.hide_cancel_button = true
-	var processor := NewResolvableProcessor.new(resolvable)
-	GameServices.game_flow.start_phase(processor, "Start-of-Turn")
+	TaskManager.push(resolvable)
 	
 	return true

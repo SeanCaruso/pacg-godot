@@ -53,7 +53,7 @@ func _on_row_clicked(skill: Skill) -> void:
 		var target_color := Color.GRAY if s == skill else Color.BLACK
 		GuiUtils.set_panel_color(skill_row, _card_color.lerp(target_color, 0.75))
 	
-	GameEvents.dice_pool_changed.emit(_context.dice_pool(GameServices.asm.staged_actions))
+	GameEvents.dice_pool_changed.emit(_context.dice_pool(_context.resolvable.staged_actions))
 
 
 func _on_show_hide() -> void:

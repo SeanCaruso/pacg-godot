@@ -3,7 +3,8 @@ extends CardLogicBase
 
 
 func on_commit(action: StagedAction) -> void:
-	if action.action_type != Action.BURY:
+	if action.action_type != Action.BURY \
+	or TaskManager.current_resolvable is TokenOfRemembranceResolvable:
 		return
 	
 	var valid_cards := action.card.owner.discards.filter(func(c: CardInstance): return c.card_type == CardType.SPELL)
@@ -12,18 +13,17 @@ func on_commit(action: StagedAction) -> void:
 		return
 	
 	var resolvable := TokenOfRemembranceResolvable.new(valid_cards)
-	var processor := NewResolvableProcessor.new(resolvable)
-	_game_flow.start_phase(processor, action.card.to_string())
+	TaskManager.push(resolvable)
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Recharge on your check to recharge a spell.
 	if Contexts.turn_context \
 	and Contexts.turn_context.current_phase == TurnContext.TurnPhase.RECOVERY \
-	and Contexts.current_resolvable is CheckResolvable \
-	and Contexts.current_resolvable.card.card_type == CardType.SPELL \
-	and Contexts.current_resolvable.character == card.owner \
-	and Contexts.current_resolvable.can_stage_type(card.card_type):
+	and TaskManager.current_resolvable is CheckResolvable \
+	and TaskManager.current_resolvable.card.card_type == CardType.SPELL \
+	and TaskManager.current_resolvable.character == card.owner \
+	and TaskManager.current_resolvable.can_stage_type(card.card_type):
 		var modifier := CheckModifier.new(card)
 		modifier.added_dice = [8]
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]

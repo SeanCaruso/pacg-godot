@@ -16,8 +16,8 @@ func test_clock_serv_can_recharge_vs_int():
 	Contexts.encounter_context.character.add_to_hand(_clockwork_servant)
 	
 	# Check that the game pauses when reaching the required check resolvable
-	assert_not_null(Contexts.current_resolvable)
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_not_null(TaskManager.current_resolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	
 	# Check that the card has one recharge action
 	var actions := _clockwork_servant.get_available_actions()
@@ -38,8 +38,8 @@ func test_clock_serv_can_not_recharge():
 	Contexts.encounter_context.character.add_to_hand(_clockwork_servant)
 	
 	# Check that the game pauses when reaching the required check resolvable
-	assert_not_null(Contexts.current_resolvable)
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_not_null(TaskManager.current_resolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	
 	# Check that the card doesn't have a recharge action
 	var actions := _clockwork_servant.get_available_actions()

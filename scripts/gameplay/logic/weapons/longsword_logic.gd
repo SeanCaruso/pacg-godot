@@ -8,7 +8,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	var actions: Array[StagedAction] = []
 	
 	# If a weapon hasn't been staged yet, present one or both options
-	if Contexts.current_resolvable.can_stage_type(card.card_type):
+	if TaskManager.current_resolvable.can_stage_type(card.card_type):
 		var reveal_modifier := CheckModifier.new(card)
 		reveal_modifier.restricted_category = CheckCategory.COMBAT
 		reveal_modifier.restricted_skills = [Skill.STRENGTH, Skill.MELEE]
@@ -27,7 +27,8 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		actions.append(PlayCardAction.new(card, Action.RELOAD, reveal_and_reload_mod, {"IsCombat": true}))
 	
 	# Otherwise, if this card has been played, present the reload option if proficient
-	elif _asm.staged_cards.has(card) and Contexts.check_context.character.is_proficient(card):
+	elif TaskManager.current_resolvable.staged_cards.has(card) \
+	and Contexts.check_context.character.is_proficient(card):
 		var reload_mod := CheckModifier.new(card)
 		reload_mod.restricted_category = CheckCategory.COMBAT
 		reload_mod.restricted_skills = [Skill.STRENGTH, Skill.MELEE]
@@ -40,7 +41,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 func _is_card_playable(card: CardInstance) -> bool:
 	return Contexts.check_context \
 	and Contexts.check_context.is_combat_valid \
-	and Contexts.current_resolvable is CheckResolvable \
-	and Contexts.current_resolvable.has_combat \
+	and TaskManager.current_resolvable is CheckResolvable \
+	and TaskManager.current_resolvable.has_combat \
 	and Contexts.check_context.character == card.owner \
 	and not Contexts.check_context.are_skills_blocked([Skill.STRENGTH, Skill.MELEE])

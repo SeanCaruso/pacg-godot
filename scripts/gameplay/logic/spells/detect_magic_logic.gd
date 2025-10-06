@@ -3,27 +3,23 @@ extends CardLogicBase
 
 
 func on_commit(action: StagedAction) -> void:
+	var tasks: Array[Task] = []
+	
 	# Examine the top card of your location...
-	var examine_resolvable := ExamineResolvable.new(action.card.owner.location._deck, 1)
+	tasks.append(ExamineResolvable.new(action.card.owner.location._deck, 1))
 	
 	# If it's a magic card, you may encounter it.
 	var top_card := action.card.owner.location.examine_top(1)[0]
-	var next_resolvable: BaseResolvable = null
 	
 	if top_card.traits.has("Magic"):
-		if action.card.owner == Contexts.turn_context.character:
-			next_resolvable = CardUtils.create_explore_choice()
+		tasks.append(CardUtils.create_explore_choice())
 	else:
-		next_resolvable = PlayerChoiceResolvable.new("Shuffle?", [
+		tasks.append(PlayerChoiceResolvable.new("Shuffle?", [
 			ChoiceOption.new("Shuffle", func(): action.card.owner.location.shuffle()),
 			ChoiceOption.new("Skip Shuffle", func(): pass)
-		])
+		]))
 	
-	if next_resolvable != null:
-		var next_processor := NewResolvableProcessor.new(next_resolvable)
-		examine_resolvable.override_next_processor(next_processor)
-	
-	_game_flow.queue_next_processor(NewResolvableProcessor.new(examine_resolvable))
+	TaskManager.push_queue(tasks)
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:

@@ -4,7 +4,7 @@ extends BaseProcessor
 const EncounterPhase := preload("res://scripts/core/enums/encounter_phase.gd").EncounterPhase
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	if not Contexts.encounter_context \
 	or Contexts.encounter_context.is_avenged \
 	or not Contexts.check_context \

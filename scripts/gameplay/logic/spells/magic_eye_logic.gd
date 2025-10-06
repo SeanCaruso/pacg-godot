@@ -6,7 +6,7 @@ func on_commit(action: StagedAction) -> void:
 	# Examine the top 3 cards of your location.
 	var examine_resolvable := ExamineResolvable.new(action.card.owner.location._deck, 3)
 	
-	GameServices.game_flow.queue_next_processor(NewResolvableProcessor.new(examine_resolvable))
+	TaskManager.push(examine_resolvable)
 
 
 func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:

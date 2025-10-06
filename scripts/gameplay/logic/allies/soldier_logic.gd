@@ -27,7 +27,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 func _can_recharge(card: CardInstance) -> bool:
 	return Contexts.check_context \
-	and Contexts.current_resolvable is CheckResolvable \
+	and TaskManager.current_resolvable is CheckResolvable \
 	and Contexts.check_context.is_local(card.owner) \
 	and Contexts.check_context.resolvable.can_stage_type(card.card_type) \
 	and Contexts.check_context.has_valid_skill([Skill.STRENGTH, Skill.MELEE])

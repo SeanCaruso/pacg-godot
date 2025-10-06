@@ -26,6 +26,9 @@ signal location_power_enabled(power: LocationPower, is_enabled: bool)
 
 # Player Character events
 signal player_character_changed(pc: PlayerCharacter)
+func emit_active_character_changed(pc: PlayerCharacter):
+	player_character_changed.emit(pc)
+
 signal player_power_enabled(power: CharacterPower, is_enabled: bool)
 func emit_player_power_enabled(power: CharacterPower, is_enabled: bool):
 	player_power_enabled.emit(power, is_enabled)

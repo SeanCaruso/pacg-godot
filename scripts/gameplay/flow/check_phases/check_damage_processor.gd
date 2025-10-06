@@ -2,7 +2,7 @@ class_name CheckDamageProcessor
 extends BaseProcessor
 	
 	
-func on_execute() -> void:
+func execute() -> void:
 	if not Contexts.check_context or Contexts.check_context.force_success:
 		return
 	
@@ -13,6 +13,6 @@ func on_execute() -> void:
 		var damage_resolvable = DamageResolvable.new(
 			check.resolvable.character,
 			-check.check_result.margin_of_success)
-		Contexts.new_resolvable(damage_resolvable)
+		TaskManager.push(damage_resolvable)
 		print("Rolled %d vs. %d - Take %d damage!" %
 			[check.check_result.final_roll_total, check.check_result.dc, damage_resolvable.amount])

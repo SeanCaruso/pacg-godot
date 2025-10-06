@@ -11,11 +11,10 @@ var _current_resolved: int = 0
 var _default_action_type: ActionType = ActionType.DISCARD
 var _queried_for_responses := false
 
+
 func override_action_type(action: ActionType) -> void:
 	_default_action_type = action
 
-# Dependency injection
-var _asm := GameServices.asm
 
 func _init(pc: PlayerCharacter, _amount: int, _damage_type: String = "Combat"):	
 	character = pc
@@ -34,7 +33,9 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	return actions
 
 
-func initialize() -> void:
+func on_active() -> void:
+	super()
+	
 	if _queried_for_responses: return
 	_queried_for_responses = true
 	
@@ -52,11 +53,8 @@ func initialize() -> void:
 			options.append(ChoiceOption.new(response.description, response.on_accept))
 		options.append(ChoiceOption.new("Skip", func(): pass))
 		
-		var choice_resolvable = PlayerChoiceResolvable.new("Use Power?", options)
-		var damage_processor = NewResolvableProcessor.new(self)
-		choice_resolvable.override_next_processor(damage_processor)
-		
-		Contexts.new_resolvable(choice_resolvable)
+		var choice_resolvable = PlayerChoiceResolvable.new("Use Power?", options)		
+		TaskManager.push(choice_resolvable)
 	
 	
 func can_commit(_actions: Array[StagedAction]) -> bool:
@@ -88,7 +86,6 @@ func can_stage_action(action: StagedAction) -> bool:
 
 
 func can_stage_type(card_type: CardType) -> bool:
-	var staged_actions := _asm.staged_actions
 	return not staged_actions.any(
 		func(a: StagedAction):
 			return a.card.card_type == card_type and not a.is_freely

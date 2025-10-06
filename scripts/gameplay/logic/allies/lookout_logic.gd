@@ -8,9 +8,8 @@ func on_commit(action: StagedAction) -> void:
 	
 	match action.action_type:
 		Action.RECHARGE:
-			GameServices.game_flow.queue_next_processor(NewResolvableProcessor.new(
-				ExamineResolvable.new(action.card.owner.location._deck, 1)))
-			pass
+			var resolvable := ExamineResolvable.new(action.card.owner.location._deck, 1)
+			TaskManager.push_deferred(resolvable)
 		Action.DISCARD:
 			Contexts.turn_context.explore_effects.append(EvadeExploreEffect.new())
 
@@ -24,10 +23,8 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 		return [PlayCardAction.new(card, Action.RECHARGE, modifier)]
 	
 	# Can recharge to examine outside of resolvables or encounters.
-	if Contexts.current_resolvable == null \
-	and Contexts.encounter_context == null \
-	and card.owner.location.count > 0 \
-	and GameServices.asm.staged_actions.is_empty():
+	if Contexts.are_cards_playable \
+	and card.owner.location.count > 0:
 		return [PlayCardAction.new(card, Action.RECHARGE, null)]
 	
 	# Can discard to explore.
@@ -38,7 +35,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 
 
 func _can_recharge_for_check(card: CardInstance) -> bool:
-	return Contexts.current_resolvable is CheckResolvable \
+	return TaskManager.current_resolvable is CheckResolvable \
 	and Contexts.check_context != null \
 	and Contexts.check_context.is_local(card.owner) \
 	and Contexts.check_context.resolvable.can_stage_type(card.card_type) \

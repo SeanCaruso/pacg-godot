@@ -55,4 +55,5 @@ func _ready() -> void:
 	var first_pc := game_context.characters[0]
 	Contexts.game_context.set_active_character(first_pc)
 	var turn_controller := StartTurnController.new(first_pc)
-	GameServices.game_flow.start_phase(turn_controller, "Turn")
+	TaskManager.push(turn_controller)
+	TaskManager.process()

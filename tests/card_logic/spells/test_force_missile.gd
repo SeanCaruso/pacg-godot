@@ -16,9 +16,9 @@ func test_force_missile_on_own_check():
 	var actions := _force_missile.get_available_actions()
 	assert_eq(actions.size(), 1, "Force Missile should have one action")
 	
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
-	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(TaskManager.current_resolvable.staged_actions)
 	assert_eq(dice.to_string(), "1d12 + 2d4 + 2", "Should use Ezren's Arcane die")
 	
 	var traits = Contexts.check_context.traits
@@ -35,9 +35,9 @@ func test_force_missile_on_other_check():
 	var actions := _force_missile.get_available_actions()
 	assert_eq(actions.size(), 1, "Force Missile should have one action")
 	
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	
-	var dice = Contexts.check_context.dice_pool(GameServices.asm.staged_actions)
+	var dice = Contexts.check_context.dice_pool(TaskManager.current_resolvable.staged_actions)
 	assert_eq(dice.to_string(), "1d10 + 2d4 + 2", "Should use Valeros's Melee die")
 	
 	var traits = Contexts.check_context.traits

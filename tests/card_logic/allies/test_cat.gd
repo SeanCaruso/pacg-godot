@@ -19,8 +19,8 @@ func test_cat_can_recharge_vs_spell():
 	Contexts.encounter_context.character.add_to_hand(_cat_instance)
 	
 	# Check that the game pauses when reaching the required check resolvable.
-	assert_not_null(Contexts.current_resolvable)
-	assert_true(Contexts.current_resolvable is CheckResolvable)
+	assert_not_null(TaskManager.current_resolvable)
+	assert_true(TaskManager.current_resolvable is CheckResolvable)
 	
 	# Check that the Cat has one recharge action.
 	var actions := _cat_instance.get_available_actions()
@@ -52,8 +52,8 @@ func test_cat_explore_without_magic():
 	assert_eq(actions.size(), 1, "Cat has one action")
 	assert_eq(actions[0].action_type, Action.DISCARD, "Can discard Cat")
 	
-	GameServices.asm.stage_action(actions[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	TaskManager.commit()
 	
 	var effects := Contexts.turn_context.explore_effects
 	assert_eq(effects.size(), 1, "One explore effect")
@@ -76,8 +76,8 @@ func test_cat_explore_with_magic():
 	assert_eq(actions.size(), 1, "Cat has one action")
 	assert_eq(actions[0].action_type, Action.DISCARD, "Can discard Cat")
 	
-	GameServices.asm.stage_action(actions[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	TaskManager.commit()
 	
 	var effects := Contexts.turn_context.explore_effects
 	assert_eq(effects.size(), 1, "One explore effect")

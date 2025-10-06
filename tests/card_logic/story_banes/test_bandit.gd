@@ -14,11 +14,11 @@ func test_bandit_recharge_before_acting():
 	TestUtils.setup_encounter_with_instances(valeros, TestUtils.get_card("Bandit"))
 	
 	assert_true(
-		Contexts.current_resolvable is CardActionResolvable,
+		TaskManager.current_resolvable is CardActionResolvable,
 		"Expected a CardActionResolvable to recharge a card."
 	)
 	
-	var actions := Contexts.current_resolvable.get_additional_actions_for_card(longsword)
+	var actions := TaskManager.current_resolvable.get_additional_actions_for_card(longsword)
 	assert_eq(actions.size(), 1, "Longsword has one action.")
 	
 	assert_eq((actions[0] as DefaultAction).action_type, Action.RECHARGE, "Sword is rechargeable.")
@@ -29,7 +29,7 @@ func test_bandit_no_recharge_before_acting_with_empty_hand():
 	valeros = Contexts.encounter_context.character
 	
 	assert_true(
-		Contexts.current_resolvable is CheckResolvable,
+		TaskManager.current_resolvable is CheckResolvable,
 		"Expected a CheckResolvable with no cards in hand."
 	)
 	
@@ -49,18 +49,18 @@ func test_bandit_defeat_by_banishing_boon():
 	
 	TestUtils.setup_encounter_with_instances(valeros, TestUtils.get_card("Bandit"))
 	var bandit := Contexts.encounter_context.card
-	GameServices.asm.commit()
+	TaskManager.commit()
 	
 	assert_true(got_custom_check, "Received a custom_check_encountered signal")
 	
-	Contexts.new_resolvable(Contexts.encounter_context.card.get_custom_check_resolvable())
+	TaskManager.push(Contexts.encounter_context.card.get_custom_check_resolvable())
 	assert_true(
-		Contexts.current_resolvable is PlayerChoiceResolvable,
+		TaskManager.current_resolvable is PlayerChoiceResolvable,
 		"Expected a custom check PlayerChoiceResolvable"
 	)
 	
-	var callable := (Contexts.current_resolvable as PlayerChoiceResolvable).options[0].action
-	Contexts.end_resolvable()
+	var callable := (TaskManager.current_resolvable as PlayerChoiceResolvable).options[0].action
+	TaskManager.resolve_current()
 	callable.call()
 	
 	var card_locs := {CardLocation.HAND: 0, CardLocation.VAULT: 0}
@@ -78,7 +78,7 @@ func test_bandit_undefeated_buries_bottom_deck_card() -> void:
 	
 	TestUtils.setup_encounter_with_instances(valeros, TestUtils.get_card("Bandit"))
 	Contexts.check_context.resolvable.check_steps[0].base_dc = 99
-	GameServices.asm.commit()
+	TaskManager.commit()
 	
 	assert_eq(longsword.current_location, CardLocation.BURIED, "Longsword was buried.")
 	assert_eq(valeros.deck.count, 2, "Valeros has 2 cards remaining.")
@@ -93,8 +93,8 @@ func test_bandit_evaded_buries_bottom_deck_card() -> void:
 	ezren.add_to_hand(sleep)
 	
 	TestUtils.setup_encounter_with_instances(ezren, TestUtils.get_card("Bandit"))
-	GameServices.asm.stage_action(sleep.get_available_actions()[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(sleep.get_available_actions()[0])
+	TaskManager.commit()
 	
 	assert_eq(longsword.current_location, CardLocation.BURIED, "Longsword was buried.")
 	assert_eq(ezren.deck.count, 2, "Ezren has 2 cards remaining.")

@@ -42,7 +42,7 @@ func _on_commit_pressed() -> void:
 	Contexts.turn_context.can_move = false
 	_pc.location = _current_loc
 	GameEvents.pc_location_changed.emit(_pc)
-	GameServices.asm.commit()
+	TaskManager.commit()
 	queue_free()
 
 

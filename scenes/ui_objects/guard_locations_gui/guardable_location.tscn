@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://v87b1dc2lfcd"]
+
+[ext_resource type="Script" uid="uid://b7chbd6wsxote" path="res://scenes/ui_objects/guard_locations_gui/guardable_location.gd" id="1_d8b8q"]
+[ext_resource type="PackedScene" uid="uid://bixget8gifffr" path="res://scenes/cards/location_display.tscn" id="2_gxdj2"]
+[ext_resource type="Texture2D" uid="uid://bh2heropipvi4" path="res://assets/textures/guarded_shield.png" id="3_gxdj2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_073vu"]
+bg_color = Color(0.8, 0.62352943, 0.39215687, 1)
+
+[node name="GuardableLocation" type="PanelContainer"]
+custom_minimum_size = Vector2(220, 220)
+theme_override_styles/panel = SubResource("StyleBoxFlat_073vu")
+script = ExtResource("1_d8b8q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LocationContainer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 350)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="LocationDisplay" parent="VBoxContainer/LocationContainer" instance=ExtResource("2_gxdj2")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 250.0
+offset_bottom = 350.0
+
+[node name="GuardedTexture" type="TextureRect" parent="VBoxContainer/LocationContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gxdj2")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="CharacterIcons" type="HFlowContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1

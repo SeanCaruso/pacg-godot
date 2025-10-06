@@ -23,7 +23,7 @@ func test_quarterstaff_combat_proficient_actions():
 	assert_eq(actions[1].action_type, Action.DISCARD, "Second action should be discard")
 	
 	# After staging, any PC has one action
-	GameServices.asm.stage_action(actions[0])
+	TaskManager.current_resolvable.stage_action(actions[0])
 	actions = _quarterstaff.get_available_actions()
 	assert_eq(actions.size(), 1, "Should have one action after staging")
 	assert_eq(actions[0].action_type, Action.DISCARD, "Remaining action should be discard")
@@ -42,11 +42,11 @@ func test_quarterstaff_evade_obstacle():
 	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
-	GameServices.game_flow.start_phase(EncounterController.new(valeros, encounter_instance), "Encounter")
+	TaskManager.start_task(EncounterController.new(valeros, encounter_instance))
 	
 	# Check that the game pauses when reaching an EvadeResolvable
-	assert_not_null(Contexts.current_resolvable, "Should have current resolvable")
-	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_not_null(TaskManager.current_resolvable, "Should have current resolvable")
+	assert_true(TaskManager.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the quarterstaff has one evade action
 	var actions := _quarterstaff.get_available_actions()
@@ -54,11 +54,11 @@ func test_quarterstaff_evade_obstacle():
 	assert_eq(actions[0].action_type, Action.DISCARD, "Should be discard action")
 	
 	# Stage and commit the evade action
-	GameServices.asm.stage_action(actions[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	TaskManager.commit()
 	
 	# Check that the encounter ends
-	assert_null(Contexts.current_resolvable, "Should have no current resolvable")
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
 
 
@@ -75,11 +75,11 @@ func test_quarterstaff_evade_trap():
 	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
-	GameServices.game_flow.start_phase(EncounterController.new(valeros, encounter_instance), "Encounter")
+	TaskManager.start_task(EncounterController.new(valeros, encounter_instance))
 	
 	# Check that the game pauses when reaching an EvadeResolvable
-	assert_not_null(Contexts.current_resolvable, "Should have current resolvable")
-	assert_true(Contexts.current_resolvable is EvadeResolvable, "Should be evade resolvable")
+	assert_not_null(TaskManager.current_resolvable, "Should have current resolvable")
+	assert_true(TaskManager.current_resolvable is EvadeResolvable, "Should be evade resolvable")
 	
 	# Check that the quarterstaff has one evade action
 	var actions := _quarterstaff.get_available_actions()
@@ -87,11 +87,11 @@ func test_quarterstaff_evade_trap():
 	assert_eq(actions[0].action_type, Action.DISCARD, "Should be discard action")
 	
 	# Stage and commit the evade action
-	GameServices.asm.stage_action(actions[0])
-	GameServices.asm.commit()
+	TaskManager.current_resolvable.stage_action(actions[0])
+	TaskManager.commit()
 	
 	# Check that the encounter ends
-	assert_null(Contexts.current_resolvable, "Should have no current resolvable")
+	assert_true(TaskManager.current_resolvable is FreePlayResolvable, "Should be in free play")
 	assert_null(Contexts.encounter_context, "Encounter context should be cleared")
 
 
@@ -117,11 +117,11 @@ func test_quarterstaff_no_evade_non_obstacle_or_trap():
 	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
-	GameServices.game_flow.start_phase(EncounterController.new(valeros, encounter_instance), "Encounter")
+	TaskManager.start_task(EncounterController.new(valeros, encounter_instance))
 	
 	# Check that the game pauses when reaching a CheckResolvable, not EvadeResolvable
-	assert_not_null(Contexts.current_resolvable, "Should have current resolvable")
-	assert_true(Contexts.current_resolvable is CheckResolvable, "Should be check resolvable")
+	assert_not_null(TaskManager.current_resolvable, "Should have current resolvable")
+	assert_true(TaskManager.current_resolvable is CheckResolvable, "Should be check resolvable")
 	
 	# Check that the quarterstaff has no evade actions
 	var actions := _quarterstaff.get_available_actions()

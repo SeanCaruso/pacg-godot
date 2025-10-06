@@ -8,5 +8,5 @@ func _init(loc: Location) -> void:
 	_loc = loc
 
 
-func on_execute() -> void:
+func execute() -> void:
 	return
