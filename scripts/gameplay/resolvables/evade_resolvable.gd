@@ -9,6 +9,7 @@ func _init(callback: Callable):
 
 func skip() -> void:
 	_on_evade_callback = func(): pass
+	commit()
 
 
 func execute() -> void:

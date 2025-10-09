@@ -7,9 +7,11 @@ var current_phase: EncounterPhase = EncounterPhase.ON_ENCOUNTER
 
 var character: PlayerCharacter
 var card: CardInstance
+## Custom callback to call if the encounter is successfully resolved.
+var on_success: Callable
 var is_avenged: bool = false
 
-var _prohibited_traits: Dictionary = {} # PlayerCharacter -> Array[String]
+var _prohibited_traits: Dictionary = {} ## PlayerCharacter -> Array[[String]]
 var explore_effects: Array[BaseExploreEffect] = []
 
 var check_result: CheckResult

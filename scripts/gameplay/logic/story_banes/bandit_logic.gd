@@ -18,7 +18,7 @@ func get_before_acting_resolvable(_card: CardInstance) -> BaseResolvable:
 		return null
 	
 	GameEvents.set_status_text.emit("Recharge a card.")
-	return CardActionResolvable.new([Action.RECHARGE])
+	return CardActionResolvable.new(Contexts.encounter_context.character, [Action.RECHARGE])
 
 
 func get_custom_check_resolvable(_card: CardInstance) -> BaseResolvable:

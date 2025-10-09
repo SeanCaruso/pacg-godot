@@ -12,7 +12,8 @@ var num_required: int = 1
 var valid_actions: Array[Action] = []
 
 
-func _init(actions: Array[Action]) -> void:
+func _init(_pc: PlayerCharacter, actions: Array[Action]) -> void:
+	pc = _pc
 	valid_actions.assign(actions)
 
 
@@ -24,7 +25,8 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	if staged_actions.size() >= num_required:
 		return []
 		
-	if not card.current_location in [CardLocation.HAND, CardLocation.REVEALED]:
+	if not card.current_location in [CardLocation.HAND, CardLocation.REVEALED] \
+	or card.owner != pc:
 		return []
 	
 	var actions: Array[StagedAction] = []

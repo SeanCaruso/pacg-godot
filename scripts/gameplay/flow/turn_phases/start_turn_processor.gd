@@ -66,7 +66,7 @@ func handled_start_of_turn_powers() -> bool:
 	
 	GameEvents.set_status_text.emit("Use Start-of-Turn power?")
 	
-	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
+	var resolvable := PowersAvailableResolvable.new(Contexts.turn_context.character, location_power, character_power)
 	resolvable.hide_cancel_button = true
 	TaskManager.push(resolvable)
 	

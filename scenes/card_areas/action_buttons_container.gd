@@ -27,6 +27,6 @@ func _on_player_choice_event(resolvable: PlayerChoiceResolvable) -> void:
 		button.pressed.connect(
 			func():
 				_end_choice()
-				Contexts.end_resolvable()
-				option.action.call()
+				resolvable.chosen_action = option.action
+				TaskManager.resolve_current()
 		)

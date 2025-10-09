@@ -1,11 +1,10 @@
 class_name RerollResolvable
 extends BaseResolvable
 
-var character: PlayerCharacter
 var dice_pool: DicePool
 
-func _init(pc: PlayerCharacter, _dice_pool: DicePool, check_context: CheckContext):
-	character = pc
+func _init(_pc: PlayerCharacter, _dice_pool: DicePool, check_context: CheckContext):
+	pc = _pc
 	dice_pool = _dice_pool
 	
 	# Default option is to not reroll.

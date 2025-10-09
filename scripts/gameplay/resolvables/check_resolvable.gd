@@ -15,9 +15,6 @@ var has_combat: bool:
 var has_skill: bool:
 	get: return check_steps.any(func(step: CheckStep): return step.category == CheckCategory.SKILL)
 
-var on_success: Callable = func(): pass
-var on_failure: Callable = func(): pass
-
 
 func _init(_card: ICard, _character: PlayerCharacter, check_requirement: CheckRequirement):
 	card = _card
@@ -58,8 +55,11 @@ func on_active() -> void:
 
 
 func resume() -> void:
+	# Clean up any existing dialog
+	DialogEvents.emit_skill_selection_ended()
+	
 	Contexts.check_context = _context
-	_update_ui()
+	update_ui()
 	DialogEvents.emit_check_start_event(_context)
 
 
@@ -71,7 +71,7 @@ func execute():
 	TaskManager.push(CheckController.new(self))
 
 
-func _update_ui() -> void:
+func update_ui() -> void:
 	super()
 	if Contexts.check_context:
 		Contexts.check_context.update_preview_state(staged_actions)

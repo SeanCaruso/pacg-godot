@@ -4,8 +4,12 @@ extends Task
 const CardTypes = preload("res://scripts/core/enums/card_type.gd")
 const CardType := CardTypes.CardType
 
+var pc: PlayerCharacter
 var _next_processor: BaseProcessor
 var _original_card_locs: Dictionary = {} # CardInstance -> CardLocation
+
+var on_success: Callable = func(): pass
+var on_failure: Callable = func(): pass
 
 var cancel_aborts_phase: bool = false
 var staged_actions: Array[StagedAction] = []
@@ -23,11 +27,11 @@ func _to_string() -> String:
 
 
 func on_active():
-	if not Contexts.encounter_context:
-		return
+	if Contexts.encounter_context:
+		for action: Callable in Contexts.encounter_context.resolvable_modifiers:
+			action.call(self)
 	
-	for action: Callable in Contexts.encounter_context.resolvable_modifiers:
-		action.call(self)
+	update_ui()
 
 
 func create_processor() -> BaseProcessor:
@@ -40,10 +44,6 @@ func get_additional_actions_for_card(_card: CardInstance) -> Array[StagedAction]
 
 func can_commit(_actions: Array[StagedAction]) -> bool:
 	return true
-
-
-func on_skip():
-	pass
 
 
 ## The default action button state - Commit/Skip if valid, Cancel if actions are staged
@@ -91,7 +91,7 @@ func stage_action(action: StagedAction) -> void:
 	action.on_stage()
 	staged_actions.append(action)
 	
-	_update_ui()
+	update_ui()
 
 
 func cancel():
@@ -112,7 +112,6 @@ func cancel():
 		TaskManager.resolve_current()
 	
 	GameEvents.set_status_text.emit("")
-	_update_ui()
 
 
 func commit():
@@ -123,7 +122,7 @@ func commit():
 	
 	# If a new resolvable was pushed, stop and wait.
 	if TaskManager.current_resolvable != self:
-		_update_ui()
+		update_ui()
 		return
 	
 	# If we have a resolvable, the fact that we committed means it's been resolved.
@@ -135,22 +134,20 @@ func commit():
 		staged_actions.clear()
 		GameServices.cards.restore_revealed_cards_to_hand()
 	
-	_update_ui()
-	
 	# We're done committing actions. Tell the TaskManager to continue.
 	TaskManager.process()
 
 
+## If overridden, you MUST call commit.
 func skip():
-	on_skip()
 	commit()
 
 
-func _update_ui() -> void:
-	var pc := Contexts.game_context.active_character
+func update_ui() -> void:
+	var active_pc := Contexts.game_context.active_character
 	var pc_actions := staged_actions.filter(
 		func(a: StagedAction):
-			return a.card.owner == pc
+			return a.card.owner == active_pc
 	)
 	
 	var state := get_ui_state(pc_actions)
@@ -160,6 +157,7 @@ func _update_ui() -> void:
 		state.is_explore_enabled = false
 	
 	GameEvents.staged_actions_state_changed.emit(state)
+	GameEvents.turn_state_changed.emit()
 
 
 # =====================================================================================

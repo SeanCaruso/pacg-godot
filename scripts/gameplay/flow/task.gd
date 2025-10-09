@@ -2,6 +2,10 @@ class_name Task
 extends RefCounted
 
 
+func _to_string() -> String:
+	return get_script().get_global_name()
+
+
 ## Called once when this task becomes the active task for the first time.
 func on_active() -> void:
 	pass

@@ -11,34 +11,27 @@ func get_when_closed_resolvable() -> BaseResolvable: return null
 
 
 func get_to_close_resolvable(loc: Location, pc: PlayerCharacter) -> BaseResolvable:
-	var resolvable := get_card_to_close_resolvable(loc, pc)
-	if not resolvable:
-		return null
-	
-	resolvable.verb = CheckResolvable.CheckVerb.CLOSE
-	resolvable.on_success = func():
+	var close_callback = func():
 		var processor := CloseLocationController.new(loc)
 		TaskManager.start_task(processor)
-	return resolvable
+	
+	return get_card_to_close_resolvable(loc, pc, close_callback)
 
 
 func get_to_guard_resolvable(loc: Location, pc: PlayerCharacter) -> BaseResolvable:
-	var resolvable := get_card_to_close_resolvable(loc, pc)
-	if not resolvable or not Contexts.encounter_context.guard_locations_resolvable:
+	if not Contexts.encounter_context \
+	or not Contexts.encounter_context.guard_locations_resolvable:
 		return null
 	
-	var guard_resolvable := Contexts.encounter_context.guard_locations_resolvable
+	var guard_callback = func():
+		Contexts.encounter_context.guard_locations_resolvable.distant_locs_guarded[loc] = true
 	
-	if resolvable is CheckResolvable:
-		resolvable.verb = CheckResolvable.CheckVerb.GUARD
-		resolvable.on_success = func():
-			guard_resolvable.distant_locs_guarded[loc] = true
-		
-	return resolvable
+	return get_card_to_close_resolvable(loc, pc, guard_callback)
 
 
 ## Card logic should override this and provide only the minimal logic required to close.
 ##
 ## LocationLogicBase will handle the rest depending on whether it's a check to
 ## close, or to temporarily guard a location.
-func get_card_to_close_resolvable(_loc: Location, _pc: PlayerCharacter) -> BaseResolvable: return null
+func get_card_to_close_resolvable(_loc: Location, _pc: PlayerCharacter, _callback: Callable) -> BaseResolvable:
+	return null

@@ -4,7 +4,6 @@ extends BaseResolvable
 const ActionType := preload("res://scripts/core/enums/action_type.gd").Action
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
-var character: PlayerCharacter
 var damage_type: String
 var amount: int
 var _current_resolved: int = 0
@@ -16,8 +15,8 @@ func override_action_type(action: ActionType) -> void:
 	_default_action_type = action
 
 
-func _init(pc: PlayerCharacter, _amount: int, _damage_type: String = "Combat"):	
-	character = pc
+func _init(_pc: PlayerCharacter, _amount: int, _damage_type: String = "Combat"):	
+	pc = _pc
 	amount = _amount
 	damage_type = _damage_type
 	
@@ -27,7 +26,7 @@ func get_additional_actions_for_card(card: CardInstance) -> Array[StagedAction]:
 	
 	var actions: Array[StagedAction] = []
 	# Add default damage discard action if the card was in the player's hand.
-	if character.hand.has(card) or character.revealed_cards.has(card):
+	if pc.hand.has(card) or pc.revealed_cards.has(card):
 		actions.append(DefaultAction.new(card, _default_action_type))
 	
 	return actions
@@ -39,12 +38,7 @@ func on_active() -> void:
 	if _queried_for_responses: return
 	_queried_for_responses = true
 	
-	var args := DiscardEventArgs.new(
-		character,
-		[],
-		CardLocation.HAND,
-		self
-	)
+	var args := DiscardEventArgs.new(pc, [], CardLocation.HAND, self)
 	GameServices.cards.trigger_before_discard(args)
 	
 	if args.has_responses:
@@ -58,7 +52,7 @@ func on_active() -> void:
 	
 	
 func can_commit(_actions: Array[StagedAction]) -> bool:
-	if character.hand.is_empty():
+	if pc.hand.is_empty():
 		GameEvents.set_status_text.emit("")
 		return true
 	

@@ -8,12 +8,11 @@ const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardL
 ###############################################################################
 var game_context: GameContext
 var turn_context: TurnContext
-var encounter_context: EncounterContext
+var encounter_stack: Array[EncounterContext] = []
+var encounter_context: EncounterContext:
+	get:
+		return null if encounter_stack.is_empty() else encounter_stack.back()
 var check_context: CheckContext
-#var _resolvable_stack: Array[BaseResolvable]
-#var current_resolvable: BaseResolvable:
-	#get:
-		#return _resolvable_stack.back() if not _resolvable_stack.is_empty() else null
 
 ###############################################################################
 # STARTING/ENDING CONTEXTS
@@ -33,14 +32,15 @@ func end_turn():
 	turn_context = null
 
 func new_encounter(context: EncounterContext):
-	encounter_context = context
+	encounter_stack.append(context)
 	if not turn_context: return
 	
 	encounter_context.explore_effects.append_array(turn_context.explore_effects)
 	turn_context.explore_effects.clear()
 
 ## This only sets the context to null. Event sending must be handled by the caller.
-func end_encounter(): encounter_context = null
+func end_encounter():
+	encounter_stack.pop_back()
 
 
 func end_check() -> void:

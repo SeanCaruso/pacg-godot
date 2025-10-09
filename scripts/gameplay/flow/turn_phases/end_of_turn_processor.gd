@@ -22,5 +22,5 @@ func execute() -> void:
 	
 	GameEvents.set_status_text.emit("Use End-of-Turn Power?")
 	
-	var resolvable := PowersAvailableResolvable.new(location_power, character_power)
+	var resolvable := PowersAvailableResolvable.new(Contexts.turn_context.character, location_power, character_power)
 	TaskManager.push(resolvable)

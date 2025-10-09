@@ -83,9 +83,12 @@ func get_current_valid_skills() -> Array[Skill]:
 var traits: Array[String]:
 	get:
 		var ret := _traits.traits
-		ret.append(str(used_skill).to_pascal_case())
-		if character.get_attribute_for_skill(used_skill) != used_skill:
-			ret.append(str(character.get_attribute_for_skill(used_skill)).to_pascal_case())
+		var skill_str: String = Skill.find_key(used_skill)
+		ret.append(skill_str.to_pascal_case())
+		var attr := character.get_attribute_for_skill(used_skill)
+		if attr != used_skill:
+			var attr_str: String = Skill.find_key(attr)
+			ret.append(attr_str.to_pascal_case())
 		return ret
 
 ## Returns whether the check invokes any of the given traits.

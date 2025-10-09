@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbwpmauoliprj"]
+[gd_scene load_steps=7 format=3 uid="uid://cbwpmauoliprj"]
 
 [ext_resource type="Script" uid="uid://caa050xbj5ifv" path="res://scenes/ui_objects/skill_selection_dialog/skill_dropdown_panel.gd" id="1_8863e"]
 [ext_resource type="Texture2D" uid="uid://bwaqlxiyukdnf" path="res://assets/textures/d4.png" id="1_poxin"]
@@ -10,6 +10,20 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8863e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8863e"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.92149335, 0.790041, 0.6252439, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="SkillDropdownPanel" type="VBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
@@ -28,21 +42,25 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="SelectedSkillRow" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SelectedSkillRow" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_poxin")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SelectedSkillRow"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SelectedSkillRow"]
 layout_mode = 2
 alignment = 1
 
-[node name="Control" type="Control" parent="SelectedSkillRow/HBoxContainer"]
+[node name="Control" type="Control" parent="VBoxContainer/SelectedSkillRow/HBoxContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LeftArrow" type="TextureRect" parent="SelectedSkillRow/HBoxContainer/Control"]
+[node name="LeftArrow" type="TextureRect" parent="VBoxContainer/SelectedSkillRow/HBoxContainer/Control"]
 unique_name_in_owner = true
 self_modulate = Color(0.20392157, 0.29803923, 0.41960785, 1)
 custom_minimum_size = Vector2(45, 45)
@@ -55,7 +73,7 @@ pivot_offset = Vector2(22.5, 22.5)
 texture = ExtResource("1_poxin")
 expand_mode = 1
 
-[node name="SkillLabel" type="Label" parent="SelectedSkillRow/HBoxContainer"]
+[node name="SkillLabel" type="Label" parent="VBoxContainer/SelectedSkillRow/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -64,12 +82,12 @@ theme_override_font_sizes/font_size = 36
 text = "CONSTITUTION"
 horizontal_alignment = 1
 
-[node name="CenterContainer2" type="Control" parent="SelectedSkillRow/HBoxContainer"]
+[node name="CenterContainer2" type="Control" parent="VBoxContainer/SelectedSkillRow/HBoxContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="RightArrow" type="TextureRect" parent="SelectedSkillRow/HBoxContainer/CenterContainer2"]
+[node name="RightArrow" type="TextureRect" parent="VBoxContainer/SelectedSkillRow/HBoxContainer/CenterContainer2"]
 unique_name_in_owner = true
 self_modulate = Color(0.20392157, 0.29803923, 0.41960785, 1)
 custom_minimum_size = Vector2(45, 45)
@@ -82,10 +100,22 @@ pivot_offset = Vector2(22.5, 22.5)
 texture = ExtResource("1_poxin")
 expand_mode = 1
 
-[node name="SelectedSkillButton" type="Button" parent="SelectedSkillRow"]
+[node name="SelectedSkillButton" type="Button" parent="VBoxContainer/SelectedSkillRow"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8863e")
 flat = true
 
-[connection signal="pressed" from="SelectedSkillRow/SelectedSkillButton" to="." method="_on_show_hide"]
+[node name="DcPanel" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_8863e")
+
+[node name="DcLabel" type="Label" parent="VBoxContainer/DcPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "10"
+
+[connection signal="pressed" from="VBoxContainer/SelectedSkillRow/SelectedSkillButton" to="." method="_on_show_hide"]

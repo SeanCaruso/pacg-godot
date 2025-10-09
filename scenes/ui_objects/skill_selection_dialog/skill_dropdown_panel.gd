@@ -26,6 +26,7 @@ var _initial_location_y: float
 @onready var skill_label: Label = %SkillLabel
 @onready var right_arrow: TextureRect = %RightArrow
 @onready var selected_skill_button: Button = %SelectedSkillButton
+@onready var dc_label: Label = %DcLabel
 
 
 func _ready() -> void:
@@ -46,7 +47,9 @@ func set_check_context(context: CheckContext) -> void:
 
 func _on_row_clicked(skill: Skill) -> void:
 	_context.used_skill = skill
-	skill_label.text = Skill.find_key(skill).to_upper()
+	var bonus: int = _context.character.get_skill(skill)["bonus"]
+	skill_label.text = "%s +%d" % [Skill.find_key(skill).to_upper(), bonus]
+	dc_label.text = str(_context.get_dc())
 	
 	for s: Skill in _skill_rows:
 		var skill_row: SkillRow = _skill_rows[s]
@@ -100,6 +103,7 @@ func _on_valid_skills_changed(skills: Array[Skill]) -> void:
 		_skill_rows[skill] = skill_row
 		_skill_rows_height += skill_row.size.y
 	
-	skill_label.text = Skill.find_key(best_skill["skill"])
+	skill_label.text = "%s +%d" % [Skill.find_key(best_skill["skill"]), best_skill["bonus"]]
+	dc_label.text = str(_context.get_dc())
 	
 	position.y = _initial_location_y - _skill_rows_height if _is_collapsed else _initial_location_y

@@ -14,9 +14,13 @@ var current_task: Task:
 
 
 func process() -> void:
-	while not _task_stack.is_empty():
+	while not _task_stack.is_empty():		
 		# If the current task isn't ready to be processed yet, return and wait for manual re-entry.
-		if not _task_stack.back().is_automatic():
+		if not current_task.is_automatic():
+			if current_resolvable:
+				if current_resolvable.pc:
+					current_resolvable.pc.set_active()
+				current_resolvable.update_ui()
 			return
 		
 		_pop_execute_and_continue()

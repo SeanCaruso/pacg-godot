@@ -34,9 +34,11 @@ func _on_pc_clicked() -> void:
 
 func _on_turn_state_changed() -> void:
 	if TaskManager.current_resolvable == _resolvable:
+		mouse_filter = Control.MOUSE_FILTER_STOP
 		visible = true
 		_refresh_display()
 	else:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		visible = false
 
 
