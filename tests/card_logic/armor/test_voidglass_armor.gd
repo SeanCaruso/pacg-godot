@@ -48,7 +48,7 @@ func test_voidglass_armor_can_display_then_recharge_for_any_damage():
 
 func test_voidglass_armor_prompts_on_mental_damage_when_displayed():
 	_voidglass_armor.owner = valeros
-	GameServices.cards.move_card_to(_voidglass_armor, CardLocation.DISPLAYED)
+	Cards.move_card_to(_voidglass_armor, CardLocation.DISPLAYED)
 	
 	TaskManager.push(DamageResolvable.new(valeros, 3, "Mental"))
 	
@@ -60,7 +60,7 @@ func test_voidglass_armor_prompts_on_mental_damage_when_displayed():
 
 func test_voidglass_armor_prompts_on_mental_damage_when_in_hand():
 	_voidglass_armor.owner = valeros
-	GameServices.cards.move_card_to(_voidglass_armor, CardLocation.HAND)
+	Cards.move_card_to(_voidglass_armor, CardLocation.HAND)
 	
 	TaskManager.push(DamageResolvable.new(valeros, 3, "Mental"))
 	
@@ -74,7 +74,7 @@ func test_voidglass_armor_mental_damage_power_allows_recharge():
 	_voidglass_armor.owner = valeros
 	var test_longsword = TestUtils.get_card("Longsword")
 	valeros.add_to_hand(test_longsword)
-	GameServices.cards.move_card_to(_voidglass_armor, CardLocation.HAND)
+	Cards.move_card_to(_voidglass_armor, CardLocation.HAND)
 	
 	var damage_resolvable = DamageResolvable.new(valeros, 1, "Mental")
 	var processor = NewResolvableProcessor.new(damage_resolvable)
@@ -102,7 +102,7 @@ func test_voidglass_armor_mental_damage_power_allows_recharge():
 func test_voidglass_armor_prompts_on_deck_discard_when_displayed():
 	_voidglass_armor.owner = valeros
 	valeros.shuffle_into_deck(longsword)
-	GameServices.cards.move_card_to(_voidglass_armor, CardLocation.DISPLAYED)
+	Cards.move_card_to(_voidglass_armor, CardLocation.DISPLAYED)
 	
 	ScourgeRules.handle_wounded_deck_discard(valeros)
 	
@@ -115,7 +115,7 @@ func test_voidglass_armor_prompts_on_deck_discard_when_displayed():
 func test_voidglass_armor_prompts_on_deck_discard_when_in_hand():
 	_voidglass_armor.owner = valeros
 	valeros.shuffle_into_deck(longsword)
-	GameServices.cards.move_card_to(_voidglass_armor, CardLocation.HAND)
+	Cards.move_card_to(_voidglass_armor, CardLocation.HAND)
 	
 	ScourgeRules.handle_wounded_deck_discard(valeros)
 	
@@ -128,7 +128,7 @@ func test_voidglass_armor_prompts_on_deck_discard_when_in_hand():
 func test_voidglass_armor_recharge_instead_of_deck_discard():
 	_voidglass_armor.owner = valeros
 	valeros.shuffle_into_deck(longsword)
-	GameServices.cards.move_card_to(_voidglass_armor, CardLocation.HAND)
+	Cards.move_card_to(_voidglass_armor, CardLocation.HAND)
 	
 	ScourgeRules.handle_wounded_deck_discard(valeros)
 	

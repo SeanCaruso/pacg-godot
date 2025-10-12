@@ -86,7 +86,7 @@ func stage_action(action: StagedAction) -> void:
 	_original_card_locs.get_or_add(action.card, action.card.current_location)
 	
 	# We need to handle this here so that damage resolvables behave with hand size.
-	GameServices.cards.move_card_by(action.card, action.action_type)
+	Cards.move_card_by(action.card, action.action_type)
 	
 	action.on_stage()
 	staged_actions.append(action)
@@ -96,7 +96,7 @@ func stage_action(action: StagedAction) -> void:
 
 func cancel():
 	for card in _original_card_locs:
-		GameServices.cards.move_card_to(card, _original_card_locs[card])
+		Cards.move_card_to(card, _original_card_locs[card])
 	
 	GameEvents.card_locations_changed.emit(_original_card_locs.keys())
 	
@@ -132,7 +132,7 @@ func commit():
 	if not TaskManager.current_resolvable:
 		_original_card_locs.clear()
 		staged_actions.clear()
-		GameServices.cards.restore_revealed_cards_to_hand()
+		Cards.restore_revealed_cards_to_hand()
 	
 	# We're done committing actions. Tell the TaskManager to continue.
 	TaskManager.process()

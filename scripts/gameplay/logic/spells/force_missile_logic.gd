@@ -17,7 +17,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	modifier.restricted_category = CheckCategory.COMBAT
 	
 	# Also adds Arcane skill for the owner.
-	if card.owner == Contexts.check_context.resolvable.character:
+	if card.owner == Contexts.check_context.resolvable.pc:
 		modifier.added_traits.append("Arcane")
 		modifier.added_valid_skills.append(Skill.ARCANE)
 		modifier.restricted_skills.append(Skill.ARCANE)

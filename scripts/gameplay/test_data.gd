@@ -6,3 +6,4 @@ extends Node
 @export var test_characters: Dictionary # CharacterData -> Deck
 @export var characters_to_use: Array[String]
 @export var test_locations: Dictionary # LocationData -> Deck
+@export var vault: VaultDefinition

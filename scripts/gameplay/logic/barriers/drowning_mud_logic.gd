@@ -12,4 +12,4 @@ func on_undefeated(card: CardInstance) -> void:
 		
 		var top_card := character.draw_from_deck()
 		if top_card:
-			GameServices.cards.move_card_to(top_card, CardLocation.BURIED)
+			Cards.move_card_to(top_card, CardLocation.BURIED)

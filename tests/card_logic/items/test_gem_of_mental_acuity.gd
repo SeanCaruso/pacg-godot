@@ -7,7 +7,7 @@ func before_each():
 	super()
 	# Set up the Gem of Mental Acuity card
 	var gem_data = TestUtils.load_card_data("Gem Of Mental Acuity")
-	_gem_instance = GameServices.cards.new_card(gem_data, valeros)
+	_gem_instance = Cards.new_card(gem_data, valeros)
 	_gem_instance.current_location = CardLocation.HAND
 
 

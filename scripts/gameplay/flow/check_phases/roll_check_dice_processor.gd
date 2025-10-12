@@ -17,7 +17,7 @@ func execute() -> void:
 	if not check.resolvable:
 		return
 	var resolvable := check.resolvable
-	var pc := resolvable.character
+	var pc := resolvable.pc
 	
 	
 	var dc := check.get_dc()

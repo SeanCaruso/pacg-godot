@@ -33,7 +33,7 @@ func _init(resolvable: CheckResolvable):
 	if not resolvable: return
 	
 	add_traits(resolvable.card, resolvable.card.traits)
-	add_traits(resolvable.character, resolvable.character.traits)
+	add_traits(resolvable.pc, resolvable.pc.traits)
 	
 	
 func add_traits(card: ICard, _traits: Array[String]):

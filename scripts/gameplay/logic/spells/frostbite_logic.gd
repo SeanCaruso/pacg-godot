@@ -15,7 +15,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	or not Contexts.check_context.is_combat_valid \
 	or not TaskManager.current_resolvable is CheckResolvable \
 	or not TaskManager.current_resolvable.has_combat \
-	or TaskManager.current_resolvable.character != card.owner \
+	or TaskManager.current_resolvable.pc != card.owner \
 	or not Contexts.check_context.resolvable.can_stage_type(card.card_type):
 		return []
 	

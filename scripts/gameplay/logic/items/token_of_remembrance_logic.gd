@@ -22,7 +22,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and Contexts.turn_context.current_phase == TurnContext.TurnPhase.RECOVERY \
 	and TaskManager.current_resolvable is CheckResolvable \
 	and TaskManager.current_resolvable.card.card_type == CardType.SPELL \
-	and TaskManager.current_resolvable.character == card.owner \
+	and TaskManager.current_resolvable.pc == card.owner \
 	and TaskManager.current_resolvable.can_stage_type(card.card_type):
 		var modifier := CheckModifier.new(card)
 		modifier.added_dice = [8]

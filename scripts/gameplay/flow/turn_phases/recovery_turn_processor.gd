@@ -10,7 +10,7 @@ func execute() -> void:
 	
 	Contexts.turn_context.current_phase = TurnPhase.RECOVERY
 	
-	var recovery_cards := GameServices.cards.get_cards_in_location(CardLocation.RECOVERY)
+	var recovery_cards := Cards.get_cards_in_location(CardLocation.RECOVERY)
 	if recovery_cards.is_empty(): return
 	
 	# Continue to run this processor until all recovery cards are gone.

@@ -41,7 +41,7 @@ static func load_card_data(card_name: String):
 # Helper methods similar to your Unity TestUtils
 static func get_card(card_name: String) -> CardInstance:
 	var card_data = load_card_data(card_name)
-	return GameServices.cards.new_card(card_data)
+	return Cards.new_card(card_data)
 
 
 static func get_character(character_name: String) -> PlayerCharacter:

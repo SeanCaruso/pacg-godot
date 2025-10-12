@@ -35,7 +35,7 @@ func _can_display(card: CardInstance) -> bool:
 	# Otherwise, we can only display if there's a DamageResolvable for this card's owner.
 	if TaskManager.current_resolvable is DamageResolvable:
 		var damage_resolvable := TaskManager.current_resolvable as DamageResolvable
-		return damage_resolvable.character == card.owner
+		return damage_resolvable.pc == card.owner
 	
 	return false
 
@@ -45,7 +45,7 @@ func _can_draw(card: CardInstance) -> bool:
 		and TaskManager.current_resolvable is DamageResolvable \
 		and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
 		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_freely_draw(card: CardInstance) -> bool:
@@ -53,7 +53,7 @@ func _can_freely_draw(card: CardInstance) -> bool:
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.staged_cards.has(card) \
 		and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_bury(card: CardInstance) -> bool:
@@ -61,7 +61,7 @@ func _can_bury(card: CardInstance) -> bool:
 		and card.owner.is_proficient(card) \
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_freely_bury(card: CardInstance) -> bool:
@@ -69,4 +69,4 @@ func _can_freely_bury(card: CardInstance) -> bool:
 		and card.owner.is_proficient(card) \
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.staged_cards.has(card) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner

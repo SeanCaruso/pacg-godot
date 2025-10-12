@@ -1,5 +1,5 @@
-class_name CardManager
-extends RefCounted
+# card_manager.gd
+extends Node
 
 const Action       := preload("res://scripts/core/enums/action_type.gd").Action
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
@@ -8,12 +8,12 @@ var _all_cards: Array[CardInstance]
 var _response_registry := ResponseRegistry.new()
 
 
-func new_card(card_data: CardData, owner = null) -> CardInstance:
+func new_card(card_data: CardData, card_owner = null) -> CardInstance:
 	if not card_data:
 		print("Can't create card from null CardData!")
 		return null
 	
-	var new_instance = CardInstance.new(card_data, owner)
+	var new_instance = CardInstance.new(card_data, card_owner)
 	_all_cards.append(new_instance)
 	return new_instance
 
@@ -84,19 +84,32 @@ func find_all(predicate: Callable) -> Array[CardInstance]:
 
 
 func get_cards_in_location(location: CardLocation) -> Array[CardInstance]:
-	return find_all(func(card): return card.current_location == location)
+	return find_all(
+		func(card):
+			return card.current_location == location
+	)
 
 
-func get_all_cards_owned_by(owner: PlayerCharacter) -> Array[CardInstance]:
-	return find_all(func(card: CardInstance): return card.owner == owner)
+func get_all_cards_owned_by(card_owner: PlayerCharacter) -> Array[CardInstance]:
+	return find_all(
+		func(card: CardInstance):
+			return card.owner == card_owner
+	)
 
 
-func get_cards_owned_by(owner: PlayerCharacter, location: CardLocation) -> Array[CardInstance]:
-	return find_all(func(card: CardInstance): return card.owner == owner and card.current_location == location)
+func get_cards_owned_by(card_owner: PlayerCharacter, location: CardLocation) -> Array[CardInstance]:
+	return find_all(
+		func(card: CardInstance):
+			return card.owner == card_owner and card.current_location == location
+	)
 
 
-func get_cards_in_hand(owner: PlayerCharacter) -> Array[CardInstance]:
-	return find_all(func(card: CardInstance): return card.owner == owner and card.current_location in [CardLocation.HAND, CardLocation.REVEALED])
+func get_cards_in_hand(card_owner: PlayerCharacter) -> Array[CardInstance]:
+	return find_all(
+		func(card: CardInstance):
+			return card.owner == card_owner \
+			and card.current_location in [CardLocation.HAND, CardLocation.REVEALED]
+	)
 
 
 func trigger_before_discard(args: DiscardEventArgs):

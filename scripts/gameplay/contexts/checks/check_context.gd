@@ -14,7 +14,8 @@ var _traits: TraitAccumulator
 
 
 var character: PlayerCharacter:
-	get: return resolvable.character
+	get:
+		return resolvable.pc
 
 func _init(check_resolvable: CheckResolvable):
 	resolvable = check_resolvable

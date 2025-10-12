@@ -30,7 +30,7 @@ func _can_reveal(card: CardInstance) -> bool:
 	return TaskManager.current_resolvable is DamageResolvable \
 		and not TaskManager.current_resolvable.staged_cards.has(card) \
 		and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_recharge(card: CardInstance) -> bool:
@@ -38,6 +38,6 @@ func _can_recharge(card: CardInstance) -> bool:
 	# and the dice pool has a d4, d6, or d8.
 	return Contexts.check_context != null \
 		and TaskManager.current_resolvable is RerollResolvable \
-		and card.owner == (TaskManager.current_resolvable as RerollResolvable).character \
+		and card.owner == TaskManager.current_resolvable.pc \
 		and Contexts.check_context.used_skill == Skill.MELEE \
 		and (TaskManager.current_resolvable as RerollResolvable).dice_pool.num_dice_in_sizes([4, 6, 8]) > 0

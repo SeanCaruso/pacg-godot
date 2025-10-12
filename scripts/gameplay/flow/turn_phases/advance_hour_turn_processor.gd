@@ -11,6 +11,6 @@ func execute() -> void:
 	
 	var hour_card := Contexts.game_context.hour_deck.draw_card()
 	Contexts.turn_context.hour_card = hour_card
-	GameEvents.hour_changed.emit(hour_card)
+	GameEvents.emit_hour_changed(hour_card)
 	
 	# TODO: Handle hour powers.

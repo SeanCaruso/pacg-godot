@@ -10,7 +10,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and TaskManager.current_resolvable.card is CardInstance \
 	and TaskManager.current_resolvable.card.is_boon \
 	and TaskManager.current_resolvable.can_stage_type(card.card_type) \
-	and TaskManager.current_resolvable.character == card.owner:
+	and TaskManager.current_resolvable.pc == card.owner:
 		var modifier := CheckModifier.new(card)
 		modifier.added_bonus = 1
 		actions.append(PlayCardAction.new(card, Action.REVEAL, modifier))
@@ -20,7 +20,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	and TaskManager.current_resolvable.card is CardInstance \
 	and TaskManager.current_resolvable.card.is_boon \
 	and TaskManager.current_resolvable.can_stage_type(card.card_type) \
-	and TaskManager.current_resolvable.character.local_characters.has(card.owner):
+	and TaskManager.current_resolvable.pc.local_characters.has(card.owner):
 		var skill_info := card.owner.get_skill(Skill.KNOWLEDGE)
 		var modifier := CheckModifier.new(card)
 		modifier.added_dice = [skill_info.die]

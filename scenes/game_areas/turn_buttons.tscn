@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://7mgy0nws2s5h" path="res://assets/textures/end_turn_button_disabled.png" id="8_av7yh"]
 
 [node name="TurnButtons" type="HBoxContainer"]
-theme_override_constants/separation = 0
+theme_override_constants/separation = 15
 script = ExtResource("1_s0koq")
 
 [node name="HourContainer" type="Control" parent="."]
@@ -19,7 +19,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(125, 175)
 layout_mode = 2
 
-[node name="GiveButton" type="TextureButton" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="GiveButton" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
@@ -29,7 +33,7 @@ texture_disabled = ExtResource("2_a7e77")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="MoveButton" type="TextureButton" parent="."]
+[node name="MoveButton" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
@@ -39,7 +43,7 @@ texture_disabled = ExtResource("4_s0koq")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="OptionalDiscardsButton" type="TextureButton" parent="."]
+[node name="OptionalDiscardsButton" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2
@@ -49,7 +53,7 @@ texture_disabled = ExtResource("6_ulql8")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="EndTurnButton" type="TextureButton" parent="."]
+[node name="EndTurnButton" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 90)
 layout_mode = 2

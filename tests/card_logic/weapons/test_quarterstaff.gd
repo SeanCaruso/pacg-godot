@@ -39,8 +39,6 @@ func test_quarterstaff_evade_obstacle():
 	
 	var encounter_instance = CardInstance.new(encounter_data, null)
 	
-	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
-	
 	# Start the encounter
 	TaskManager.start_task(EncounterController.new(valeros, encounter_instance))
 	
@@ -71,8 +69,6 @@ func test_quarterstaff_evade_trap():
 	encounter_data.traits.assign(["Trap", "Other Trait"])
 	
 	var encounter_instance = CardInstance.new(encounter_data, null)
-	
-	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
 	TaskManager.start_task(EncounterController.new(valeros, encounter_instance))
@@ -113,8 +109,6 @@ func test_quarterstaff_no_evade_non_obstacle_or_trap():
 	
 	var encounter_instance = CardInstance.new(encounter_data, null)
 	encounter_instance.logic = zombie.logic
-	
-	Contexts.new_encounter(EncounterContext.new(valeros, encounter_instance))
 	
 	# Start the encounter
 	TaskManager.start_task(EncounterController.new(valeros, encounter_instance))

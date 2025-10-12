@@ -13,8 +13,10 @@ func _ready() -> void:
 	var game_context := GameContext.new(1, test_data.scenario_data)
 	Contexts.new_game(game_context)
 	
+	Vault.initialize(test_data.vault, game_context.adventure_number)
+	
 	for i in range(30):
-		game_context.hour_deck.shuffle_in(GameServices.cards.new_card(test_data.hour_card_data))
+		game_context.hour_deck.shuffle_in(Cards.new_card(test_data.hour_card_data))
 	
 	var num_pcs := test_data.characters_to_use.size()
 	for scenario_location: ScenarioLocation in test_data.scenario_data.locations:
@@ -23,7 +25,7 @@ func _ready() -> void:
 		game_context.locations.append(location)
 		
 		for loc_card in test_data.test_locations.get(location.data, []):
-			location.shuffle_in(GameServices.cards.new_card(loc_card), true)
+			location.shuffle_in(Cards.new_card(loc_card), true)
 	
 	var henchman_idx := 0
 	var villain_loc := randi_range(0, game_context.locations.size() - 1)
@@ -37,7 +39,7 @@ func _ready() -> void:
 			story_bane_data = test_data.scenario_data.henchmen[henchman_idx].card_data
 			henchman_idx = min(henchman_idx + 1, test_data.scenario_data.henchmen.size() - 1)
 		
-		var story_bane_instance := GameServices.cards.new_card(story_bane_data)
+		var story_bane_instance := Cards.new_card(story_bane_data)
 		game_context.locations[i].shuffle_in(story_bane_instance, false)
 	
 	for pc: CharacterData in test_data.test_characters:
@@ -47,7 +49,7 @@ func _ready() -> void:
 		character.location = game_context.locations.filter(func(l): return l.name == "Caravan").front()
 		
 		for pc_card in test_data.test_characters[pc]:
-			var card_instance := GameServices.cards.new_card(pc_card, character)
+			var card_instance := Cards.new_card(pc_card, character)
 			character.shuffle_into_deck(card_instance)
 		
 		character.draw_initial_hand()

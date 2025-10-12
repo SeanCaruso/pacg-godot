@@ -20,7 +20,7 @@ func test_valeros_end_turn_power_valid_card_in_hand():
 func test_valeros_end_turn_power_valid_card_in_discards():
 	# Move weapon to discard pile
 	longsword.owner = valeros
-	GameServices.cards.move_card_to(longsword, CardLocation.DISCARDS)
+	Cards.move_card_to(longsword, CardLocation.DISCARDS)
 	
 	TaskManager.start_task(EndOfTurnProcessor.new())
 	
@@ -44,7 +44,7 @@ func test_valeros_end_turn_power_no_valid_card_in_discards():
 	# Move ally (not weapon/armor) to discard pile
 	var soldier = TestUtils.get_card("Soldier")
 	soldier.owner = valeros
-	GameServices.cards.move_card_to(soldier, CardLocation.DISCARDS)
+	Cards.move_card_to(soldier, CardLocation.DISCARDS)
 	
 	TaskManager.start_task(EndOfTurnProcessor.new())
 	

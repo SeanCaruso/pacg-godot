@@ -35,7 +35,7 @@ func _can_display(card: CardInstance) -> bool:
 	# Otherwise, we can only display if there's a DamageResolvable for this card's owner.
 	if TaskManager.current_resolvable is DamageResolvable:
 		var resolvable := TaskManager.current_resolvable as DamageResolvable
-		return resolvable.character == card.owner
+		return resolvable.pc == card.owner
 	
 	return false
 
@@ -44,14 +44,14 @@ func _can_recharge_for_damage(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_freely_recharge_for_damage(card: CardInstance) -> bool:
 	return card.owner.displayed_cards.has(card) \
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.staged_cards.has(card) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_bury(card: CardInstance) -> bool:
@@ -59,7 +59,7 @@ func _can_bury(card: CardInstance) -> bool:
 		and card.owner.is_proficient(card) \
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.can_stage_type(card.card_type) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func _can_freely_bury(card: CardInstance) -> bool:
@@ -67,7 +67,7 @@ func _can_freely_bury(card: CardInstance) -> bool:
 		and card.owner.is_proficient(card) \
 		and TaskManager.current_resolvable is DamageResolvable \
 		and TaskManager.current_resolvable.staged_cards.has(card) \
-		and (TaskManager.current_resolvable as DamageResolvable).character == card.owner
+		and TaskManager.current_resolvable.pc == card.owner
 
 
 func on_before_discard(source_card: CardInstance, args: DiscardEventArgs) -> void:
@@ -91,7 +91,7 @@ func on_before_discard(source_card: CardInstance, args: DiscardEventArgs) -> voi
 
 
 func _accept_recharge_action(source_card: CardInstance, args: DiscardEventArgs) -> void:
-	GameServices.cards.move_card_by(source_card, Action.RECHARGE)
+	Cards.move_card_by(source_card, Action.RECHARGE)
 	
 	# If this is for a Mental DamageResolvable, override the default action to Recharge.
 	if args.damage_resolvable and args.damage_resolvable.damage_type == "Mental":
@@ -100,4 +100,4 @@ func _accept_recharge_action(source_card: CardInstance, args: DiscardEventArgs) 
 	
 	# If this is for discarding cards from the deck, recharge them instead.
 	for card_to_recharge in args.cards:
-		GameServices.cards.move_card_by(card_to_recharge, Action.RECHARGE)
+		Cards.move_card_by(card_to_recharge, Action.RECHARGE)

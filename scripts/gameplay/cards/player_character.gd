@@ -51,7 +51,7 @@ func remove_scourge(scourge: Scourge) -> void:
 	_active_scourges.erase(scourge)
 
 # Dependency injection
-var _card_manager := GameServices.cards
+var _card_manager := Cards
 
 
 func _init(character_data: CharacterData):

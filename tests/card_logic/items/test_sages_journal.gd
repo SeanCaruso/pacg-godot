@@ -13,7 +13,7 @@ func before_each():
 	
 	# Set up the Sage's Journal card
 	var sages_journal_data = TestUtils.load_card_data("Sages Journal")
-	_sages_journal_instance = GameServices.cards.new_card(sages_journal_data, ezren)
+	_sages_journal_instance = Cards.new_card(sages_journal_data, ezren)
 	_sages_journal_instance.current_location = CardLocation.HAND
 	ezren.add_to_hand(_sages_journal_instance)
 

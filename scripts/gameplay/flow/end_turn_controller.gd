@@ -14,7 +14,7 @@ func execute() -> void:
 	var tasks: Array[Task] = []
 	tasks.append(EndOfTurnProcessor.new())
 	
-	if !GameServices.cards.get_cards_in_location(CardLocation.RECOVERY).is_empty():
+	if !Cards.get_cards_in_location(CardLocation.RECOVERY).is_empty():
 		tasks.append(RecoveryTurnProcessor.new())
 	
 	var pc := Contexts.turn_context.character

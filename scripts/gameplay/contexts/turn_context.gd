@@ -26,6 +26,9 @@ var explore_effects: Array[BaseExploreEffect] = []
 var performed_location_power_ids: Array[String] = []
 var performed_character_power_ids: Array[String] = []
 
+## If a PC encounters the villain this turn, this keeps track of which locations are guarded.
+var guard_locations_resolvable: GuardLocationsResolvable
+
 var is_explore_possible: bool:
 	get:
 		return character.location.count > 0 \

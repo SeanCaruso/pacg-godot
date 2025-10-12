@@ -6,7 +6,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	# Freely banish to reduce a local character's Combat damage by 4.
 	if TaskManager.current_resolvable is DamageResolvable \
 	and (TaskManager.current_resolvable as DamageResolvable).damage_type == "Combat" \
-	and (TaskManager.current_resolvable as DamageResolvable).character.local_characters.has(card.owner):
+	and TaskManager.current_resolvable.pc.local_characters.has(card.owner):
 		return [PlayCardAction.new(card, Action.BANISH, null, {"Damage": 4})]
 	
 	return []

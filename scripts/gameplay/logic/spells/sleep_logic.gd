@@ -13,7 +13,7 @@ func get_available_card_actions(card: CardInstance) -> Array[StagedAction]:
 	var can_banish_on_check := \
 	resolvable \
 	and resolvable.card.card_type in [CardType.ALLY, CardType.MONSTER] \
-	and resolvable.character.local_characters.has(card.owner) \
+	and resolvable.pc.local_characters.has(card.owner) \
 	and resolvable.can_stage_type(card.card_type)
 	
 	if not can_banish_on_check and not can_banish_to_evade: return []

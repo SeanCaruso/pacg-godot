@@ -7,7 +7,7 @@ func before_each():
 	super()
 	# Set up the Spyglass card
 	var spyglass_data = TestUtils.load_card_data("Spyglass")
-	_spyglass_instance = GameServices.cards.new_card(spyglass_data, valeros)
+	_spyglass_instance = Cards.new_card(spyglass_data, valeros)
 	_spyglass_instance.current_location = CardLocation.HAND
 
 

@@ -4,10 +4,23 @@ extends BaseProcessor
 	
 func execute() -> void:
 	if not Contexts.encounter_context \
-	or not Contexts.encounter_context.check_result: return
+	or not Contexts.encounter_context.check_result:
+		return
 	
 	var was_success := Contexts.encounter_context.check_result.was_success
 	var card := Contexts.encounter_context.card
+	
+	var guarded_locs: Dictionary = {}
+	if Contexts.turn_context and Contexts.turn_context.guard_locations_resolvable:
+		guarded_locs = Contexts.turn_context.guard_locations_resolvable.distant_locs_guarded
+	
+	var escape_locs: Array[Location] = []
+	for loc in Contexts.game_context.locations:
+		if not guarded_locs.get(loc, false):
+			escape_locs.append(loc)
+	
+	if not was_success:
+		escape_locs.append(Contexts.encounter_pc_location)
 	
 	if was_success:
 		card.on_defeated()

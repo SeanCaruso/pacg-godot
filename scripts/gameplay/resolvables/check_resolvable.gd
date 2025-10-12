@@ -5,20 +5,26 @@ const CheckCategory := preload("res://scripts/data/card_data/check_step.gd").Che
 enum CheckVerb { DEFEAT, ACQUIRE, CLOSE, RECOVER, GUARD }
 var card: ICard
 var verb: CheckVerb
-var character: PlayerCharacter
 var check_steps: Array[CheckStep]
 var _context: CheckContext
 
 var has_combat: bool:
-	get: return check_steps.any(func(step: CheckStep): return step.category == CheckCategory.COMBAT)
+	get:
+		return check_steps.any(
+			func(step: CheckStep):
+				return step.category == CheckCategory.COMBAT
+		)
 
 var has_skill: bool:
-	get: return check_steps.any(func(step: CheckStep): return step.category == CheckCategory.SKILL)
+	get: return check_steps.any(
+		func(step: CheckStep):
+			return step.category == CheckCategory.SKILL
+	)
 
 
 func _init(_card: ICard, _character: PlayerCharacter, check_requirement: CheckRequirement):
 	card = _card
-	character = _character
+	pc = _character
 	check_steps = check_requirement.check_steps
 
 	# Default to defeat for banes, acquire for boons

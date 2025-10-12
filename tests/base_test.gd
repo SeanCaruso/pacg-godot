@@ -18,8 +18,7 @@ var zombie: CardInstance
 var caravan: Location
 
 func before_each():
-	# Initialize game systems
-	GameServices._initialize_game_systems()
+	Cards._all_cards.clear()
 	
 	# Set up common characters
 	ezren = TestUtils.get_character("Ezren")
@@ -51,7 +50,6 @@ func after_each():
 	if Contexts.check_context:
 		Contexts.end_check()
 	TaskManager._task_stack.clear()
-	if Contexts.encounter_context:
-		Contexts.end_encounter()
+	Contexts.encounter_stack.clear()
 	if Contexts.turn_context:
 		Contexts.end_turn()

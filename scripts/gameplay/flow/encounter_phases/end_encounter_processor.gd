@@ -11,6 +11,8 @@ func execute() -> void:
 	
 	if was_success:
 		card.on_defeated()
+		if Contexts.encounter_context.on_success:
+			Contexts.encounter_context.on_success.call()
 	else:
 		card.on_undefeated()
 		

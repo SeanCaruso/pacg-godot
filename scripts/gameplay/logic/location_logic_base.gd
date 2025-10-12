@@ -19,12 +19,12 @@ func get_to_close_resolvable(loc: Location, pc: PlayerCharacter) -> BaseResolvab
 
 
 func get_to_guard_resolvable(loc: Location, pc: PlayerCharacter) -> BaseResolvable:
-	if not Contexts.encounter_context \
-	or not Contexts.encounter_context.guard_locations_resolvable:
+	if not Contexts.turn_context \
+	or not Contexts.turn_context.guard_locations_resolvable:
 		return null
 	
 	var guard_callback = func():
-		Contexts.encounter_context.guard_locations_resolvable.distant_locs_guarded[loc] = true
+		Contexts.turn_context.guard_locations_resolvable.distant_locs_guarded[loc] = true
 	
 	return get_card_to_close_resolvable(loc, pc, guard_callback)
 

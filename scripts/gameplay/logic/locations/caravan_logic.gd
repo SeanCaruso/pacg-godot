@@ -35,7 +35,7 @@ func _skill_check_close_resolvable(loc: Location, pc: PlayerCharacter) -> CheckR
 		pc,
 		CardUtils.skill_check(dc, [Skill.WISDOM, Skill.PERCEPTION])
 	)
-	if Contexts.encounter_context.guard_locations_resolvable:
+	if Contexts.turn_context.guard_locations_resolvable:
 		resolvable.verb = CheckResolvable.CheckVerb.GUARD
 	else:
 		resolvable.verb = CheckResolvable.CheckVerb.CLOSE
@@ -51,7 +51,7 @@ func _danger_close_encounter(loc: Location, pc: PlayerCharacter) -> Task:
 		return _skill_check_close_resolvable(loc, pc)
 	
 	var danger := Contexts.game_context.scenario_data.dangers[0]
-	var danger_instance := GameServices.cards.new_card(danger.card_data)
+	var danger_instance := Cards.new_card(danger.card_data)
 	if not danger.custom_name.is_empty():
 		danger_instance.name = danger.custom_name
 	

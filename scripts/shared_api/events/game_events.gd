@@ -3,13 +3,16 @@ extends Node
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
 # Scenario events
-signal scenario_has_power(game_services: GameServices)
 signal scenario_power_enabled(enabled: bool)
 signal scenario_has_danger(card: CardInstance)
 
 # Turn phase events
 signal turn_state_changed()
+
 signal hour_changed(hour_card: CardInstance)
+func emit_hour_changed(hour_card: CardInstance) -> void:
+	hour_changed.emit(hour_card)
+
 signal pc_location_changed(pc: PlayerCharacter)
 signal encounter_started(card: CardInstance)
 signal encounter_ended()

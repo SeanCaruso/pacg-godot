@@ -51,7 +51,7 @@ func test_clock_serv_two_explore_options():
 	
 	# Set up the location with a zombie card
 	var zombie_data = TestUtils.load_card_data("zombie")
-	var zombie_instance = GameServices.cards.new_card(zombie_data)
+	var zombie_instance = Cards.new_card(zombie_data)
 	valeros.location.shuffle_in(zombie_instance, false)
 	
 	# Check that we can use the card to explore

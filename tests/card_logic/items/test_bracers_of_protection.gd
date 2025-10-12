@@ -7,7 +7,7 @@ func before_each():
 	super()
 	# Set up the Bracers of Protection card
 	var bracers_data = TestUtils.load_card_data("Bracers Of Protection")
-	_bracers_instance = GameServices.cards.new_card(bracers_data, ezren)
+	_bracers_instance = Cards.new_card(bracers_data, ezren)
 	_bracers_instance.current_location = CardLocation.HAND
 	ezren.add_to_hand(_bracers_instance)
 	ezren.add_to_hand(longsword)

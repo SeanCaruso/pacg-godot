@@ -90,7 +90,7 @@ func get_custom_check_resolvable(_card: CardInstance) -> BaseResolvable:
 
 func on_defeated(card: CardInstance) -> void:
 	if card.is_bane:
-		GameServices.cards.move_card_to(card, CardLocation.VAULT)
+		Cards.move_card_to(card, CardLocation.VAULT)
 	else:
 		Contexts.encounter_context.character.add_to_hand(card)
 
@@ -105,10 +105,10 @@ func on_evaded(card: CardInstance) -> void:
 
 func on_undefeated(card: CardInstance) -> void:
 	if card.is_bane:
-		if Contexts.encounter_pc_location:
+		if card.current_location == CardLocation.DECK and Contexts.encounter_pc_location:
 			Contexts.encounter_pc_location.shuffle_in(card, true)
 	else:
-		GameServices.cards.move_card_to(card, CardLocation.VAULT)
+		Cards.move_card_to(card, CardLocation.VAULT)
 
 
 func get_recovery_resolvable(_card: CardInstance) -> BaseResolvable: return null

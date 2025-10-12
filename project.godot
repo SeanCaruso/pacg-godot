@@ -16,9 +16,10 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
+Cards="*res://scripts/gameplay/cards/card_manager.gd"
+Vault="*res://scripts/gameplay/vault_manager.gd"
 Contexts="*res://scripts/gameplay/contexts/context_manager.gd"
 TaskManager="*res://scripts/gameplay/flow/task_manager.gd"
-GameServices="*res://scripts/gameplay/game_services.gd"
 DialogEvents="*res://scripts/shared_api/events/dialog_events.gd"
 GameEvents="*res://scripts/shared_api/events/game_events.gd"
 

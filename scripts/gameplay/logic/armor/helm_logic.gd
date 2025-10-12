@@ -24,4 +24,4 @@ func _can_reveal(card: CardInstance) -> bool:
 	
 	var resolvable := TaskManager.current_resolvable as DamageResolvable
 	return (resolvable.damage_type == "Combat" or card.owner.is_proficient(card)) \
-		and resolvable.character == card.owner
+		and resolvable.pc == card.owner

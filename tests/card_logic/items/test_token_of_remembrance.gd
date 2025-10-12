@@ -8,7 +8,7 @@ func before_each():
 	super()
 	# Set up the Token of Remembrance card
 	var token_data = TestUtils.load_card_data("Token Of Remembrance")
-	_token_instance = GameServices.cards.new_card(token_data, ezren)
+	_token_instance = Cards.new_card(token_data, ezren)
 	_token_instance.current_location = CardLocation.HAND
 	ezren.add_to_hand(_token_instance)
 	

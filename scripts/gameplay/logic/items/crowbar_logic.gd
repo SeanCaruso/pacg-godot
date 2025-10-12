@@ -41,7 +41,7 @@ func _is_card_playable(card: CardInstance) -> bool:
 		return false  # ... for a CheckResolvable...
 	
 	var resolvable := TaskManager.current_resolvable as CheckResolvable
-	if resolvable.character != card.owner:
+	if resolvable.pc != card.owner:
 		return false  # ... for the card's owner...
 	
 	if not resolvable.can_stage_type(card.card_type):

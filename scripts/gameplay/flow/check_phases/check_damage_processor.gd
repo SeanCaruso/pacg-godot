@@ -9,9 +9,9 @@ func execute() -> void:
 	var check := Contexts.check_context
 	if check.check_result.was_success:
 		print("Rolled %d vs. %d - Success!" % [check.check_result.final_roll_total, check.check_result.dc])
-	elif not check.resolvable.character.hand_and_revealed.is_empty():
+	elif not check.resolvable.pc.hand_and_revealed.is_empty():
 		var damage_resolvable = DamageResolvable.new(
-			check.resolvable.character,
+			check.resolvable.pc,
 			-check.check_result.margin_of_success)
 		TaskManager.push(damage_resolvable)
 		print("Rolled %d vs. %d - Take %d damage!" %

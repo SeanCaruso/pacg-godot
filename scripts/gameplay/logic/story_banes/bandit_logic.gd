@@ -35,7 +35,7 @@ func get_custom_check_resolvable(_card: CardInstance) -> BaseResolvable:
 	var resolvable := PlayerChoiceResolvable.new("Banish a random boon?", [
 		ChoiceOption.new("Yes",
 			func():
-				GameServices.cards.move_card_to(random_boon, CardLocation.VAULT)
+				Cards.move_card_to(random_boon, CardLocation.VAULT)
 				Contexts.check_context.force_success = true
 				TaskManager.resolve_current()
 				),

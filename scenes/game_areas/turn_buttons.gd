@@ -1,6 +1,10 @@
 # turn_buttons.gd
 extends HBoxContainer
 
+const CARD_DISPLAY = preload("uid://banp7lkt3ongm")
+const CardDisplay = preload("uid://bom1qycn3dg43")
+
+@onready var hour_container: Control = %HourContainer
 @onready var give_button: TextureButton = %GiveButton
 @onready var move_button: TextureButton = %MoveButton
 @onready var optional_discards_button: TextureButton = %OptionalDiscardsButton
@@ -8,6 +12,7 @@ extends HBoxContainer
 
 
 func _ready() -> void:
+	GameEvents.hour_changed.connect(_on_hour_changed)
 	GameEvents.player_character_changed.connect(_on_player_character_changed)
 	GameEvents.staged_actions_state_changed.connect(_on_staged_actions_chaged)
 	GameEvents.turn_state_changed.connect(_update_turn_buttons)
@@ -31,6 +36,16 @@ func _ready() -> void:
 		func():
 			TaskManager.start_task(EndTurnController.new(true))
 	)
+
+
+func _on_hour_changed(hour_instance: CardInstance) -> void:
+	for child in hour_container.get_children():
+		child.queue_free()
+	
+	var hour_display: CardDisplay = CARD_DISPLAY.instantiate()
+	hour_container.add_child(hour_display)
+	hour_display.set_card_instance(hour_instance)
+	hour_display.scale = Vector2(0.5, 0.5)
 
 
 func _on_player_character_changed(_pc: PlayerCharacter) -> void:

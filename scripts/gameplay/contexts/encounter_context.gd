@@ -15,7 +15,6 @@ var _prohibited_traits: Dictionary = {} ## PlayerCharacter -> Array[[String]]
 var explore_effects: Array[BaseExploreEffect] = []
 
 var check_result: CheckResult
-var guard_locations_resolvable: GuardLocationsResolvable
 
 # Flags/properties set by cards/powers
 var ignore_before_acting_powers: bool = false

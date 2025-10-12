@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://do76jej4aflmn"]
+
+[ext_resource type="Script" uid="uid://daff3ijcc4ku6" path="res://scripts/data/card_data/card_data.gd" id="1_avs3y"]
+[ext_resource type="Script" uid="uid://c27n5ebge4g87" path="res://scripts/data/vault_definition.gd" id="2_4e42u"]
+
+[resource]
+script = ExtResource("2_4e42u")

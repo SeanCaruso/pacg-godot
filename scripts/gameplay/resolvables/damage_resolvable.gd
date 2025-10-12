@@ -39,7 +39,7 @@ func on_active() -> void:
 	_queried_for_responses = true
 	
 	var args := DiscardEventArgs.new(pc, [], CardLocation.HAND, self)
-	GameServices.cards.trigger_before_discard(args)
+	Cards.trigger_before_discard(args)
 	
 	if args.has_responses:
 		var options: Array[ChoiceOption] = []

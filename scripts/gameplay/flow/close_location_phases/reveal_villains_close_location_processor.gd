@@ -23,5 +23,5 @@ func execute() -> void:
 	for i in range(_loc.cards.size() - 1, -1, -1):
 		if _loc.cards[i].is_villain:
 			continue
-		GameServices.cards.move_card_to(_loc.cards[i], CardLocation.VAULT)
+		Cards.move_card_to(_loc.cards[i], CardLocation.VAULT)
 		_loc._deck._cards.remove_at(i)

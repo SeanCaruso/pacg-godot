@@ -12,7 +12,7 @@ var count: int:
 var _examined_cards: Dictionary = {} # CardInstance -> bool (HashSet)
 var _known_cards: Dictionary = {}    # CardInstance -> bool (HashSet)
 
-var _card_manager := GameServices.cards
+var _card_manager := Cards
 
 
 func at(idx: int) -> CardInstance:
