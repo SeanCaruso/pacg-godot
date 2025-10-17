@@ -31,3 +31,7 @@ func invoke_action() -> void:
 	Contexts.turn_context.can_move = false
 	Contexts.turn_context.can_freely_explore = false
 	GameEvents.turn_state_changed.emit()
+
+
+func on_villain_defeated() -> void:
+	GameEvents.emit_game_ended(true)

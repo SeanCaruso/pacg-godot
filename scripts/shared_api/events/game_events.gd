@@ -2,6 +2,10 @@ extends Node
 
 const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
 
+signal game_ended(is_victory: bool)
+func emit_game_ended(is_victory: bool) -> void:
+	game_ended.emit(is_victory)
+
 # Scenario events
 signal scenario_power_enabled(enabled: bool)
 signal scenario_has_danger(card: CardInstance)

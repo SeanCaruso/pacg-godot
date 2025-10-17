@@ -9,11 +9,12 @@ const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardL
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	scenario_area.set_scenario(test_data.scenario_data)
 	var game_context := GameContext.new(1, test_data.scenario_data)
 	Contexts.new_game(game_context)
 	
 	Vault.initialize(test_data.vault, game_context.adventure_number)
+	
+	scenario_area.set_scenario(test_data.scenario_data)
 	
 	for i in range(30):
 		game_context.hour_deck.shuffle_in(Cards.new_card(test_data.hour_card_data))

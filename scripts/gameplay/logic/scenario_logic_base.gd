@@ -7,3 +7,11 @@ func has_available_actions() -> bool:
 
 func invoke_action() -> void:
 	pass
+
+
+func on_location_closed() -> void:
+	pass
+
+
+func on_villain_defeated() -> void:
+	pass

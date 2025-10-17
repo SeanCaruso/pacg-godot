@@ -17,6 +17,8 @@ const SKILL_DIALOG_SCENE := preload("res://scenes/ui_objects/skill_selection_dia
 
 @onready var dialog_area: Control = %DialogArea
 @onready var skill_dialog_area: Control = %SkillDialogArea
+@onready var game_over_panel: PanelContainer = %GameOverPanel
+@onready var game_over_label: Label = %GameOverLabel
 
 
 func _ready() -> void:	
@@ -32,6 +34,9 @@ func _ready() -> void:
 	
 	# Deck examine events
 	DialogEvents.examine_event.connect(_on_examine_event)
+	
+	# Game end events
+	GameEvents.game_ended.connect(_on_game_end)
 
 
 func _on_skill_selection_ended() -> void:
@@ -43,6 +48,11 @@ func _on_check_start(context: CheckContext) -> void:
 	var dialog: SkillDialog = SKILL_DIALOG_SCENE.instantiate()
 	skill_dialog_area.add_child(dialog)
 	dialog.set_context(context)
+
+
+func _on_game_end(is_victory: bool) -> void:
+	game_over_panel.visible = true
+	game_over_label.text = "VICTORY!" if is_victory else "DEFEAT!"
 
 
 func _on_examine_event(context: ExamineContext) -> void:

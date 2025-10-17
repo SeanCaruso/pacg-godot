@@ -1,6 +1,18 @@
 # vault_manager.gd
 extends Node
 
+const CardLocation := preload("res://scripts/core/enums/card_location.gd").CardLocation
+const CardType := preload("res://scripts/core/enums/card_type.gd").CardType
+
+
+func draw(card_type: CardType) -> CardInstance:
+	var cards := Cards.get_cards_in_location(CardLocation.VAULT).filter(
+		func(c: CardInstance):
+			return c.card_type == card_type
+	)
+	return null if cards.is_empty() else cards.pick_random()
+
+
 func initialize(vault_def: VaultDefinition, adventure_level: int) -> void:
 	# Clear existing vault
 	var existing_vault := Cards.get_cards_in_location(Cards.CardLocation.VAULT)
